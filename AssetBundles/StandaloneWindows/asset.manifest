@@ -1,0 +1,58 @@
+ManifestFileVersion: 0
+CRC: 1182025439
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: ba7b8aead840649b94e829d8a21eb016
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0944babfc194be9cbed2c807235d6aa4
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 82
+  Script: {instanceID: 0}
+- Class: 83
+  Script: {instanceID: 0}
+- Class: 108
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 628ef9b0c7e4fd24db54868035e11237, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 2f54e17d705a2894d88787e24190ebfa, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/FX/Prefabs/Combat/Death/Souls/SoulFrostDeath.prefab
+- Assets/FX/Prefabs/Combat/Explosions/ShadowExplosion/ShadowExplosion.prefab
+- Assets/FX/Prefabs/Combat/Death/Skulls/CuteDeath.prefab
+- Assets/FX/Prefabs/Combat/Muzzleflash/FrostMuzzle/FrostMuzzleBlue.prefab
+- Assets/FX/Prefabs/Combat/Explosions/MegaExplosion/MegaExplosionRed.prefab
+- Assets/FX/Prefabs/Combat/Death/Skulls/FrostDeath.prefab
+- Assets/FX/Prefabs/Combat/Missiles/Lightning/LightningMissileYellow.prefab
+- Assets/FX/Prefabs/Combat/Missiles/MagicSoft/MagicMissileSoftPink.prefab
+- Assets/FX/Prefabs/Combat/Missiles/Fireball/FireballMissileFire.prefab
+- Assets/FX/Prefabs/Combat/Missiles/Frost/FrostMissileBlue.prefab
+- Assets/FX/Prefabs/Combat/Explosions/FrostExplosion/FrostExplosionBlue.prefab
+- Assets/FX/Prefabs/Interactive/Powerups/PowerOrbElemental/PowerOrbFrostElemental.prefab
+- Assets/FX/Prefabs/Combat/Nova/Fire/NovaFireRed.prefab
+- Assets/FX/Prefabs/Combat/Magic/PillarBlast/MagicPillarBlastYellow.prefab
+- Assets/FX/Prefabs/Combat/Nova/Frost/NovaFrost.prefab
+- Assets/FX/Prefabs/Combat/Missiles/Gas/GasMissileGreen.prefab
+Dependencies: []

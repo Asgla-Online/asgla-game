@@ -1,0 +1,140 @@
+﻿using Asgla.Avatar.Player;
+using Asgla.Data.Map;
+using Asgla.NPC;
+using Asgla.Utility;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.Events;
+
+namespace Asgla.Map {
+    public class MapArea : MonoBehaviour {
+
+        [Serializable] public class OnPlayerScaleUpdateEvent : UnityEvent<float> { } //TODO: Replace with c# event..
+
+        private MapAreaData _data;
+
+        private Transform _zone;
+
+        private GameObject _players;
+        private GameObject _monsters;
+
+        private Transform _npc;
+
+        private Transform _audio;
+
+        private readonly List<Transform> _zones = new List<Transform>();
+
+        private readonly List<NPCMain> _npcs = new List<NPCMain>();
+
+        public OnPlayerScaleUpdateEvent OnPlayerScaleUpdate = new OnPlayerScaleUpdateEvent();
+
+        #region Unity
+        private void Awake() {
+            //Debug.LogFormat("<color=blue>[MapArea]</color> Awake");
+
+            _zone = transform.Find("Zone");
+
+            if (_zone != null) {
+                foreach (Transform child in _zone)
+                    _zones.Add(child);
+
+                _players = new GameObject("Players");
+                _players.transform.position = Vector3.zero;
+                _players.transform.parent = transform;
+
+                _monsters = new GameObject("Monsters");
+                _monsters.transform.position = Vector3.zero;
+                _monsters.transform.parent = transform;
+
+                _npc = transform.Find("NPCs");
+
+                switch (_npc) {
+                    case null:
+                        Debug.LogFormat("<color=blue>[MapArea]</color> NPC Transform not found");
+                        break;
+                    default:
+                        _npcs.AddRange(from Transform npcT in _npc let npc = npcT.GetComponent<NPCMain>() select npc);
+                        break;
+                }
+
+                _audio = transform.Find("Audios");
+
+                switch (_audio) {
+                    case null:
+                        Debug.LogFormat("<color=blue>[MapArea]</color> Audio Transform not found");
+                        break;
+                    default:
+                        foreach (Transform audio in _audio) {
+                            if (audio.gameObject.GetComponent<AudioSource>() != null) {
+                                //Debug.LogFormat("<color=blue>[MapArea]</color> AudioSource {0} {1}", audio.name, Main.Singleton.AudioMixer);
+                                audio.gameObject.GetComponent<AudioSource>().outputAudioMixerGroup = Main.Singleton.AudioMixer;
+                            }
+                        }
+                        break;
+                }
+            } else {
+                Debug.LogFormat("<color=blue>[MapArea]</color> Zone Transform not found");
+            }
+        }
+
+        private void OnDestroy() {
+            OnPlayerScaleUpdate.RemoveAllListeners();
+        }
+
+        private void OnTriggerEnter2D(Collider2D collider) {
+            if (collider.CompareTag("Player")) {
+                //Debug.LogFormat("<color=blue>[MapArea]</color> TriggerEnter {0}", collider.gameObject.name);
+
+                Player player = collider.GetComponent<Player>();
+
+                OnPlayerScaleUpdate.Invoke((float)_data.Scale);
+
+                if (player.Data().Controlling) {
+                    //Debug.LogFormat("<color=blue>[MapArea]</color> Controlling", player.Name());
+                    Main.Singleton.Game.CinemachineConfiner.m_BoundingShape2D = GetComponent<Collider2D>();
+                }
+            }
+        }
+
+        private void OnMouseDown() {
+            if (GameUtil.IsPointerOverUI() || !Main.Singleton.Walkable)
+                return;
+
+            Vector2 move = Main.Singleton.Game.Camera.ScreenToWorldPoint(Input.mousePosition);
+
+            Main.Singleton.AvatarManager.Player.MoveByClick(move);
+        }
+        #endregion
+
+        public void Data(MapAreaData data) => _data = data;
+
+        public MapAreaData Data() => _data;
+
+        public string Name() => _data.Name;
+
+        public double Scale() => _data.Scale;
+
+        public double Speed() => _data.Speed;
+
+        public bool IsSafe() => _data.IsSafe;
+
+        public Transform Players() => _players.transform;
+
+        public Transform Monsters() => _monsters.transform;
+
+        public Transform Zone() => _zone;
+
+        public List<Transform> Zones() => _zones;
+
+        public Transform NPC() => _npc;
+
+        public List<NPCMain> NPCs() => _npcs;
+
+        public Transform ZoneByName(string name) => _zones.Where(zone => zone.name == name).FirstOrDefault();
+
+        public NPCMain NpcById(int id) => _npcs.Where(npc => npc.AreaId() == id).FirstOrDefault();
+
+    }
+}

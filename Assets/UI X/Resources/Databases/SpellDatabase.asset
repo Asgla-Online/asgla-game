@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6694320caa0568e4fb296afa762666e1, type: 3}
+  m_Name: SpellDatabase
+  m_EditorClassIdentifier: 
+  spells:
+  - DatabaseID: 1
+    Slot: 0
+    Name: Fireball
+    Description: Quisque vehicula et dui at volutpat. Quisque convallis porta bibendum.
+      Duis imperdiet mi vitae dapibus euismod.
+    Damage: 0
+    Energy: 0
+    Icon: KOF0001
+    Animation: 
+    Effect: 
+    Target: 0
+    Range: 1
+    Cooldown: 3
+    CastTime: 2
+    CastType: 1
+    FlagType: 0
+    HitTargets: 0
+  - DatabaseID: 2
+    Slot: 0
+    Name: Death Kiss
+    Description: Quisque vehicula et dui at volutpat. Quisque convallis porta bibendum.
+      Duis imperdiet mi vitae dapibus euismod.
+    Damage: 0
+    Energy: 0
+    Icon: KOF0007
+    Animation: 
+    Effect: 
+    Target: 0
+    Range: 40
+    Cooldown: 30
+    CastTime: 0
+    CastType: 0
+    FlagType: 0
+    HitTargets: 0
+  - DatabaseID: 3
+    Slot: 0
+    Name: Healing Leafs
+    Description: Quisque vehicula et dui at volutpat. Quisque convallis porta bibendum.
+      Duis imperdiet mi vitae dapibus euismod.
+    Damage: 0
+    Energy: 0
+    Icon: KOF0003
+    Animation: 
+    Effect: 
+    Target: 0
+    Range: 0
+    Cooldown: 120
+    CastTime: 3
+    CastType: 0
+    FlagType: 0
+    HitTargets: 0
+  - DatabaseID: 4
+    Slot: 0
+    Name: Pyroblast
+    Description: Quisque vehicula et dui at volutpat. Quisque convallis porta bibendum.
+      Duis imperdiet mi vitae dapibus euismod.
+    Damage: 0
+    Energy: 0
+    Icon: KOF0004
+    Animation: 
+    Effect: 
+    Target: 1
+    Range: 40
+    Cooldown: 60
+    CastTime: 4
+    CastType: 1
+    FlagType: 0
+    HitTargets: 0
+  - DatabaseID: 5
+    Slot: 0
+    Name: Sun Radiation
+    Description: Quisque vehicula et dui at volutpat. Quisque convallis porta bibendum.
+      Duis imperdiet mi vitae dapibus euismod.
+    Damage: 0
+    Energy: 0
+    Icon: KOF0005
+    Animation: 
+    Effect: 
+    Target: 1
+    Range: 25
+    Cooldown: 120
+    CastTime: 0
+    CastType: 0
+    FlagType: 0
+    HitTargets: 0

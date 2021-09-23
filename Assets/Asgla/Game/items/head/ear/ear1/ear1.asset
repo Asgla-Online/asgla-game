@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48fdfdc22b4d4ea4bb8591a7143df3d1, type: 3}
+  m_Name: ear1
+  m_EditorClassIdentifier: 
+  category: 2
+  texture: {fileID: 2800000, guid: 109fa2a0a67a526429f73e10af4fc1c5, type: 3}
+  colorMask: {fileID: 0}
+  supportedBody: 00000000
+  sprites:
+  - {fileID: -1540238720588902164, guid: 109fa2a0a67a526429f73e10af4fc1c5, type: 3}

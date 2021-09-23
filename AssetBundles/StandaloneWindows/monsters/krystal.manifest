@@ -1,0 +1,37 @@
+ManifestFileVersion: 0
+CRC: 2333223940
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: aa82c2c581ef404c66eae2de228d641b
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: a47c6d20320ebf760fc8a01595418bec
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 40057607603e97a439f86d0b0c5ab142, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 136
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Asgla/Game/monsters/Krystal/Root.prefab
+Dependencies: []

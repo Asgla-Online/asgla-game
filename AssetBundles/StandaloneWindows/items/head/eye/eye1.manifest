@@ -1,0 +1,24 @@
+ManifestFileVersion: 0
+CRC: 841042590
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: b28cda4dfbccaa1ed5a8a66ca6d0c4bf
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 718a5abf08cd888944faab96ce0b2052
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 48fdfdc22b4d4ea4bb8591a7143df3d1, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Asgla/Game/items/head/eye/eye1/eye1.png
+- Assets/Asgla/Game/items/head/eye/eye1/eye1.asset
+Dependencies: []
