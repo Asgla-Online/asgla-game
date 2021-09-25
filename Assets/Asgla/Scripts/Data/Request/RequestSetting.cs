@@ -1,9 +1,6 @@
-﻿using System;
-
-namespace Asgla.Request {
+﻿namespace Asgla.Data.Request {
     public class RequestSetting {
 
-        [Serializable]
         public class Experience {
             public int Current;
             public int Required;

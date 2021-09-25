@@ -1,10 +1,8 @@
-﻿using Asgla.Avatar;
-using Asgla.Avatar.Monster;
+﻿using Asgla.Avatar.Monster;
 using Asgla.Avatar.Player;
+using Asgla.Controller;
 using Asgla.Data;
 using Asgla.Effect;
-using Asgla.Manager;
-using Asgla.Request;
 using AsglaUI.UI;
 using AssetBundles;
 using System.Collections.Generic;
@@ -25,11 +23,11 @@ namespace Asgla {
         private Game _game = null;
 
         private readonly Network _network = new Network();
-        private readonly RequestHandler _request = new RequestHandler();
+        private readonly RequestController _request = new RequestController();
 
-        private readonly AvatarManager _avatarManager = new AvatarManager();
-        private readonly MapManager _mapManager = new MapManager();
-        private readonly UIManager _uiManager = new UIManager();
+        private readonly AvatarController _avatarManager = new AvatarController();
+        private readonly MapController _mapManager = new MapController();
+        private readonly UIController _uiManager = new UIController();
 
         public Player PlayerPrefab;
         public Monster MonsterPrefab;
@@ -68,6 +66,7 @@ namespace Asgla {
             }
 
             DontDestroyOnLoad(gameObject);
+
             Singleton = this;
 
             _network.Main = this;
@@ -105,13 +104,13 @@ namespace Asgla {
 
         public Network Network => _network;
 
-        public RequestHandler Request => _request;
+        public RequestController Request => _request;
 
-        public AvatarManager AvatarManager => _avatarManager;
+        public AvatarController AvatarManager => _avatarManager;
 
-        public MapManager MapManager => _mapManager;
+        public MapController MapManager => _mapManager;
 
-        public UIManager UIManager => _uiManager;
+        public UIController UIManager => _uiManager;
 
         public GameObject Loading => _loadingOverlay;
 

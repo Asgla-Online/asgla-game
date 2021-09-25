@@ -12,10 +12,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-using static Asgla.Request.RequestAvatar;
+using static Asgla.Data.Request.RequestAvatar;
 
-namespace Asgla.Manager {
-    public class AvatarManager {
+namespace Asgla.Controller{
+
+    public class AvatarController : Controller {
 
         public Main Main = null;
 
@@ -147,8 +148,9 @@ namespace Asgla.Manager {
                         Main.StartCoroutine(Main.GameAsset.SpawmAsset(animation.EffectData.Prefab, from, target));
                         break;
                 }
-            } else
+            } else {
                 Debug.Log("effectData null");
+            }
         }
 
     }

@@ -3,10 +3,8 @@ using AsglaUI.UI;
 using UnityEngine;
 using System.Linq;
 
-namespace Asgla.Manager {
-    public class UIManager {
-
-        public Main Main;
+namespace Asgla.Controller {
+    public class UIController : Controller {
 
         public LoadingOverlay LoadingOverlay;
 

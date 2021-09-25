@@ -1,9 +1,6 @@
-﻿using System;
-
-namespace Asgla.Request {
+﻿namespace Asgla.Data.Request {
     public class RequestDefault {
 
-        [Serializable]
         public class Notification {
             public string Text;
         }

@@ -5,8 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using static Asgla.Request.RequestAvatar;
-using static Asgla.Request.RequestMap;
+using static Asgla.Data.Request.RequestAvatar;
+using static Asgla.Data.Request.RequestMap;
 
 namespace Asgla.Data.Player {
 

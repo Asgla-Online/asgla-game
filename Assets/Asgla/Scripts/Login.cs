@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-using static Asgla.Request.WebSetting;
+using static Asgla.Data.Web.WebSetting;
 
 namespace Asgla {
     public class Login : MonoBehaviour {

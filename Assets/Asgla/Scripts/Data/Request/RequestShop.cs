@@ -1,6 +1,6 @@
 ﻿using Asgla.Data.Shop;
 
-namespace Asgla.Request {
+namespace Asgla.Data.Request {
     public class RequestShop {
 
         public class ShopLoad {

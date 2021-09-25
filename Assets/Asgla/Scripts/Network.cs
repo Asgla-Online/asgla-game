@@ -1,5 +1,4 @@
 ﻿using Asgla.UI.Loading;
-using BestHTTP;
 using BestHTTP.WebSocket;
 using System;
 using UnityEngine;
@@ -48,12 +47,12 @@ namespace Asgla {
 
         private void OnClosed(WebSocket ws, UInt16 code, string message) {
             Debug.LogFormat("WebSocket closed! Code: {0} Message: {1}", code, message);
-            this.Disconnect();
+            Disconnect();
         }
 
         private void OnError(WebSocket ws, string error) {
             Debug.LogFormat("An error occured: <color=red>{0}</color>", error);
-            this.Disconnect();
+            Disconnect();
         }
 
         private void Disconnect() {

@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-using static Asgla.Request.RequestAvatar;
+using static Asgla.Data.Request.RequestAvatar;
 
 namespace Asgla.Window {
 

@@ -9,10 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Asgla.Manager {
-    public class MapManager {
-
-        public Main Main;
+namespace Asgla.Controller {
+    public class MapController : Controller {
 
         public MapMain Map = null;
 
@@ -158,8 +156,22 @@ namespace Asgla.Manager {
         public HashSet<AvatarMain> FindAvatars(string name) {
             HashSet<AvatarMain> avatars = new HashSet<AvatarMain>();
 
-            avatars.UnionWith(Main.AvatarManager.Players.Select(avatar => avatar.Entity).Where(mapEntity => name == mapEntity.Area().Name()));
-            avatars.UnionWith(Main.AvatarManager.Monsters.Select(avatar => avatar.Entity).Where(mapEntity => name == mapEntity.Area().Name()));
+            avatars
+                .UnionWith(
+                    Main.AvatarManager.Players
+                        .Select(avatar => avatar.Entity)
+                        .Where(mapEntity => name == mapEntity.Area().Name()
+                    )
+                );
+
+            avatars
+                .UnionWith(
+                    Main.AvatarManager.Monsters
+                        .Select(avatar => avatar.Entity)
+                        .Where(mapEntity => name == mapEntity
+                        .Area().Name()
+                    )
+                );
 
             return avatars;
         }

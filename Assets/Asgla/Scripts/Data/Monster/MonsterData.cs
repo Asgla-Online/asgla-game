@@ -1,7 +1,7 @@
 ﻿using Asgla.Data.Avatar;
 using Asgla.Map;
 using System;
-using static Asgla.Request.RequestMap;
+using static Asgla.Data.Request.RequestMap;
 
 namespace Asgla.Data.Monster {
 

@@ -1,7 +1,7 @@
 ﻿using Asgla.Data.Quest;
 using System.Collections.Generic;
 
-namespace Asgla.Request {
+namespace Asgla.Data.Request {
     public class RequestQuest {
 
         public class QuestLoad {

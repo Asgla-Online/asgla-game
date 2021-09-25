@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-using static Asgla.Request.RequestAvatar;
+using static Asgla.Data.Request.RequestAvatar;
 using static AssetBundles.AssetBundleManager;
 
 using Weapon = CharacterCreator2D.Weapon;
