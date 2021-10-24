@@ -8,6 +8,7 @@ using Asgla.Data.Player;
 using Asgla.Data.Skill;
 using Asgla.Data.Type;
 using Asgla.Map;
+using Asgla.Utility;
 using CharacterCreator2D;
 using UnityEngine;
 using static Asgla.Data.Request.RequestAvatar;

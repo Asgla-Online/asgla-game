@@ -1,4 +1,5 @@
 ﻿using System;
+using Asgla.Utility;
 using UnityEngine;
 
 namespace Asgla.Data.Type {

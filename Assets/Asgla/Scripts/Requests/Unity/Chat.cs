@@ -1,10 +1,10 @@
 ﻿using System;
+using Asgla.Utility;
 using BestHTTP.JSON.LitJson;
 using UnityEngine;
 
 namespace Asgla.Requests.Unity {
 	public class Chat : IRequest {
-
 
 		// ReSharper disable once InconsistentNaming UnassignedField.Global MemberCanBePrivate.Global CollectionNeverUpdated.Global FieldCanBeMadeReadOnly.Global ConvertToConstant.Global
 		public int channel;

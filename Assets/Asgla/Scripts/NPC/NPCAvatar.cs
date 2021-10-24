@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Asgla.Utility;
+using UnityEngine;
 
 namespace Asgla.NPC {
 	public class NPCAvatar : MonoBehaviour {

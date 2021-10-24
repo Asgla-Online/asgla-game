@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using Asgla.Utility;
+using TMPro;
 using UnityEngine;
 
 namespace Asgla.UI.Quest {

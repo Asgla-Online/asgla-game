@@ -4,7 +4,7 @@ using Asgla.Data.Avatar;
 using Asgla.Data.Entity;
 using Asgla.Data.Player;
 using Asgla.Data.Type;
-using Asgla.Requests.Unity;
+using Asgla.Utility;
 using AssetBundles;
 using CharacterCreator2D;
 using UnityEngine;
