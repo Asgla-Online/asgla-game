@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using Asgla.Data.Avatar.Player;
 using Asgla.Data.Item;
-using Asgla.Data.Player;
 using Asgla.Data.Quest;
 using Asgla.UI.Item;
 using Asgla.UI.Quest;

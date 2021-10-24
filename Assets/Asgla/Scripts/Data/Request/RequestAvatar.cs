@@ -1,8 +1,8 @@
 ﻿using Asgla.Avatar;
 using Asgla.Data.Avatar;
+using Asgla.Data.Avatar.Player;
 using Asgla.Data.Effect;
 using Asgla.Data.Entity;
-using Asgla.Data.Player;
 using Asgla.Data.Skill;
 
 namespace Asgla.Data.Request {

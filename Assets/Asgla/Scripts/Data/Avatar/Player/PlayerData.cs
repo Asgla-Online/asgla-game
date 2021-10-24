@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Asgla.Data.Avatar;
+using Asgla.Data.Avatar.Helper;
 using Asgla.Data.Item;
 using Asgla.Map;
 using Asgla.Requests.Unity;
 
-namespace Asgla.Data.Player {
+namespace Asgla.Data.Avatar.Player {
 
 	[Serializable]
 	public class PlayerData {

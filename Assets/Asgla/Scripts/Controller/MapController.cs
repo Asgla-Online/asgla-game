@@ -3,10 +3,9 @@ using System.Linq;
 using Asgla.Avatar;
 using Asgla.Avatar.Monster;
 using Asgla.Avatar.Player;
-using Asgla.Data.Map;
-using Asgla.Data.Player;
+using Asgla.Data.Area;
+using Asgla.Data.Avatar.Player;
 using Asgla.Map;
-using Asgla.NPC;
 using UnityEngine;
 
 namespace Asgla.Controller {
@@ -21,14 +20,14 @@ namespace Asgla.Controller {
 			map.Data(data); //if null maybe missing MapMain component
 
 			foreach (MapArea area in map.Areas()) {
-				area.Data(data.Areas.Where(aD => aD.Name == area.gameObject.name).FirstOrDefault()); //Set MapAreaData
+				area.Data(data.locals.FirstOrDefault(aD => aD.name == area.gameObject.name)); //Set MapAreaData
 
-				if (area.NPC() != null)
-					foreach (MapAreaNPC npcAreaData in area.Data().NPCs) {
-						NPCMain npc = area.NpcById(npcAreaData.DatabaseID);
+				/*if (area.NPC() != null)
+					foreach (AreaLocalNpc npcAreaData in area.Data().npcs) {
+						NPCMain npc = area.NpcById(npcAreaData.databaseId);
 						if (npc != null)
 							npc.Data(npcAreaData);
-					}
+					}*/
 			}
 
 			List<string> players = new List<string>();
@@ -46,10 +45,10 @@ namespace Asgla.Controller {
 			//Above area return null or old area
 			Main.Singleton.MapManager.Map = map;
 
-			foreach (PlayerData player in map.Data().Players)
+			foreach (PlayerData player in map.Data().players)
 				if (update && player.playerID == Main.Singleton.AvatarManager.Player.Id()) {
 					Main.Singleton.MapManager.UpdatePlayerArea(Main.Singleton.AvatarManager.Player,
-						map.AreaByName(player.Area.area), player.Area.position);
+						map.AreaByName(player.area.area), player.area.point);
 					Main.Singleton.AvatarManager.Player.UpdateData(player);
 				} else {
 					Main.Singleton.AvatarManager.Create(player, map);
@@ -60,7 +59,7 @@ namespace Asgla.Controller {
 			if (players.Count > 0)
 				Main.Singleton.Request.Send("PlayerData", players.ToArray());
 
-			map.Data().Monsters.ForEach(mapMonster => Main.Singleton.AvatarManager.Create(mapMonster));
+			map.Data().monsters.ForEach(mapMonster => Main.Singleton.AvatarManager.Create(mapMonster));
 
 			Main.Singleton.UIManager.LoadingOverlay = null;
 		}
@@ -76,9 +75,9 @@ namespace Asgla.Controller {
 
 			RemovePlayerFromArea(player.Data().playerID);
 
-			Main.AvatarManager.Players.Add(new MapAvatar {
-				Entity = player,
-				Area = area
+			Main.AvatarManager.Players.Add(new AreaAvatar {
+				entity = player,
+				area = area
 			});
 
 			if (player.Area() != null)
@@ -114,9 +113,9 @@ namespace Asgla.Controller {
 			Debug.LogFormat("<color=teal>[MapManager]</color> SetMonsterArea {0}({1}) {2}", monster.Data().Name,
 				monster.Id(), area.Name());
 
-			Main.AvatarManager.Monsters.Add(new MapAvatar {
-				Entity = monster,
-				Area = area
+			Main.AvatarManager.Monsters.Add(new AreaAvatar {
+				entity = monster,
+				area = area
 			});
 
 			//if (monster.Area() != null)
@@ -156,13 +155,13 @@ namespace Asgla.Controller {
 		}
 
 		public Player PlayerByID(int playerID) {
-			return (Player) Main.AvatarManager.Players.Where(map => map.Entity.Id() == playerID).FirstOrDefault()
-				.Entity;
+			return (Player) Main.AvatarManager.Players.Where(map => map.entity.Id() == playerID).FirstOrDefault()
+				.entity;
 		}
 
 		public Monster MonsterByID(int monsterID) {
-			return (Monster) Main.AvatarManager.Monsters.Where(map => map.Entity.Id() == monsterID).FirstOrDefault()
-				.Entity;
+			return (Monster) Main.AvatarManager.Monsters.Where(map => map.entity.Id() == monsterID).FirstOrDefault()
+				.entity;
 		}
 
 		public HashSet<AvatarMain> FindAvatars(string name) {
@@ -171,7 +170,7 @@ namespace Asgla.Controller {
 			avatars
 				.UnionWith(
 					Main.AvatarManager.Players
-						.Select(avatar => avatar.Entity)
+						.Select(avatar => avatar.entity)
 						.Where(mapEntity => name == mapEntity.Area().Name()
 						)
 				);
@@ -179,7 +178,7 @@ namespace Asgla.Controller {
 			avatars
 				.UnionWith(
 					Main.AvatarManager.Monsters
-						.Select(avatar => avatar.Entity)
+						.Select(avatar => avatar.entity)
 						.Where(mapEntity => name == mapEntity
 							.Area().Name()
 						)
@@ -189,7 +188,7 @@ namespace Asgla.Controller {
 		}
 
 		public void RemovePlayerFromArea(int playerID) {
-			Main.AvatarManager.Players.RemoveAll(pm => pm.Entity.Id() == playerID);
+			Main.AvatarManager.Players.RemoveAll(pm => pm.entity.Id() == playerID);
 		}
 
 	}

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Asgla.Data.Player;
+using Asgla.Data.Avatar.Player;
 using Asgla.Data.Quest;
 using Asgla.UI.Quest.Track;
 

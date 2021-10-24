@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Asgla.Data.Avatar;
+using Asgla.Data.Avatar.Helper;
+using Asgla.Data.Avatar.Player;
 using Asgla.Data.Entity;
 using Asgla.Data.Player;
 using Asgla.Data.Type;

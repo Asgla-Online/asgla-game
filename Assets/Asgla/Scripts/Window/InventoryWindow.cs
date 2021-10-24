@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Asgla.Data.Player;
+using Asgla.Data.Avatar.Player;
 using UnityEngine;
 
 namespace Asgla.Window {

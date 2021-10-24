@@ -1,6 +1,6 @@
 ﻿using System.Collections;
+using Asgla.Data.Avatar.Helper;
 using Asgla.Data.Type;
-using Asgla.Requests.Unity;
 using AssetBundles;
 using CharacterCreator2D;
 using UnityEngine;
