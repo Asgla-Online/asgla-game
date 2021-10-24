@@ -1,4 +1,4 @@
-﻿using Asgla.Data.Map;
+﻿using Asgla.Data.Area;
 using UnityEngine;
 
 namespace Asgla.NPC {
@@ -8,7 +8,7 @@ namespace Asgla.NPC {
 
 		[SerializeField] private NPCAvatar _avatar;
 
-		private MapAreaNPC _data;
+		private AreaLocalNpc _data;
 
 		#region Unity
 
@@ -18,7 +18,7 @@ namespace Asgla.NPC {
 
 		#endregion
 
-		public void Data(MapAreaNPC data) {
+		public void Data(AreaLocalNpc data) {
 			_data = data;
 		}
 
@@ -28,27 +28,27 @@ namespace Asgla.NPC {
 
 		public int AreaId() {
 			return _id;
-			// _data.DatabaseID;
+			// _data.databaseId;
 		}
 
 		public int NPCId() {
-			return _data.NPC.DatabaseID;
+			return _data.npc.DatabaseID;
 		}
 
 		public string Name() {
-			return _data.NPC.Name;
+			return _data.npc.Name;
 		}
 
 		public string Description() {
-			return _data.NPC.Description;
+			return _data.npc.Description;
 		}
 
 		public int ShopId() {
-			return _data.NPC.ShopID;
+			return _data.npc.ShopID;
 		}
 
 		public int QuestId() {
-			return _data.NPC.QuestID;
+			return _data.npc.QuestID;
 		}
 
 		public Vector2 Position() {
@@ -59,7 +59,7 @@ namespace Asgla.NPC {
 			return gameObject;
 		}
 
-		public MapAreaNPC Data() {
+		public AreaLocalNpc Data() {
 			return _data;
 		}
 

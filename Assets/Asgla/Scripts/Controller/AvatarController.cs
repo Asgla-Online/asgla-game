@@ -3,8 +3,8 @@ using System.Linq;
 using Asgla.Avatar;
 using Asgla.Avatar.Monster;
 using Asgla.Avatar.Player;
-using Asgla.Data.Map;
-using Asgla.Data.Player;
+using Asgla.Data.Area;
+using Asgla.Data.Avatar.Player;
 using Asgla.Data.Skill;
 using Asgla.Data.Type;
 using Asgla.Map;
@@ -19,11 +19,11 @@ namespace Asgla.Controller {
 	public class AvatarController : Controller {
 
 		public Main Main = null;
-		public List<MapAvatar> Monsters = null;
+		public List<AreaAvatar> Monsters = null;
 
 		public Player Player;
 
-		public List<MapAvatar> Players = null;
+		public List<AreaAvatar> Players = null;
 
 		public void SelectTarget(AvatarMain target) {
 			Player.Target(target);
@@ -73,14 +73,10 @@ namespace Asgla.Controller {
 
 		#region Create
 
-		public void Create(PlayerData data) {
-			Create(data, Main.MapManager.Map);
-		}
-
 		public void Create(PlayerData data, MapMain map) {
-			//Debug.LogFormat("<color=purple>[PlayerManager]</color> CreatePlayer {0} {1}", data.PlayerID, data.Username);
+			//Debug.LogFormat("<color=purple>[PlayerManager]</color> CreatePlayer {0} {1}", data.playerID, data.username);
 
-			MapArea area = map.AreaByName(data.Area.area);
+			MapArea area = map.AreaByName(data.area.area);
 
 			GameObject clone = Object.Instantiate(Main.PlayerPrefab.gameObject, area.Players());
 
@@ -117,25 +113,27 @@ namespace Asgla.Controller {
 
 			if (data.isControlling) {
 				Player = player;
+
 				Main.Singleton.Game.CinemachineVirtual.Follow = player.Avatar().transform;
 
 				Object.Destroy(Main.Singleton.Game.Camera.GetComponent<AudioListener>());
 				player.Avatar().AddComponent<AudioListener>();
 			}
 
-			Main.MapManager.UpdatePlayerArea(player, area, player.Data().Area.position);
+			Main.MapManager.UpdatePlayerArea(player, area, player.Data().area.point);
 
-			if (data.x != 0 && data.y != 0) {
-				Vector2 pos = new Vector2 {x = (float) data.x, y = (float) data.y};
+			if (data.x == 0 || data.y == 0)
+				return;
 
-				player.transform.position = pos;
-				player.Position(pos);
+			Vector2 pos = new Vector2 {x = (float) data.x, y = (float) data.y};
 
-				player.transform.localPosition = Vector3.zero;
-			}
+			player.transform.position = pos;
+			player.Position(pos);
+
+			player.transform.localPosition = Vector3.zero;
 		}
 
-		public void Create(MapMonster data) {
+		public void Create(AreaLocalMonster data) {
 			//Debug.LogFormat("<color=purple>[PlayerManager]</color> CreatePlayer {0} {1}", data.PlayerID, data.Username);
 
 			GameObject clone = Object.Instantiate(Main.MonsterPrefab.gameObject, data.Area.Monsters());
@@ -147,8 +145,8 @@ namespace Asgla.Controller {
 
 			monster.gameObject.SetActive(false);
 
-			monster.Data(data.Monster);
-			monster.Stats(data.Stats);
+			monster.Data(data.monster);
+			monster.Stats(data.stats);
 
 			monster.Avatar().name = monster.Data().UniqueID.ToString();
 

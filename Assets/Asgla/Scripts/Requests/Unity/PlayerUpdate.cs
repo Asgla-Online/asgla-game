@@ -10,7 +10,7 @@ namespace Asgla.Requests.Unity {
 		public void onRequest(Main main, string json) {
 			PlayerUpdate update = JsonMapper.ToObject<PlayerUpdate>(json);
 
-			main.AvatarManager.Create(update.player);
+			main.AvatarManager.Create(update.player, main.MapManager.Map);
 		}
 
 	}

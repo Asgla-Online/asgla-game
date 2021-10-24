@@ -1,5 +1,5 @@
 ﻿using Asgla.Avatar.Player;
-using Asgla.Data.Map;
+using Asgla.Data.Area;
 using UnityEngine;
 
 namespace Asgla.Map {
@@ -14,7 +14,7 @@ namespace Asgla.Map {
 		[Header("Spawn, Left, Right...")] [SerializeField]
 		private string _position;
 
-		[Space] [SerializeField] private MapMoveType _type;
+		[Space] [SerializeField] private AreaMoveType _type;
 
 		private void OnTriggerEnter2D(Collider2D collider) {
 			if (!collider.CompareTag("Player"))
@@ -25,7 +25,7 @@ namespace Asgla.Map {
 			player.TargetReset();
 
 			switch (_type) {
-				case MapMoveType.MoveToArea:
+				case AreaMoveType.MoveToArea:
 					if (string.IsNullOrEmpty(_area) || string.IsNullOrEmpty(_position))
 						return;
 
@@ -36,7 +36,7 @@ namespace Asgla.Map {
 					if (player.Data().isControlling)
 						Main.Singleton.Request.Send("MoveToArea", _area, _position);
 					break;
-				case MapMoveType.JoinMap:
+				case AreaMoveType.JoinMap:
 					if (!player.Data().isControlling || string.IsNullOrEmpty(_join) || string.IsNullOrEmpty(_area) ||
 					    string.IsNullOrEmpty(_position))
 						return;

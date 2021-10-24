@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Asgla.Avatar.Player;
-using Asgla.Data.Map;
+using Asgla.Data.Area;
 using Asgla.NPC;
 using Asgla.Utility;
 using UnityEngine;
@@ -19,7 +19,7 @@ namespace Asgla.Map {
 
 		private Transform _audio;
 
-		private MapAreaData _data;
+		private AreaLocal _local;
 		private GameObject _monsters;
 
 		private Transform _npc;
@@ -28,28 +28,28 @@ namespace Asgla.Map {
 
 		private Transform _zone;
 
-		public void Data(MapAreaData data) {
-			_data = data;
+		public void Data(AreaLocal local) {
+			_local = local;
 		}
 
-		public MapAreaData Data() {
-			return _data;
+		public AreaLocal Data() {
+			return _local;
 		}
 
 		public string Name() {
-			return _data.Name;
+			return _local.name;
 		}
 
 		public double Scale() {
-			return _data.Scale;
+			return _local.scale;
 		}
 
 		public double Speed() {
-			return _data.Speed;
+			return _local.speed;
 		}
 
 		public bool IsSafe() {
-			return _data.IsSafe;
+			return _local.isSafe;
 		}
 
 		public Transform Players() {
@@ -148,7 +148,7 @@ namespace Asgla.Map {
 
 				Player player = collider.GetComponent<Player>();
 
-				OnPlayerScaleUpdate.Invoke((float) _data.Scale);
+				OnPlayerScaleUpdate.Invoke((float) _local.scale);
 
 				if (player.Data()
 					.isControlling) //Debug.LogFormat("<color=blue>[MapArea]</color> Controlling", player.Name());

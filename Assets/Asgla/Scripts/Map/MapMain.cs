@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Asgla.Data.Map;
+using Asgla.Data.Area;
 using Asgla.Map;
 using UnityEngine;
 
@@ -29,7 +29,7 @@ public class MapMain : MonoBehaviour {
 	}
 
 	public MapArea AreaByName(string name) {
-		return _areas.Where(zone => zone.name == name).FirstOrDefault();
+		return _areas.FirstOrDefault(zone => zone.name == name);
 	}
 
 }

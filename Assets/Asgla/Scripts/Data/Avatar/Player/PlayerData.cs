@@ -36,7 +36,7 @@ namespace Asgla.Data.Avatar.Player {
 
 		public List<PlayerInventory> inventory;
 
-		public MoveToLocal Area = null;
+		public MoveToLocal area = null;
 
 		public EquipPart Ear = null;
 		public EquipPart Eye = null;
@@ -47,7 +47,7 @@ namespace Asgla.Data.Avatar.Player {
 		public List<EquipPart> Part = null;
 
 		public MapArea MapArea() {
-			return Main.Singleton.MapManager.Map.AreaByName(Area.area);
+			return Main.Singleton.MapManager.Map.AreaByName(area.area);
 		}
 
 		public bool IsNeutral() {

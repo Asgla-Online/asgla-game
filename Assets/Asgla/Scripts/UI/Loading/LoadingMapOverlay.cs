@@ -1,5 +1,5 @@
 using System.Collections;
-using Asgla.Data.Map;
+using Asgla.Data.Area;
 using AsglaUI.UI;
 using AssetBundles;
 using TMPro;
@@ -55,7 +55,7 @@ namespace Asgla.UI.Loading {
 				yield break;
 			}
 
-			string bundle = "maps/" + _areaData.Bundle;
+			string bundle = "maps/" + _areaData.bundle;
 			//string asset = MapData.Bundle + ".prefab";
 
 			AssetBundleAsync assetBundle = abm.GetBundleAsync(bundle);
@@ -70,18 +70,18 @@ namespace Asgla.UI.Loading {
 			}
 
 			AssetBundleRequest asyncAsset =
-				assetBundle.AssetBundle.LoadAssetAsync($"assets/asgla/game/maps/{_areaData.Asset}", typeof(GameObject));
+				assetBundle.AssetBundle.LoadAssetAsync($"assets/asgla/game/maps/{_areaData.asset}", typeof(GameObject));
 
-			GameObject Map = asyncAsset.asset as GameObject;
+			GameObject map = asyncAsset.asset as GameObject;
 
-			if (Map == null) {
+			if (map == null) {
 				Debug.LogErrorFormat(
 					"<color=blue>[MapArea]</color> null GameObject: assets/asgla/game/items/{0}, bundle: {1}",
-					_areaData.Asset, _areaData.Bundle);
+					_areaData.asset, _areaData.bundle);
 				yield break;
 			}
 
-			GameObject obj = Instantiate(Map, Vector3.zero, Quaternion.identity, Main.Singleton.Game.transform);
+			GameObject obj = Instantiate(map, Vector3.zero, Quaternion.identity, Main.Singleton.Game.transform);
 
 			if (obj == null) {
 				SetLoadingText("Null error, please contact staff.");

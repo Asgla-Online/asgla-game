@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Asgla.Data.Map;
+using Asgla.Data.Area;
 using Asgla.Quest;
 using Asgla.Skill;
 using Asgla.UI;
@@ -92,8 +92,8 @@ namespace Asgla {
 
 			Main.Singleton.SetGame(this);
 
-			Main.Singleton.AvatarManager.Players = new List<MapAvatar>();
-			Main.Singleton.AvatarManager.Monsters = new List<MapAvatar>();
+			Main.Singleton.AvatarManager.Players = new List<AreaAvatar>();
+			Main.Singleton.AvatarManager.Monsters = new List<AreaAvatar>();
 
 			Quest = new QuestMain(this);
 

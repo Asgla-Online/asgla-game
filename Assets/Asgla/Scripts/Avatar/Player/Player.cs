@@ -4,7 +4,6 @@ using Asgla.Data.Avatar;
 using Asgla.Data.Avatar.Helper;
 using Asgla.Data.Avatar.Player;
 using Asgla.Data.Entity;
-using Asgla.Data.Player;
 using Asgla.Data.Type;
 using Asgla.Utility;
 using AssetBundles;
@@ -38,7 +37,7 @@ namespace Asgla.Avatar.Player {
 
 		public void UpdateData(PlayerData d) {
 			//int PlayerID
-			//int DatabaseID
+			//int databaseId
 
 			if (d.username != Data().username && !string.IsNullOrEmpty(d.username))
 				Data().username = d.username;
@@ -79,8 +78,8 @@ namespace Asgla.Avatar.Player {
 					CommonColorBuffer.StringToColor(Data().colorNose));
 			}
 
-			if (d.Area != Data().Area && d.Area != null)
-				Data().Area = d.Area;
+			if (d.area != Data().area && d.area != null)
+				Data().area = d.area;
 
 			//int x
 			//int y
