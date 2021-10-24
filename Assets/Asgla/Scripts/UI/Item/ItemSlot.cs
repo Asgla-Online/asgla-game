@@ -49,7 +49,7 @@ namespace Asgla.UI.Item {
             _item = item;
             _type = type;
 
-            _name.text = _item.Name;
+            _name.text = _item.name;
 
             Sprite sprite = _item.GetIcon;
 

@@ -74,7 +74,7 @@ namespace Asgla.UI.ActionBar {
                     return;
                 }
             } else {
-                Debug.LogFormat("Player target is null/empty selected new from targets list {0} - {1}", player.Id(), player.Data().Username);
+                Debug.LogFormat("Player target is null/empty selected new from targets list {0} - {1}", player.Id(), player.Data().username);
                 player.Target(GameUtil.FindTarget(1, player.Area().Scale(), skillInfo.Range, player, Main.Singleton.MapManager.FindAvatars(player.Area().Name()), new HashSet<AvatarMain>()).First());
             }
 

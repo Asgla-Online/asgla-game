@@ -1,29 +1,31 @@
 ﻿using Asgla.Data.Type;
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Asgla.Data.Item {
 
     [Serializable]
     public class ItemData {
 
-        public int DatabaseID = -1;
+        public int databaseId = -1;
 
-        public string Name = null;
-        public string Description = null;
+        public string name;
+        public string description;
 
         public TypeItemData Type = null;
 
-        public string Bundle = null;
-        public string Asset = null;
+        public string bundle;
+        public string asset;
 
-        public RarityData Rarity = RarityData.Common;
+        public RarityData rarity = RarityData.Common;
 
-        public int RequiredLevel = -1;
+        public int requiredLevel = -1;
 
         //public Part Part;
 
         public Sprite GetIcon => Resources.Load<Sprite>("Sprites/Icon/" + Type.Icon);
+        
     }
 
 }

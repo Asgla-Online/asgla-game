@@ -1,14 +1,15 @@
 fileFormatVersion: 2
-guid: ba6012acd13dbb34390ea3e1de9e8a93
-timeCreated: 1572243826
-licenseType: Store
+guid: 5f054c00ff5e4e5a87bba1d240d7d96d
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
   iconMap: {}
   executionOrder: {}
+  defineConstraints: []
   isPreloaded: 0
   isOverridable: 0
+  isExplicitlyReferenced: 0
+  validateReferences: 1
   platformData:
   - first:
       Any: 
@@ -22,12 +23,7 @@ PluginImporter:
       settings:
         DefaultValueInitialized: true
   - first:
-      Facebook: WebGL
-    second:
-      enabled: 1
-      settings: {}
-  - first:
-      WebGL: WebGL
+      Windows Store Apps: WindowsStoreApps
     second:
       enabled: 1
       settings: {}

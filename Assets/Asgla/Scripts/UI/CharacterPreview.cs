@@ -2,6 +2,7 @@
 using AssetBundles;
 using CharacterCreator2D;
 using System.Collections;
+using Asgla.Requests.Unity;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -81,9 +82,9 @@ namespace Asgla.UI {
                 yield break;
             }
 
-            AssetBundleAsync assetBundle = abm.GetBundleAsync(equip.Bundle);
+            AssetBundleAsync assetBundle = abm.GetBundleAsync(equip.bundle);
 
-            abm.RegisterDownloadProgressHandler(equip.Bundle, UpdateProgress);
+            abm.RegisterDownloadProgressHandler(equip.bundle, UpdateProgress);
 
             yield return assetBundle;
 
@@ -92,23 +93,23 @@ namespace Asgla.UI {
                 yield break;
             }
 
-            AssetBundleRequest asyncAsset = assetBundle.AssetBundle.LoadAssetAsync($"assets/asgla/game/items/{equip.Asset}", typeof(Part));
+            AssetBundleRequest asyncAsset = assetBundle.AssetBundle.LoadAssetAsync($"assets/asgla/game/items/{equip.asset}", typeof(Part));
 
             Part partAsset = asyncAsset.asset as Part;
 
             if (partAsset == null) {
-                Debug.LogErrorFormat("<color=green>[PlayerMain]</color> part null asset: assets/asgla/game/items/{0}, bundle: {1}", equip.Asset, equip.Bundle);
+                Debug.LogErrorFormat("<color=green>[PlayerMain]</color> part null asset: assets/asgla/game/items/{0}, bundle: {1}", equip.asset, equip.bundle);
                 yield break;
             }
 
             if (partAsset.category == Category.Weapon) {
                 Weapon part = (Weapon)partAsset;
-                part.weaponCategory = equip.Type.Weapon;
+                part.weaponCategory = equip.type.Weapon;
 
-                _characterView.EquipPart(equip.Type.Equipment, part);
+                _characterView.EquipPart(equip.type.Equipment, part);
             } else {
-                if (equip.Type.Category != Category.Class)
-                    _characterView.EquipPart(equip.Type.Equipment, partAsset);
+                if (equip.type.Category != Category.Class)
+                    _characterView.EquipPart(equip.type.Equipment, partAsset);
             }
 
             _image.enabled = true;

@@ -11,7 +11,7 @@ namespace Asgla {
 
         public Main Main = null;
 
-        private readonly string _ip = "wss://asgla.online:8443";//wss://asgla.online:8443 ws://192.99.88.240:8443 ws://localhost:8443
+        private readonly string _ip = "ws://localhost:4431";
 
         private string _token = null;
 

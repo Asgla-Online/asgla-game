@@ -296,7 +296,7 @@ namespace AsglaUI.UI {
 
             UIModalBox box = UIModalBoxManager.Instance.Create(this.gameObject);
             if (box != null) {
-                box.SetText1("Do you really want to destroy \"" + this.m_ItemInfo.Name + "\"?");
+                box.SetText1("Do you really want to destroy \"" + this.m_ItemInfo.name + "\"?");
                 box.SetText2("You wont be able to reverse this operation and your item will be permamently removed.");
                 box.SetConfirmButtonText("DESTROY");
                 box.onConfirm.AddListener(Unassign);
@@ -414,7 +414,7 @@ namespace AsglaUI.UI {
                 UITooltip.SetWidth(UITooltipManager.Instance.itemTooltipWidth);
 
             // Set the title and description
-            UITooltip.AddTitle("<color=#" + RarityColor.GetHexColor(itemInfo.Rarity) + ">" + itemInfo.Name + "</color>");
+            UITooltip.AddTitle("<color=#" + RarityColor.GetHexColor(itemInfo.rarity) + ">" + itemInfo.name + "</color>");
 
             // Spacer
             UITooltip.AddSpacer();
@@ -441,13 +441,13 @@ namespace AsglaUI.UI {
 
             UITooltip.AddLine("Durability 1/1", "ItemAttribute");
 
-            if (itemInfo.RequiredLevel > 0)
-                UITooltip.AddLine("Requires Level " + itemInfo.RequiredLevel, "ItemAttribute");
+            if (itemInfo.requiredLevel > 0)
+                UITooltip.AddLine("Requires Level " + itemInfo.requiredLevel, "ItemAttribute");
 
             // Set the item description if not empty
-            if (!string.IsNullOrEmpty(itemInfo.Description)) {
+            if (!string.IsNullOrEmpty(itemInfo.description)) {
                 UITooltip.AddSpacer();
-                UITooltip.AddLine(itemInfo.Description, "ItemDescription");
+                UITooltip.AddLine(itemInfo.description, "ItemDescription");
             }
         }
         #endregion

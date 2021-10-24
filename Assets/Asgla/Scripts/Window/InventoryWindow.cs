@@ -10,7 +10,7 @@ namespace Asgla.Window {
         public void Init(List<PlayerInventory> inventory_items) {
             Clear();
             foreach (PlayerInventory inventory in inventory_items)
-                AddItem(inventory.DatabaseID, inventory.Item);
+                AddItem(inventory.databaseId, inventory.item);
             Order();
         }
 

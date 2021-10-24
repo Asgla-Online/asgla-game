@@ -11,7 +11,7 @@ using UnityEngine;
 namespace Asgla.Data.Map {
 
     [Serializable]
-    public class MapData {
+    public class AreaData {
 
         public int MapID = -1;
 

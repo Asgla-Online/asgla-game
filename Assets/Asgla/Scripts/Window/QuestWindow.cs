@@ -74,11 +74,11 @@ namespace Asgla.Window {
 
             if (quest.Requirement.Count != 0)
                 foreach (Requirement requirement in quest.Requirement) {
-                    PlayerInventory inv = Main.Singleton.AvatarManager.Player.Data().InventoryByItemId(requirement.Item.DatabaseID);
+                    PlayerInventory inv = Main.Singleton.AvatarManager.Player.Data().InventoryByItemId(requirement.Item.databaseId);
 
-                    int quantity = inv == null ? 0 : inv.Quantity;
+                    int quantity = inv == null ? 0 : inv.quantity;
 
-                    AddRequirementSlot(requirement.DatabaseID, $"{quantity}/{requirement.Quantity}", requirement.Item.Name);
+                    AddRequirementSlot(requirement.DatabaseID, $"{quantity}/{requirement.Quantity}", requirement.Item.name);
                 }
 
             AddRewardAmountSlot(quest.Experience.ToString(), "Experience", "B4FF64");

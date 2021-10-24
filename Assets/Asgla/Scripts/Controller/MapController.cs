@@ -15,7 +15,7 @@ namespace Asgla.Controller {
         public MapMain Map = null;
 
         #region Create
-        public void Create(MapData data, GameObject obj) {
+        public void Create(AreaData data, GameObject obj) {
             MapMain map = obj.GetComponent<MapMain>();
             map.Data(data); //if null maybe missing MapMain component
 
@@ -46,13 +46,13 @@ namespace Asgla.Controller {
             Main.Singleton.MapManager.Map = map;
 
             foreach (PlayerData player in map.Data().Players) {
-                if (update && player.PlayerID == Main.Singleton.AvatarManager.Player.Id()) {
-                    Main.Singleton.MapManager.UpdatePlayerArea(Main.Singleton.AvatarManager.Player, map.AreaByName(player.Area.Area), player.Area.Position);
+                if (update && player.playerID == Main.Singleton.AvatarManager.Player.Id()) {
+                    Main.Singleton.MapManager.UpdatePlayerArea(Main.Singleton.AvatarManager.Player, map.AreaByName(player.Area.area), player.Area.position);
                     Main.Singleton.AvatarManager.Player.UpdateData(player);
                 } else {
                     Main.Singleton.AvatarManager.Create(player, map);
 
-                    players.Add(player.PlayerID.ToString());
+                    players.Add(player.playerID.ToString());
                 }
             }
 
@@ -70,7 +70,7 @@ namespace Asgla.Controller {
         public void UpdatePlayerArea(Player player, MapArea area, string position) {
             //Debug.LogFormat("<color=teal>[MapManager]</color> AddPlayerToArea {0} {1} {2}", player.Data().Username, area.Name(), position);
 
-            RemovePlayerFromArea(player.Data().PlayerID);
+            RemovePlayerFromArea(player.Data().playerID);
 
             Main.AvatarManager.Players.Add(new MapAvatar {
                 Entity = player,

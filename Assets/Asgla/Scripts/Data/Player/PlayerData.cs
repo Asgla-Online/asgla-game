@@ -4,20 +4,18 @@ using Asgla.Map;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
-using static Asgla.Data.Request.RequestAvatar;
-using static Asgla.Data.Request.RequestMap;
+using Asgla.Requests.Unity;
 
 namespace Asgla.Data.Player {
 
     [Serializable]
     public class PlayerData {
 
-        public int PlayerID = -1;
+        public int playerID = -1;
 
-        public int DatabaseID = -1;
+        public int databaseID = -1;
 
-        public string Username = "";
+        public string username = "";
 
         public EquipPart Ear = null;
         public EquipPart Eye = null;
@@ -25,61 +23,61 @@ namespace Asgla.Data.Player {
         public EquipPart Mouth = null;
         public EquipPart Nose = null;
 
-        public string ColorSkin = null;
+        public string colorSkin;
 
-        public string ColorEye = null;
-        public string ColorHair = null;
-        public string ColorMouth = null;
-        public string ColorNose = null;
+        public string colorEye;
+        public string colorHair;
+        public string colorMouth;
+        public string colorNose;
 
-        public MoveToArea Area = null;
+        public MoveToLocal Area = null;
 
         public double x;
         public double y;
 
-        public int Level;
+        public int level;
 
-        public bool Away = false;
-        public bool Controlling = false;
+        public bool isAway;
+        public bool isControlling;
 
-        public AvatarState State = AvatarState.NONE;
+        public AvatarState state = AvatarState.NONE;
 
         public List<EquipPart> Part = null;
 
-        public List<PlayerInventory> Inventory = null;
+        public List<PlayerInventory> inventory;
 
-        public MapArea MapArea() => Main.Singleton.MapManager.Map.AreaByName(Area.Area);
+        public MapArea MapArea() => Main.Singleton.MapManager.Map.AreaByName(Area.area);
 
         public bool IsNeutral() {
-            return State == AvatarState.NORMAL;
+            return state == AvatarState.NORMAL;
         }
 
         public bool OnCombat() {
-            return State == AvatarState.COMBAT;
+            return state == AvatarState.COMBAT;
         }
 
         public bool IsDead() {
-            return State == AvatarState.DEAD;
+            return state == AvatarState.DEAD;
         }
 
-        public PlayerInventory InventoryById(int databaseId) => Inventory.Where(inventory => inventory.DatabaseID == databaseId).FirstOrDefault();
+        public PlayerInventory InventoryById(int databaseId) => inventory.First(playerInventory => playerInventory.databaseId == databaseId);
 
-        public PlayerInventory InventoryByItemId(int databaseId) => Inventory.Where(inventory => inventory.Item.DatabaseID == databaseId).FirstOrDefault();
+        public PlayerInventory InventoryByItemId(int databaseId) => inventory.First(playerInventory => playerInventory.item.databaseId == databaseId);
 
     }
 
     [Serializable]
     public class PlayerInventory {
 
-        public int DatabaseID;
-        public bool Equipped;
-        public int Quantity;
+        public int databaseId;
+        public bool equipped;
+        public int quantity;
 
-        public ItemData Item;
+        public ItemData item;
 
-        public void DecreaseQuantity(int amount) => Quantity -= amount;
+        public void DecreaseQuantity(int amount) => quantity -= amount;
 
-        public void IncreaseQuantity(int amount) => Quantity += amount;
+        public void IncreaseQuantity(int amount) => quantity += amount;
 
     }
 

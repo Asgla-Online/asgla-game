@@ -1,4 +1,5 @@
-﻿using Asgla.UI;
+﻿using Asgla.Requests.Unity;
+using Asgla.UI;
 using Asgla.UI.Item;
 using AsglaUI.UI;
 using TMPro;
@@ -43,7 +44,7 @@ namespace Asgla.Window {
         public void Init(ItemSlot slot) {
             _slot = slot;
 
-            _name.text = _slot.Item().Name;
+            _name.text = _slot.Item().name;
 
             if (_slot.ButtonText() == "Quest")
                 _button.gameObject.SetActive(false);
@@ -60,9 +61,9 @@ namespace Asgla.Window {
             _characterPreview.SetImage(_image);
 
             _characterPreview.Equip(new EquipPart {
-                Type = _slot.Item().Type,
-                Bundle = _slot.Item().Bundle,
-                Asset = _slot.Item().Asset
+                type = _slot.Item().Type,
+                bundle = _slot.Item().bundle,
+                asset = _slot.Item().asset
             });
 
             Window().Show();

@@ -7,7 +7,7 @@ using Asgla.Map;
 
 public class MapMain : MonoBehaviour {
 
-    private MapData _data;
+    private AreaData _data;
 
     [SerializeField] private List<MapArea> _areas;
 
@@ -17,9 +17,9 @@ public class MapMain : MonoBehaviour {
         }
     }*/
 
-    public MapData Data(MapData data) => _data = data;
+    public AreaData Data(AreaData data) => _data = data;
 
-    public MapData Data() => _data;
+    public AreaData Data() => _data;
 
     public List<MapArea> Areas() => _areas;
 

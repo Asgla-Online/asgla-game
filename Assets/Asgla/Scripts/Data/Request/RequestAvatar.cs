@@ -10,41 +10,6 @@ using System.Collections.Generic;
 namespace Asgla.Data.Request {
     public class RequestAvatar {
 
-        public class LoginRequest {
-            public bool Status;
-            public string Message;
-        }
-
-        public class DataLoad {
-            public List<DataUpdate2> Players;
-        }
-
-        public class InventoryLoad {
-            public int PlayerID;
-            public List<PlayerInventory> Inventory;
-        }
-
-        public class InventoryUpdate {
-            public PlayerInventory Inventory;
-        }
-
-        public class InventoryRemove {
-            public List<PlayerInventory> Inventory;
-        }
-
-        public class InventoryRemoveList {
-            public int DatabaseID = -1;
-            public int Quantity = -1;
-        }
-
-        public class DataUpdate {
-            public Entity Entity = null;
-
-            public AvatarStats Stats = null;
-
-            public AvatarState State = AvatarState.NONE;
-        }
-
         public class DataUpdate2 {
             public Entity Entity = null;
 
@@ -52,47 +17,11 @@ namespace Asgla.Data.Request {
             public PlayerData Data = null;
         }
 
-        public class EquipPart {
-            public int PlayerID = -1;
-
-            public int UniqueID = -1;
-
-            public TypeItemData Type = null;
-
-            public Equipment Equipment;
-
-            public string Bundle = null;
-            public string Asset = null;
-        }
-
-        public class ChatRequest {
-            public int Channel;
-
-            public string Username;
-            public string Message;
-        }
-
-        public class Respawn {
-            public Entity Entity = null;
-        }
-
-        public class SkillLoad {
-            public List<SkillData> Skills = null;
-        }
-
         public class Entity {
             public int EntityID = -1;
             public EntityType EntityType;
 
             public AvatarMain Avatar => EntityType == EntityType.PLAYER ? (AvatarMain)Main.Singleton.MapManager.PlayerByID(EntityID) : (AvatarMain)Main.Singleton.MapManager.MonsterByID(EntityID);
-        }
-
-        public class Combat {
-            public string Message = null;
-            public CombatSkill Skill = null;
-            public Entity Entity = null;
-            public CombatAnimation Animation = null;
-            public List<CombatResult> Result = null;
         }
 
         public class CombatSkill {

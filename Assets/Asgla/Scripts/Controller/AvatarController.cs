@@ -31,7 +31,7 @@ namespace Asgla.Controller{
         public void Create(PlayerData data, MapMain map) {
             //Debug.LogFormat("<color=purple>[PlayerManager]</color> CreatePlayer {0} {1}", data.PlayerID, data.Username);
 
-            MapArea area = map.AreaByName(data.Area.Area);
+            MapArea area = map.AreaByName(data.Area.area);
 
             GameObject clone = Object.Instantiate(Main.PlayerPrefab.gameObject, area.Players());
 
@@ -42,13 +42,13 @@ namespace Asgla.Controller{
 
             player.Data(data);
 
-            player.Avatar().name = data.PlayerID.ToString();
+            player.Avatar().name = data.playerID.ToString();
 
             player.Utility().SetTitle("Explosion");
-            player.Utility().SetName(player.Data().Username);
+            player.Utility().SetName(player.Data().username);
             player.Utility().SetGuild("Asgla Team");
 
-            player.CharacterView().SetPartColor(Equipment.BodySkin, ColorCode.Color1, CommonColorBuffer.StringToColor(player.Data().ColorSkin));
+            player.CharacterView().SetPartColor(Equipment.BodySkin, ColorCode.Color1, CommonColorBuffer.StringToColor(player.Data().colorSkin));
 
             player.Equip(player.Data().Ear);
             player.Equip(player.Data().Eye);
@@ -56,12 +56,12 @@ namespace Asgla.Controller{
             player.Equip(player.Data().Mouth);
             player.Equip(player.Data().Nose);
 
-            player.CharacterView().SetPartColor(Equipment.Eye, ColorCode.Color1, CommonColorBuffer.StringToColor(player.Data().ColorEye));
-            player.CharacterView().SetPartColor(Equipment.Hair, ColorCode.Color1, CommonColorBuffer.StringToColor(player.Data().ColorHair));
-            player.CharacterView().SetPartColor(Equipment.Mouth, ColorCode.Color1, CommonColorBuffer.StringToColor(player.Data().ColorMouth));
-            player.CharacterView().SetPartColor(Equipment.Nose, ColorCode.Color1, CommonColorBuffer.StringToColor(player.Data().ColorNose));
+            player.CharacterView().SetPartColor(Equipment.Eye, ColorCode.Color1, CommonColorBuffer.StringToColor(player.Data().colorEye));
+            player.CharacterView().SetPartColor(Equipment.Hair, ColorCode.Color1, CommonColorBuffer.StringToColor(player.Data().colorHair));
+            player.CharacterView().SetPartColor(Equipment.Mouth, ColorCode.Color1, CommonColorBuffer.StringToColor(player.Data().colorMouth));
+            player.CharacterView().SetPartColor(Equipment.Nose, ColorCode.Color1, CommonColorBuffer.StringToColor(player.Data().colorNose));
 
-            if (data.Controlling) {
+            if (data.isControlling) {
                 Player = player;
                 Main.Singleton.Game.CinemachineVirtual.Follow = player.Avatar().transform;
 
@@ -69,7 +69,7 @@ namespace Asgla.Controller{
                 player.Avatar().AddComponent<AudioListener>();
             }
 
-            Main.MapManager.UpdatePlayerArea(player, area, player.Data().Area.Position);
+            Main.MapManager.UpdatePlayerArea(player, area, player.Data().Area.position);
 
             if (data.x != 0 && data.y != 0) {
                 Vector2 pos = new Vector2 { x = (float)data.x, y = (float)data.y };

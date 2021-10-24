@@ -19,14 +19,14 @@ namespace Asgla.UI.Loading {
             name = "Loading Map Overlay";
         }
 
-        private MapData MapData;
+        private AreaData _areaData;
 
-        public void LoadMap(MapData mapData) {
+        public void LoadMap(AreaData areaData) {
             SetLoadingText("LOADING MAP");
 
             //Debug.LogFormat("<color=green>[LoadingMapOverlay]</color> LoadMap {0}", _firstLoad);
             _showing = true;
-            MapData = mapData;
+            _areaData = areaData;
 
             if (_progressBar != null && !_firstLoad)
                 _progressBar.fillAmount = 0f;
@@ -56,7 +56,7 @@ namespace Asgla.UI.Loading {
                 yield break;
             }
 
-            string bundle = "maps/" + MapData.Bundle;
+            string bundle = "maps/" + _areaData.Bundle;
             //string asset = MapData.Bundle + ".prefab";
 
             AssetBundleAsync assetBundle = abm.GetBundleAsync(bundle);
@@ -70,12 +70,12 @@ namespace Asgla.UI.Loading {
                 yield break;
             }
 
-            AssetBundleRequest asyncAsset = assetBundle.AssetBundle.LoadAssetAsync($"assets/asgla/game/maps/{MapData.Asset}", typeof(GameObject));
+            AssetBundleRequest asyncAsset = assetBundle.AssetBundle.LoadAssetAsync($"assets/asgla/game/maps/{_areaData.Asset}", typeof(GameObject));
 
             GameObject Map = asyncAsset.asset as GameObject;
 
             if (Map == null) {
-                Debug.LogErrorFormat("<color=blue>[MapArea]</color> null GameObject: assets/asgla/game/items/{0}, bundle: {1}", MapData.Asset, MapData.Bundle);
+                Debug.LogErrorFormat("<color=blue>[MapArea]</color> null GameObject: assets/asgla/game/items/{0}, bundle: {1}", _areaData.Asset, _areaData.Bundle);
                 yield break;
             }
 
@@ -88,7 +88,7 @@ namespace Asgla.UI.Loading {
 
             obj.transform.localPosition = Vector3.zero;
 
-            Main.Singleton.MapManager.Create(MapData, obj);
+            Main.Singleton.MapManager.Create(_areaData, obj);
 
             abm.UnloadBundle(assetBundle.AssetBundle);
 

@@ -1,7 +1,7 @@
 ﻿using AsglaUI.UI;
 using BestHTTP;
-using LitJson;
 using System;
+using BestHTTP.JSON.LitJson;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

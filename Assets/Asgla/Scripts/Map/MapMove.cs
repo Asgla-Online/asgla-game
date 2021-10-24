@@ -34,12 +34,12 @@ namespace Asgla.Map {
 
                     Main.Singleton.MapManager.UpdatePlayerArea(player, area, _position);
 
-                    if (player.Data().Controlling) {
+                    if (player.Data().isControlling) {
                         Main.Singleton.Request.Send("MoveToArea", _area, _position);
                     }
                     break;
                 case MapMoveType.JoinMap:
-                    if (!player.Data().Controlling || string.IsNullOrEmpty(_join) || string.IsNullOrEmpty(_area) || string.IsNullOrEmpty(_position))
+                    if (!player.Data().isControlling || string.IsNullOrEmpty(_join) || string.IsNullOrEmpty(_area) || string.IsNullOrEmpty(_position))
                         return;
 
                     Main.Singleton.UIManager.CreateLoadingMap();

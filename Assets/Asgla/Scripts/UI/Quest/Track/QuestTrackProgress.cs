@@ -23,7 +23,7 @@ namespace Asgla.UI.Quest.Track {
             name = quest.DatabaseID.ToString();
 
             _objectives.AddRange(quest.Requirement.Select(requirement => Instantiate(objective.gameObject, _content)
-                .GetComponent<QuestTrackObjective>().Init(requirement.DatabaseID, requirement.Item.Name, requirement.Quantity)));
+                .GetComponent<QuestTrackObjective>().Init(requirement.DatabaseID, requirement.Item.name, requirement.Quantity)));
             
             return this;
         }

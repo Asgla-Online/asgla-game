@@ -91,7 +91,7 @@ namespace Asgla.Map {
 
                 OnPlayerScaleUpdate.Invoke((float)_data.Scale);
 
-                if (player.Data().Controlling) {
+                if (player.Data().isControlling) {
                     //Debug.LogFormat("<color=blue>[MapArea]</color> Controlling", player.Name());
                     Main.Singleton.Game.CinemachineConfiner.m_BoundingShape2D = GetComponent<Collider2D>();
                 }

@@ -6,10 +6,10 @@ using AssetBundles;
 using CharacterCreator2D;
 using System.Collections;
 using System.Collections.Generic;
+using Asgla.Requests.Unity;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-using static Asgla.Data.Request.RequestAvatar;
 using static AssetBundles.AssetBundleManager;
 
 using Weapon = CharacterCreator2D.Weapon;
@@ -85,8 +85,8 @@ namespace Asgla.Avatar.Player {
             //int PlayerID
             //int DatabaseID
 
-            if (d.Username != Data().Username && !string.IsNullOrEmpty(d.Username))
-                Data().Username = d.Username;
+            if (d.username != Data().username && !string.IsNullOrEmpty(d.username))
+                Data().username = d.username;
 
             //EquipPart Ear
             //EquipPart Eye
@@ -94,29 +94,29 @@ namespace Asgla.Avatar.Player {
             //EquipPart Mouth
             //EquipPart Nose
 
-            if (d.ColorSkin != Data().ColorSkin && !string.IsNullOrEmpty(d.ColorSkin)) {
-                Data().ColorSkin = d.ColorSkin;
-                CharacterView().SetPartColor(Equipment.BodySkin, ColorCode.Color1, CommonColorBuffer.StringToColor(Data().ColorSkin));
+            if (d.colorSkin != Data().colorSkin && !string.IsNullOrEmpty(d.colorSkin)) {
+                Data().colorSkin = d.colorSkin;
+                CharacterView().SetPartColor(Equipment.BodySkin, ColorCode.Color1, CommonColorBuffer.StringToColor(Data().colorSkin));
             }
 
-            if (d.ColorEye != Data().ColorEye && !string.IsNullOrEmpty(d.ColorEye)) {
-                Data().ColorEye = d.ColorEye;
-                CharacterView().SetPartColor(Equipment.Eye, ColorCode.Color1, CommonColorBuffer.StringToColor(Data().ColorEye));
+            if (d.colorEye != Data().colorEye && !string.IsNullOrEmpty(d.colorEye)) {
+                Data().colorEye = d.colorEye;
+                CharacterView().SetPartColor(Equipment.Eye, ColorCode.Color1, CommonColorBuffer.StringToColor(Data().colorEye));
             }
 
-            if (d.ColorHair != Data().ColorHair && !string.IsNullOrEmpty(d.ColorHair)) {
-                Data().ColorHair = d.ColorHair;
-                CharacterView().SetPartColor(Equipment.Hair, ColorCode.Color1, CommonColorBuffer.StringToColor(Data().ColorHair));
+            if (d.colorHair != Data().colorHair && !string.IsNullOrEmpty(d.colorHair)) {
+                Data().colorHair = d.colorHair;
+                CharacterView().SetPartColor(Equipment.Hair, ColorCode.Color1, CommonColorBuffer.StringToColor(Data().colorHair));
             }
 
-            if (d.ColorMouth != Data().ColorMouth && !string.IsNullOrEmpty(d.ColorMouth)) {
-                Data().ColorMouth = d.ColorMouth;
-                CharacterView().SetPartColor(Equipment.Mouth, ColorCode.Color1, CommonColorBuffer.StringToColor(Data().ColorMouth));
+            if (d.colorMouth != Data().colorMouth && !string.IsNullOrEmpty(d.colorMouth)) {
+                Data().colorMouth = d.colorMouth;
+                CharacterView().SetPartColor(Equipment.Mouth, ColorCode.Color1, CommonColorBuffer.StringToColor(Data().colorMouth));
             }
 
-            if (d.ColorNose != Data().ColorNose && !string.IsNullOrEmpty(d.ColorNose)) {
-                Data().ColorNose = d.ColorNose;
-                CharacterView().SetPartColor(Equipment.Nose, ColorCode.Color1, CommonColorBuffer.StringToColor(Data().ColorNose));
+            if (d.colorNose != Data().colorNose && !string.IsNullOrEmpty(d.colorNose)) {
+                Data().colorNose = d.colorNose;
+                CharacterView().SetPartColor(Equipment.Nose, ColorCode.Color1, CommonColorBuffer.StringToColor(Data().colorNose));
             }
 
             if (d.Area != Data().Area && d.Area != null)
@@ -125,23 +125,23 @@ namespace Asgla.Avatar.Player {
             //int x
             //int y
 
-            if (d.Level != Data().Level && d.Level > 0)
-                Data().Level = d.Level;
+            if (d.level != Data().level && d.level > 0)
+                Data().level = d.level;
 
             //bool Away
             //bool Controlling
 
-            State(d.State);
+            State(d.state);
         }
 
         public void Inventory(List<PlayerInventory> list) {
-            Data().Inventory = list;
-            Main.Singleton.Game.WindowInventory.Init(Data().Inventory);
+            Data().inventory = list;
+            Main.Singleton.Game.WindowInventory.Init(Data().inventory);
         }
 
         public void Inventory(PlayerInventory i) {
-            Data().Inventory.Add(i);
-            Main.Singleton.Game.WindowInventory.AddItem(i.DatabaseID, i.Item);
+            Data().inventory.Add(i);
+            Main.Singleton.Game.WindowInventory.AddItem(i.databaseId, i.item);
             
             Main.Singleton.Game.Quest.CheckAll();
         }
@@ -149,14 +149,14 @@ namespace Asgla.Avatar.Player {
         public void InventoryRemove(int databaseId, int quantity) {
             PlayerInventory inventory = Data().InventoryById(databaseId);
 
-            int newQuantity = inventory.Quantity - quantity;
+            int newQuantity = inventory.quantity - quantity;
 
             if (newQuantity > 0) {
                 Debug.Log("1");
                 inventory.DecreaseQuantity(quantity);
                 //TODO: WindowInventory item quantity update
             } else {
-                Data().Inventory.Remove(inventory);
+                Data().inventory.Remove(inventory);
                 Main.Singleton.Game.WindowInventory.RemoveItem(databaseId);
             }
 
@@ -164,9 +164,9 @@ namespace Asgla.Avatar.Player {
         }
 
         public void Equip(EquipPart equip) {
-            if (equip.Type == null || equip.Type.Category != Category.Class) {
-                equip.UniqueID = _loadingCount++;
-                _loadingEquip.Add(equip.UniqueID);
+            if (equip.type == null || equip.type.Category != Category.Class) {
+                equip.uniqueId = _loadingCount++;
+                _loadingEquip.Add(equip.uniqueId);
                 StartCoroutine(AsynchronousLoad(equip));
             }
         }
@@ -205,13 +205,13 @@ namespace Asgla.Avatar.Player {
         public void MoveByClick(Vector2 vector) {
             Move(vector);
 
-            if (Data().Controlling)
+            if (Data().isControlling)
                 Main.Singleton.Request.Send("Move", vector.x.ToString().Replace(",", "."), vector.y.ToString().Replace(",", "."));
         }
 
         #region Abstract
         public override void Stats(AvatarStats stats) {
-            if (Data().Controlling) {
+            if (Data().isControlling) {
                 if (stats.HealthMax >= 0) {
                     Main.Singleton.Game.UnitFramePlayer.Health.SetValueMax(stats.HealthMax);
                 }
@@ -233,9 +233,9 @@ namespace Asgla.Avatar.Player {
         }
 
         public override void State(AvatarState state) {
-            if (state != Data().State && state != AvatarState.NONE) {
-                Data().State = state;
-                switch (Data().State) {
+            if (state != Data().state && state != AvatarState.NONE) {
+                Data().state = state;
+                switch (Data().state) {
                     case AvatarState.NORMAL:
                         Animator().Play("Idle", 0);
                         break;
@@ -277,15 +277,15 @@ namespace Asgla.Avatar.Player {
             _characterView.RepaintTintColor();
         }
 
-        public override int Id() => Data().PlayerID;
+        public override int Id() => Data().playerID;
 
-        public override int DatabaseId() => Data().DatabaseID;
+        public override int DatabaseId() => Data().databaseID;
 
-        public override string Name() => Data().Username;
+        public override string Name() => Data().username;
 
-        public override int Level() => Data().Level;
+        public override int Level() => Data().level;
 
-        public override AvatarState State() => Data().State;
+        public override AvatarState State() => Data().state;
 
         public override EntityType Type() => EntityType.PLAYER;
         #endregion
@@ -313,7 +313,7 @@ namespace Asgla.Avatar.Player {
             if (!manifest.Success)
                 yield break;
 
-            AssetBundleAsync assetBundle = abm.GetBundleAsync(equip.Bundle);
+            AssetBundleAsync assetBundle = abm.GetBundleAsync(equip.bundle);
 
             yield return assetBundle;
 
@@ -331,35 +331,35 @@ namespace Asgla.Avatar.Player {
                 }
             }*/
 
-            AssetBundleRequest asyncAsset = assetBundle.AssetBundle.LoadAssetAsync($"assets/asgla/game/items/{equip.Asset}", typeof(Part));
+            AssetBundleRequest asyncAsset = assetBundle.AssetBundle.LoadAssetAsync($"assets/asgla/game/items/{equip.asset}", typeof(Part));
 
             Part partAsset = asyncAsset.asset as Part;
 
             if (partAsset == null) {
-                Debug.LogErrorFormat("<color=green>[PlayerMain]</color> part null asset: assets/asgla/game/items/{0}, bundle: {1}", equip.Asset, equip.Bundle);
+                Debug.LogErrorFormat("<color=green>[PlayerMain]</color> part null asset: assets/asgla/game/items/{0}, bundle: {1}", equip.asset, equip.bundle);
                 yield break;
             }
 
-            if (equip.Type == null) {
-                _characterView.EquipPart(equip.Equipment, partAsset);
+            if (equip.type == null) {
+                _characterView.EquipPart(equip.equipment, partAsset);
             } else {
                 _loadingBodyStart = true;
 
                 switch (partAsset.category) {
                     case Category.Weapon: {
                         Weapon part = (Weapon)partAsset;
-                        part.weaponCategory = equip.Type.Weapon;
+                        part.weaponCategory = equip.type.Weapon;
 
-                        _characterView.EquipPart(equip.Type.Equipment, part);
+                        _characterView.EquipPart(equip.type.Equipment, part);
                         break;
                     }
                     default:
-                        _characterView.EquipPart(equip.Type.Equipment, partAsset);
+                        _characterView.EquipPart(equip.type.Equipment, partAsset);
                         break;
                 }
             }
 
-            _loadingEquip.Remove(equip.UniqueID);
+            _loadingEquip.Remove(equip.uniqueId);
 
             abm.UnloadBundle(assetBundle.AssetBundle);
 

@@ -73,7 +73,7 @@ namespace Asgla.Quest {
         private bool CheckReq(QuestData quest) {
             foreach ((Requirement requirement, PlayerInventory inventory) in
                 from Requirement requirement in quest.Requirement
-                let inventory = Main.Singleton.AvatarManager.Player.Data().InventoryByItemId(requirement.Item.DatabaseID)
+                let inventory = Main.Singleton.AvatarManager.Player.Data().InventoryByItemId(requirement.Item.databaseId)
                 select (requirement, inventory)) {
 
                 if (inventory == null)
@@ -83,9 +83,9 @@ namespace Asgla.Quest {
                 if (progress != null) {
                     QuestTrackObjective objective = progress.Get(requirement.DatabaseID);
                     if (objective != null) {
-                        objective.UpdateProgress(inventory.Quantity);
+                        objective.UpdateProgress(inventory.quantity);
 
-                        if (inventory.Quantity < requirement.Quantity)
+                        if (inventory.quantity < requirement.Quantity)
                             return false;
                     }
                 }
