@@ -1,0 +1,55 @@
+ManifestFileVersion: 0
+CRC: 1603417309
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: items/head/mouth/mouth1
+      Dependencies: {}
+    Info_1:
+      Name: asset
+      Dependencies: {}
+    Info_2:
+      Name: items/head/nose/nose1
+      Dependencies: {}
+    Info_3:
+      Name: maps/outset/start
+      Dependencies: {}
+    Info_4:
+      Name: items/weapons/sword1
+      Dependencies: {}
+    Info_5:
+      Name: items/head/eye/eye1
+      Dependencies: {}
+    Info_6:
+      Name: items/weapon/one handed/alice
+      Dependencies: {}
+    Info_7:
+      Name: items/head/hair/hair1
+      Dependencies: {}
+    Info_8:
+      Name: maps/outset/outset
+      Dependencies: {}
+    Info_9:
+      Name: items/weapon/one handed/rose
+      Dependencies: {}
+    Info_10:
+      Name: items/head/ear/ear1
+      Dependencies: {}
+    Info_11:
+      Name: items/armor/armor1
+      Dependencies: {}
+    Info_12:
+      Name: maps/outset/hotel
+      Dependencies: {}
+    Info_13:
+      Name: items/armor/armor2
+      Dependencies: {}
+    Info_14:
+      Name: items/armor/armor3
+      Dependencies: {}
+    Info_15:
+      Name: monsters/krystal
+      Dependencies: {}
+    Info_16:
+      Name: maps/outset/outset2
+      Dependencies: {}

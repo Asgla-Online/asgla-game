@@ -1,0 +1,24 @@
+ManifestFileVersion: 0
+CRC: 3311062809
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 7214b84e8d34d556984a3a6d0c31ef66
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1bf2d395bf06ad47685000372f94919b
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 708f561b3a9729047a83a4e9ff185f6f, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Asgla/Game/items/weapon/one handed/rose/rose.png
+- Assets/Asgla/Game/items/weapon/one handed/rose/rose.asset
+Dependencies: []

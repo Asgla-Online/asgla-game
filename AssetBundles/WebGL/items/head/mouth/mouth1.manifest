@@ -1,0 +1,24 @@
+ManifestFileVersion: 0
+CRC: 2574429741
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 66e2a3fdadfe109557b8d9e5136b4139
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 718a5abf08cd888944faab96ce0b2052
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 48fdfdc22b4d4ea4bb8591a7143df3d1, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Asgla/Game/items/head/mouth/mouth1/mouth1.asset
+- Assets/Asgla/Game/items/head/mouth/mouth1/mouth1.png
+Dependencies: []

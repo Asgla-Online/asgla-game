@@ -1,0 +1,69 @@
+ManifestFileVersion: 0
+CRC: 2205523507
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9ef952e3093eb8e998c5e222be3a4be3
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3d43345df84efb97baa586c828b91576
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 60
+  Script: {instanceID: 0}
+- Class: 61
+  Script: {instanceID: 0}
+- Class: 68
+  Script: {instanceID: 0}
+- Class: 82
+  Script: {instanceID: 0}
+- Class: 83
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5fbbf672e6167b04f93b8e67159a9d00, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 80b4e41e49b69134eb54e16c707516ee, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: a6120420c516d304ba0337f36bf7679a, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 16180e0ca81d1084492246ef47ac65ac, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: e9a568e4b67b9374b9ef1aae2623b3d2, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 0161104809714144d8e1208f8c2ee673, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 136
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Asgla/Game/maps/outset/start/start.prefab
+Dependencies: []
