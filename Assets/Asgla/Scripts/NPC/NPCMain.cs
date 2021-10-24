@@ -1,43 +1,67 @@
 ﻿using Asgla.Data.Map;
-using Asgla.Data.NPC;
 using UnityEngine;
 
 namespace Asgla.NPC {
-    public class NPCMain : MonoBehaviour {
+	public class NPCMain : MonoBehaviour {
 
-        [SerializeField] private int _id;
+		[SerializeField] private int _id;
 
-        [SerializeField] private NPCAvatar _avatar;
+		[SerializeField] private NPCAvatar _avatar;
 
-        private MapAreaNPC _data;
+		private MapAreaNPC _data;
 
-        #region Unity
-        private void Start() {
-            _avatar.NPC(this);
-        }
-        #endregion
+		#region Unity
 
-        public void Data(MapAreaNPC data) => _data = data;
+		private void Start() {
+			_avatar.NPC(this);
+		}
 
-        public void Position(Vector2 vector2) => transform.position = vector2;
+		#endregion
 
-        public int AreaId() => _id;// _data.DatabaseID;
+		public void Data(MapAreaNPC data) {
+			_data = data;
+		}
 
-        public int NPCId() => _data.NPC.DatabaseID;
+		public void Position(Vector2 vector2) {
+			transform.position = vector2;
+		}
 
-        public string Name() => _data.NPC.Name;
+		public int AreaId() {
+			return _id;
+			// _data.DatabaseID;
+		}
 
-        public string Description() => _data.NPC.Description;
+		public int NPCId() {
+			return _data.NPC.DatabaseID;
+		}
 
-        public int ShopId() => _data.NPC.ShopID;
+		public string Name() {
+			return _data.NPC.Name;
+		}
 
-        public int QuestId() => _data.NPC.QuestID;
+		public string Description() {
+			return _data.NPC.Description;
+		}
 
-        public Vector2 Position() => transform.position;
+		public int ShopId() {
+			return _data.NPC.ShopID;
+		}
 
-        public GameObject Avatar() => gameObject;
+		public int QuestId() {
+			return _data.NPC.QuestID;
+		}
 
-        public MapAreaNPC Data() => _data;
+		public Vector2 Position() {
+			return transform.position;
+		}
 
-    }
+		public GameObject Avatar() {
+			return gameObject;
+		}
+
+		public MapAreaNPC Data() {
+			return _data;
+		}
+
+	}
 }

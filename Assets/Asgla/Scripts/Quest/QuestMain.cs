@@ -1,98 +1,96 @@
-﻿using Asgla.Data.Player;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Asgla.Data.Player;
 using Asgla.Data.Quest;
 using Asgla.UI.Quest.Track;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 
 namespace Asgla.Quest {
-    public class QuestMain {
+	public class QuestMain {
 
-        private readonly Game Game;
+		private readonly List<QuestData> _completed = new List<QuestData>();
 
-        private List<QuestData> _progress = new List<QuestData>();
+		private readonly List<QuestData> _progress = new List<QuestData>();
 
-        private List<QuestData> _completed = new List<QuestData>();
+		private readonly Game Game;
 
-        public QuestMain(Game game) {
-            Game = game;
-        }
+		public QuestMain(Game game) {
+			Game = game;
+		}
 
-        public bool InProgress(QuestData quest) {
-            return _progress.Where(q => q.DatabaseID == quest.DatabaseID).FirstOrDefault() != null;
-        }
+		public bool InProgress(QuestData quest) {
+			return _progress.Where(q => q.DatabaseID == quest.DatabaseID).FirstOrDefault() != null;
+		}
 
-        public void AddProgress(QuestData quest) {
-            _progress.Add(quest);
+		public void AddProgress(QuestData quest) {
+			_progress.Add(quest);
 
-            if (Game.QuestTrack.Get(quest.DatabaseID) == null)
-                Game.QuestTrack.Add(quest);
-        }
+			if (Game.QuestTrack.Get(quest.DatabaseID) == null)
+				Game.QuestTrack.Add(quest);
+		}
 
-        /**/
-        public void RemoveProgress(QuestData quest) {
-            _progress.Remove(quest);
+		/**/
+		public void RemoveProgress(QuestData quest) {
+			_progress.Remove(quest);
 
-            if (Game.QuestTrack.Get(quest.DatabaseID) != null)
-                Game.QuestTrack.Remove(quest.DatabaseID);
-        }
+			if (Game.QuestTrack.Get(quest.DatabaseID) != null)
+				Game.QuestTrack.Remove(quest.DatabaseID);
+		}
 
-        public void CompleteProgress(QuestData quest) {
-            _progress.Remove(quest);
-            _completed.Add(quest);
-        }
+		public void CompleteProgress(QuestData quest) {
+			_progress.Remove(quest);
+			_completed.Add(quest);
+		}
 
-        public void Turn(QuestData quest) {
-            _completed.Remove(quest);
-            RemoveProgress(quest);
-        }
+		public void Turn(QuestData quest) {
+			_completed.Remove(quest);
+			RemoveProgress(quest);
+		}
 
-        public bool Check(QuestData quest) {
-            if (quest.Requirement.Count == 0)
-                return true;
+		public bool Check(QuestData quest) {
+			if (quest.Requirement.Count == 0)
+				return true;
 
-            return CheckReq(quest);
-        }
+			return CheckReq(quest);
+		}
 
-        public bool CheckAll() {
-            if (_progress.Count == 0)
-                return false;
+		public bool CheckAll() {
+			if (_progress.Count == 0)
+				return false;
 
-            foreach (QuestData quest in _progress) {
-                if (quest.Requirement.Count == 0)
-                    return true;
+			foreach (QuestData quest in _progress) {
+				if (quest.Requirement.Count == 0)
+					return true;
 
-                if (!CheckReq(quest))
-                    return false;
-            }
+				if (!CheckReq(quest))
+					return false;
+			}
 
-            return true;
-        }
+			return true;
+		}
 
-        private bool CheckReq(QuestData quest) {
-            foreach ((Requirement requirement, PlayerInventory inventory) in
-                from Requirement requirement in quest.Requirement
-                let inventory = Main.Singleton.AvatarManager.Player.Data().InventoryByItemId(requirement.Item.databaseId)
-                select (requirement, inventory)) {
+		private bool CheckReq(QuestData quest) {
+			foreach ((Requirement requirement, PlayerInventory inventory) in
+				from Requirement requirement in quest.Requirement
+				let inventory = Main.Singleton.AvatarManager.Player.Data()
+					.InventoryByItemId(requirement.Item.databaseId)
+				select (requirement, inventory)) {
+				if (inventory == null)
+					return false;
 
-                if (inventory == null)
-                    return false;
+				QuestTrackProgress progress = Game.QuestTrack.Get(quest.DatabaseID);
+				if (progress != null) {
+					QuestTrackObjective objective = progress.Get(requirement.DatabaseID);
+					if (objective != null) {
+						objective.UpdateProgress(inventory.quantity);
 
-                QuestTrackProgress progress = Game.QuestTrack.Get(quest.DatabaseID);
-                if (progress != null) {
-                    QuestTrackObjective objective = progress.Get(requirement.DatabaseID);
-                    if (objective != null) {
-                        objective.UpdateProgress(inventory.quantity);
+						if (inventory.quantity < requirement.Quantity)
+							return false;
+					}
+				}
+			}
 
-                        if (inventory.quantity < requirement.Quantity)
-                            return false;
-                    }
-                }
+			return true;
+		}
 
-            }
-            return true;
-        }
-
-    }
+	}
 }

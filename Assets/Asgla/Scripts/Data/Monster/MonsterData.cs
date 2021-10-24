@@ -1,47 +1,49 @@
-﻿using Asgla.Data.Avatar;
+﻿using System;
+using Asgla.Data.Avatar;
 using Asgla.Map;
-using System;
 using Asgla.Requests.Unity;
 
 namespace Asgla.Data.Monster {
 
-    [Serializable]
-    public class MonsterData {
+	[Serializable]
+	public class MonsterData {
 
-        public int UniqueID = -1;
+		public int UniqueID = -1;
 
-        public int DatabaseID = -1;
+		public int DatabaseID = -1;
 
-        public string Name = null;
+		public string Name;
 
-        public string Bundle = null;
-        public string Asset = null;
+		public string Bundle;
+		public string Asset;
 
-        public bool IsAggressive = false;
+		public bool IsAggressive;
 
-        public MoveToLocal Area = null;
+		public double x;
+		public double y;
 
-        public double x;
-        public double y;
+		public int Level;
 
-        public int Level;
+		public AvatarState State = AvatarState.NONE;
 
-        public AvatarState State = AvatarState.NONE;
+		public MoveToLocal Area = null;
 
-        public MapArea MapArea() => Main.Singleton.MapManager.Map.AreaByName(Area.area);
+		public MapArea MapArea() {
+			return Main.Singleton.MapManager.Map.AreaByName(Area.area);
+		}
 
-        public bool IsNeutral() {
-            return State == AvatarState.NORMAL;
-        }
+		public bool IsNeutral() {
+			return State == AvatarState.NORMAL;
+		}
 
-        public bool OnCombat() {
-            return State == AvatarState.COMBAT;
-        }
+		public bool OnCombat() {
+			return State == AvatarState.COMBAT;
+		}
 
-        public bool IsDead() {
-            return State == AvatarState.DEAD;
-        }
+		public bool IsDead() {
+			return State == AvatarState.DEAD;
+		}
 
-    }
+	}
 
 }

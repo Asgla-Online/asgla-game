@@ -4,50 +4,60 @@ using Asgla.Data.Effect;
 using Asgla.Data.Entity;
 using Asgla.Data.Player;
 using Asgla.Data.Skill;
-using Asgla.Data.Type;
-using System.Collections.Generic;
 
 namespace Asgla.Data.Request {
-    public class RequestAvatar {
+	public class RequestAvatar {
 
-        public class DataUpdate2 {
-            public Entity Entity = null;
+		public class DataUpdate2 {
 
-            public AvatarStats Stats = null;
-            public PlayerData Data = null;
-        }
+			public PlayerData Data = null;
+			public Entity Entity = null;
 
-        public class Entity {
-            public int EntityID = -1;
-            public EntityType EntityType;
+			public AvatarStats Stats = null;
 
-            public AvatarMain Avatar => EntityType == EntityType.PLAYER ? (AvatarMain)Main.Singleton.MapManager.PlayerByID(EntityID) : (AvatarMain)Main.Singleton.MapManager.MonsterByID(EntityID);
-        }
+		}
 
-        public class CombatSkill {
-            public int SlotID = -1;
-            public float Cooldown = -1;
-            public float CastTime = -1;
-        }
+		public class Entity {
 
-        public class CombatAnimation {
-            public SkillTarget Target = SkillTarget.TARGET;
+			public int EntityID = -1;
+			public EntityType EntityType;
 
-            public string Area = null;
-            public string Effect = null;
-            public string Animation = null;
+			public AvatarMain Avatar => EntityType == EntityType.PLAYER
+				? Main.Singleton.MapManager.PlayerByID(EntityID)
+				: (AvatarMain) Main.Singleton.MapManager.MonsterByID(EntityID);
 
-            public EffectData EffectData => Main.Singleton.GameAsset.GetByName(Effect);
-        }
+		}
 
-        public class CombatResult {
-            public bool IsDead;
-            public int Damage;
+		public class CombatSkill {
 
-            public SkillDamageType Type;
+			public float CastTime = -1;
+			public float Cooldown = -1;
+			public int SlotID = -1;
 
-            public Entity Entity;
-        }
+		}
 
-    }
+		public class CombatAnimation {
+
+			public string Animation = null;
+
+			public string Area = null;
+			public string Effect = null;
+			public SkillTarget Target = SkillTarget.TARGET;
+
+			public EffectData EffectData => Main.Singleton.GameAsset.GetByName(Effect);
+
+		}
+
+		public class CombatResult {
+
+			public int Damage;
+
+			public Entity Entity;
+			public bool IsDead;
+
+			public SkillDamageType Type;
+
+		}
+
+	}
 }

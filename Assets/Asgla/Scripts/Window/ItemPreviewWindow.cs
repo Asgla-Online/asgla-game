@@ -6,75 +6,79 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-using static Asgla.Data.Request.RequestAvatar;
-
 namespace Asgla.Window {
 
-    [DisallowMultipleComponent, ExecuteInEditMode, RequireComponent(typeof(CanvasGroup))]
-    public class ItemPreviewWindow : UIWindow {
+	[DisallowMultipleComponent]
+	[ExecuteInEditMode]
+	[RequireComponent(typeof(CanvasGroup))]
+	public class ItemPreviewWindow : UIWindow {
 
-        private ItemSlot _slot = null;
+		[SerializeField] private CharacterPreview _characterPreviewPrefab;
 
-        private CharacterPreview _characterPreview = null;
+		[SerializeField] private RawImage _image;
 
-        [SerializeField] private CharacterPreview _characterPreviewPrefab = null;
+		[SerializeField] private TextMeshProUGUI _name;
 
-        [SerializeField] private RawImage _image = null;
+		[SerializeField] private Button _button;
 
-        [SerializeField] private TextMeshProUGUI _name = null;
+		[SerializeField] private TextMeshProUGUI _buttonText;
 
-        [SerializeField] private Button _button = null;
+		private CharacterPreview _characterPreview;
 
-        [SerializeField] private TextMeshProUGUI _buttonText = null;
+		private ItemSlot _slot;
 
-        #region Unity
-        protected override void OnEnable() {
-            base.OnEnable();
+		public void Init(ItemSlot slot) {
+			_slot = slot;
 
-            _button.onClick.AddListener(Click);
-        }
+			_name.text = _slot.Item().name;
 
-        protected override void OnDisable() {
-            base.OnDisable();
+			if (_slot.ButtonText() == "Quest") {
+				_button.gameObject.SetActive(false);
+			} else {
+				_buttonText.text = _slot.ButtonText();
+				_button.gameObject.SetActive(true);
+			}
 
-            _button.onClick.RemoveListener(Click);
-        }
-        #endregion
+			if (_characterPreview == null)
+				_characterPreview = Instantiate(_characterPreviewPrefab);
 
-        public void Init(ItemSlot slot) {
-            _slot = slot;
+			_image.enabled = false;
 
-            _name.text = _slot.Item().name;
+			_characterPreview.SetImage(_image);
 
-            if (_slot.ButtonText() == "Quest")
-                _button.gameObject.SetActive(false);
-            else {
-                _buttonText.text = _slot.ButtonText();
-                _button.gameObject.SetActive(true);
-            }
+			_characterPreview.Equip(new EquipPart {
+				type = _slot.Item().Type,
+				bundle = _slot.Item().bundle,
+				asset = _slot.Item().asset
+			});
 
-            if (_characterPreview == null)
-                _characterPreview = Instantiate(_characterPreviewPrefab);
+			Window().Show();
+		}
 
-            _image.enabled = false;
+		public void CloseEvent() {
+			Destroy(_characterPreview.gameObject);
+		}
 
-            _characterPreview.SetImage(_image);
+		private void Click() {
+			Main.Singleton.Request.Send(_slot.Send(), _slot.Id());
+		}
 
-            _characterPreview.Equip(new EquipPart {
-                type = _slot.Item().Type,
-                bundle = _slot.Item().bundle,
-                asset = _slot.Item().asset
-            });
+		#region Unity
 
-            Window().Show();
-        }
+		protected override void OnEnable() {
+			base.OnEnable();
 
-        public void CloseEvent() => Destroy(_characterPreview.gameObject);
+			_button.onClick.AddListener(Click);
+		}
 
-        private void Click() {
-            Main.Singleton.Request.Send(_slot.Send(), _slot.Id());
-        }
+		protected override void OnDisable() {
+			base.OnDisable();
 
-    }
+			_button.onClick.RemoveListener(Click);
+		}
+
+		#endregion
+
+	}
 
 }

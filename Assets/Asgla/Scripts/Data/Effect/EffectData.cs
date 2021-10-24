@@ -2,12 +2,12 @@
 using UnityEngine;
 
 namespace Asgla.Data.Effect {
-    [Serializable] 
-    public class EffectData {
+	[Serializable]
+	public class EffectData {
 
-        public string Name;
+		public string Name;
 
-        public GameObject Prefab;
+		public GameObject Prefab;
 
-    }
+	}
 }

@@ -1,41 +1,42 @@
-﻿using Asgla.Utility;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 namespace Asgla.UI.Quest {
-    public enum QuestOARColor : int {
-        Requirement,
-        Gold,
-        Experience,
-    }
+	public enum QuestOARColor {
 
-    public class QuestObjectiveAndReward : MonoBehaviour {
+		Requirement,
+		Gold,
+		Experience
 
-        public const string Requirement = "9d9d9dff";
-        public const string Gold = "ffffffff";
-        public const string Experience = "1eff00ff";
+	}
 
-        public static string GetHexColor(QuestOARColor r) {
-            switch (r) {
-                case QuestOARColor.Requirement: return Requirement;
-                case QuestOARColor.Experience: return Experience;
-                case QuestOARColor.Gold: return Gold;
-                default: return Requirement;
-            }
-        }
+	public class QuestObjectiveAndReward : MonoBehaviour {
 
-        [SerializeField] private TextMeshProUGUI _amount = null;
+		public const string Requirement = "9d9d9dff";
+		public const string Gold = "ffffffff";
+		public const string Experience = "1eff00ff";
 
-        [SerializeField] private TextMeshProUGUI _objective = null;
+		[SerializeField] private TextMeshProUGUI _amount;
 
-        public void Init(string n, string amout, string objective, string color) {
-            name = n.ToString();
+		[SerializeField] private TextMeshProUGUI _objective;
 
-            _amount.text = amout;
-            _objective.text = objective;
+		public static string GetHexColor(QuestOARColor r) {
+			switch (r) {
+				case QuestOARColor.Requirement: return Requirement;
+				case QuestOARColor.Experience: return Experience;
+				case QuestOARColor.Gold: return Gold;
+				default: return Requirement;
+			}
+		}
 
-            _objective.color = CommonColorBuffer.StringToColor(color);
-        }
+		public void Init(string n, string amout, string objective, string color) {
+			name = n;
 
-    }
+			_amount.text = amout;
+			_objective.text = objective;
+
+			_objective.color = CommonColorBuffer.StringToColor(color);
+		}
+
+	}
 }

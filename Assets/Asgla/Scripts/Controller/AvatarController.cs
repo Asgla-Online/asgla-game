@@ -1,157 +1,164 @@
-﻿using Asgla.Avatar;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Asgla.Avatar;
 using Asgla.Avatar.Monster;
 using Asgla.Avatar.Player;
-using Asgla.Data.Effect;
 using Asgla.Data.Map;
 using Asgla.Data.Player;
 using Asgla.Data.Skill;
 using Asgla.Data.Type;
 using Asgla.Map;
 using CharacterCreator2D;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-
 using static Asgla.Data.Request.RequestAvatar;
+using Random = System.Random;
 
-namespace Asgla.Controller{
+namespace Asgla.Controller {
 
-    public class AvatarController : Controller {
+	public class AvatarController : Controller {
 
-        public Main Main = null;
+		public Main Main = null;
+		public List<MapAvatar> Monsters = null;
 
-        public Player Player = null;
+		public Player Player;
 
-        public List<MapAvatar> Players = null;
-        public List<MapAvatar> Monsters = null;
+		public List<MapAvatar> Players = null;
 
-        #region Create
-        public void Create(PlayerData data) => Create(data, Main.MapManager.Map);
+		public void SelectTarget(AvatarMain target) {
+			Player.Target(target);
 
-        public void Create(PlayerData data, MapMain map) {
-            //Debug.LogFormat("<color=purple>[PlayerManager]</color> CreatePlayer {0} {1}", data.PlayerID, data.Username);
+			Debug.LogFormat("Select {0}", target.Id());
 
-            MapArea area = map.AreaByName(data.Area.area);
+			target.Utility().SmallUnitFrameOne.gameObject.SetActive(true);
 
-            GameObject clone = Object.Instantiate(Main.PlayerPrefab.gameObject, area.Players());
+			target.Utility().SmallUnitFrameOne.SetLevel(target.Level());
 
-            Player player = clone.GetComponent<Player>();
+			target.Utility().SmallUnitFrameOne.Health.SetValueMax(target.Stats().HealthMax);
+			target.Utility().SmallUnitFrameOne.Health.SetValue(target.Stats().Health);
 
-            if (player == null)
-                return;
+			target.Utility().SmallUnitFrameOne.Energy.SetValueMax(target.Stats().EnergyMax);
+			target.Utility().SmallUnitFrameOne.Energy.SetValue(target.Stats().Energy);
+		}
 
-            player.Data(data);
+		public void Combat(AvatarMain from, AvatarMain target, CombatResult result, CombatAnimation animation) {
+			if (animation.EffectData != null) {
+				if (from.Animator().runtimeAnimatorController != null) {
+					string[] animAr = animation.Animation.Split(',');
 
-            player.Avatar().name = data.playerID.ToString();
+					int toSkip = new Random().Next(0, animAr.Count());
 
-            player.Utility().SetTitle("Explosion");
-            player.Utility().SetName(player.Data().username);
-            player.Utility().SetGuild("Asgla Team");
+					from.Animator().Play(animAr.Skip(toSkip).Take(1).First(), 0);
+				}
 
-            player.CharacterView().SetPartColor(Equipment.BodySkin, ColorCode.Color1, CommonColorBuffer.StringToColor(player.Data().colorSkin));
+				switch (animation.Target) {
+					case SkillTarget.SELF:
+						//from.Attack(from, result.Damage);
+						from.Damaged(result.Damage, result.Type);
+						//targets.Add(from);
+						Main.StartCoroutine(Main.GameAsset.SpawmAsset(animation.EffectData.Prefab, from, from));
+						break;
+					case SkillTarget.TARGET:
+					case SkillTarget.ALLIES:
+						//from.Attack(target, result.Damage);
+						target.Damaged(result.Damage, result.Type);
+						//targets.Add(target);
+						Main.StartCoroutine(Main.GameAsset.SpawmAsset(animation.EffectData.Prefab, from, target));
+						break;
+				}
+			} else {
+				Debug.Log("effectData null");
+			}
+		}
 
-            player.Equip(player.Data().Ear);
-            player.Equip(player.Data().Eye);
-            player.Equip(player.Data().Hair);
-            player.Equip(player.Data().Mouth);
-            player.Equip(player.Data().Nose);
+		#region Create
 
-            player.CharacterView().SetPartColor(Equipment.Eye, ColorCode.Color1, CommonColorBuffer.StringToColor(player.Data().colorEye));
-            player.CharacterView().SetPartColor(Equipment.Hair, ColorCode.Color1, CommonColorBuffer.StringToColor(player.Data().colorHair));
-            player.CharacterView().SetPartColor(Equipment.Mouth, ColorCode.Color1, CommonColorBuffer.StringToColor(player.Data().colorMouth));
-            player.CharacterView().SetPartColor(Equipment.Nose, ColorCode.Color1, CommonColorBuffer.StringToColor(player.Data().colorNose));
+		public void Create(PlayerData data) {
+			Create(data, Main.MapManager.Map);
+		}
 
-            if (data.isControlling) {
-                Player = player;
-                Main.Singleton.Game.CinemachineVirtual.Follow = player.Avatar().transform;
+		public void Create(PlayerData data, MapMain map) {
+			//Debug.LogFormat("<color=purple>[PlayerManager]</color> CreatePlayer {0} {1}", data.PlayerID, data.Username);
 
-                Object.Destroy(Main.Singleton.Game.Camera.GetComponent<AudioListener>());
-                player.Avatar().AddComponent<AudioListener>();
-            }
+			MapArea area = map.AreaByName(data.Area.area);
 
-            Main.MapManager.UpdatePlayerArea(player, area, player.Data().Area.position);
+			GameObject clone = Object.Instantiate(Main.PlayerPrefab.gameObject, area.Players());
 
-            if (data.x != 0 && data.y != 0) {
-                Vector2 pos = new Vector2 { x = (float)data.x, y = (float)data.y };
+			Player player = clone.GetComponent<Player>();
 
-                player.transform.position = pos;
-                player.Position(pos);
+			if (player == null)
+				return;
 
-                player.transform.localPosition = Vector3.zero;
-            }
-        }
+			player.Data(data);
 
-        public void Create(MapMonster data) {
-            //Debug.LogFormat("<color=purple>[PlayerManager]</color> CreatePlayer {0} {1}", data.PlayerID, data.Username);
+			player.Avatar().name = data.playerID.ToString();
 
-            GameObject clone = Object.Instantiate(Main.MonsterPrefab.gameObject, data.Area.Monsters());
+			player.Utility().SetTitle("Explosion");
+			player.Utility().SetName(player.Data().username);
+			player.Utility().SetGuild("Asgla Team");
 
-            Monster monster = clone.GetComponent<Monster>();
+			player.CharacterView().SetPartColor(Equipment.BodySkin, ColorCode.Color1,
+				CommonColorBuffer.StringToColor(player.Data().colorSkin));
 
-            if (monster == null)
-                return;
+			player.Equip(player.Data().Ear);
+			player.Equip(player.Data().Eye);
+			player.Equip(player.Data().Hair);
+			player.Equip(player.Data().Mouth);
+			player.Equip(player.Data().Nose);
 
-            monster.gameObject.SetActive(false);
+			player.CharacterView().SetPartColor(Equipment.Eye, ColorCode.Color1,
+				CommonColorBuffer.StringToColor(player.Data().colorEye));
+			player.CharacterView().SetPartColor(Equipment.Hair, ColorCode.Color1,
+				CommonColorBuffer.StringToColor(player.Data().colorHair));
+			player.CharacterView().SetPartColor(Equipment.Mouth, ColorCode.Color1,
+				CommonColorBuffer.StringToColor(player.Data().colorMouth));
+			player.CharacterView().SetPartColor(Equipment.Nose, ColorCode.Color1,
+				CommonColorBuffer.StringToColor(player.Data().colorNose));
 
-            monster.Data(data.Monster);
-            monster.Stats(data.Stats);
+			if (data.isControlling) {
+				Player = player;
+				Main.Singleton.Game.CinemachineVirtual.Follow = player.Avatar().transform;
 
-            monster.Avatar().name = monster.Data().UniqueID.ToString();
+				Object.Destroy(Main.Singleton.Game.Camera.GetComponent<AudioListener>());
+				player.Avatar().AddComponent<AudioListener>();
+			}
 
-            monster.Utility().SetName(monster.Data().Name);
+			Main.MapManager.UpdatePlayerArea(player, area, player.Data().Area.position);
 
-            Main.StartCoroutine(monster.AsynchronousLoad());
+			if (data.x != 0 && data.y != 0) {
+				Vector2 pos = new Vector2 {x = (float) data.x, y = (float) data.y};
 
-            Main.MapManager.SetMonsterArea(monster, data.Area); //TODO: set unique id
-        }
-        #endregion
+				player.transform.position = pos;
+				player.Position(pos);
 
-        public void SelectTarget(AvatarMain target) {
-            Player.Target(target);
+				player.transform.localPosition = Vector3.zero;
+			}
+		}
 
-            Debug.LogFormat("Select {0}", target.Id());
+		public void Create(MapMonster data) {
+			//Debug.LogFormat("<color=purple>[PlayerManager]</color> CreatePlayer {0} {1}", data.PlayerID, data.Username);
 
-            target.Utility().SmallUnitFrameOne.gameObject.SetActive(true);
+			GameObject clone = Object.Instantiate(Main.MonsterPrefab.gameObject, data.Area.Monsters());
 
-            target.Utility().SmallUnitFrameOne.SetLevel(target.Level());
+			Monster monster = clone.GetComponent<Monster>();
 
-            target.Utility().SmallUnitFrameOne.Health.SetValueMax(target.Stats().HealthMax);
-            target.Utility().SmallUnitFrameOne.Health.SetValue(target.Stats().Health);
+			if (monster == null)
+				return;
 
-            target.Utility().SmallUnitFrameOne.Energy.SetValueMax(target.Stats().EnergyMax);
-            target.Utility().SmallUnitFrameOne.Energy.SetValue(target.Stats().Energy);
-        }
+			monster.gameObject.SetActive(false);
 
-        public void Combat(AvatarMain from, AvatarMain target, CombatResult result, CombatAnimation animation) {
-            if (animation.EffectData != null) {
+			monster.Data(data.Monster);
+			monster.Stats(data.Stats);
 
-                if (from.Animator().runtimeAnimatorController != null) {
-                    string[] animAr = animation.Animation.Split(',');
+			monster.Avatar().name = monster.Data().UniqueID.ToString();
 
-                    int toSkip = new System.Random().Next(0, animAr.Count());
+			monster.Utility().SetName(monster.Data().Name);
 
-                    from.Animator().Play(animAr.Skip(toSkip).Take(1).First(), 0);
-                }
+			Main.StartCoroutine(monster.AsynchronousLoad());
 
-                switch (animation.Target) {
-                    case SkillTarget.SELF:
-                        //from.Attack(from, result.Damage);
-                        from.Damaged(result.Damage, result.Type);
-                        //targets.Add(from);
-                        Main.StartCoroutine(Main.GameAsset.SpawmAsset(animation.EffectData.Prefab, from, from));
-                        break;
-                    case SkillTarget.TARGET:
-                    case SkillTarget.ALLIES:
-                        //from.Attack(target, result.Damage);
-                        target.Damaged(result.Damage, result.Type);
-                        //targets.Add(target);
-                        Main.StartCoroutine(Main.GameAsset.SpawmAsset(animation.EffectData.Prefab, from, target));
-                        break;
-                }
-            } else {
-                Debug.Log("effectData null");
-            }
-        }
+			Main.MapManager.SetMonsterArea(monster, data.Area); //TODO: set unique id
+		}
 
-    }
+		#endregion
+
+	}
 }

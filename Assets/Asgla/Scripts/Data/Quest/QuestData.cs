@@ -1,36 +1,42 @@
-﻿using Asgla.Data.Item;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Asgla.Data.Item;
 
 namespace Asgla.Data.Quest {
 
-    [Serializable]
-    public class QuestData {
-        public int DatabaseID;
+	[Serializable]
+	public class QuestData {
 
-        public string Name;
-        public string Description;
+		public int DatabaseID;
 
-        public int Experience;
-        public int Gold;
+		public string Name;
+		public string Description;
 
-        public List<Reward> Reward;
-        public List<Requirement> Requirement;
-    }
+		public int Experience;
+		public int Gold;
 
-    [Serializable]
-    public class Reward {
-        public int DatabaseID;
+		public List<Reward> Reward;
+		public List<Requirement> Requirement;
 
-        public ItemData Item;
-    }
+	}
 
-    [Serializable]
-    public class Requirement {
-        public int DatabaseID;
-        public int Quantity;
+	[Serializable]
+	public class Reward {
 
-        public ItemData Item;
-    }
+		public int DatabaseID;
+
+		public ItemData Item;
+
+	}
+
+	[Serializable]
+	public class Requirement {
+
+		public int DatabaseID;
+		public int Quantity;
+
+		public ItemData Item;
+
+	}
 
 }

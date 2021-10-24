@@ -5,50 +5,58 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Asgla.Window {
-    [DisallowMultipleComponent, ExecuteInEditMode, RequireComponent(typeof(CanvasGroup))]
-    public class NPCWindow : UIWindow {
+	[DisallowMultipleComponent]
+	[ExecuteInEditMode]
+	[RequireComponent(typeof(CanvasGroup))]
+	public class NPCWindow : UIWindow {
 
-        [SerializeField] private TextMeshProUGUI _name = null;
+		[SerializeField] private TextMeshProUGUI _name;
 
-        [SerializeField] private TextMeshProUGUI _description = null;
+		[SerializeField] private TextMeshProUGUI _description;
 
-        [SerializeField] private Button _quest = null;
+		[SerializeField] private Button _quest;
 
-        [SerializeField] private Button _shop = null;
+		[SerializeField] private Button _shop;
 
-        private NPCMain _npc = null;
+		private NPCMain _npc;
 
-        //[SerializeField] private GameObject _npcImgTemp;
+		//[SerializeField] private GameObject _npcImgTemp;
 
-        #region Unity
-        protected override void Start() {
-            base.Start();
-        }
-        #endregion
+		#region Unity
 
-        public override void Show() {
-            base.Show();
-            //UIUtility.BringToFront(_npcImgTemp);
-            //_npcImgTemp.SetActive(true);
-        }
+		protected override void Start() {
+			base.Start();
+		}
 
-        public override void Hide() {
-            base.Hide();
-            //_npcImgTemp.SetActive(false);
-        }
+		#endregion
 
-        public void Init(NPCMain npc) {
-            _npc = npc;
+		public override void Show() {
+			base.Show();
+			//UIUtility.BringToFront(_npcImgTemp);
+			//_npcImgTemp.SetActive(true);
+		}
 
-            _name.text = _npc.Name();
-            _description.text = _npc.Description();
+		public override void Hide() {
+			base.Hide();
+			//_npcImgTemp.SetActive(false);
+		}
 
-            Show();
-        }
+		public void Init(NPCMain npc) {
+			_npc = npc;
 
-        public void OnShopClick() => Main.Singleton.Request.Send("ShopLoad", _npc.ShopId());
+			_name.text = _npc.Name();
+			_description.text = _npc.Description();
 
-        public void OnQuestClick() => Main.Singleton.Request.Send("QuestLoad", _npc.NPCId());
+			Show();
+		}
 
-    }
+		public void OnShopClick() {
+			Main.Singleton.Request.Send("ShopLoad", _npc.ShopId());
+		}
+
+		public void OnQuestClick() {
+			Main.Singleton.Request.Send("QuestLoad", _npc.NPCId());
+		}
+
+	}
 }

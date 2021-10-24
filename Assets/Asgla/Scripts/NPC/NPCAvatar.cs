@@ -1,39 +1,42 @@
-﻿using Asgla.Utility;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Asgla.NPC {
-    public class NPCAvatar : MonoBehaviour {
+	public class NPCAvatar : MonoBehaviour {
 
-        private SpriteRenderer _sprite;
+		private NPCMain _npc;
 
-        private NPCMain _npc;
+		private SpriteRenderer _sprite;
 
-        #region Unity
-        private void Awake() {
-            _sprite = GetComponent<SpriteRenderer>(); //ye.. ik but fk
-        }
+		public void NPC(NPCMain npc) {
+			_npc = npc;
+		}
 
-        private void OnMouseDown() {
-            _sprite.color = CommonColorBuffer.StringToColor("D9D9D9");
-            Main.Singleton.Game.WindowNPC.Init(_npc);
-        }
+		#region Unity
 
-        private void OnMouseEnter() {
-            Main.Singleton.Walkable = false;
-            _sprite.color = CommonColorBuffer.StringToColor("ECECEC");
-        }
+		private void Awake() {
+			_sprite = GetComponent<SpriteRenderer>(); //ye.. ik but fk
+		}
 
-        private void OnMouseExit() {
-            Main.Singleton.Walkable = true;
-            _sprite.color = Color.white;
-        }
+		private void OnMouseDown() {
+			_sprite.color = CommonColorBuffer.StringToColor("D9D9D9");
+			Main.Singleton.Game.WindowNPC.Init(_npc);
+		}
 
-        private void OnMouseUpAsButton() {
-            _sprite.color = Color.white;
-        }
-        #endregion
+		private void OnMouseEnter() {
+			Main.Singleton.Walkable = false;
+			_sprite.color = CommonColorBuffer.StringToColor("ECECEC");
+		}
 
-        public void NPC(NPCMain npc) => _npc = npc;
+		private void OnMouseExit() {
+			Main.Singleton.Walkable = true;
+			_sprite.color = Color.white;
+		}
 
-    }
+		private void OnMouseUpAsButton() {
+			_sprite.color = Color.white;
+		}
+
+		#endregion
+
+	}
 }

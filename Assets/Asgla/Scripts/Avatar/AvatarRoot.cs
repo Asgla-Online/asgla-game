@@ -1,60 +1,61 @@
-﻿
-using Asgla;
+﻿using Asgla;
 using Asgla.Avatar;
-using Asgla.Avatar.Monster;
-using Asgla.Avatar.Player;
 using UnityEngine;
 
 namespace Assets.Asgla.Scripts.Avatar {
 
-    public abstract class AvatarRoot : MonoBehaviour {
+	public abstract class AvatarRoot : MonoBehaviour {
 
-        protected AvatarMain _avatar;
+		protected AvatarMain _avatar;
 
-        private bool one_click = false;
+		private bool one_click;
 
-        private float time_for_double_click;
+		private float time_for_double_click;
 
-        #region Unity
-        private void OnMouseDown() {
-            float delay = 0.25f;
+		public void Avatar(AvatarMain avatar) {
+			_avatar = avatar;
+		}
 
-            if (!one_click) {
-                time_for_double_click = Time.time;
-                one_click = true;
-            } else if ((Time.time - time_for_double_click) > delay) {
-                time_for_double_click = Time.time;
-            } else {
-                _avatar.Unselect();
-                one_click = false;
-                return;
-            }
+		#region Unity
 
-            Main.Singleton.AvatarManager.SelectTarget(_avatar);
+		private void OnMouseDown() {
+			float delay = 0.25f;
 
-            /*switch (_avatar) {
-                case Player player:
-                    Main.Singleton.SelectPlayer(player);
-                    break;
-                case Monster monster:
-                    Main.Singleton.SelectMonster(monster);
-                    break;
-            }*/
-        }
+			if (!one_click) {
+				time_for_double_click = Time.time;
+				one_click = true;
+			} else if (Time.time - time_for_double_click > delay) {
+				time_for_double_click = Time.time;
+			} else {
+				_avatar.Unselect();
+				one_click = false;
+				return;
+			}
 
-        protected virtual void OnMouseEnter() {
-            Main.Singleton.Walkable = false;
-            //_monster.CharacterView().TintColor = CommonColorBuffer.StringToColor("ECECEC");
-        }
+			Main.Singleton.AvatarManager.SelectTarget(_avatar);
 
-        protected virtual void OnMouseExit() {
-            Main.Singleton.Walkable = true;
-            //_monster.CharacterView().TintColor = Color.white;
-        }
-        #endregion
+			/*switch (_avatar) {
+			    case Player player:
+			        Main.Singleton.SelectPlayer(player);
+			        break;
+			    case Monster monster:
+			        Main.Singleton.SelectMonster(monster);
+			        break;
+			}*/
+		}
 
-        public void Avatar(AvatarMain avatar) => _avatar = avatar;
+		protected virtual void OnMouseEnter() {
+			Main.Singleton.Walkable = false;
+			//_monster.CharacterView().TintColor = CommonColorBuffer.StringToColor("ECECEC");
+		}
 
-    }
+		protected virtual void OnMouseExit() {
+			Main.Singleton.Walkable = true;
+			//_monster.CharacterView().TintColor = Color.white;
+		}
+
+		#endregion
+
+	}
 
 }

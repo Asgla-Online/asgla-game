@@ -1,137 +1,136 @@
-﻿using Asgla.Avatar.Monster;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Asgla.Avatar.Monster;
 using Asgla.Avatar.Player;
 using Asgla.Controller;
 using Asgla.Data;
 using Asgla.Effect;
 using AsglaUI.UI;
 using AssetBundles;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Rendering;
 
 namespace Asgla {
-    public class Main : MonoBehaviour {
+	public class Main : MonoBehaviour {
 
-        public static Main Singleton { get; protected set; }
+		public bool Walkable = true;
 
-        public bool Walkable = true;
+		public Player PlayerPrefab;
+		public Monster MonsterPrefab;
 
-        [HideInInspector] public AssetBundleManager Abm;
+		[SerializeField] private GameObject _loadingOverlay;
 
-        private Game _game = null;
+		#region Base
 
-        private readonly Network _network = new Network();
-        private readonly RequestController _request = new RequestController();
+		[SerializeField] private List<URPA> _universalRenderPipelineAsset;
 
-        private readonly AvatarController _avatarManager = new AvatarController();
-        private readonly MapController _mapManager = new MapController();
-        private readonly UIController _uiManager = new UIController();
+		#endregion
 
-        public Player PlayerPrefab;
-        public Monster MonsterPrefab;
+		[HideInInspector] public AssetBundleManager Abm;
 
-        [SerializeField] private GameObject _loadingOverlay = null;
+		public static Main Singleton { get; protected set; }
 
-        #region Base
-        [SerializeField] private List<URPA> _universalRenderPipelineAsset = null;
-        #endregion
+		public Game Game { get; private set; }
 
-        #region Game Information
-        public readonly string url_base = "https://asgla.online/";
-        public readonly string url_login = "https://asgla.online/api/game/login";
-        public readonly string url_bundle = "https://asgla.online/gamebundles";
+		public Network Network { get; } = new Network();
 
-        private EffectMain _gameAssetBundle = null;
-        [SerializeField] private AudioMixerGroup _audioMixer = null;
+		public RequestController Request { get; } = new RequestController();
 
-        public readonly int SceneLogin = 0;
-        //public readonly int SceneCharacterSelect = 1;
-        public readonly int SceneGame = 1;
-        //public readonly int SceneRegister = 3;
-        #endregion
+		public AvatarController AvatarManager { get; } = new AvatarController();
 
-        #region Unity
-        private void Awake() {
-            Application.runInBackground = true;
-            Screen.sleepTimeout = SleepTimeout.NeverSleep;
-            //Application.targetFrameRate = 60;
+		public MapController MapManager { get; } = new MapController();
 
-            Debug.LogFormat("Build target {0}", Application.platform);
+		public UIController UIManager { get; } = new UIController();
 
-            if (Singleton != null) {
-                Destroy(gameObject);
-                return;
-            }
+		public GameObject Loading => _loadingOverlay;
 
-            DontDestroyOnLoad(gameObject);
+		public List<URPA> URPA => _universalRenderPipelineAsset;
 
-            Singleton = this;
+		public EffectMain GameAsset { get; private set; }
 
-            _network.Main = this;
-            _request.Main = this;
+		public AudioMixerGroup AudioMixer => _audioMixer;
 
-            _avatarManager.Main = this;
-            _mapManager.Main = this;
-            _uiManager.Main = this;
+		#region Unity
 
-            GraphicsSettings.renderPipelineAsset = _universalRenderPipelineAsset.First().asset;
+		private void Awake() {
+			Application.runInBackground = true;
+			Screen.sleepTimeout = SleepTimeout.NeverSleep;
+			//Application.targetFrameRate = 60;
 
-            //Volume
-            float volume = PlayerPrefs.HasKey("volumeMain") ? PlayerPrefs.GetFloat("volumeMain") : 0.15f;
+			Debug.LogFormat("Build target {0}", Application.platform);
 
-            _audioMixer.audioMixer.SetFloat("volume", Mathf.Log10(volume) * 20);
-            PlayerPrefs.SetFloat("volumeMain", volume);
+			if (Singleton != null) {
+				Destroy(gameObject);
+				return;
+			}
 
-            PlayerPrefs.Save();
+			DontDestroyOnLoad(gameObject);
 
-            #if UNITY_EDITOR
-            Debug.unityLogger.logEnabled = true;
-            #else
+			Singleton = this;
+
+			Network.Main = this;
+			Request.Main = this;
+
+			AvatarManager.Main = this;
+			MapManager.Main = this;
+			UIManager.Main = this;
+
+			GraphicsSettings.renderPipelineAsset = _universalRenderPipelineAsset.First().asset;
+
+			//Volume
+			float volume = PlayerPrefs.HasKey("volumeMain") ? PlayerPrefs.GetFloat("volumeMain") : 0.15f;
+
+			_audioMixer.audioMixer.SetFloat("volume", Mathf.Log10(volume) * 20);
+			PlayerPrefs.SetFloat("volumeMain", volume);
+
+			PlayerPrefs.Save();
+
+#if UNITY_EDITOR
+			Debug.unityLogger.logEnabled = true;
+#else
             Debug.unityLogger.logEnabled = false;
-            #endif
+#endif
 
-            /*if (Caching.ClearCache()) {
-                Debug.Log("Successfully cleaned the cache.");
-            } else {
-                Debug.Log("Cache is being used.");
-            }*/
-        }
-        #endregion
+			/*if (Caching.ClearCache()) {
+			    Debug.Log("Successfully cleaned the cache.");
+			} else {
+			    Debug.Log("Cache is being used.");
+			}*/
+		}
 
-        public Game Game => _game;
+		#endregion
 
-        public Network Network => _network;
+		public void SetGame(Game game) {
+			Game = game;
+		}
 
-        public RequestController Request => _request;
+		public void SetGameAsset(GameObject go) {
+			//if (_gameAssetBundle != null)
+			//    Destroy(_gameAssetBundle.gameObject);
+			GameAsset = go.GetComponent<EffectMain>();
+		}
 
-        public AvatarController AvatarManager => _avatarManager;
+		public void Login(UIModalBox modal, string token) {
+			UIManager.Modal = modal;
+			Network.ConnectToServer(token);
+		}
 
-        public MapController MapManager => _mapManager;
+		#region Game Information
 
-        public UIController UIManager => _uiManager;
+		public readonly string url_base = "https://asgla.online/";
+		public readonly string url_login = "https://asgla.online/api/game/login";
+		public readonly string url_bundle = "https://asgla.online/gamebundles";
 
-        public GameObject Loading => _loadingOverlay;
+		[SerializeField] private AudioMixerGroup _audioMixer;
 
-        public List<URPA> URPA => _universalRenderPipelineAsset;
+		public readonly int SceneLogin = 0;
 
-        public EffectMain GameAsset => _gameAssetBundle;
+		//public readonly int SceneCharacterSelect = 1;
+		public readonly int SceneGame = 1;
+		//public readonly int SceneRegister = 3;
 
-        public AudioMixerGroup AudioMixer => _audioMixer;
+		#endregion
 
-        public void SetGame(Game game) => _game = game;
-
-        public void SetGameAsset(GameObject go) {
-            //if (_gameAssetBundle != null)
-            //    Destroy(_gameAssetBundle.gameObject);
-            _gameAssetBundle = go.GetComponent<EffectMain>();
-        }
-
-        public void Login(UIModalBox modal, string token) {
-            UIManager.Modal = modal;
-            Network.ConnectToServer(token);
-        }
-
-    }
+	}
 }

@@ -1,47 +1,49 @@
-﻿using AsglaUI.UI;
-using System.Collections;
+﻿using System.Collections;
+using AsglaUI.UI;
 using TMPro;
 using UnityEngine;
 
 namespace Asgla.UI {
-    [DisallowMultipleComponent, ExecuteInEditMode, RequireComponent(typeof(CanvasGroup))]
-    public class Notification : UIWindow {
+	[DisallowMultipleComponent]
+	[ExecuteInEditMode]
+	[RequireComponent(typeof(CanvasGroup))]
+	public class Notification : UIWindow {
 
-        [SerializeField] private TextMeshProUGUI _title = null;
+		[SerializeField] private TextMeshProUGUI _title;
 
-        [SerializeField] private TextMeshProUGUI _description = null;
+		[SerializeField] private TextMeshProUGUI _description;
 
-        private Coroutine _coroutine = null;
+		private Coroutine _coroutine;
 
-        private bool _running = false;
+		private bool _running;
 
-        public void Init(string title, string description) {
-            if (title == null)
-                _title.gameObject.SetActive(false);
-            else {
-                _title.gameObject.SetActive(true);
-                _title.text = title;
-            }
+		public void Init(string title, string description) {
+			if (title == null) {
+				_title.gameObject.SetActive(false);
+			} else {
+				_title.gameObject.SetActive(true);
+				_title.text = title;
+			}
 
-            _description.text = description;
+			_description.text = description;
 
-            Show();
+			Show();
 
-            if (_running)
-                StopCoroutine(_coroutine);
+			if (_running)
+				StopCoroutine(_coroutine);
 
-            _coroutine = StartCoroutine(DoSomething());
-        }
+			_coroutine = StartCoroutine(DoSomething());
+		}
 
-        private IEnumerator DoSomething() {
-            _running = true;
+		private IEnumerator DoSomething() {
+			_running = true;
 
-            //Wait
-            yield return new WaitForSecondsRealtime(3);
+			//Wait
+			yield return new WaitForSecondsRealtime(3);
 
-            Hide();
-            _running = false;
-        }
+			Hide();
+			_running = false;
+		}
 
-    }
+	}
 }

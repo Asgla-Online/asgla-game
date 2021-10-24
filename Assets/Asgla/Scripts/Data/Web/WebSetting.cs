@@ -1,29 +1,35 @@
 ﻿using System.Collections.Generic;
 
 namespace Asgla.Data.Web {
-    public class WebSetting {
+	public class WebSetting {
 
-        public class LoginWebRequest {
-            public string Message;
+		public class LoginWebRequest {
 
-            public List<Server> servers;
-            public User user;
-        }
+			public string Message;
 
-        public class Server {
-            public string Name;
-            public string IP;
+			public List<Server> servers;
+			public User user;
 
-            public int Port;
-            public int Count;
-            public int HighestCount;
-            public int Max;
-        }
+		}
 
-        public class User {
-            public string Username;
-            public string Token;
-        }
+		public class Server {
 
-    }
+			public int Count;
+			public int HighestCount;
+			public string IP;
+			public int Max;
+			public string Name;
+
+			public int Port;
+
+		}
+
+		public class User {
+
+			public string Token;
+			public string Username;
+
+		}
+
+	}
 }

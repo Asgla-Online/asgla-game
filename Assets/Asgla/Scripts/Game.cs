@@ -1,4 +1,5 @@
-﻿using Asgla.Data.Map;
+﻿using System.Collections.Generic;
+using Asgla.Data.Map;
 using Asgla.Quest;
 using Asgla.Skill;
 using Asgla.UI;
@@ -9,152 +10,150 @@ using Asgla.UI.UnitFrame;
 using Asgla.Window;
 using AsglaUI.UI;
 using Cinemachine;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Asgla {
-    public class Game : MonoBehaviour {
+	public class Game : MonoBehaviour {
 
-        #region Camera
-        [SerializeField] private Camera _camera = null;
+		[SerializeField] private QuestTracker _questTrack;
 
-        [HideInInspector] private CinemachineVirtualCamera _cinemachineVirtual = null;
+		#region Camera
 
-        [HideInInspector] private CinemachineConfiner _cinemachineConfiner = null;
-        #endregion
+		[SerializeField] private Camera _camera;
 
-        private QuestMain _quest = null;
+		#endregion
 
-        [SerializeField] private QuestTracker _questTrack = null;
+		public Camera Camera => _camera;
 
-        #region UI
-        [Header("Unit Frame")]
-        [SerializeField] private UnitFrameBig _unitFramePlayer = null;
-        [SerializeField] private UnitFrameBig _unitFrameTarget = null;
+		[field: HideInInspector] public CinemachineVirtualCamera CinemachineVirtual { get; private set; }
 
-        [Header("Window")]
-        [SerializeField] private InventoryWindow _windowInventory = null;
-        [SerializeField] private ItemPreviewWindow _windowItemPreview = null;
-        [SerializeField] private NPCWindow _windowNPC = null;
-        [SerializeField] private QuestWindow _windowQuest = null;
-        [SerializeField] private RespawnWindow _windowRespawn = null;
-        [SerializeField] private SettingWindow _windowSetting = null;
-        [SerializeField] private ShopWindow _windowShop = null;
+		[field: HideInInspector] public CinemachineConfiner CinemachineConfiner { get; private set; }
 
-        [Header("Bar")]
-        [SerializeField] private ActionBar _actionBar = null;
-        [SerializeField] private UICastBar _castBar = null;
+		public QuestMain Quest { get; private set; }
 
-        [SerializeField] private Chat _chat = null;
+		public QuestTracker QuestTrack => _questTrack;
 
-        [Header("Notification")]
-        [SerializeField] private Notification _notificationTop = null;
-        [SerializeField] private Notification _notificationMiddle = null;
-        #endregion
+		public UnitFrameBig UnitFramePlayer => _unitFramePlayer;
 
-        #region Unity
-        private void Awake() {
-            Transform cinemachine = _camera.transform.GetChild(0);
+		public UnitFrameBig UnitFrameTarget => _unitFrameTarget;
 
-            //Debug.Log(cinemachine.name);
+		public ActionBar ActionBar => _actionBar;
 
-            _cinemachineVirtual = cinemachine.GetComponent<CinemachineVirtualCamera>();
-            _cinemachineConfiner = cinemachine.GetComponent<CinemachineConfiner>();
+		public UICastBar CastBar => _castBar;
 
-            Main.Singleton.SetGame(this);
+		public Chat Chat => _chat;
 
-            Main.Singleton.AvatarManager.Players = new List<MapAvatar>();
-            Main.Singleton.AvatarManager.Monsters = new List<MapAvatar>();
+		public Notification NotificationTop => _notificationTop;
 
-            _quest = new QuestMain(this);
+		public Notification NotificationMiddle => _notificationMiddle;
 
-            _unitFrameTarget.gameObject.SetActive(false); //testing
-        }
+		public void Logout() {
+			Main.Singleton.Network.Connection.Close();
+		}
 
-        private void Start() {
-            LoadingAssetOverlay loadingAsset = Main.Singleton.UIManager.CreateLoadingAsset();
+		#region UI
 
-            if (loadingAsset == null)
-                Main.Singleton.UIManager.LoadingOverlay.SetLoadingText("Error(Null Asset) loading asset, please contact Asgla Team.");
+		[Header("Unit Frame")] [SerializeField]
+		private UnitFrameBig _unitFramePlayer;
 
-            loadingAsset.LoadAsset();
-            //Main.Singleton.Request.Send("JoinFirst");
-        }
+		[SerializeField] private UnitFrameBig _unitFrameTarget;
 
-        private void Update() {
-            /*RaycastHit2D hit;
+		[Header("Window")] [SerializeField] private InventoryWindow _windowInventory;
 
-            Ray ray = Camera.ScreenPointToRay(Input.mousePosition);
-            if (hit = Physics2D.Raycast(ray.origin, new Vector2(0, 0)))
-                Debug.Log(hit.collider.name);*/
+		[SerializeField] private ItemPreviewWindow _windowItemPreview;
+		[SerializeField] private NPCWindow _windowNPC;
+		[SerializeField] private QuestWindow _windowQuest;
+		[SerializeField] private RespawnWindow _windowRespawn;
+		[SerializeField] private SettingWindow _windowSetting;
+		[SerializeField] private ShopWindow _windowShop;
 
-            //TODO: Replace? this look bad
-            if (!Chat.ChatInput.isFocused) {
-                if (Input.GetKeyDown(KeyCode.Alpha1)) {
-                    ActionBar.OnSkillClick(SkillMain.GetSlot(1, SkillMain_Group.Skill));
-                }
-                if (Input.GetKeyDown(KeyCode.Alpha2)) {
-                    ActionBar.OnSkillClick(SkillMain.GetSlot(2, SkillMain_Group.Skill));
-                }
-                if (Input.GetKeyDown(KeyCode.Alpha3)) {
-                    ActionBar.OnSkillClick(SkillMain.GetSlot(3, SkillMain_Group.Skill));
-                }
-                if (Input.GetKeyDown(KeyCode.Alpha4)) {
-                    ActionBar.OnSkillClick(SkillMain.GetSlot(4, SkillMain_Group.Skill));
-                }
-                if (Input.GetKeyDown(KeyCode.Alpha5)) {
-                    ActionBar.OnSkillClick(SkillMain.GetSlot(5, SkillMain_Group.Skill));
-                }
-                if (Input.GetKeyDown(KeyCode.Return)) {
-                    Chat.ChatInput.Select();
-                }
-            }
-        }
-        #endregion
+		[Header("Bar")] [SerializeField] private ActionBar _actionBar;
 
-        public Camera Camera => _camera;
+		[SerializeField] private UICastBar _castBar;
 
-        public CinemachineVirtualCamera CinemachineVirtual => _cinemachineVirtual;
+		[SerializeField] private Chat _chat;
 
-        public CinemachineConfiner CinemachineConfiner => _cinemachineConfiner;
+		[Header("Notification")] [SerializeField]
+		private Notification _notificationTop;
 
-        public QuestMain Quest => _quest;
+		[SerializeField] private Notification _notificationMiddle;
 
-        public QuestTracker QuestTrack => _questTrack;
+		#endregion
 
-        public UnitFrameBig UnitFramePlayer => _unitFramePlayer;
+		#region Unity
 
-        public UnitFrameBig UnitFrameTarget => _unitFrameTarget;
+		private void Awake() {
+			Transform cinemachine = _camera.transform.GetChild(0);
 
-        #region Window
-        public InventoryWindow WindowInventory => _windowInventory;
+			//Debug.Log(cinemachine.name);
 
-        public ItemPreviewWindow WindowItemPreview => _windowItemPreview;
+			CinemachineVirtual = cinemachine.GetComponent<CinemachineVirtualCamera>();
+			CinemachineConfiner = cinemachine.GetComponent<CinemachineConfiner>();
 
-        public NPCWindow WindowNPC => _windowNPC;
+			Main.Singleton.SetGame(this);
 
-        public RespawnWindow WindowRespawn => _windowRespawn;
+			Main.Singleton.AvatarManager.Players = new List<MapAvatar>();
+			Main.Singleton.AvatarManager.Monsters = new List<MapAvatar>();
 
-        public QuestWindow WindowQuest => _windowQuest;
+			Quest = new QuestMain(this);
 
-        public SettingWindow WindowSetting => _windowSetting;
+			_unitFrameTarget.gameObject.SetActive(false); //testing
+		}
 
-        public ShopWindow WindowShop => _windowShop;
-        #endregion
+		private void Start() {
+			LoadingAssetOverlay loadingAsset = Main.Singleton.UIManager.CreateLoadingAsset();
 
-        public ActionBar ActionBar => _actionBar;
+			if (loadingAsset == null)
+				Main.Singleton.UIManager.LoadingOverlay.SetLoadingText(
+					"Error(Null Asset) loading asset, please contact Asgla Team.");
 
-        public UICastBar CastBar => _castBar;
+			loadingAsset.LoadAsset();
+			//Main.Singleton.Request.Send("JoinFirst");
+		}
 
-        public Chat Chat => _chat;
+		private void Update() {
+			/*RaycastHit2D hit;
 
-        public Notification NotificationTop => _notificationTop;
+			Ray ray = Camera.ScreenPointToRay(Input.mousePosition);
+			if (hit = Physics2D.Raycast(ray.origin, new Vector2(0, 0)))
+			    Debug.Log(hit.collider.name);*/
 
-        public Notification NotificationMiddle => _notificationMiddle;
+			//TODO: Replace? this look bad
+			if (!Chat.ChatInput.isFocused) {
+				if (Input.GetKeyDown(KeyCode.Alpha1))
+					ActionBar.OnSkillClick(SkillMain.GetSlot(1, SkillMain_Group.Skill));
+				if (Input.GetKeyDown(KeyCode.Alpha2))
+					ActionBar.OnSkillClick(SkillMain.GetSlot(2, SkillMain_Group.Skill));
+				if (Input.GetKeyDown(KeyCode.Alpha3))
+					ActionBar.OnSkillClick(SkillMain.GetSlot(3, SkillMain_Group.Skill));
+				if (Input.GetKeyDown(KeyCode.Alpha4))
+					ActionBar.OnSkillClick(SkillMain.GetSlot(4, SkillMain_Group.Skill));
+				if (Input.GetKeyDown(KeyCode.Alpha5))
+					ActionBar.OnSkillClick(SkillMain.GetSlot(5, SkillMain_Group.Skill));
+				if (Input.GetKeyDown(KeyCode.Return))
+					Chat.ChatInput.Select();
+			}
+		}
 
-        public void Logout() {
-            Main.Singleton.Network.Connection.Close();
-        }
+		#endregion
 
-    }
+		#region Window
+
+		public InventoryWindow WindowInventory => _windowInventory;
+
+		public ItemPreviewWindow WindowItemPreview => _windowItemPreview;
+
+		public NPCWindow WindowNPC => _windowNPC;
+
+		public RespawnWindow WindowRespawn => _windowRespawn;
+
+		public QuestWindow WindowQuest => _windowQuest;
+
+		public SettingWindow WindowSetting => _windowSetting;
+
+		public ShopWindow WindowShop => _windowShop;
+
+		#endregion
+
+	}
 }

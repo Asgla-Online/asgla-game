@@ -2,73 +2,72 @@
 using Asgla.Data.Entity;
 using Asgla.Data.Skill;
 using Asgla.Map;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Asgla.Avatar {
-    public interface IAvatar {
+	public interface IAvatar {
 
-        void Stats(AvatarStats stats);
+		void Stats(AvatarStats stats);
 
-        void State(AvatarState state);
+		void State(AvatarState state);
 
-        void Area(MapArea area);
+		void Area(MapArea area);
 
-        void Move(Vector2 vector);
+		void Move(Vector2 vector);
 
-        void Position(Vector2 vector2);
+		void Position(Vector2 vector2);
 
-        void Scale(float scale);
+		void Scale(float scale);
 
-        void OnDeath();
+		void OnDeath();
 
-        void Attack(AvatarMain avatar, int damage);
+		void Attack(AvatarMain avatar, int damage);
 
-        void Damaged(int damage, SkillDamageType type);
+		void Damaged(int damage, SkillDamageType type);
 
-        void PlayAnimation(bool play);
+		void PlayAnimation(bool play);
 
-        void Flip(bool flip);
+		void Flip(bool flip);
 
-        //void Target(AvatarMain target);
+		//void Target(AvatarMain target);
 
-        //void TargetReset();
+		//void TargetReset();
 
-        //void TargetAdd(AvatarMain target);
+		//void TargetAdd(AvatarMain target);
 
-        //void TargetRemove();
+		//void TargetRemove();
 
-        int Id();
+		int Id();
 
-        int DatabaseId();
+		int DatabaseId();
 
-        string Name();
+		string Name();
 
-        int Level();
+		int Level();
 
-        AvatarStats Stats();
+		AvatarStats Stats();
 
-        AvatarState State();
+		AvatarState State();
 
-        EntityType Type();
+		EntityType Type();
 
-        MapArea Area();
+		MapArea Area();
 
-        Vector2 Position();
+		Vector2 Position();
 
-        float Scale();
+		float Scale();
 
-        GameObject Avatar();
+		GameObject Avatar();
 
-        Animator Animator();
+		Animator Animator();
 
-        Rigidbody2D Body();
+		Rigidbody2D Body();
 
-        //AvatarMain Target();
+		//AvatarMain Target();
 
-        //HashSet<AvatarMain> Targets();
+		//HashSet<AvatarMain> Targets();
 
-        bool IsNear(AvatarMain avatar, double range);
+		bool IsNear(AvatarMain avatar, double range);
 
-    }
+	}
 }

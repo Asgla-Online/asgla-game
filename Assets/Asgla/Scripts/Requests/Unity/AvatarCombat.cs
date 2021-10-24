@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Asgla.Avatar;
 using Asgla.Avatar.Player;
-using Asgla.Data.Avatar;
 using Asgla.Data.Request;
 using Asgla.Skill;
 using AsglaUI.UI;
@@ -11,83 +10,81 @@ using UnityEngine;
 
 namespace Asgla.Requests.Unity {
 	public class AvatarCombat : IRequest {
-		
-		// ReSharper disable once InconsistentNaming UnassignedField.Global MemberCanBePrivate.Global CollectionNeverUpdated.Global FieldCanBeMadeReadOnly.Global ConvertToConstant.Global
-		public string Message = null;
-		
-		// ReSharper disable once InconsistentNaming UnassignedField.Global MemberCanBePrivate.Global CollectionNeverUpdated.Global FieldCanBeMadeReadOnly.Global ConvertToConstant.Global
-		public RequestAvatar.CombatSkill Skill = null;
-		
-		// ReSharper disable once InconsistentNaming UnassignedField.Global MemberCanBePrivate.Global CollectionNeverUpdated.Global FieldCanBeMadeReadOnly.Global ConvertToConstant.Global
-		public RequestAvatar.Entity Entity = null;
-		
+
 		// ReSharper disable once InconsistentNaming UnassignedField.Global MemberCanBePrivate.Global CollectionNeverUpdated.Global FieldCanBeMadeReadOnly.Global ConvertToConstant.Global
 		public RequestAvatar.CombatAnimation Animation = null;
-		
+
+		// ReSharper disable once InconsistentNaming UnassignedField.Global MemberCanBePrivate.Global CollectionNeverUpdated.Global FieldCanBeMadeReadOnly.Global ConvertToConstant.Global
+		public RequestAvatar.Entity Entity = null;
+
+		// ReSharper disable once InconsistentNaming UnassignedField.Global MemberCanBePrivate.Global CollectionNeverUpdated.Global FieldCanBeMadeReadOnly.Global ConvertToConstant.Global
+		public string Message = null;
+
 		// ReSharper disable once InconsistentNaming UnassignedField.Global MemberCanBePrivate.Global CollectionNeverUpdated.Global FieldCanBeMadeReadOnly.Global ConvertToConstant.Global
 		public List<RequestAvatar.CombatResult> Result = null;
 
+		// ReSharper disable once InconsistentNaming UnassignedField.Global MemberCanBePrivate.Global CollectionNeverUpdated.Global FieldCanBeMadeReadOnly.Global ConvertToConstant.Global
+		public RequestAvatar.CombatSkill Skill = null;
+
 		public void onRequest(Main main, string json) {
 			AvatarCombat avatarCombat = JsonMapper.ToObject<AvatarCombat>(json);
-			
-            SkillMain skill = main.Game.ActionBar.GetSkillBySlotID(avatarCombat.Skill.SlotID);
 
-            //reset skill cooldown
-            if (avatarCombat.Message != null) {
-	            main.Game.Chat.ReceiveChatMessage(
-                    1,
-                    $"<size=22>{DateTime.Now.ToShortTimeString()}</size> <b><color=#{CommonColorBuffer.ColorToString(Color.red)}>{"game"}</color></b> <color=#{CommonColorBuffer.ColorToString(Color.white)}>{avatarCombat.Message}</color>"
-                );
+			SkillMain skill = main.Game.ActionBar.GetSkillBySlotID(avatarCombat.Skill.SlotID);
 
-                UISlotCooldown.CooldownInfo cooldownInfo = new UISlotCooldown.CooldownInfo(0f, Time.time, Time.time);
+			//reset skill cooldown
+			if (avatarCombat.Message != null) {
+				main.Game.Chat.ReceiveChatMessage(
+					1,
+					$"<size=22>{DateTime.Now.ToShortTimeString()}</size> <b><color=#{CommonColorBuffer.ColorToString(Color.red)}>{"game"}</color></b> <color=#{CommonColorBuffer.ColorToString(Color.white)}>{avatarCombat.Message}</color>"
+				);
 
-                // Save that this spell is on cooldown
-                if (!skill.cooldownComponent.Cooldowns().ContainsKey(avatarCombat.Skill.SlotID)) {
-	                skill.cooldownComponent.Cooldowns().Add(avatarCombat.Skill.SlotID, cooldownInfo);
-                }
+				UISlotCooldown.CooldownInfo cooldownInfo = new UISlotCooldown.CooldownInfo(0f, Time.time, Time.time);
 
-                // Start the coroutine
-                skill.cooldownComponent.StartCooldownCoroutine(cooldownInfo);
-                return;
-            }
+				// Save that this spell is on cooldown
+				if (!skill.cooldownComponent.Cooldowns().ContainsKey(avatarCombat.Skill.SlotID))
+					skill.cooldownComponent.Cooldowns().Add(avatarCombat.Skill.SlotID, cooldownInfo);
 
-            AvatarMain from = avatarCombat.Entity.Avatar; //TODO: Find Monster
+				// Start the coroutine
+				skill.cooldownComponent.StartCooldownCoroutine(cooldownInfo);
+				return;
+			}
 
-            if (from is null) {
-	            return;
-            }
+			AvatarMain from = avatarCombat.Entity.Avatar; //TODO: Find Monster
 
-            //Debug.LogFormat("AvatarCombat PlayerMain {0}", c.Skill.SlotID);
+			if (from is null)
+				return;
 
-            if (from is Player p) {
-                if (p.Data().isControlling) {
-                    //SkillData skillInfo = skill.GetSkillData();
+			//Debug.LogFormat("AvatarCombat PlayerMain {0}", c.Skill.SlotID);
 
-                    //if (skillInfo.CastType == SkillCastType.CAST)
-                    //    Main.Game.CastBar.StartCasting(skillInfo, skillInfo.CastTime, Time.time + skillInfo.CastTime);
+			if (from is Player p)
+				if (p.Data().isControlling) {
+					//SkillData skillInfo = skill.GetSkillData();
 
-                    UISlotCooldown.CooldownInfo cooldownInfo = new UISlotCooldown.CooldownInfo(avatarCombat.Skill.Cooldown, Time.time, (Time.time + avatarCombat.Skill.Cooldown));
+					//if (skillInfo.CastType == SkillCastType.CAST)
+					//    Main.Game.CastBar.StartCasting(skillInfo, skillInfo.CastTime, Time.time + skillInfo.CastTime);
 
-                    // Save that this spell is on cooldown
-                    if (!skill.cooldownComponent.Cooldowns().ContainsKey(avatarCombat.Skill.SlotID))
-                        skill.cooldownComponent.Cooldowns().Add(avatarCombat.Skill.SlotID, cooldownInfo);
+					UISlotCooldown.CooldownInfo cooldownInfo = new UISlotCooldown.CooldownInfo(
+						avatarCombat.Skill.Cooldown, Time.time,
+						Time.time + avatarCombat.Skill.Cooldown);
 
-                    // Start the coroutine
-                    skill.cooldownComponent.StartCooldownCoroutine(cooldownInfo);
-                }
-            }
+					// Save that this spell is on cooldown
+					if (!skill.cooldownComponent.Cooldowns().ContainsKey(avatarCombat.Skill.SlotID))
+						skill.cooldownComponent.Cooldowns().Add(avatarCombat.Skill.SlotID, cooldownInfo);
 
-            //TODO: Check if target/select exist in current player if not add.
+					// Start the coroutine
+					skill.cooldownComponent.StartCooldownCoroutine(cooldownInfo);
+				}
 
-            foreach (RequestAvatar.CombatResult result in avatarCombat.Result) {
-                AvatarMain target = result.Entity.Avatar;
+			//TODO: Check if target/select exist in current player if not add.
 
-                if (target is null) {
-	                continue;
-                }
+			foreach (RequestAvatar.CombatResult result in avatarCombat.Result) {
+				AvatarMain target = result.Entity.Avatar;
 
-                main.AvatarManager.Combat(from, target, result, avatarCombat.Animation);
-            }
+				if (target is null)
+					continue;
+
+				main.AvatarManager.Combat(from, target, result, avatarCombat.Animation);
+			}
 		}
 
 	}

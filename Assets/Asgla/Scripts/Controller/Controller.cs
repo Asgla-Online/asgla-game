@@ -1,9 +1,9 @@
 ﻿namespace Asgla.Controller {
 
-    public class Controller {
+	public class Controller {
 
-        public Main Main;
+		public Main Main;
 
-    }
+	}
 
 }

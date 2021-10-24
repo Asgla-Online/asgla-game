@@ -4,84 +4,86 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Asgla.UI.Item {
-    public class ItemSlot : MonoBehaviour {
+	public class ItemSlot : MonoBehaviour {
 
-        private int _databaseId;
+		[SerializeField] private Image _icon;
 
-        private ItemData _item;
+		[SerializeField] private Image _background;
 
-        private ItemListType _type;
+		[SerializeField] private TextMeshProUGUI _name;
 
-        private string _send;
+		private string _buttonText;
 
-        private string _buttonText;
+		private int _databaseId;
 
-        [SerializeField] private Image _icon;
+		private ItemData _item;
 
-        [SerializeField] private Image _background;
+		private string _send;
 
-        [SerializeField] private TextMeshProUGUI _name;
+		private ItemListType _type;
 
-        public int Id() {
-            return _databaseId;
-        }
+		public int Id() {
+			return _databaseId;
+		}
 
-        public ItemData Item() {
-            return _item;
-        }
+		public ItemData Item() {
+			return _item;
+		}
 
-        public ItemListType Type() {
-            return _type;
-        }
+		public ItemListType Type() {
+			return _type;
+		}
 
-        public string Send() {
-            return _send;
-        }
+		public string Send() {
+			return _send;
+		}
 
-        public string ButtonText() {
-            return _buttonText;
-        }
+		public string ButtonText() {
+			return _buttonText;
+		}
 
-        public ItemSlot Init(int databaseId, ItemListType type, ItemData item) {
-            name = databaseId.ToString();
+		public ItemSlot Init(int databaseId, ItemListType type, ItemData item) {
+			name = databaseId.ToString();
 
-            _databaseId = databaseId;
-            _item = item;
-            _type = type;
+			_databaseId = databaseId;
+			_item = item;
+			_type = type;
 
-            _name.text = _item.name;
+			_name.text = _item.name;
 
-            Sprite sprite = _item.GetIcon;
+			Sprite sprite = _item.GetIcon;
 
-            if (sprite == null)
-                Debug.Log("Icon null {0}");
-            else
-                _icon.sprite = _item.GetIcon;
+			if (sprite == null)
+				Debug.Log("Icon null {0}");
+			else
+				_icon.sprite = _item.GetIcon;
 
 
-            switch (_type) {
-                case ItemListType.Equip:
-                    _send = "EquipItem";
-                    _buttonText = "Equip";
-                    break;
-                case ItemListType.Buy:
-                    _send = "ShopBuy";
-                    _buttonText = "Buy";
-                    break;
-                case ItemListType.Sell:
-                    _send = "ShopSellItem";
-                    _buttonText = "Sell";
-                    break;
-                case ItemListType.Quest:
-                    _send = "";
-                    _buttonText = "Quest";
-                    break;
-            }
+			switch (_type) {
+				case ItemListType.Equip:
+					_send = "EquipItem";
+					_buttonText = "Equip";
+					break;
+				case ItemListType.Buy:
+					_send = "ShopBuy";
+					_buttonText = "Buy";
+					break;
+				case ItemListType.Sell:
+					_send = "ShopSellItem";
+					_buttonText = "Sell";
+					break;
+				case ItemListType.Quest:
+					_send = "";
+					_buttonText = "Quest";
+					break;
+			}
 
-            return this;
-        }
+			return this;
+		}
 
-        public void Click() => Main.Singleton.Game.WindowItemPreview.Init(this);
+		public void Click() {
+			Main.Singleton.Game.WindowItemPreview.Init(this);
+		}
 
-    }
+	}
 }

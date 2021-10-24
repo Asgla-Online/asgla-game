@@ -1,64 +1,65 @@
-﻿using Asgla.Quest;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 namespace Asgla.UI.Quest.Track {
-    public class QuestTrackObjective : MonoBehaviour {
+	public class QuestTrackObjective : MonoBehaviour {
 
-        private TextMeshProUGUI _text = null;
+		[SerializeField] private GameObject _completed;
 
-        private int _databaseId = -1;
+		[SerializeField] private GameObject _failed;
 
-        private string _name = null;
+		private int _databaseId = -1;
 
-        private int _quantity = -1;
+		private string _name;
 
-        [SerializeField] private GameObject _completed = null;
+		private int _quantity = -1;
 
-        [SerializeField] private GameObject _failed = null;
+		private TextMeshProUGUI _text;
 
-        #region Unity
-        private void Awake() {
-            _text = GetComponent<TextMeshProUGUI>();
-        }
-        #endregion
+		#region Unity
 
-        public QuestTrackObjective Init(int databaseId, string n, int quantity) {
-            _databaseId = databaseId;
+		private void Awake() {
+			_text = GetComponent<TextMeshProUGUI>();
+		}
 
-            _name = n;
+		#endregion
 
-            _quantity = quantity;
+		public QuestTrackObjective Init(int databaseId, string n, int quantity) {
+			_databaseId = databaseId;
 
-            name = databaseId.ToString();
+			_name = n;
 
-            _text.text = $"0/{quantity} {n}";
+			_quantity = quantity;
 
-            Default();
+			name = databaseId.ToString();
 
-            return this;
-        }
+			_text.text = $"0/{quantity} {n}";
 
-        public void UpdateProgress(int quantity) {
-            _text.text = $"{quantity}/{_quantity} {_name}";
-            if (quantity >= _quantity)
-                Completed();
-        }
+			Default();
 
-        private void Default() {
-            _failed.SetActive(false);
-            _completed.SetActive(false);
-        }
+			return this;
+		}
 
-        private void Completed() {
-            _completed.SetActive(true);
-            _failed.SetActive(false);
-        }
+		public void UpdateProgress(int quantity) {
+			_text.text = $"{quantity}/{_quantity} {_name}";
+			if (quantity >= _quantity)
+				Completed();
+		}
 
-        private void Failed() {
-            _failed.SetActive(true);
-            _completed.SetActive(false);
-        }
+		private void Default() {
+			_failed.SetActive(false);
+			_completed.SetActive(false);
+		}
 
-    }
+		private void Completed() {
+			_completed.SetActive(true);
+			_failed.SetActive(false);
+		}
+
+		private void Failed() {
+			_failed.SetActive(true);
+			_completed.SetActive(false);
+		}
+
+	}
 }

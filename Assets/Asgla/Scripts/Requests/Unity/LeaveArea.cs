@@ -2,11 +2,10 @@
 using BestHTTP.JSON.LitJson;
 using UnityEngine;
 
-// ReSharper disable InconsistentNaming UnassignedField.Global MemberCanBePrivate.Global CollectionNeverUpdated.Global
-
 namespace Asgla.Requests.Unity {
 	public class LeaveArea : IRequest {
 
+		// ReSharper disable once InconsistentNaming UnassignedField.Global MemberCanBePrivate.Global CollectionNeverUpdated.Global FieldCanBeMadeReadOnly.Global ConvertToConstant.Global
 		public int playerId;
 
 		public void onRequest(Main main, string json) {
@@ -14,9 +13,8 @@ namespace Asgla.Requests.Unity {
 
 			Player player = main.MapManager.PlayerByID(leaveMap.playerId);
 
-			if (player is null) {
+			if (player is null)
 				return;
-			}
 
 			Object.Destroy(player.gameObject);
 

@@ -2,10 +2,12 @@
 
 namespace Asgla.Data.Entity {
 
-    [Serializable]
-    public enum EntityType : int {
-        PLAYER = 0,
-        MONSTER = 1
-    }
+	[Serializable]
+	public enum EntityType {
+
+		PLAYER = 0,
+		MONSTER = 1
+
+	}
 
 }

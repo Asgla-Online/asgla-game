@@ -1,74 +1,73 @@
-using Asgla.Data.Quest;
-using Asgla.Quest;
-using AsglaUI.UI;
 using System.Collections.Generic;
 using System.Linq;
+using Asgla.Data.Quest;
+using AsglaUI.UI;
 using UnityEngine;
 
 namespace Asgla.UI.Quest.Track {
-    [ExecuteInEditMode]
-    public class QuestTracker : MonoBehaviour {
+	[ExecuteInEditMode]
+	public class QuestTracker : MonoBehaviour {
 
-        [Header("Quest")]
-        [SerializeField] private QuestTrackObjective _objective = null;
+		[Header("Quest")] [SerializeField] private QuestTrackObjective _objective;
 
-        [SerializeField] private QuestTrackProgress _progress = null;
+		[SerializeField] private QuestTrackProgress _progress;
 
-        [SerializeField] private Transform _objectiveContent = null;
+		[SerializeField] private Transform _objectiveContent;
 
-        [SerializeField]
-        private List<QuestTrackProgress> _progresss = new List<QuestTrackProgress>();
+		[SerializeField] private List<QuestTrackProgress> _progresss = new List<QuestTrackProgress>();
 
-        #region Toggle
-        [Header("Toggle")]
-        [SerializeField] private GameObject _toggleContent = null;
+		public QuestTrackProgress Get(int databaseId) {
+			return _progresss.Where(objective => objective.Quest().DatabaseID == databaseId).FirstOrDefault();
+		}
 
-        [SerializeField] private UIFlippable _arrowFlippable = null;
+		public void Add(QuestData quest) {
+			_progresss.Add(Instantiate(_progress.gameObject, _objectiveContent)
+				.GetComponent<QuestTrackProgress>().Init(quest, _objective));
+		}
 
-        [SerializeField] private bool _arrowInvertFlip = false;
+		public void Remove(int databaseId) {
+			QuestTrackProgress progress = _progresss.Where(objective => objective.Quest().DatabaseID == databaseId)
+				.FirstOrDefault();
+			if (progress != null) {
+				_progresss.Remove(progress);
+				Destroy(progress.gameObject);
+			}
+		}
 
-        [SerializeField] private Vector2 _activeOffset = Vector2.zero;
+		public void OnToggleStateChange(bool state) {
+			Debug.Log(state);
+			if (state) {
+				if (_toggleContent != null)
+					_toggleContent.SetActive(true);
 
-        [SerializeField] private Vector2 _inactiveOffset = Vector2.zero;
-        #endregion
+				if (_arrowFlippable != null) {
+					_arrowFlippable.horizontal = _arrowInvertFlip ? false : true;
+					(_arrowFlippable.transform as RectTransform).anchoredPosition = _activeOffset;
+				}
+			} else {
+				if (_toggleContent != null)
+					_toggleContent.SetActive(false);
 
-        public QuestTrackProgress Get(int databaseId) {
-            return _progresss.Where(objective => objective.Quest().DatabaseID == databaseId).FirstOrDefault();
-        }
+				if (_arrowFlippable != null) {
+					_arrowFlippable.horizontal = _arrowInvertFlip ? true : false;
+					(_arrowFlippable.transform as RectTransform).anchoredPosition = _inactiveOffset;
+				}
+			}
+		}
 
-        public void Add(QuestData quest) {
-            _progresss.Add(Instantiate(_progress.gameObject, _objectiveContent)
-                .GetComponent<QuestTrackProgress>().Init(quest, _objective));
-        }
+		#region Toggle
 
-        public void Remove(int databaseId) {
-            QuestTrackProgress progress = _progresss.Where(objective => objective.Quest().DatabaseID == databaseId).FirstOrDefault();
-            if (progress != null) {
-                _progresss.Remove(progress);
-                Destroy(progress.gameObject);
-            }
-        }
+		[Header("Toggle")] [SerializeField] private GameObject _toggleContent;
 
-        public void OnToggleStateChange(bool state) {
-            Debug.Log(state);
-            if (state) {
-                if (_toggleContent != null)
-                    _toggleContent.SetActive(true);
+		[SerializeField] private UIFlippable _arrowFlippable;
 
-                if (_arrowFlippable != null) {
-                    _arrowFlippable.horizontal = (_arrowInvertFlip ? false : true);
-                    (_arrowFlippable.transform as RectTransform).anchoredPosition = _activeOffset;
-                }
-            } else {
-                if (_toggleContent != null)
-                    _toggleContent.SetActive(false);
+		[SerializeField] private bool _arrowInvertFlip;
 
-                if (_arrowFlippable != null) {
-                    _arrowFlippable.horizontal = (_arrowInvertFlip ? true : false);
-                    (_arrowFlippable.transform as RectTransform).anchoredPosition = _inactiveOffset;
-                }
-            }
-        }
+		[SerializeField] private Vector2 _activeOffset = Vector2.zero;
 
-    }
+		[SerializeField] private Vector2 _inactiveOffset = Vector2.zero;
+
+		#endregion
+
+	}
 }

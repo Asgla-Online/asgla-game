@@ -1,26 +1,30 @@
-﻿using Asgla.Data.Item;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Asgla.Data.Item;
 
 namespace Asgla.Data.Shop {
 
-    public class ShopData {
-        public int DatabaseID;
+	public class ShopData {
 
-        public string Name;
+		public int DatabaseID;
 
-        public bool IsStaffOnly;
+		public bool IsStaffOnly;
 
-        public List<ShopItem> Items;
-    }
+		public List<ShopItem> Items;
 
-    public class ShopItem {
-        public int DatabaseID;
+		public string Name;
 
-        public bool IsLimited;
+	}
 
-        public int QuantityRemain;
+	public class ShopItem {
 
-        public ItemData Item;
-    }
+		public int DatabaseID;
+
+		public bool IsLimited;
+
+		public ItemData Item;
+
+		public int QuantityRemain;
+
+	}
 
 }

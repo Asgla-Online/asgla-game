@@ -2,21 +2,25 @@
 using UnityEngine.UI;
 
 namespace Asgla.UI.UnitFrame {
-    public class UnitFrameBig : UnitFrameBase {
+	public class UnitFrameBig : UnitFrameBase {
 
-        [SerializeField] private Button _close;
+		[SerializeField] private Button _close;
 
-        [SerializeField] private Text _username;
+		[SerializeField] private Text _username;
 
-        [SerializeField] private Text _level;
+		[SerializeField] private Text _level;
 
-        [SerializeField] private GameObject _skull;
+		[SerializeField] private GameObject _skull;
 
-        public Button Close => _close;
+		public Button Close => _close;
 
-        public void SetUsername(string username) => _username.text = username;
+		public void SetUsername(string username) {
+			_username.text = username;
+		}
 
-        public void SetLevel(int level) => _level.text = level.ToString();
+		public void SetLevel(int level) {
+			_level.text = level.ToString();
+		}
 
-    }
+	}
 }

@@ -4,33 +4,37 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Asgla.UI.Quest {
-    public class QuestSlot : MonoBehaviour {
+	public class QuestSlot : MonoBehaviour {
 
-        private QuestData _quest = null;
+		[SerializeField] private Toggle _toggle;
 
-        [SerializeField] private Toggle _toggle = null;
+		[SerializeField] private TextMeshProUGUI _name;
 
-        [SerializeField] private TextMeshProUGUI _name = null;
+		private QuestData _quest;
 
-        #region Unity
-        private void OnDisable() {
-            _toggle.onValueChanged.RemoveAllListeners();
-        }
-        #endregion
+		#region Unity
 
-        public QuestData Quest() {
-            return _quest;
-        }
+		private void OnDisable() {
+			_toggle.onValueChanged.RemoveAllListeners();
+		}
 
-        public void Init(QuestData quest) {
-            name = quest.DatabaseID.ToString();
+		#endregion
 
-            _quest = quest;
+		public QuestData Quest() {
+			return _quest;
+		}
 
-            _name.text = _quest.Name;
-        }
+		public void Init(QuestData quest) {
+			name = quest.DatabaseID.ToString();
 
-        public Toggle Toggle() => _toggle;
+			_quest = quest;
 
-    }
+			_name.text = _quest.Name;
+		}
+
+		public Toggle Toggle() {
+			return _toggle;
+		}
+
+	}
 }

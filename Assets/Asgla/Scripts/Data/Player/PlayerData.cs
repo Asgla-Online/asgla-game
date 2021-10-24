@@ -1,84 +1,90 @@
-﻿using Asgla.Data.Avatar;
-using Asgla.Data.Item;
-using Asgla.Map;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Asgla.Data.Avatar;
+using Asgla.Data.Item;
+using Asgla.Map;
 using Asgla.Requests.Unity;
 
 namespace Asgla.Data.Player {
 
-    [Serializable]
-    public class PlayerData {
+	[Serializable]
+	public class PlayerData {
 
-        public int playerID = -1;
+		public int playerID = -1;
 
-        public int databaseID = -1;
+		public int databaseID = -1;
 
-        public string username = "";
+		public string username = "";
 
-        public EquipPart Ear = null;
-        public EquipPart Eye = null;
-        public EquipPart Hair = null;
-        public EquipPart Mouth = null;
-        public EquipPart Nose = null;
+		public string colorSkin;
 
-        public string colorSkin;
+		public string colorEye;
+		public string colorHair;
+		public string colorMouth;
+		public string colorNose;
 
-        public string colorEye;
-        public string colorHair;
-        public string colorMouth;
-        public string colorNose;
+		public double x;
+		public double y;
 
-        public MoveToLocal Area = null;
+		public int level;
 
-        public double x;
-        public double y;
+		public bool isAway;
+		public bool isControlling;
 
-        public int level;
+		public AvatarState state = AvatarState.NONE;
 
-        public bool isAway;
-        public bool isControlling;
+		public List<PlayerInventory> inventory;
 
-        public AvatarState state = AvatarState.NONE;
+		public MoveToLocal Area = null;
 
-        public List<EquipPart> Part = null;
+		public EquipPart Ear = null;
+		public EquipPart Eye = null;
+		public EquipPart Hair = null;
+		public EquipPart Mouth = null;
+		public EquipPart Nose = null;
 
-        public List<PlayerInventory> inventory;
+		public List<EquipPart> Part = null;
 
-        public MapArea MapArea() => Main.Singleton.MapManager.Map.AreaByName(Area.area);
+		public MapArea MapArea() {
+			return Main.Singleton.MapManager.Map.AreaByName(Area.area);
+		}
 
-        public bool IsNeutral() {
-            return state == AvatarState.NORMAL;
-        }
+		public bool IsNeutral() {
+			return state == AvatarState.NORMAL;
+		}
 
-        public bool OnCombat() {
-            return state == AvatarState.COMBAT;
-        }
+		public bool OnCombat() {
+			return state == AvatarState.COMBAT;
+		}
 
-        public bool IsDead() {
-            return state == AvatarState.DEAD;
-        }
+		public bool IsDead() {
+			return state == AvatarState.DEAD;
+		}
+		
+		public PlayerInventory InventoryById(int databaseId) => inventory.FirstOrDefault(playerInventory => playerInventory.databaseId == databaseId);
 
-        public PlayerInventory InventoryById(int databaseId) => inventory.First(playerInventory => playerInventory.databaseId == databaseId);
+		public PlayerInventory InventoryByItemId(int databaseId) => inventory.FirstOrDefault(playerInventory => playerInventory.item.databaseId == databaseId);
 
-        public PlayerInventory InventoryByItemId(int databaseId) => inventory.First(playerInventory => playerInventory.item.databaseId == databaseId);
+	}
 
-    }
+	[Serializable]
+	public class PlayerInventory {
 
-    [Serializable]
-    public class PlayerInventory {
+		public int databaseId;
+		public bool equipped;
+		public int quantity;
 
-        public int databaseId;
-        public bool equipped;
-        public int quantity;
+		public ItemData item;
 
-        public ItemData item;
+		public void DecreaseQuantity(int amount) {
+			quantity -= amount;
+		}
 
-        public void DecreaseQuantity(int amount) => quantity -= amount;
+		public void IncreaseQuantity(int amount) {
+			quantity += amount;
+		}
 
-        public void IncreaseQuantity(int amount) => quantity += amount;
-
-    }
+	}
 
 }

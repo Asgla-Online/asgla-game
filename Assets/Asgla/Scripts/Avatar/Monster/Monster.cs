@@ -1,174 +1,201 @@
-﻿using Asgla.Data.Avatar;
+﻿using System.Collections;
+using Asgla.Data.Avatar;
 using Asgla.Data.Entity;
-using Asgla.Data.Map;
 using Asgla.Data.Monster;
 using AssetBundles;
-using System.Collections;
 using UnityEngine;
-
 using static AssetBundles.AssetBundleManager;
 
 namespace Asgla.Avatar.Monster {
-    public class Monster : AvatarMain {
+	public class Monster : AvatarMain {
 
-        private MonsterData _data = null;
+		private bool _animatorController;
 
-        private MonsterRoot _root = null;
+		private MonsterData _data;
 
-        private bool _animatorController = false;
+		private MonsterRoot _root;
 
-        #region Unity
-        private void Start() {
-            if (AnimatorControllerExist())
-                Animator().Play("Idle", 0);
+		public void Init() {
+			Debug.Log("<color=green>[MonsterMain]</color> Init.");
+			//_data = new PlayerData();
 
-            _position = (Vector2)transform.position;
+			_rigidBody2D = GetComponent<Rigidbody2D>();
+			_animator = _root.GetComponent<Animator>();
+			//_characterView = _root.GetComponent<CharacterViewer>();
 
-            if (_utility is null)
-                Debug.LogError("Avatar Utility null");
-        }
+			//_root.GetComponent<SortingGroup>().sortingLayerName = "Default";
+			//_root.GetComponent<SortingGroup>().sortingOrder = -1;
 
-        private void OnDestroy() {
-            Area().OnPlayerScaleUpdate.RemoveListener(Scale);
-        }
+			gameObject.SetActive(true);
 
-        private void FixedUpdate() {
-            if (AnimatorControllerExist())
-                if (_position == (Vector2)transform.position && Animator().GetBool("IsRunning")) {
-                    Animator().SetBool("IsRunning", false);
-                }
+			_root.Avatar(this);
 
-            Body().MovePosition(Vector2.MoveTowards(transform.position, _position, Time.fixedDeltaTime * ((float)Area().Speed()/3)));
+			_animatorController = Animator().runtimeAnimatorController != null;
 
-            _root.transform.position = new Vector3(_root.transform.position.x, _root.transform.position.y, transform.position.y);
-        }
+			//TODO: monster data scale
+			//Scale(0.5f);
+		}
 
-        private void OnCollisionEnter2D(Collision2D collision) {
-            //Debug.Log("<color=green>[PlayerMain]</color> CollisionEnter");
-            _position = transform.position;
-            if (AnimatorControllerExist())
-                Animator().SetBool("IsRunning", false);
-        }
-        #endregion
+		public void Data(MonsterData d) {
+			_data = d;
+		}
 
-        public void Init() {
-            Debug.Log("<color=green>[MonsterMain]</color> Init.");
-            //_data = new PlayerData();
+		public bool AnimatorControllerExist() {
+			return _animatorController;
+		}
 
-            _rigidBody2D = GetComponent<Rigidbody2D>();
-            _animator = _root.GetComponent<Animator>();
-            //_characterView = _root.GetComponent<CharacterViewer>();
+		#region Asset Bundle
 
-            //_root.GetComponent<SortingGroup>().sortingLayerName = "Default";
-            //_root.GetComponent<SortingGroup>().sortingOrder = -1;
+		public IEnumerator AsynchronousLoad() {
+			AssetBundleManager abm = new AssetBundleManager();
 
-            gameObject.SetActive(true);
+			abm.DisableDebugLogging();
+			abm.SetPrioritizationStrategy(PrioritizationStrategy.PrioritizeRemote);
+			abm.SetBaseUri(Main.Singleton.url_bundle);
 
-            _root.Avatar(this);
+			AssetBundleManifestAsync manifest = abm.InitializeAsync();
 
-            _animatorController = Animator().runtimeAnimatorController != null;
+			yield return manifest;
 
-            //TODO: monster data scale
-            //Scale(0.5f);
-        }
+			if (!manifest.Success)
+				yield break;
 
-        public void Data(MonsterData d) => _data = d;
+			AssetBundleAsync assetBundle = abm.GetBundleAsync($"monsters/{Data().Bundle}");
 
-        #region Abstract
-        public override void State(AvatarState state) {
-            if (state != Data().State && state != AvatarState.NONE) {
-                Data().State = state;
-                switch (Data().State) {
-                    case AvatarState.NORMAL:
-                        if (AnimatorControllerExist())
-                            Animator().Play("Idle", 0);
-                        break;
-                    case AvatarState.COMBAT:
-                        if (AnimatorControllerExist())
-                            Animator().SetTrigger("IsHurting");
-                        break;
-                    case AvatarState.DEAD:
-                        OnDeath();
-                        break;
-                }
-            }
-        }
+			yield return assetBundle;
 
-        public override void Move(Vector2 vector) {
-            base.Move(vector);
+			if (assetBundle.AssetBundle == null) {
+				Debug.LogError("<color=green>[MonsterMain]</color> assetBundle null.");
+				yield break;
+			}
 
-            if (AnimatorControllerExist())
-                Animator().SetBool("IsRunning", true);
-        }
+			AssetBundleRequest asyncAsset =
+				assetBundle.AssetBundle.LoadAssetAsync($"assets/asgla/game/monsters/{Data().Asset}",
+					typeof(GameObject));
 
-        public override void OnDeath() {
-            base.OnDeath();
+			GameObject root = asyncAsset.asset as GameObject;
 
-            gameObject.SetActive(false);
-        }
+			if (root == null) {
+				Debug.LogErrorFormat(
+					"<color=green>[MonsterMain]</color> GameObject null asset: assets/asgla/game/monsters/{0}, bundle: {1}",
+					Data().Asset, Data().Bundle);
+				yield break;
+			}
 
-        public override int Id() => Data().UniqueID;
+			_root = Instantiate(root, transform).GetComponent<MonsterRoot>();
 
-        public override int DatabaseId() => Data().DatabaseID;
+			_root.transform.localPosition = Vector3.zero;
+			_root.transform.localRotation = Quaternion.identity;
 
-        public override string Name() => Data().Name;
+			Init();
 
-        public override int Level() => Data().Level;
+			abm.UnloadBundle(assetBundle.AssetBundle);
 
-        public override AvatarState State() => Data().State;
+			abm.Dispose();
+		}
 
-        public override EntityType Type() => EntityType.MONSTER;
+		#endregion
 
-        public MonsterData Data() => _data;
-        #endregion
+		#region Unity
 
-        public bool AnimatorControllerExist() => _animatorController;
+		private void Start() {
+			if (AnimatorControllerExist())
+				Animator().Play("Idle", 0);
 
-        #region Asset Bundle
-        public IEnumerator AsynchronousLoad() {
-            AssetBundleManager abm = new AssetBundleManager();
+			_position = transform.position;
 
-            abm.DisableDebugLogging(true);
-            abm.SetPrioritizationStrategy(PrioritizationStrategy.PrioritizeRemote);
-            abm.SetBaseUri(Main.Singleton.url_bundle);
+			if (_utility is null)
+				Debug.LogError("Avatar Utility null");
+		}
 
-            var manifest = abm.InitializeAsync();
+		private void OnDestroy() {
+			Area().OnPlayerScaleUpdate.RemoveListener(Scale);
+		}
 
-            yield return manifest;
+		private void FixedUpdate() {
+			if (AnimatorControllerExist())
+				if (_position == (Vector2) transform.position && Animator().GetBool("IsRunning"))
+					Animator().SetBool("IsRunning", false);
 
-            if (!manifest.Success)
-                yield break;
+			Body().MovePosition(Vector2.MoveTowards(transform.position, _position,
+				Time.fixedDeltaTime * ((float) Area().Speed() / 3)));
 
-            AssetBundleAsync assetBundle = abm.GetBundleAsync($"monsters/{Data().Bundle}");
+			_root.transform.position =
+				new Vector3(_root.transform.position.x, _root.transform.position.y, transform.position.y);
+		}
 
-            yield return assetBundle;
+		private void OnCollisionEnter2D(Collision2D collision) {
+			//Debug.Log("<color=green>[PlayerMain]</color> CollisionEnter");
+			_position = transform.position;
+			if (AnimatorControllerExist())
+				Animator().SetBool("IsRunning", false);
+		}
 
-            if (assetBundle.AssetBundle == null) {
-                Debug.LogError("<color=green>[MonsterMain]</color> assetBundle null.");
-                yield break;
-            }
+		#endregion
 
-            AssetBundleRequest asyncAsset = assetBundle.AssetBundle.LoadAssetAsync($"assets/asgla/game/monsters/{Data().Asset}", typeof(GameObject));
+		#region Abstract
 
-            GameObject root = asyncAsset.asset as GameObject;
+		public override void State(AvatarState state) {
+			if (state != Data().State && state != AvatarState.NONE) {
+				Data().State = state;
+				switch (Data().State) {
+					case AvatarState.NORMAL:
+						if (AnimatorControllerExist())
+							Animator().Play("Idle", 0);
+						break;
+					case AvatarState.COMBAT:
+						if (AnimatorControllerExist())
+							Animator().SetTrigger("IsHurting");
+						break;
+					case AvatarState.DEAD:
+						OnDeath();
+						break;
+				}
+			}
+		}
 
-            if (root == null) {
-                Debug.LogErrorFormat("<color=green>[MonsterMain]</color> GameObject null asset: assets/asgla/game/monsters/{0}, bundle: {1}", Data().Asset, Data().Bundle);
-                yield break;
-            }
+		public override void Move(Vector2 vector) {
+			base.Move(vector);
 
-            _root = Instantiate(root, transform).GetComponent<MonsterRoot>();
+			if (AnimatorControllerExist())
+				Animator().SetBool("IsRunning", true);
+		}
 
-            _root.transform.localPosition = Vector3.zero;
-            _root.transform.localRotation = Quaternion.identity;
+		public override void OnDeath() {
+			base.OnDeath();
 
-            Init();
+			gameObject.SetActive(false);
+		}
 
-            abm.UnloadBundle(assetBundle.AssetBundle);
+		public override int Id() {
+			return Data().UniqueID;
+		}
 
-            abm.Dispose();
-        }
-        #endregion
+		public override int DatabaseId() {
+			return Data().DatabaseID;
+		}
 
-    }
+		public override string Name() {
+			return Data().Name;
+		}
+
+		public override int Level() {
+			return Data().Level;
+		}
+
+		public override AvatarState State() {
+			return Data().State;
+		}
+
+		public override EntityType Type() {
+			return EntityType.MONSTER;
+		}
+
+		public MonsterData Data() {
+			return _data;
+		}
+
+		#endregion
+
+	}
 }

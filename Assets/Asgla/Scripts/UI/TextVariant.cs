@@ -1,7 +1,9 @@
 ﻿namespace Asgla.UI {
-    public enum TextVariant {
-        Percent,
-        Value,
-        ValueMax
-    }
+	public enum TextVariant {
+
+		Percent,
+		Value,
+		ValueMax
+
+	}
 }

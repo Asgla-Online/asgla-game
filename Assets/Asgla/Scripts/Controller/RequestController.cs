@@ -1,50 +1,52 @@
-﻿using Asgla.Data.Request;
+﻿using System;
+using System.Linq;
+using Asgla.Data.Request;
+using Asgla.Requests;
 using Asgla.Utility;
-using System;
+using BestHTTP.JSON.LitJson;
+using UnityEngine;
 #if UNITY_WEBGL
 using System.Collections;
 #endif
-using System.Linq;
-using Asgla.Requests;
-using BestHTTP.JSON.LitJson;
-using UnityEngine;
 
 namespace Asgla.Controller {
-    public class RequestController : Controller {
-        
-        public void Get(string json) {
-            try {
-                Debug.LogFormat("<color=red>[RECEIVED]</color> {0}", json);
-                
-                JsonData request = JsonMapper.ToObject(json);
-                
-                RequestFactory.Create(JsonUtil.ParseInt(request["cmd"])).onRequest(Main, json);
-                
-                //Login(JsonMapper.ToObject<LoginRequest>(json));
-            } catch (Exception exception) {
-                Debug.LogFormat("<color=orange>[INVALID] 1 </color> {0}", json);
-                Debug.LogException(exception);
-            }
-        }
+	public class RequestController : Controller {
 
-        public void Send(string cmd) => Send(cmd, new string[1] { "" });
+		public void Get(string json) {
+			try {
+				Debug.LogFormat("<color=red>[RECEIVED]</color> {0}", json);
 
-        public void Send(string cmd, params object[] args) {
-            RequestMake obj = new RequestMake { Cmd = cmd, Params = args.ToArray() };
+				JsonData request = JsonMapper.ToObject(json);
 
-            string json = JsonMapper.ToJson(obj).ToString();
+				RequestFactory.Create(JsonUtil.ParseInt(request["cmd"])).onRequest(Main, json);
 
-            Debug.LogFormat("<color=red>[SENDING]</color> {0}", json);
+				//Login(JsonMapper.ToObject<LoginRequest>(json));
+			} catch (Exception exception) {
+				Debug.LogFormat("<color=orange>[INVALID] 1 </color> {0}", json);
+				Debug.LogException(exception);
+			}
+		}
 
-            if (Main.Network.Connection == null || !Main.Network.Connection.IsOpen) {
-                Main.Game.Logout();
-                return;
-            }
+		public void Send(string cmd) {
+			Send(cmd, "");
+		}
 
-            Main.Network.Connection.Send(json);
-        }
+		public void Send(string cmd, params object[] args) {
+			RequestMake obj = new RequestMake {Cmd = cmd, Params = args.ToArray()};
 
-        #if UNITY_WEBGL
+			string json = JsonMapper.ToJson(obj);
+
+			Debug.LogFormat("<color=red>[SENDING]</color> {0}", json);
+
+			if (Main.Network.Connection == null || !Main.Network.Connection.IsOpen) {
+				Main.Game.Logout();
+				return;
+			}
+
+			Main.Network.Connection.Send(json);
+		}
+
+#if UNITY_WEBGL
         public IEnumerator SchedulePing() {
 
             //Wait
@@ -55,8 +57,8 @@ namespace Asgla.Controller {
             //Reschedule
             Main.StartCoroutine(SchedulePing());
         }
-        #endif
+#endif
 
-    }
+	}
 
 }

@@ -2,15 +2,17 @@
 
 namespace Asgla.Data.NPC {
 
-    [Serializable]
-    public class NPCData {
-        public int DatabaseID;
+	[Serializable]
+	public class NPCData {
 
-        public string Name;
-        public string Description;
+		public int DatabaseID;
 
-        public int ShopID;
-        public int QuestID;
-    }
+		public string Name;
+		public string Description;
+
+		public int ShopID;
+		public int QuestID;
+
+	}
 
 }
