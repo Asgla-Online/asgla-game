@@ -4,7 +4,6 @@ using System.Linq;
 using Asgla.Data.Avatar.Helper;
 using Asgla.Data.Item;
 using Asgla.Map;
-using Asgla.Requests.Unity;
 
 namespace Asgla.Data.Avatar.Player {
 
@@ -61,10 +60,12 @@ namespace Asgla.Data.Avatar.Player {
 		public bool IsDead() {
 			return state == AvatarState.DEAD;
 		}
-		
-		public PlayerInventory InventoryById(int databaseId) => inventory.FirstOrDefault(playerInventory => playerInventory.databaseId == databaseId);
 
-		public PlayerInventory InventoryByItemId(int databaseId) => inventory.FirstOrDefault(playerInventory => playerInventory.item.databaseId == databaseId);
+		public PlayerInventory InventoryById(int databaseId) =>
+			inventory.FirstOrDefault(playerInventory => playerInventory.databaseId == databaseId);
+
+		public PlayerInventory InventoryByItemId(int databaseId) =>
+			inventory.FirstOrDefault(playerInventory => playerInventory.item.databaseId == databaseId);
 
 	}
 
