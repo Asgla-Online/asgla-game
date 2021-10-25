@@ -1,89 +1,90 @@
 using System;
 using System.Collections.Generic;
+using BestHTTP.Core;
 
-namespace BestHTTP.Timings
-{
-    public sealed class TimingCollector
-    {
-        /// <summary>
-        /// When the TimingCollector instance created.
-        /// </summary>
-        public DateTime Start { get; private set; }
+namespace BestHTTP.Timings {
+	public sealed class TimingCollector {
 
-        /// <summary>
-        /// List of added events.
-        /// </summary>
-        public List<TimingEvent> Events { get; private set; }
+		public TimingCollector(HTTPRequest parentRequest) {
+			this.ParentRequest = parentRequest;
+			this.Start = DateTime.Now;
+		}
 
-        public TimingCollector()
-        {
-            this.Start = DateTime.Now;
-        }
+		public HTTPRequest ParentRequest { get; }
 
-        /// <summary>
-        /// Add an event. Duration is calculated from the previous event or start of the collector.
-        /// </summary>
-        public void Add(string name)
-        {
-            if (this.Events == null)
-                this.Events = new List<TimingEvent>();
+		/// <summary>
+		/// When the TimingCollector instance created.
+		/// </summary>
+		public DateTime Start { get; private set; }
 
-            DateTime prevEventAt = this.Start;
-            if (this.Events.Count > 0)
-                prevEventAt = this.Events[this.Events.Count - 1].When;
-            this.Events.Add(new TimingEvent(name, DateTime.Now - prevEventAt));
-        }
+		/// <summary>
+		/// List of added events.
+		/// </summary>
+		public List<TimingEvent> Events { get; private set; }
 
-        /// <summary>
-        /// Add an event with a known duration.
-        /// </summary>
-        public void Add(string name, TimeSpan duration)
-        {
-            if (this.Events == null)
-                this.Events = new List<TimingEvent>();
+		internal void AddEvent(string name, DateTime when, TimeSpan duration) {
+			if (this.Events == null)
+				this.Events = new List<TimingEvent>();
 
-            this.Events.Add(new TimingEvent(name, duration));
-        }
+			if (duration == TimeSpan.Zero) {
+				DateTime prevEventAt = this.Start;
+				if (this.Events.Count > 0)
+					prevEventAt = this.Events[this.Events.Count - 1].When;
+				duration = when - prevEventAt;
+			}
 
-        public TimingEvent FindFirst(string name)
-        {
-            if (this.Events == null)
-                return TimingEvent.Empty;
+			this.Events.Add(new TimingEvent(name, when, duration));
+		}
 
-            for (int i = 0; i < this.Events.Count; ++i)
-            {
-                if (this.Events[i].Name == name)
-                    return this.Events[i];
-            }
+		/// <summary>
+		/// Add an event. Duration is calculated from the previous event or start of the collector.
+		/// </summary>
+		public void Add(string name) {
+			RequestEventHelper.EnqueueRequestEvent(new RequestEventInfo(this.ParentRequest, name, DateTime.Now));
+		}
 
-            return TimingEvent.Empty;
-        }
+		/// <summary>
+		/// Add an event with a known duration.
+		/// </summary>
+		public void Add(string name, TimeSpan duration) {
+			RequestEventHelper.EnqueueRequestEvent(new RequestEventInfo(this.ParentRequest, name, duration));
+		}
 
-        public TimingEvent FindLast(string name)
-        {
-            if (this.Events == null)
-                return TimingEvent.Empty;
+		public TimingEvent FindFirst(string name) {
+			if (this.Events == null)
+				return TimingEvent.Empty;
 
-            for (int i = this.Events.Count - 1; i >= 0; --i)
-            {
-                if (this.Events[i].Name == name)
-                    return this.Events[i];
-            }
+			for (int i = 0; i < this.Events.Count; ++i) {
+				if (this.Events[i].Name == name)
+					return this.Events[i];
+			}
 
-            return TimingEvent.Empty;
-        }
+			return TimingEvent.Empty;
+		}
 
-        public override string ToString()
-        {
-            string result = string.Format("[TimingCollector Start: '{0}' ", this.Start.ToLongTimeString());
+		public TimingEvent FindLast(string name) {
+			if (this.Events == null)
+				return TimingEvent.Empty;
 
-            if (this.Events != null)
-                foreach (var @event in this.Events)
-                    result += '\n' + @event.ToString();
+			for (int i = this.Events.Count - 1; i >= 0; --i) {
+				if (this.Events[i].Name == name)
+					return this.Events[i];
+			}
 
-            result += "]";
+			return TimingEvent.Empty;
+		}
 
-            return result;
-        }
-    }
+		public override string ToString() {
+			string result = string.Format("[TimingCollector Start: '{0}' ", this.Start.ToLongTimeString());
+
+			if (this.Events != null)
+				foreach (var @event in this.Events)
+					result += '\n' + @event.ToString();
+
+			result += "]";
+
+			return result;
+		}
+
+	}
 }

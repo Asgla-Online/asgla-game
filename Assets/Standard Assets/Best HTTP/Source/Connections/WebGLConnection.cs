@@ -1,5 +1,4 @@
 #if UNITY_WEBGL && !UNITY_EDITOR
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -77,8 +76,10 @@ namespace BestHTTP.Connections
                 var upStreamInfo = CurrentRequest.GetUpStream();
                 if (upStreamInfo.Stream != null)
                 {
-                    var internalBuffer = BufferPool.Get(upStreamInfo.Length > 0 ? upStreamInfo.Length : HTTPRequest.UploadChunkSize, true);
-                    using (BufferPoolMemoryStream ms = new BufferPoolMemoryStream(internalBuffer, 0, internalBuffer.Length, true, true, false, true))
+                    var internalBuffer =
+ BufferPool.Get(upStreamInfo.Length > 0 ? upStreamInfo.Length : HTTPRequest.UploadChunkSize, true);
+                    using (BufferPoolMemoryStream ms =
+ new BufferPoolMemoryStream(internalBuffer, 0, internalBuffer.Length, true, true, false, true))
                     {
                         var buffer = BufferPool.Get(HTTPRequest.UploadChunkSize, true);
                         int readCount = -1;
@@ -97,8 +98,6 @@ namespace BestHTTP.Connections
             else
             {
                 length = body.Length;
-
-                XHR_Send(NativeId, body, length);
             }
 
             XHR_Send(NativeId, body, length);
@@ -129,8 +128,10 @@ namespace BestHTTP.Connections
                     if (payload != BufferSegment.Empty)
                         ms.Write(payload);
 
-                    SupportedProtocols protocol = CurrentRequest.ProtocolHandler == SupportedProtocols.Unknown ? HTTPProtocolFactory.GetProtocolFromUri(CurrentRequest.CurrentUri) : CurrentRequest.ProtocolHandler;
-                    CurrentRequest.Response = HTTPProtocolFactory.Get(protocol, CurrentRequest, ms, CurrentRequest.UseStreaming, false);
+                    SupportedProtocols protocol =
+ CurrentRequest.ProtocolHandler == SupportedProtocols.Unknown ? HTTPProtocolFactory.GetProtocolFromUri(CurrentRequest.CurrentUri) : CurrentRequest.ProtocolHandler;
+                    CurrentRequest.Response =
+ HTTPProtocolFactory.Get(protocol, CurrentRequest, ms, CurrentRequest.UseStreaming, false);
 
                     CurrentRequest.Response.Receive(payload != BufferSegment.Empty && payload.Count > 0 ? (int)payload.Count : -1, true);
 
@@ -173,7 +174,8 @@ namespace BestHTTP.Connections
 
                         this.CurrentRequest.Response = null;
 
-                        this.CurrentRequest.State = this.CurrentRequest.IsTimedOut ? HTTPRequestStates.TimedOut : HTTPRequestStates.Aborted;
+                        this.CurrentRequest.State =
+ this.CurrentRequest.IsTimedOut ? HTTPRequestStates.TimedOut : HTTPRequestStates.Aborted;
                     }
                     else if (resendRequest)
                     {
@@ -189,7 +191,8 @@ namespace BestHTTP.Connections
                             this.CurrentRequest.State = HTTPRequestStates.Finished;
                         else
                         {
-                            this.CurrentRequest.Exception = new Exception(string.Format("[{0}] Remote server closed the connection before sending response header! Previous request state: {1}. Connection state: {2}",
+                            this.CurrentRequest.Exception =
+ new Exception(string.Format("[{0}] Remote server closed the connection before sending response header! Previous request state: {1}. Connection state: {2}",
                                     this.ToString(),
                                     this.CurrentRequest.State.ToString(),
                                     this.State.ToString()));
@@ -409,10 +412,12 @@ namespace BestHTTP.Connections
         private static extern void XHR_SetProgressHandler(int nativeId, OnWebGLProgressDelegate onDownloadProgress, OnWebGLProgressDelegate onUploadProgress);
 
         [DllImport("__Internal")]
-        private static extern void XHR_CopyResponseTo(int nativeId, [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] byte[] response, int length);
+        private static extern void XHR_CopyResponseTo(int nativeId, [MarshalAs(UnmanagedType.LPArray, ArraySubType =
+ UnmanagedType.U1, SizeParamIndex = 2)] byte[] response, int length);
 
         [DllImport("__Internal")]
-        private static extern void XHR_Send(int nativeId, [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] byte[] body, int length);
+        private static extern void XHR_Send(int nativeId, [MarshalAs(UnmanagedType.LPArray, ArraySubType =
+ UnmanagedType.U1, SizeParamIndex = 2)] byte[] body, int length);
 
         [DllImport("__Internal")]
         private static extern void XHR_GetResponseHeaders(int nativeId, OnWebGLBufferDelegate callback);

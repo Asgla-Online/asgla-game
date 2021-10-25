@@ -1,183 +1,146 @@
-using BestHTTP.PlatformSupport.Memory;
 using System;
 using System.IO;
+using BestHTTP.PlatformSupport.Memory;
 
-namespace BestHTTP.Extensions
-{
-    public sealed class ReadOnlyBufferedStream : Stream
-    {
-        Stream stream;
-        public const int READBUFFER = 8192;
-        byte[] buf;
-        int available = 0;
-        int pos = 0;
+namespace BestHTTP.Extensions {
+	public sealed class ReadOnlyBufferedStream : Stream {
 
-        public ReadOnlyBufferedStream(Stream nstream)
-            :this(nstream, READBUFFER)
-        {
-        }
+		public const int READBUFFER = 8192;
+		int available = 0;
+		byte[] buf;
+		int pos = 0;
+		Stream stream;
 
-        public ReadOnlyBufferedStream(Stream nstream, int bufferSize)
-        {
-            stream = nstream;
-            buf = BufferPool.Get(bufferSize, true);
-        }
+		public ReadOnlyBufferedStream(Stream nstream)
+			: this(nstream, READBUFFER) {
+		}
 
-        public override int Read(byte[] buffer, int offset, int size)
-        {
-            if (size <= available)
-            {
-                Array.Copy(buf, pos, buffer, offset, size);
-                available -= size;
-                pos += size;
-                return size;
-            }
-            else
-            {
-                int readcount = 0;
+		public ReadOnlyBufferedStream(Stream nstream, int bufferSize) {
+			stream = nstream;
+			buf = BufferPool.Get(bufferSize, true);
+		}
 
-                if (available > 0)
-                {
-                    Array.Copy(buf, pos, buffer, offset, available);
-                    offset += available;
-                    readcount += available;
-                    available = 0;
-                    pos = 0;
-                }
+		public override bool CanRead {
+			get{ return true; }
+		}
 
-                try
-                {
-                    available = stream.Read(buf, 0, buf.Length);
-                    pos = 0;
-                }
-                catch (Exception ex)
-                {
-                    if (readcount > 0)
-                    {
-                        return readcount;
-                    }
+		public override bool CanSeek {
+			get{ throw new NotImplementedException(); }
+		}
 
-                    throw (ex);
-                }
+		public override bool CanWrite {
+			get{ throw new NotImplementedException(); }
+		}
 
-                if (available < 1)
-                {
-                    if (readcount > 0)
-                    {
-                        return readcount;
-                    }
+		public override long Length {
+			get{ throw new NotImplementedException(); }
+		}
 
-                    return available;
-                }
-                else
-                {
-                    int toread = size - readcount;
-                    if (toread <= available)
-                    {
-                        Array.Copy(buf, pos, buffer, offset, toread);
-                        available -= toread;
-                        pos += toread;
-                        readcount += toread;
-                        return readcount;
-                    }
-                    else
-                    {
-                        Array.Copy(buf, pos, buffer, offset, available);
-                        offset += available;
-                        readcount += available;
-                        pos = 0;
-                        available = 0;
-                    }
-                }
+		public override long Position {
+			get{ throw new NotImplementedException(); }
+			set{ throw new NotImplementedException(); }
+		}
 
-                return readcount;
-            }
-        }
+		public override int Read(byte[] buffer, int offset, int size) {
+			if (size <= available) {
+				Array.Copy(buf, pos, buffer, offset, size);
+				available -= size;
+				pos += size;
+				return size;
+			} else {
+				int readcount = 0;
 
-        public override int ReadByte()
-        {
-            if (available > 0)
-            {
-                available -= 1;
-                pos += 1;
-                return buf[pos - 1];
-            }
-            else
-            {
-                try
-                {
-                    available = stream.Read(buf, 0, buf.Length);
-                    pos = 0;
-                }
-                catch
-                {
-                    return -1;
-                }
-                if (available < 1)
-                {
-                    return -1;
-                }
-                else
-                {
-                    available -= 1;
-                    pos += 1;
-                    return buf[pos - 1];
-                }
-            }
-        }
+				if (available > 0) {
+					Array.Copy(buf, pos, buffer, offset, available);
+					offset += available;
+					readcount += available;
+					available = 0;
+					pos = 0;
+				}
 
-        protected override void Dispose(bool disposing)
-        {
-            if (buf != null)
-                BufferPool.Release(buf);
+				try {
+					available = stream.Read(buf, 0, buf.Length);
+					pos = 0;
+				} catch (Exception ex) {
+					if (readcount > 0) {
+						return readcount;
+					}
 
-            buf = null;
-        }
+					throw (ex);
+				}
 
-        public override bool CanRead
-        {
-            get { return true; }
-        }
+				if (available < 1) {
+					if (readcount > 0) {
+						return readcount;
+					}
 
-        public override bool CanSeek
-        {
-            get { throw new NotImplementedException(); }
-        }
+					return available;
+				} else {
+					int toread = size - readcount;
+					if (toread <= available) {
+						Array.Copy(buf, pos, buffer, offset, toread);
+						available -= toread;
+						pos += toread;
+						readcount += toread;
+						return readcount;
+					} else {
+						Array.Copy(buf, pos, buffer, offset, available);
+						offset += available;
+						readcount += available;
+						pos = 0;
+						available = 0;
+					}
+				}
 
-        public override bool CanWrite
-        {
-            get { throw new NotImplementedException(); }
-        }
+				return readcount;
+			}
+		}
 
-        public override long Length
-        {
-            get { throw new NotImplementedException(); }
-        }
+		public override int ReadByte() {
+			if (available > 0) {
+				available -= 1;
+				pos += 1;
+				return buf[pos - 1];
+			} else {
+				try {
+					available = stream.Read(buf, 0, buf.Length);
+					pos = 0;
+				} catch {
+					return -1;
+				}
 
-        public override long Position
-        {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
-        }
+				if (available < 1) {
+					return -1;
+				} else {
+					available -= 1;
+					pos += 1;
+					return buf[pos - 1];
+				}
+			}
+		}
 
-        public override void Flush()
-        {
-            throw new NotImplementedException();
-        }
+		protected override void Dispose(bool disposing) {
+			if (disposing && buf != null)
+				BufferPool.Release(buf);
 
-        public override long Seek(long offset, SeekOrigin origin)
-        {
-            throw new NotImplementedException();
-        }
+			buf = null;
+		}
 
-        public override void SetLength(long value)
-        {
-            throw new NotImplementedException();
-        }
+		public override void Flush() {
+			throw new NotImplementedException();
+		}
 
-        public override void Write(byte[] buffer, int offset, int count)
-        {
-            throw new NotImplementedException();
-        }
-    }
+		public override long Seek(long offset, SeekOrigin origin) {
+			throw new NotImplementedException();
+		}
+
+		public override void SetLength(long value) {
+			throw new NotImplementedException();
+		}
+
+		public override void Write(byte[] buffer, int offset, int count) {
+			throw new NotImplementedException();
+		}
+
+	}
 }
