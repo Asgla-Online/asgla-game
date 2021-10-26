@@ -13,8 +13,7 @@ namespace Asgla {
 		[SerializeField] private TMP_InputField _inputUsername;
 		[SerializeField] private TMP_InputField _inputPassword;
 
-		[SerializeField] private Toggle _toggleUsername;
-		[SerializeField] private Toggle _togglePassword;
+		[SerializeField] private Toggle _toggleRemember;
 
 		[SerializeField] private Button _button;
 
@@ -51,41 +50,36 @@ namespace Asgla {
 				case HTTPRequestStates.Finished:
 					Debug.Log(resp.DataAsText);
 
-					LoginWebRequest Login = JsonMapper.ToObject<LoginWebRequest>(resp.DataAsText.Trim());
+					LoginWebRequest login = JsonMapper.ToObject<LoginWebRequest>(resp.DataAsText.Trim());
 
-					if (resp.IsSuccess && Login != null && Login.user != null && Login.user.Token != null) {
+					if (resp.IsSuccess && login != null && login.user != null && login.user.Token != null) {
 						_modal.SetText2("Authentication successfully");
 						_modal.SetActiveConfirmButton(false);
 
-						if (_toggleUsername.isOn)
+						if (_toggleRemember.isOn) {
 							PlayerPrefs.SetString("loginUsername", _inputUsername.text);
-
-						if (_togglePassword.isOn)
 							PlayerPrefs.SetString("loginPassword", _inputPassword.text);
+						}
 
 						PlayerPrefs.Save();
 
-						Main.Singleton.Login(_modal, Login.user.Token);
+						Main.Singleton.Login(_modal, login.user.Token);
 					} else {
 						_modal.SetText1("Warning");
-						_modal.SetText2(Login == null || Login.Message == null ? "Error" : Login.Message);
-						//Debug.Log(string.Format("Request Finished Successfully, but the server sent an error. Status Code: {0}-{1} Message: {2}", resp.StatusCode, resp.Message, resp.DataAsText));
+						_modal.SetText2(login?.Message ?? "Error");
 					}
 
 					break;
 				case HTTPRequestStates.Error:
-					//Debug.Log("Request Finished with Error! " + (req.Exception != null ? (req.Exception.Message + "\n" + req.Exception.StackTrace) : "No Exception"));
 					_modal.SetText1("Error");
 					_modal.SetText2("Request Finished with Error!");
 					break;
 				case HTTPRequestStates.Aborted:
-					//Debug.Log("Request Aborted!");
 					_modal.SetText1("Error");
 					_modal.SetText2("Request Aborted!");
 					break;
 				case HTTPRequestStates.ConnectionTimedOut:
 				case HTTPRequestStates.TimedOut:
-					//Debug.Log("Timed Out!");
 					_modal.SetText1("Error");
 					_modal.SetText2("Timed Out!");
 					break;
@@ -104,20 +98,10 @@ namespace Asgla {
 		public void OnToggleUsername(bool on) {
 			if (on) {
 				PlayerPrefs.SetString("loginUsername", _inputUsername.text);
-			} else {
-				if (PlayerPrefs.HasKey("loginUsername"))
-					PlayerPrefs.DeleteKey("loginUsername");
-			}
-
-			PlayerPrefs.Save();
-		}
-
-		public void OnTogglePassword(bool on) {
-			if (on) {
 				PlayerPrefs.SetString("loginPassword", _inputPassword.text);
-			} else {
-				if (PlayerPrefs.HasKey("loginPassword"))
-					PlayerPrefs.DeleteKey("loginPassword");
+			} else if (PlayerPrefs.HasKey("loginUsername")) {
+				PlayerPrefs.DeleteKey("loginUsername");
+				PlayerPrefs.DeleteKey("loginPassword");
 			}
 
 			PlayerPrefs.Save();
@@ -128,23 +112,17 @@ namespace Asgla {
 		private void Awake() {
 			if (PlayerPrefs.HasKey("loginUsername")) {
 				_inputUsername.text = PlayerPrefs.GetString("loginUsername");
-				_toggleUsername.isOn = true;
+				_inputPassword.text = PlayerPrefs.GetString("loginPassword");
+				_toggleRemember.isOn = true;
 			} else {
 				_inputUsername.text = "";
-				_toggleUsername.isOn = false;
-			}
-
-			if (PlayerPrefs.HasKey("loginPassword")) {
-				_inputPassword.text = PlayerPrefs.GetString("loginPassword");
-				_togglePassword.isOn = true;
-			} else {
 				_inputPassword.text = "";
-				_togglePassword.isOn = false;
+				_toggleRemember.isOn = false;
 			}
 		}
 
 		private void Start() {
-			if (PlayerPrefs.HasKey("loginPassword") && PlayerPrefs.HasKey("loginUsername"))
+			if (PlayerPrefs.HasKey("loginUsername"))
 				StartAuthentication();
 		}
 
