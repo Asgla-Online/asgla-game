@@ -1,4 +1,5 @@
 ﻿using Asgla.Avatar.Player;
+using Asgla.Controller;
 using Asgla.Data.Area;
 using UnityEngine;
 
@@ -41,7 +42,7 @@ namespace Asgla.Map {
 					    string.IsNullOrEmpty(_position))
 						return;
 
-					Main.Singleton.UIManager.CreateLoadingMap();
+					UIController.CreateLoadingMap();
 					Main.Singleton.UIManager.LoadingOverlay.SetLoadingText("LOADING MAP");
 
 					Main.Singleton.Request.Send("Join", _join, _area, _position);

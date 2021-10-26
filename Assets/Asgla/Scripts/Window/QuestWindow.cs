@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Asgla.Controller;
 using Asgla.Data.Avatar.Player;
 using Asgla.Data.Item;
 using Asgla.Data.Quest;
@@ -152,11 +153,11 @@ namespace Asgla.Window {
 		}
 
 		private void Clear() {
-			Main.Singleton.UIManager.ClearChild(_slotGroup.transform);
+			UIController.ClearChild(_slotGroup.transform);
 		}
 
 		private void Clear2() {
-			Main.Singleton.UIManager.ClearChild(_objectiveContent, _rewardAmountContent, _rewardContent);
+			UIController.ClearChild(_objectiveContent, _rewardAmountContent, _rewardContent);
 		}
 
 	}

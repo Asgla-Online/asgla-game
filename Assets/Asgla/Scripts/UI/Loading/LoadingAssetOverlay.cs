@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Asgla.Controller;
 using Asgla.Data.Effect;
 using Asgla.Effect;
 using AsglaUI.UI;
@@ -86,7 +87,7 @@ namespace Asgla.UI.Loading {
 
 			//Debug.Log("<color=orange>[LoadingAssetOverlay]</color> LoadAsset Set loading map overlay");
 			//Set loading map overlay
-			Main.Singleton.UIManager.CreateLoadingMap();
+			UIController.CreateLoadingMap();
 			Main.Singleton.UIManager.LoadingOverlay.SetLoadingText("LOADING MAP");
 
 			Main.Singleton.Request.Send("JoinFirst");

@@ -1,4 +1,5 @@
 ﻿using System;
+using Asgla.Controller;
 using Asgla.UI.Loading;
 using BestHTTP.WebSocket;
 using UnityEngine;
@@ -66,7 +67,7 @@ namespace Asgla {
 				Main.AvatarManager.Player = null;
 
 				if (SceneManager.GetActiveScene().buildIndex != Main.SceneLogin) {
-					LoadingSceneOverlay loadingScene = Main.UIManager.CreateLoadingScene();
+					LoadingSceneOverlay loadingScene = UIController.CreateLoadingScene();
 					loadingScene.LoadScene(Main.SceneLogin);
 				}
 

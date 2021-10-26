@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Asgla.Controller;
 using Asgla.Data.Item;
 using Asgla.UI.Item;
 using AsglaUI.UI;
@@ -89,7 +90,7 @@ namespace Asgla.Window {
 		}
 
 		protected void Clear() {
-			Main.Singleton.UIManager.ClearChild(_all.transform, _armor.transform, _weapon.transform, _helm.transform);
+			UIController.ClearChild(_all.transform, _armor.transform, _weapon.transform, _helm.transform);
 		}
 
 	}

@@ -1,4 +1,5 @@
-﻿using Asgla.UI.Loading;
+﻿using Asgla.Controller;
+using Asgla.UI.Loading;
 using BestHTTP.JSON.LitJson;
 
 namespace Asgla.Requests.Unity {
@@ -26,7 +27,7 @@ namespace Asgla.Requests.Unity {
 
 			main.UIManager.Modal.Close();
 
-			LoadingSceneOverlay loadingScene = main.UIManager.CreateLoadingScene();
+			LoadingSceneOverlay loadingScene = UIController.CreateLoadingScene();
 			loadingScene.LoadScene(main.SceneGame);
 		}
 

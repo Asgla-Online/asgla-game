@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Asgla.Controller;
 using Asgla.Data.Area;
 using Asgla.Quest;
 using Asgla.Skill;
@@ -101,7 +102,7 @@ namespace Asgla {
 		}
 
 		private void Start() {
-			LoadingAssetOverlay loadingAsset = Main.Singleton.UIManager.CreateLoadingAsset();
+			LoadingAssetOverlay loadingAsset = UIController.CreateLoadingAsset();
 
 			if (loadingAsset == null)
 				Main.Singleton.UIManager.LoadingOverlay.SetLoadingText(

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Asgla.Controller;
 using Asgla.Data.Area;
 using Asgla.UI.Loading;
 using BestHTTP.JSON.LitJson;
@@ -16,7 +17,7 @@ namespace Asgla.Requests.Unity {
 			Debug.Log(joinMap.area);
 
 			LoadingMapOverlay loadingMap = main.UIManager.LoadingOverlay == null
-				? main.UIManager.CreateLoadingMap()
+				? UIController.CreateLoadingMap()
 				: (LoadingMapOverlay) main.UIManager.LoadingOverlay;
 
 			main.AvatarManager.Monsters = new List<AreaAvatar>();
