@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Asgla.Data.Item;
-using Asgla.Data.Type;
 using Asgla.UI.Item;
 using AsglaUI.UI;
 using CharacterCreator2D;

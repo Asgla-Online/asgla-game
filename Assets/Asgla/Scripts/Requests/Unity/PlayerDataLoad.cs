@@ -13,19 +13,19 @@ namespace Asgla.Requests.Unity {
 			PlayerDataLoad playerDataLoad = JsonMapper.ToObject<PlayerDataLoad>(json);
 
 			foreach (DataUpdate2 du in playerDataLoad.players) {
-				Player player = main.MapManager.PlayerByID(du.Data.playerID);
+				Player player = main.MapManager.PlayerByID(du.data.playerID);
 
 				if (player is null)
 					continue;
 
-				player.Data(du.Data);
+				player.Data(du.data);
 
 				if (player.Data().Part != null)
 					player.Data().Part.ForEach(part => player.Equip(part));
 
 				player.Data().Part = null;
 
-				player.Stats(du.Stats);
+				player.Stats(du.stats);
 			}
 
 			main.Request.Send("PlayerInventory");

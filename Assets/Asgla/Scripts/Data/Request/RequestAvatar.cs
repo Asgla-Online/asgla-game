@@ -10,10 +10,10 @@ namespace Asgla.Data.Request {
 
 		public class DataUpdate2 {
 
-			public PlayerData Data = null;
-			public Entity Entity = null;
+			public PlayerData data = null;
+			public Entity entity = null;
 
-			public AvatarStats Stats = null;
+			public AvatarStats stats = null;
 
 		}
 

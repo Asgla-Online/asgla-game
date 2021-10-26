@@ -4,25 +4,22 @@ using Asgla.Data.Avatar;
 using Asgla.Data.Avatar.Helper;
 using Asgla.Data.Avatar.Player;
 using Asgla.Data.Entity;
-using Asgla.Data.Type;
 using Asgla.Utility;
 using AssetBundles;
 using CharacterCreator2D;
 using UnityEngine;
 using UnityEngine.Rendering;
 using static AssetBundles.AssetBundleManager;
-using Weapon = CharacterCreator2D.Weapon;
 
 namespace Asgla.Avatar.Player {
 	public class Player : AvatarMain {
 
-		[SerializeField] private PlayerCharacter _character;
+		[SerializeField] private PlayerCharacter character;
+
+		public PlayerData data;
 		private readonly List<int> _loadingEquip = new List<int>();
 
 		private CharacterViewer _characterView;
-
-		private PlayerData _data;
-		private bool _loadingBodyStart;
 
 		//Loading stuff
 		private int _loadingCount;
@@ -31,66 +28,58 @@ namespace Asgla.Avatar.Player {
 
 		private HashSet<AvatarMain> _targets;
 
-		public void Data(PlayerData d) {
-			_data = d;
+		public void Data(PlayerData playerData) {
+			data = playerData;
 		}
 
-		public void UpdateData(PlayerData d) {
-			//int PlayerID
-			//int databaseId
+		public void UpdateData(PlayerData playerData) {
+			UpdateDataBody(playerData);
 
-			if (d.username != Data().username && !string.IsNullOrEmpty(d.username))
-				Data().username = d.username;
+			if (playerData.area != Data().area && playerData.area != null)
+				Data().area = playerData.area;
 
-			//EquipPart Ear
-			//EquipPart Eye
-			//EquipPart Hai
-			//EquipPart Mouth
-			//EquipPart Nose
+			if (playerData.level != Data().level && playerData.level > 0)
+				Data().level = playerData.level;
 
-			if (d.colorSkin != Data().colorSkin && !string.IsNullOrEmpty(d.colorSkin)) {
-				Data().colorSkin = d.colorSkin;
-				CharacterView().SetPartColor(Equipment.BodySkin, ColorCode.Color1,
+			State(playerData.state);
+		}
+
+		public void UpdateDataBody(PlayerData playerData) {
+			Equip(Data().Ear);
+			Equip(Data().Eye);
+			Equip(Data().Hair);
+			Equip(Data().Mouth);
+			Equip(Data().Nose);
+
+			if (playerData.colorSkin != Data().colorSkin && !string.IsNullOrEmpty(playerData.colorSkin)) {
+				Data().colorSkin = playerData.colorSkin;
+				CharacterView().SetPartColor(SlotCategory.BodySkin, ColorCode.Color1,
 					CommonColorBuffer.StringToColor(Data().colorSkin));
 			}
 
-			if (d.colorEye != Data().colorEye && !string.IsNullOrEmpty(d.colorEye)) {
-				Data().colorEye = d.colorEye;
-				CharacterView().SetPartColor(Equipment.Eye, ColorCode.Color1,
+			if (playerData.colorEye != Data().colorEye && !string.IsNullOrEmpty(playerData.colorEye)) {
+				Data().colorEye = playerData.colorEye;
+				CharacterView().SetPartColor(SlotCategory.Eyes, ColorCode.Color1,
 					CommonColorBuffer.StringToColor(Data().colorEye));
 			}
 
-			if (d.colorHair != Data().colorHair && !string.IsNullOrEmpty(d.colorHair)) {
-				Data().colorHair = d.colorHair;
-				CharacterView().SetPartColor(Equipment.Hair, ColorCode.Color1,
+			if (playerData.colorHair != Data().colorHair && !string.IsNullOrEmpty(playerData.colorHair)) {
+				Data().colorHair = playerData.colorHair;
+				CharacterView().SetPartColor(SlotCategory.Hair, ColorCode.Color1,
 					CommonColorBuffer.StringToColor(Data().colorHair));
 			}
 
-			if (d.colorMouth != Data().colorMouth && !string.IsNullOrEmpty(d.colorMouth)) {
-				Data().colorMouth = d.colorMouth;
-				CharacterView().SetPartColor(Equipment.Mouth, ColorCode.Color1,
+			if (playerData.colorMouth != Data().colorMouth && !string.IsNullOrEmpty(playerData.colorMouth)) {
+				Data().colorMouth = playerData.colorMouth;
+				CharacterView().SetPartColor(SlotCategory.Mouth, ColorCode.Color1,
 					CommonColorBuffer.StringToColor(Data().colorMouth));
 			}
 
-			if (d.colorNose != Data().colorNose && !string.IsNullOrEmpty(d.colorNose)) {
-				Data().colorNose = d.colorNose;
-				CharacterView().SetPartColor(Equipment.Nose, ColorCode.Color1,
+			if (playerData.colorNose != Data().colorNose && !string.IsNullOrEmpty(playerData.colorNose)) {
+				Data().colorNose = playerData.colorNose;
+				CharacterView().SetPartColor(SlotCategory.Nose, ColorCode.Color1,
 					CommonColorBuffer.StringToColor(Data().colorNose));
 			}
-
-			if (d.area != Data().area && d.area != null)
-				Data().area = d.area;
-
-			//int x
-			//int y
-
-			if (d.level != Data().level && d.level > 0)
-				Data().level = d.level;
-
-			//bool Away
-			//bool Controlling
-
-			State(d.state);
 		}
 
 		public void Inventory(List<PlayerInventory> list) {
@@ -123,11 +112,17 @@ namespace Asgla.Avatar.Player {
 		}
 
 		public void Equip(EquipPart equip) {
-			if (equip.type == null || equip.type.Category != Category.Class) {
+			/*if (equip.type == null || equip.type.Category != Category.Class) {
 				equip.uniqueId = _loadingCount++;
 				_loadingEquip.Add(equip.uniqueId);
 				StartCoroutine(AsynchronousLoad(equip));
-			}
+			}*/
+		}
+
+		public void Equip2(EquipPart equip) {
+			equip.uniqueId = _loadingCount++;
+			_loadingEquip.Add(equip.uniqueId);
+			StartCoroutine(AsynchronousLoad(equip));
 		}
 
 		public void ResetCharacter() {
@@ -178,7 +173,7 @@ namespace Asgla.Avatar.Player {
 		}
 
 		public PlayerData Data() {
-			return _data;
+			return data;
 		}
 
 		public AvatarMain Target() {
@@ -191,7 +186,7 @@ namespace Asgla.Avatar.Player {
 
 		#region Asset Bundle
 
-		public IEnumerator AsynchronousLoad(EquipPart equip) {
+		private IEnumerator AsynchronousLoad(EquipPart equip) {
 			AssetBundleManager abm = new AssetBundleManager();
 
 			abm.DisableDebugLogging();
@@ -214,15 +209,6 @@ namespace Asgla.Avatar.Player {
 				yield break;
 			}
 
-			/*if (equip.Type is null) {
-			    foreach (string objet in assetBundle.AssetBundle.GetAllAssetNames()) {
-			        Debug.LogFormat("<color=green>[PlayerMain]</color> GetAllAssetNames {0}", objet);
-			    }
-			    foreach (Object objet in assetBundle.AssetBundle.LoadAllAssets()) {
-			        Debug.LogFormat("<color=green>[PlayerMain]</color> LoadAllAssets {0}", objet);
-			    }
-			}*/
-
 			AssetBundleRequest asyncAsset =
 				assetBundle.AssetBundle.LoadAssetAsync($"assets/asgla/game/items/{equip.asset}", typeof(Part));
 
@@ -235,24 +221,7 @@ namespace Asgla.Avatar.Player {
 				yield break;
 			}
 
-			if (equip.type == null) {
-				_characterView.EquipPart(equip.equipment, partAsset);
-			} else {
-				_loadingBodyStart = true;
-
-				switch (partAsset.category) {
-					case Category.Weapon: {
-						Weapon part = (Weapon) partAsset;
-						part.weaponCategory = equip.type.Weapon;
-
-						_characterView.EquipPart(equip.type.Equipment, part);
-						break;
-					}
-					default:
-						_characterView.EquipPart(equip.type.Equipment, partAsset);
-						break;
-				}
-			}
+			CharacterView().EquipPart(equip.type.Equipment, partAsset);
 
 			_loadingEquip.Remove(equip.uniqueId);
 
@@ -260,13 +229,13 @@ namespace Asgla.Avatar.Player {
 
 			abm.Dispose();
 
-			if (_loadingEquip.Count == 0 && _loadingBodyStart) {
-				_character.GetComponent<SortingGroup>().sortingLayerName = "Avatar";
-				_character.GetComponent<SortingGroup>().sortingOrder = 1;
+			if (_loadingEquip.Count == 0) {
+				character.GetComponent<SortingGroup>().sortingLayerName = "Avatar";
+				character.GetComponent<SortingGroup>().sortingOrder = 1;
 				Utility().LoadFlame.SetActive(false);
 			} else {
-				_character.GetComponent<SortingGroup>().sortingLayerName = "Default";
-				_character.GetComponent<SortingGroup>().sortingOrder = -1;
+				character.GetComponent<SortingGroup>().sortingLayerName = "Default";
+				character.GetComponent<SortingGroup>().sortingOrder = -1;
 				Utility().LoadFlame.SetActive(true);
 			}
 		}
@@ -276,16 +245,16 @@ namespace Asgla.Avatar.Player {
 		#region Unity
 
 		private void Awake() {
-			_data = new PlayerData();
+			data = new PlayerData();
 
 			_rigidBody2D = GetComponent<Rigidbody2D>();
-			_animator = _character.GetComponent<Animator>();
-			_characterView = _character.GetComponent<CharacterViewer>();
+			_animator = character.GetComponent<Animator>();
+			_characterView = character.GetComponent<CharacterViewer>();
 
-			_character.GetComponent<SortingGroup>().sortingLayerName = "Default";
-			_character.GetComponent<SortingGroup>().sortingOrder = -1;
+			character.GetComponent<SortingGroup>().sortingLayerName = "Default";
+			character.GetComponent<SortingGroup>().sortingOrder = -1;
 
-			_character.Avatar(this);
+			character.Avatar(this);
 
 			_utility.LoadFlame.SetActive(true);
 
@@ -311,8 +280,8 @@ namespace Asgla.Avatar.Player {
 			Body().MovePosition(Vector2.MoveTowards(transform.position, _position,
 				Time.fixedDeltaTime * (float) Area().Speed()));
 
-			_character.transform.position = new Vector3(_character.transform.position.x,
-				_character.transform.position.y, transform.position.y);
+			character.transform.position = new Vector3(character.transform.position.x,
+				character.transform.position.y, transform.position.y);
 		}
 
 		private void OnCollisionEnter2D(Collision2D collision) {

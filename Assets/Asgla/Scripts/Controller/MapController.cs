@@ -59,7 +59,7 @@ namespace Asgla.Controller {
 			if (players.Count > 0)
 				Main.Singleton.Request.Send("PlayerData", players.ToArray());
 
-			map.Data().monsters.ForEach(mapMonster => Main.Singleton.AvatarManager.Create(mapMonster));
+			/*map.Data().monsters.ForEach(mapMonster => Main.Singleton.AvatarManager.Create(mapMonster));*/
 
 			Main.Singleton.UIManager.LoadingOverlay = null;
 		}

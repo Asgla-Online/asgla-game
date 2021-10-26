@@ -1,12 +1,10 @@
 ﻿using System.Collections;
 using Asgla.Data.Avatar.Helper;
-using Asgla.Data.Type;
 using AssetBundles;
 using CharacterCreator2D;
 using UnityEngine;
 using UnityEngine.UI;
 using static AssetBundles.AssetBundleManager;
-using Weapon = CharacterCreator2D.Weapon;
 
 namespace Asgla.UI {
 	public class CharacterPreview : MonoBehaviour {
@@ -104,15 +102,17 @@ namespace Asgla.UI {
 				yield break;
 			}
 
-			if (partAsset.category == Category.Weapon) {
+			_characterView.EquipPart(equip.type.Equipment, partAsset);
+
+			/*if (partAsset.category == PartCategory.Weapon) {
 				Weapon part = (Weapon) partAsset;
 				part.weaponCategory = equip.type.Weapon;
 
 				_characterView.EquipPart(equip.type.Equipment, part);
 			} else {
-				if (equip.type.Category != Category.Class)
+				if (equip.type.Category != PartCategory.Class)
 					_characterView.EquipPart(equip.type.Equipment, partAsset);
-			}
+			}*/
 
 			_image.enabled = true;
 

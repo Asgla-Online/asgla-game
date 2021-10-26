@@ -219,7 +219,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _utility: {fileID: 7469570734230015992}
-  _character: {fileID: 1836220739657252057}
+  character: {fileID: 1836220739657252057}
+  data:
+    playerID: -1
+    databaseID: -1
+    username: 
+    colorSkin: 
+    colorEye: 
+    colorHair: 
+    colorMouth: 
+    colorNose: 
+    x: 0
+    y: 0
+    level: 0
+    isAway: 0
+    isControlling: 0
+    state: -1
+    inventory: []
 --- !u!50 &7256225779516381132
 Rigidbody2D:
   serializedVersion: 4
@@ -1069,9 +1085,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114063851512035336, guid: 49e6f78840240db4f9f416d5b029f956, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 210091510854861030, guid: 49e6f78840240db4f9f416d5b029f956, type: 3}
       propertyPath: m_SortingLayer
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49e6f78840240db4f9f416d5b029f956, type: 3}

@@ -15,6 +15,9 @@ using UnityEngine.Rendering;
 namespace Asgla {
 	public class Main : MonoBehaviour {
 
+		public Part part1; //test
+		public Part part2; //test
+
 		public bool Walkable = true;
 
 		public Player PlayerPrefab;

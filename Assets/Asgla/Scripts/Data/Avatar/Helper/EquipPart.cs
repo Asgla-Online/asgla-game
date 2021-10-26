@@ -10,7 +10,7 @@ namespace Asgla.Data.Avatar.Helper {
 		public string bundle = null;
 
 		// ReSharper disable once InconsistentNaming UnassignedField.Global MemberCanBePrivate.Global CollectionNeverUpdated.Global FieldCanBeMadeReadOnly.Global ConvertToConstant.Global
-		public Equipment equipment;
+		//public SlotCategory equipment;
 
 		// ReSharper disable once InconsistentNaming UnassignedField.Global MemberCanBePrivate.Global CollectionNeverUpdated.Global FieldCanBeMadeReadOnly.Global ConvertToConstant.Global
 		public int playerId = -1;
