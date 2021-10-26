@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using CharacterCreator2D.Utilities;
+using UnityEngine;
+
+namespace CharacterCreator2D {
+	[Serializable]
+	public class BodyTypeData {
+
+		public BodyType bodyType;
+		public string packageName;
+		public Transform prefab;
+		public List<SegmentData> segmentDatas;
+		public CharacterManager manager;
+
+	}
+}

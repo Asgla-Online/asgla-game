@@ -7,6 +7,7 @@ using Asgla.Data;
 using Asgla.Effect;
 using AsglaUI.UI;
 using AssetBundles;
+using CharacterCreator2D;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Rendering;
