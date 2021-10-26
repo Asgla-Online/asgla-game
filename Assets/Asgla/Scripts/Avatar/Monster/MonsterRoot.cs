@@ -1,6 +1,4 @@
-﻿using Assets.Asgla.Scripts.Avatar;
-
-namespace Asgla.Avatar.Monster {
+﻿namespace Asgla.Avatar.Monster {
 	public class MonsterRoot : AvatarRoot {
 
 		#region Unity

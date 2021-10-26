@@ -1,9 +1,6 @@
-﻿using Asgla;
-using Asgla.Avatar;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Assets.Asgla.Scripts.Avatar {
-
+namespace Asgla.Avatar {
 	public abstract class AvatarRoot : MonoBehaviour {
 
 		protected AvatarMain _avatar;
@@ -57,5 +54,4 @@ namespace Assets.Asgla.Scripts.Avatar {
 		#endregion
 
 	}
-
 }

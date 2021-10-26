@@ -1,5 +1,4 @@
 ﻿using Asgla.Utility;
-using Assets.Asgla.Scripts.Avatar;
 using UnityEngine;
 
 namespace Asgla.Avatar.Player {
