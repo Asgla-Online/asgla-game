@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Asgla.Area;
 using Asgla.Data.Avatar.Helper;
 using Asgla.Data.Item;
-using Asgla.Map;
 
 namespace Asgla.Data.Avatar.Player {
 
@@ -45,7 +45,7 @@ namespace Asgla.Data.Avatar.Player {
 
 		public List<EquipPart> Part = null;
 
-		public MapArea MapArea() {
+		public AreaLocal MapArea() {
 			return Main.Singleton.MapManager.Map.AreaByName(area.area);
 		}
 

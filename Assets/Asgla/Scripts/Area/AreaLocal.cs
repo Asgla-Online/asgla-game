@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Asgla.Avatar.Player;
-using Asgla.Data.Area;
 using Asgla.NPC;
 using Asgla.Utility;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Asgla.Map {
-	public class MapArea : MonoBehaviour {
+namespace Asgla.Area {
+	public class AreaLocal : MonoBehaviour {
 
 		public OnPlayerScaleUpdateEvent OnPlayerScaleUpdate = new OnPlayerScaleUpdateEvent();
 
@@ -19,7 +18,7 @@ namespace Asgla.Map {
 
 		private Transform _audio;
 
-		private AreaLocal _local;
+		private Data.Area.AreaLocal _local;
 		private GameObject _monsters;
 
 		private Transform _npc;
@@ -28,11 +27,11 @@ namespace Asgla.Map {
 
 		private Transform _zone;
 
-		public void Data(AreaLocal local) {
+		public void Data(Data.Area.AreaLocal local) {
 			_local = local;
 		}
 
-		public AreaLocal Data() {
+		public Data.Area.AreaLocal Data() {
 			return _local;
 		}
 

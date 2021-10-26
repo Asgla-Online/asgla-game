@@ -8,10 +8,10 @@ using Asgla.Data.Avatar.Helper;
 using Asgla.Data.Avatar.Player;
 using Asgla.Data.Skill;
 using Asgla.Data.Type;
-using Asgla.Map;
 using CharacterCreator2D;
 using UnityEngine;
 using static Asgla.Data.Request.RequestAvatar;
+using AreaLocal = Asgla.Area.AreaLocal;
 using Random = System.Random;
 
 namespace Asgla.Controller {
@@ -73,12 +73,12 @@ namespace Asgla.Controller {
 
 		#region Create
 
-		public void Create(PlayerData playerData, MapMain map) {
-			MapArea area = map.AreaByName(playerData.area.area);
+		public void Create(PlayerData playerData, Area.Area map) {
+			AreaLocal areaLocal = map.AreaByName(playerData.area.area);
 
 			Debug.LogFormat("A {0}", Main.PlayerPrefab.gameObject);
 
-			GameObject clone = Object.Instantiate(Main.PlayerPrefab.gameObject, area.Players());
+			GameObject clone = Object.Instantiate(Main.PlayerPrefab.gameObject, areaLocal.Players());
 
 			Debug.LogFormat("B {0}", clone);
 
@@ -152,7 +152,7 @@ namespace Asgla.Controller {
 				player.Avatar().AddComponent<AudioListener>();
 			}
 
-			Main.MapManager.UpdatePlayerArea(player, area, player.Data().area.point);
+			Main.MapManager.UpdatePlayerArea(player, areaLocal, player.Data().area.point);
 
 			if (playerData.x == 0 || playerData.y == 0)
 				return;
@@ -168,7 +168,7 @@ namespace Asgla.Controller {
 		public void Create(AreaLocalMonster data) {
 			//Debug.LogFormat("<color=purple>[PlayerManager]</color> CreatePlayer {0} {1}", data.PlayerID, data.Username);
 
-			GameObject clone = Object.Instantiate(Main.MonsterPrefab.gameObject, data.Area.Monsters());
+			GameObject clone = Object.Instantiate(Main.MonsterPrefab.gameObject, data.AreaLocal.Monsters());
 
 			Monster monster = clone.GetComponent<Monster>();
 
@@ -186,7 +186,7 @@ namespace Asgla.Controller {
 
 			Main.StartCoroutine(monster.AsynchronousLoad());
 
-			Main.MapManager.SetMonsterArea(monster, data.Area); //TODO: set unique id
+			Main.MapManager.SetMonsterArea(monster, data.AreaLocal); //TODO: set unique id
 		}
 
 		#endregion

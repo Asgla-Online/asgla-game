@@ -1,7 +1,7 @@
 ﻿using System;
+using Asgla.Area;
 using Asgla.Data.Avatar;
 using Asgla.Data.Avatar.Helper;
-using Asgla.Map;
 
 namespace Asgla.Data.Monster {
 
@@ -28,7 +28,7 @@ namespace Asgla.Data.Monster {
 
 		public MoveToLocal Area = null;
 
-		public MapArea MapArea() {
+		public AreaLocal MapArea() {
 			return Main.Singleton.MapManager.Map.AreaByName(Area.area);
 		}
 

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Asgla.Map {
+namespace Asgla.Area.Utility {
 
 	/*
 	 * MapOverPlayer
@@ -9,7 +9,7 @@ namespace Asgla.Map {
 	 */
 
 	[ExecuteInEditMode]
-	public class MapOverPlayer : MonoBehaviour {
+	public class AreaOverPlayer : MonoBehaviour {
 
 #if UNITY_EDITOR
 		private void Update() {

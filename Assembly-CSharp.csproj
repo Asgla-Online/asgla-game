@@ -117,7 +117,7 @@
      <Compile Include="Assets\CharacterCreator2D\Creator UI\Scripts\UICreator\PartGroup.cs" />
      <Compile Include="Assets\Asgla\Scripts\Data\Skill\SkillData.cs" />
      <Compile Include="Assets\Asgla\Scripts\Window\ItemPreviewWindow.cs" />
-     <Compile Include="Assets\Asgla\Scripts\Map\MapArea.cs" />
+     <Compile Include="Assets\Asgla\Scripts\Area\AreaLocal.cs"/>
      <Compile Include="Assets\UI X\Scripts\UI\Controls\UISliderExtended.cs" />
      <Compile Include="Assets\UI X\Scripts\UI\Miscellaneous\UICanvasAnchorToCamera.cs" />
      <Compile Include="Assets\Test\Test Scripts\Test_UIEquipSlot_Assign.cs" />
@@ -166,7 +166,6 @@
      <Compile Include="Assets\Asgla\Scripts\Window\QuestWindow.cs" />
      <Compile Include="Assets\CharacterCreator2D\Data\Scripts\Utilities\CharacterUtility.cs" />
      <Compile Include="Assets\UI X\Scripts\UI\Tweening\TweenEasing.cs" />
-     <Compile Include="Assets\Asgla\Scripts\Map\MapOverPlayer.cs" />
      <Compile Include="Assets\CharacterCreator2D\Creator UI\Scripts\UIColorPalette\ColorItem.cs" />
      <Compile Include="Assets\Test\Demo\Character Select\3D\Demo_CharacterSelectMgr.cs" />
      <Compile Include="Assets\CharacterCreator2D\Creator UI\Scripts\UICreator\DropdownShifter.cs" />
@@ -239,7 +238,7 @@
      <Compile Include="Assets\UI X\Scripts\UI\Window\UIWindowManager.cs" />
      <Compile Include="Assets\Asgla\Scripts\Requests\Unity\Move.cs" />
      <Compile Include="Assets\CharacterCreator2D\Creator UI\Scripts\UICreator\BodyTypeItem.cs" />
-     <Compile Include="Assets\Asgla\Scripts\Map\MapMove.cs" />
+      <Compile Include="Assets\Asgla\Scripts\Area\Utility\AreaMove.cs"/>
      <Compile Include="Assets\Test\Demo\Demo_QualitySlider.cs" />
      <Compile Include="Assets\UI X\Scripts\UI\Controls\Select Field\UISelectField_Transition.cs" />
      <Compile Include="Assets\Asgla\Scripts\Data\Type\TypeItemData.cs" />
@@ -349,7 +348,7 @@
      <Compile Include="Assets\Asgla\Scripts\Utility\CommonColorBuffer.cs" />
      <Compile Include="Assets\UI X\Scripts\UI\Scene System\UIScene.cs" />
      <Compile Include="Assets\UI X\Scripts\UI\Controls\UIToggle_OnOff.cs" />
-     <Compile Include="Assets\Asgla\Scripts\Map\MapMain.cs" />
+      <Compile Include="Assets\Asgla\Scripts\Area\Area.cs"/>
      <Compile Include="Assets\UI X\Scripts\UI\Mesh Modifiers\UIFlippable.cs" />
      <Compile Include="Assets\FX\Demo\Scripts\ETFXProjectileScript.cs" />
      <Compile Include="Assets\CharacterCreator2D\Creator UI\Scripts\UICreator\EmotionList.cs" />
@@ -383,6 +382,7 @@
      <Compile Include="Assets\UI X\Scripts\UI\Window\UIWindowID.cs" />
      <Compile Include="Assets\Asgla\Scripts\Requests\Unity\Chat.cs" />
      <Compile Include="Assets\Asgla\Scripts\Data\Avatar\Player\PlayerData.cs" />
+      <Compile Include="Assets\Asgla\Scripts\Area\Utility\AreaOverPlayer.cs"/>
      <None Include="Assets\FX\Prefabs\Environment\Environment FX.txt" />
      <None Include="Assets\CharacterCreator2D\Creator UI\Scripts\UIExportPNG\DefaultConfig\Portrait.txt" />
      <None Include="Assets\Asgla\Fonts\Roboto\LICENSE.txt" />

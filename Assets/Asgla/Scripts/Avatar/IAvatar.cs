@@ -1,7 +1,7 @@
-﻿using Asgla.Data.Avatar;
+﻿using Asgla.Area;
+using Asgla.Data.Avatar;
 using Asgla.Data.Entity;
 using Asgla.Data.Skill;
-using Asgla.Map;
 using UnityEngine;
 
 namespace Asgla.Avatar {
@@ -11,7 +11,7 @@ namespace Asgla.Avatar {
 
 		void State(AvatarState state);
 
-		void Area(MapArea area);
+		void Area(AreaLocal areaLocal);
 
 		void Move(Vector2 vector);
 
@@ -51,7 +51,7 @@ namespace Asgla.Avatar {
 
 		EntityType Type();
 
-		MapArea Area();
+		AreaLocal Area();
 
 		Vector2 Position();
 

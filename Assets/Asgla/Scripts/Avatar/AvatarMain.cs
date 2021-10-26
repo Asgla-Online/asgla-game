@@ -1,7 +1,7 @@
-﻿using Asgla.Data.Avatar;
+﻿using Asgla.Area;
+using Asgla.Data.Avatar;
 using Asgla.Data.Entity;
 using Asgla.Data.Skill;
-using Asgla.Map;
 using Asgla.UI.UnitFrame;
 using Asgla.Utility;
 using UnityEngine;
@@ -13,8 +13,6 @@ namespace Asgla.Avatar {
 
 		protected Animator _animator = null;
 
-		protected MapArea _area;
-
 		protected int _popTextSortingOrder = 1;
 
 		protected Vector2 _position = Vector2.zero;
@@ -22,6 +20,8 @@ namespace Asgla.Avatar {
 		protected Rigidbody2D _rigidBody2D = null;
 
 		protected AvatarStats _stats = new AvatarStats();
+
+		protected AreaLocal AreaLocal;
 
 		public virtual void Stats(AvatarStats stats) {
 			if (stats != null) {
@@ -56,8 +56,8 @@ namespace Asgla.Avatar {
 
 		public abstract void State(AvatarState state);
 
-		public virtual void Area(MapArea area) {
-			_area = area;
+		public virtual void Area(AreaLocal areaLocal) {
+			AreaLocal = areaLocal;
 		}
 
 		public virtual void Move(Vector2 vector) {
@@ -124,8 +124,8 @@ namespace Asgla.Avatar {
 
 		public abstract EntityType Type();
 
-		public virtual MapArea Area() {
-			return _area;
+		public virtual AreaLocal Area() {
+			return AreaLocal;
 		}
 
 		public virtual Vector2 Position() {

@@ -5,21 +5,21 @@ using Asgla.Avatar.Monster;
 using Asgla.Avatar.Player;
 using Asgla.Data.Area;
 using Asgla.Data.Avatar.Player;
-using Asgla.Map;
 using UnityEngine;
+using AreaLocal = Asgla.Area.AreaLocal;
 
 namespace Asgla.Controller {
 	public class MapController : Controller {
 
-		public MapMain Map;
+		public Area.Area Map;
 
 		#region Create
 
 		public void Create(AreaData data, GameObject obj) {
-			MapMain map = obj.GetComponent<MapMain>();
+			Area.Area map = obj.GetComponent<Area.Area>();
 			map.Data(data); //if null maybe missing MapMain component
 
-			foreach (MapArea area in map.Areas()) {
+			foreach (AreaLocal area in map.Areas()) {
 				area.Data(data.locals.FirstOrDefault(aD => aD.name == area.gameObject.name)); //Set MapAreaData
 
 				/*if (area.NPC() != null)
@@ -66,32 +66,32 @@ namespace Asgla.Controller {
 
 		#endregion
 
-		public void UpdatePlayerArea(Player player, MapArea area) {
-			UpdatePlayerArea(player, area, "Spawn");
+		public void UpdatePlayerArea(Player player, AreaLocal areaLocal) {
+			UpdatePlayerArea(player, areaLocal, "Spawn");
 		}
 
-		public void UpdatePlayerArea(Player player, MapArea area, string position) {
+		public void UpdatePlayerArea(Player player, AreaLocal areaLocal, string position) {
 			//Debug.LogFormat("<color=teal>[MapManager]</color> AddPlayerToArea {0} {1} {2}", player.Data().Username, area.Name(), position);
 
 			RemovePlayerFromArea(player.Data().playerID);
 
 			Main.AvatarManager.Players.Add(new AreaAvatar {
 				entity = player,
-				area = area
+				areaLocal = areaLocal
 			});
 
 			if (player.Area() != null)
 				player.Area().OnPlayerScaleUpdate.RemoveListener(player.Scale);
 
-			area.OnPlayerScaleUpdate.AddListener(player.Scale);
+			areaLocal.OnPlayerScaleUpdate.AddListener(player.Scale);
 
-			player.transform.SetParent(area.Players());
-			player.Area(area);
+			player.transform.SetParent(areaLocal.Players());
+			player.Area(areaLocal);
 
-			Transform Zone = area.ZoneByName(position);
+			Transform Zone = areaLocal.ZoneByName(position);
 
 			if (Zone == null)
-				Zone = area.Zones().First();
+				Zone = areaLocal.Zones().First();
 
 			if (Zone == null) {
 				if (Main.UIManager.LoadingOverlay != null)
@@ -109,13 +109,13 @@ namespace Asgla.Controller {
 			player.Position(target);
 		}
 
-		public void SetMonsterArea(Monster monster, MapArea area) {
+		public void SetMonsterArea(Monster monster, AreaLocal areaLocal) {
 			Debug.LogFormat("<color=teal>[MapManager]</color> SetMonsterArea {0}({1}) {2}", monster.Data().Name,
-				monster.Id(), area.Name());
+				monster.Id(), areaLocal.Name());
 
 			Main.AvatarManager.Monsters.Add(new AreaAvatar {
 				entity = monster,
-				area = area
+				areaLocal = areaLocal
 			});
 
 			//if (monster.Area() != null)
@@ -125,7 +125,7 @@ namespace Asgla.Controller {
 			//monster.Scale(0.5f);
 
 			//monster.transform.SetParent(area.Players());
-			monster.Area(area);
+			monster.Area(areaLocal);
 
 			/*Transform Zone = area.ZoneByName(position);
 
