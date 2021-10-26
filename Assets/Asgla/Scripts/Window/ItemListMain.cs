@@ -4,6 +4,7 @@ using Asgla.Data.Item;
 using Asgla.Data.Type;
 using Asgla.UI.Item;
 using AsglaUI.UI;
+using CharacterCreator2D;
 using UnityEngine;
 
 namespace Asgla.Window {
@@ -24,46 +25,46 @@ namespace Asgla.Window {
 		public void AddItem(int databaseId, ItemData item) {
 			AddSlot(databaseId, item, _all);
 			switch (item.Type.Category) {
-				case Category.Armor:
+				case PartCategory.Armor:
 					AddSlot(databaseId, item, _armor);
 					break;
-				case Category.Boot:
+				case PartCategory.Boots:
 					break;
-				case Category.Ear:
+				case PartCategory.Ear:
 					break;
-				case Category.Eyebrow:
+				case PartCategory.Eyebrow:
 					break;
-				case Category.Eye:
+				case PartCategory.Eyes:
 					break;
-				case Category.FacialHair:
+				case PartCategory.FacialHair:
 					break;
-				case Category.Glove:
+				case PartCategory.Gloves:
 					break;
-				case Category.Hair:
+				case PartCategory.Hair:
 					break;
-				case Category.Helmet:
+				case PartCategory.Helmet:
 					AddSlot(databaseId, item, _helm);
 					break;
-				case Category.Mouth:
+				case PartCategory.Mouth:
 					break;
-				case Category.Nose:
+				case PartCategory.Nose:
 					break;
-				case Category.Pant:
+				case PartCategory.Pants:
 					break;
-				case Category.SkinDetail:
+				case PartCategory.SkinDetails:
 					break;
-				case Category.Weapon:
+				case PartCategory.Weapon:
 					AddSlot(databaseId, item, _weapon);
 					break;
-				case Category.Cape:
+				case PartCategory.Cape:
 					break;
-				case Category.Skirt:
+				case PartCategory.Skirt:
 					break;
-				case Category.BodySkin:
+				case PartCategory.BodySkin:
 					break;
-				case Category.Class:
-					AddSlot(databaseId, item, _class);
-					break;
+				//case PartCategory.Class:
+				//	AddSlot(databaseId, item, _class);
+				//	break;
 			}
 		}
 

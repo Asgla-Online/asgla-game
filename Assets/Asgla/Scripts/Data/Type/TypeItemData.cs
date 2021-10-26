@@ -1,9 +1,11 @@
-﻿namespace Asgla.Data.Type {
+﻿using CharacterCreator2D;
+
+namespace Asgla.Data.Type {
 
 	public class TypeItemData {
 
-		public Category Category;
-		public Equipment Equipment;
+		public PartCategory Category;
+		public SlotCategory Equipment;
 
 		public string Icon;
 
@@ -13,7 +15,7 @@
 
 	}
 
-	public enum Category {
+	/*public enum Category {
 
 		Armor,
 		Boot,
@@ -68,6 +70,6 @@
 		Gun = 5,
 		Rifle = 6
 
-	}
+	}*/
 
 }
