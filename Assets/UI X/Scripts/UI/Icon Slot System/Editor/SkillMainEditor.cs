@@ -3,44 +3,45 @@ using UnityEditor;
 using UnityEngine;
 
 namespace AsglaUIEditor.UI {
-    [CanEditMultipleObjects, CustomEditor(typeof(SkillMain), true)]
+	[CanEditMultipleObjects]
+	[CustomEditor(typeof(SkillMain), true)]
 	public class SkillMainEditor : UISlotBaseEditor {
-		
-		private SerializedProperty _slotGroupProperty;
+
 		private SerializedProperty _IDProperty;
+
+		private SerializedProperty _slotGroupProperty;
 		private SerializedProperty onAssignProperty;
-		private SerializedProperty onUnassignProperty;
 		private SerializedProperty onClickProperty;
-			
-		protected override void OnEnable()
-		{
+		private SerializedProperty onUnassignProperty;
+
+		protected override void OnEnable() {
 			base.OnEnable();
-			
-			this._slotGroupProperty = this.serializedObject.FindProperty("_slotGroup");
-			this._IDProperty = this.serializedObject.FindProperty("_id");
-			this.onAssignProperty = this.serializedObject.FindProperty("onAssign");
-			this.onUnassignProperty = this.serializedObject.FindProperty("onUnassign");
-			this.onClickProperty = this.serializedObject.FindProperty("onClick");
+
+			_slotGroupProperty = serializedObject.FindProperty("_slotGroup");
+			_IDProperty = serializedObject.FindProperty("_id");
+			onAssignProperty = serializedObject.FindProperty("onAssign");
+			onUnassignProperty = serializedObject.FindProperty("onUnassign");
+			onClickProperty = serializedObject.FindProperty("onClick");
 		}
-		
-		public override void OnInspectorGUI()
-		{
-			this.serializedObject.Update();
+
+		public override void OnInspectorGUI() {
+			serializedObject.Update();
 			EditorGUILayout.Separator();
-			EditorGUILayout.PropertyField(this._slotGroupProperty, new GUIContent("Slot Group"));
+			EditorGUILayout.PropertyField(_slotGroupProperty, new GUIContent("Slot Group"));
 			EditorGUILayout.PropertyField(_IDProperty, new GUIContent("Slot ID"));
-            EditorGUILayout.Separator();
-            this.serializedObject.ApplyModifiedProperties();
-			
+			EditorGUILayout.Separator();
+			serializedObject.ApplyModifiedProperties();
+
 			base.OnInspectorGUI();
 
-            EditorGUILayout.Separator();
+			EditorGUILayout.Separator();
 
-            this.serializedObject.Update();
-			EditorGUILayout.PropertyField(this.onAssignProperty, new GUIContent("On Assign"), true);
-			EditorGUILayout.PropertyField(this.onUnassignProperty, new GUIContent("On Unassign"), true);
-			EditorGUILayout.PropertyField(this.onClickProperty, new GUIContent("On Click"), true);
-			this.serializedObject.ApplyModifiedProperties();
+			serializedObject.Update();
+			EditorGUILayout.PropertyField(onAssignProperty, new GUIContent("On Assign"), true);
+			EditorGUILayout.PropertyField(onUnassignProperty, new GUIContent("On Unassign"), true);
+			EditorGUILayout.PropertyField(onClickProperty, new GUIContent("On Click"), true);
+			serializedObject.ApplyModifiedProperties();
 		}
+
 	}
 }

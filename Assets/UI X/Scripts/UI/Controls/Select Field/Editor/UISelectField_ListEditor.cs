@@ -1,15 +1,13 @@
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEditor;
 using AsglaUI.UI;
+using UnityEditor;
 
-namespace AsglaUIEditor.UI
-{
-	[CanEditMultipleObjects, CustomEditor(typeof(UISelectField_List), true)]
+namespace AsglaUIEditor.UI {
+	[CanEditMultipleObjects]
+	[CustomEditor(typeof(UISelectField_List), true)]
 	public class UISelectField_ListEditor : Editor {
 
-		public override void OnInspectorGUI()
-		{
+		public override void OnInspectorGUI() {
 		}
+
 	}
 }

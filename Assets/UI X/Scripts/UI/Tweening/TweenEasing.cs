@@ -1,7 +1,6 @@
-namespace AsglaUI.UI.Tweens
-{
-	public enum TweenEasing
-	{
+namespace AsglaUI.UI.Tweens {
+	public enum TweenEasing {
+
 		Linear,
 		Swing,
 		InQuad,
@@ -33,6 +32,7 @@ namespace AsglaUI.UI.Tweens
 		InOutBack,
 		InBounce,
 		OutBounce,
-		InOutBounce,
+		InOutBounce
+
 	}
 }

@@ -1,14 +1,12 @@
-﻿using UnityEngine;
+﻿using AsglaUI.UI;
 using UnityEditor;
-using AsglaUI.UI;
+using UnityEngine;
 
-namespace AsglaUIEditor.UI
-{
+namespace AsglaUIEditor.UI {
 	[CustomPropertyDrawer(typeof(SpriteStateExtended), true)]
-	public class SpriteStateExtendedDrawer : PropertyDrawer
-	{
-		public override void OnGUI(Rect rect, SerializedProperty prop, GUIContent label)
-		{
+	public class SpriteStateExtendedDrawer : PropertyDrawer {
+
+		public override void OnGUI(Rect rect, SerializedProperty prop, GUIContent label) {
 			Rect position = rect;
 			position.height = EditorGUIUtility.singleLineHeight;
 			SerializedProperty property = prop.FindPropertyRelative("m_HighlightedSprite");
@@ -17,7 +15,7 @@ namespace AsglaUIEditor.UI
 			SerializedProperty property4 = prop.FindPropertyRelative("m_ActiveHighlightedSprite");
 			SerializedProperty property5 = prop.FindPropertyRelative("m_ActivePressedSprite");
 			SerializedProperty property6 = prop.FindPropertyRelative("m_DisabledSprite");
-			
+
 			EditorGUI.PropertyField(position, property);
 			position.y += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
 			EditorGUI.PropertyField(position, property2);
@@ -31,10 +29,10 @@ namespace AsglaUIEditor.UI
 			EditorGUI.PropertyField(position, property6);
 			position.y += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
 		}
-		
-		public override float GetPropertyHeight(SerializedProperty prop, GUIContent label)
-		{
+
+		public override float GetPropertyHeight(SerializedProperty prop, GUIContent label) {
 			return 6f * EditorGUIUtility.singleLineHeight + 5f * EditorGUIUtility.standardVerticalSpacing;
 		}
+
 	}
 }

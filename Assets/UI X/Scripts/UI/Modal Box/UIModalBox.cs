@@ -1,196 +1,182 @@
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Events;
 using TMPro;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace AsglaUI.UI {
-    [RequireComponent(typeof(Canvas)), RequireComponent(typeof(UIWindow)), RequireComponent(typeof(UIAlwaysOnTop))]
-    public class UIModalBox : MonoBehaviour {
+	[RequireComponent(typeof(Canvas))]
+	[RequireComponent(typeof(UIWindow))]
+	[RequireComponent(typeof(UIAlwaysOnTop))]
+	public class UIModalBox : MonoBehaviour {
 
-        #pragma warning disable 0649
-        [Header("Texts")]
-        [SerializeField] private TextMeshProUGUI m_Text1;
+		[Header("Events")] public UnityEvent onConfirm = new UnityEvent();
 
-        [SerializeField] private TextMeshProUGUI m_Text2;
+		public UnityEvent onCancel = new UnityEvent();
 
-        [Header("Buttons")]
-        [SerializeField] private Button m_ConfirmButton;
-        [SerializeField] private TextMeshProUGUI m_ConfirmButtonText;
+		private UIWindow m_Window;
 
-        [SerializeField] private Button m_CancelButton;
-        //[SerializeField] private TextMeshProUGUI m_CancelButtonText;
+		/// <summary>
+		///     Gets a value indicating whether this modal box is active.
+		/// </summary>
+		public bool isActive { get; private set; }
 
-        [Header("Inputs")]
-        [SerializeField] private string m_ConfirmInput = "Submit";
+		protected void Awake() {
+			// Make sure we have the window component
+			if (m_Window == null)
+				m_Window = gameObject.GetComponent<UIWindow>();
 
-        [SerializeField] private string m_CancelInput = "Cancel";
-        #pragma warning restore 0649
+			// Prepare some window parameters
+			m_Window.ID = UIWindowID.ModalBox;
+			m_Window.escapeKeyAction = UIWindow.EscapeKeyAction.None;
 
-        private UIWindow m_Window;
-        private bool m_IsActive = false;
+			// Hook an event to the window
+			m_Window.onTransitionComplete.AddListener(OnWindowTransitionEnd);
 
-        [Header("Events")]
-        public UnityEvent onConfirm = new UnityEvent();
-        public UnityEvent onCancel = new UnityEvent();
+			// Prepare the always on top component
+			UIAlwaysOnTop aot = gameObject.GetComponent<UIAlwaysOnTop>();
+			aot.order = UIAlwaysOnTop.ModalBoxOrder;
 
-        /// <summary>
-        /// Gets a value indicating whether this modal box is active.
-        /// </summary>
-        public bool isActive {
-            get { return this.m_IsActive; }
-        }
+			// Hook the button click event
+			if (m_ConfirmButton != null)
+				m_ConfirmButton.onClick.AddListener(Confirm);
 
-        protected void Awake() {
-            // Make sure we have the window component
-            if (this.m_Window == null) {
-                this.m_Window = this.gameObject.GetComponent<UIWindow>();
-            }
+			if (m_CancelButton != null)
+				m_CancelButton.onClick.AddListener(Close);
+		}
 
-            // Prepare some window parameters
-            this.m_Window.ID = UIWindowID.ModalBox;
-            this.m_Window.escapeKeyAction = UIWindow.EscapeKeyAction.None;
+		protected void Update() {
+			if (!string.IsNullOrEmpty(m_CancelInput) && Input.GetButtonDown(m_CancelInput))
+				Close();
 
-            // Hook an event to the window
-            this.m_Window.onTransitionComplete.AddListener(OnWindowTransitionEnd);
+			if (!string.IsNullOrEmpty(m_ConfirmInput) && Input.GetButtonDown(m_ConfirmInput))
+				Confirm();
+		}
 
-            // Prepare the always on top component
-            UIAlwaysOnTop aot = this.gameObject.GetComponent<UIAlwaysOnTop>();
-            aot.order = UIAlwaysOnTop.ModalBoxOrder;
+		/// <summary>
+		///     Sets the text on the first line.
+		/// </summary>
+		/// <param name="text"></param>
+		public void SetText1(string text) {
+			if (m_Text1 != null) {
+				m_Text1.text = text;
+				m_Text1.gameObject.SetActive(!string.IsNullOrEmpty(text));
+			}
+		}
 
-            // Hook the button click event
-            if (this.m_ConfirmButton != null) {
-                this.m_ConfirmButton.onClick.AddListener(Confirm);
-            }
+		/// <summary>
+		///     Sets the text on the second line.
+		/// </summary>
+		/// <param name="text"></param>
+		public void SetText2(string text) {
+			if (m_Text2 != null) {
+				m_Text2.text = text;
+				m_Text2.gameObject.SetActive(!string.IsNullOrEmpty(text));
+			}
+		}
 
-            if (this.m_CancelButton != null) {
-                this.m_CancelButton.onClick.AddListener(Close);
-            }
-        }
+		/// <summary>
+		///     Sets the confirm button text.
+		/// </summary>
+		/// <param name="text">The confirm button text.</param>
+		public void SetConfirmButtonText(string text) {
+			if (m_ConfirmButtonText != null)
+				m_ConfirmButtonText.text = text;
+		}
 
-        protected void Update() {
-            if (!string.IsNullOrEmpty(this.m_CancelInput) && Input.GetButtonDown(this.m_CancelInput))
-                this.Close();
+		/// <summary>
+		/// Sets the cancel button text.
+		/// </summary>
+		/// <param name="text">The cancel button text.</param>
+		//public void SetCancelButtonText(string text) {
+		//    if (this.m_CancelButtonText != null) {
+		//        this.m_CancelButtonText.text = text;
+		//    }
+		//}
 
-            if (!string.IsNullOrEmpty(this.m_ConfirmInput) && Input.GetButtonDown(this.m_ConfirmInput))
-                this.Confirm();
-        }
+		/// <summary>
+		///     Set cancel button active.
+		/// </summary>
+		/// <param name="value">The cancel button SetActive value.</param>
+		public void SetActiveCancelButton(bool value) {
+			if (m_CancelButton != null)
+				m_CancelButton.gameObject.SetActive(value);
+		}
 
-        /// <summary>
-        /// Sets the text on the first line.
-        /// </summary>
-        /// <param name="text"></param>
-        public void SetText1(string text) {
-            if (this.m_Text1 != null) {
-                this.m_Text1.text = text;
-                this.m_Text1.gameObject.SetActive(!string.IsNullOrEmpty(text));
-            }
-        }
+		/// <summary>
+		///     Set confirm button active.
+		/// </summary>
+		/// <param name="value">The confirm button SetActive value.</param>
+		public void SetActiveConfirmButton(bool value) {
+			if (m_ConfirmButton != null)
+				m_ConfirmButton.gameObject.SetActive(value);
+		}
 
-        /// <summary>
-        /// Sets the text on the second line.
-        /// </summary>
-        /// <param name="text"></param>
-        public void SetText2(string text) {
-            if (this.m_Text2 != null) {
-                this.m_Text2.text = text;
-                this.m_Text2.gameObject.SetActive(!string.IsNullOrEmpty(text));
-            }
-        }
+		/// <summary>
+		///     Shows the modal box.
+		/// </summary>
+		public void Show() {
+			isActive = true;
 
-        /// <summary>
-        /// Sets the confirm button text.
-        /// </summary>
-        /// <param name="text">The confirm button text.</param>
-        public void SetConfirmButtonText(string text) {
-            if (this.m_ConfirmButtonText != null) {
-                this.m_ConfirmButtonText.text = text;
-            }
-        }
+			if (UIModalBoxManager.Instance != null)
+				UIModalBoxManager.Instance.RegisterActiveBox(this);
 
-        /// <summary>
-        /// Sets the cancel button text.
-        /// </summary>
-        /// <param name="text">The cancel button text.</param>
-        //public void SetCancelButtonText(string text) {
-        //    if (this.m_CancelButtonText != null) {
-        //        this.m_CancelButtonText.text = text;
-        //    }
-        //}
+			// Show the modal
+			if (m_Window != null)
+				m_Window.Show();
+		}
 
-        /// <summary>
-        /// Set cancel button active.
-        /// </summary>
-        /// <param name="value">The cancel button SetActive value.</param>
-        public void SetActiveCancelButton(bool value) {
-            if (this.m_CancelButton != null) {
-                this.m_CancelButton.gameObject.SetActive(value);
-            }
-        }
+		/// <summary>
+		///     Closes the modal box.
+		/// </summary>
+		public void Close() {
+			_Hide();
 
-        /// <summary>
-        /// Set confirm button active.
-        /// </summary>
-        /// <param name="value">The confirm button SetActive value.</param>
-        public void SetActiveConfirmButton(bool value) {
-            if (this.m_ConfirmButton != null) {
-                this.m_ConfirmButton.gameObject.SetActive(value);
-            }
-        }
+			// Invoke the cancel event
+			if (onCancel != null)
+				onCancel.Invoke();
+		}
 
-        /// <summary>
-        /// Shows the modal box.
-        /// </summary>
-        public void Show() {
-            this.m_IsActive = true;
+		public void Confirm() {
+			_Hide();
 
-            if (UIModalBoxManager.Instance != null)
-                UIModalBoxManager.Instance.RegisterActiveBox(this);
+			// Invoke the confirm event
+			if (onConfirm != null)
+				onConfirm.Invoke();
+		}
 
-            // Show the modal
-            if (this.m_Window != null) {
-                this.m_Window.Show();
-            }
-        }
+		private void _Hide() {
+			isActive = false;
 
-        /// <summary>
-        /// Closes the modal box.
-        /// </summary>
-        public void Close() {
-            this._Hide();
+			if (UIModalBoxManager.Instance != null)
+				UIModalBoxManager.Instance.UnregisterActiveBox(this);
 
-            // Invoke the cancel event
-            if (this.onCancel != null) {
-                this.onCancel.Invoke();
-            }
-        }
+			// Hide the modal
+			if (m_Window != null)
+				m_Window.Hide();
+		}
 
-        public void Confirm() {
-            this._Hide();
+		public void OnWindowTransitionEnd(UIWindow window, UIWindow.VisualState state) {
+			// Destroy the modal box when hidden
+			if (state == UIWindow.VisualState.Hidden)
+				Destroy(gameObject);
+		}
 
-            // Invoke the confirm event
-            if (this.onConfirm != null) {
-                this.onConfirm.Invoke();
-            }
-        }
+#pragma warning disable 0649
+		[Header("Texts")] [SerializeField] private TextMeshProUGUI m_Text1;
 
-        private void _Hide() {
-            this.m_IsActive = false;
+		[SerializeField] private TextMeshProUGUI m_Text2;
 
-            if (UIModalBoxManager.Instance != null)
-                UIModalBoxManager.Instance.UnregisterActiveBox(this);
+		[Header("Buttons")] [SerializeField] private Button m_ConfirmButton;
 
-            // Hide the modal
-            if (this.m_Window != null) {
-                this.m_Window.Hide();
-            }
-        }
+		[SerializeField] private TextMeshProUGUI m_ConfirmButtonText;
 
-        public void OnWindowTransitionEnd(UIWindow window, UIWindow.VisualState state) {
-            // Destroy the modal box when hidden
-            if (state == UIWindow.VisualState.Hidden) {
-                Destroy(this.gameObject);
-            }
-        }
+		[SerializeField] private Button m_CancelButton;
+		//[SerializeField] private TextMeshProUGUI m_CancelButtonText;
 
-    }
+		[Header("Inputs")] [SerializeField] private string m_ConfirmInput = "Submit";
+
+		[SerializeField] private string m_CancelInput = "Cancel";
+#pragma warning restore 0649
+
+	}
 }

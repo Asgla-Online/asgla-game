@@ -3,26 +3,27 @@ using UnityEngine;
 
 namespace AsglaUI.UI {
 
-    [RequireComponent(typeof(TMP_InputField))]
-    public class UIInputCaretOffset : MonoBehaviour {
-        [SerializeField] private Vector2 m_Offset = Vector2.zero;
-        private Vector2 m_InitialPosition = Vector2.zero;
+	[RequireComponent(typeof(TMP_InputField))]
+	public class UIInputCaretOffset : MonoBehaviour {
 
-        protected void OnTransformChildrenChanged() {
-            Invoke("ApplyOffset", 0.5f);
-        }
+		[SerializeField] private Vector2 m_Offset = Vector2.zero;
+		private Vector2 m_InitialPosition = Vector2.zero;
 
-        public void ApplyOffset() {
-            foreach (Transform trans in this.transform) {
-                if (trans.gameObject.name.ToLower().Contains("caret")) {
-                    RectTransform rect = (trans as RectTransform);
+		protected void OnTransformChildrenChanged() {
+			Invoke("ApplyOffset", 0.5f);
+		}
 
-                    this.m_InitialPosition = rect.anchoredPosition;
-                    rect.anchoredPosition = this.m_InitialPosition + this.m_Offset;
-                    break;
-                }
-            }
-        }
-    }
+		public void ApplyOffset() {
+			foreach (Transform trans in transform)
+				if (trans.gameObject.name.ToLower().Contains("caret")) {
+					RectTransform rect = trans as RectTransform;
+
+					m_InitialPosition = rect.anchoredPosition;
+					rect.anchoredPosition = m_InitialPosition + m_Offset;
+					break;
+				}
+		}
+
+	}
 
 }

@@ -1,11 +1,13 @@
 ﻿using Asgla.Data.Skill;
 
 namespace AsglaUI.UI {
-    public interface IUISkillSlot {
+	public interface IUISkillSlot {
 
-        SkillData GetSkillData();
-        bool Assign(SkillData spellInfo);
-        void Unassign();
+		SkillData GetSkillData();
 
-    }
+		bool Assign(SkillData spellInfo);
+
+		void Unassign();
+
+	}
 }

@@ -1,226 +1,253 @@
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEditor;
 using System.Collections.Generic;
 using AsglaUI.UI;
 using TMPro;
+using UnityEditor;
+using UnityEditor.Animations;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace AsglaUIEditor.UI {
-    [CanEditMultipleObjects, CustomEditor(typeof(UIHighlightTransition))]
-    public class UIHighlightTransitionEditor : Editor {
+	[CanEditMultipleObjects]
+	[CustomEditor(typeof(UIHighlightTransition))]
+	public class UIHighlightTransitionEditor : Editor {
 
-        private SerializedProperty m_TransitionProperty;
-        private SerializedProperty m_TargetGraphicProperty;
-        private SerializedProperty m_TargetGameObjectProperty;
-        private SerializedProperty m_NormalColorProperty;
-        private SerializedProperty m_HighlightedColorProperty;
-        private SerializedProperty m_SelectedColorProperty;
-        private SerializedProperty m_PressedColorProperty;
-        private SerializedProperty m_DurationProperty;
-        private SerializedProperty m_ColorMultiplierProperty;
-        private SerializedProperty m_HighlightedSpriteProperty;
-        private SerializedProperty m_SelectedSpriteProperty;
-        private SerializedProperty m_PressedSpriteProperty;
-        private SerializedProperty m_NormalTriggerProperty;
-        private SerializedProperty m_HighlightedTriggerProperty;
-        private SerializedProperty m_SelectedTriggerProperty;
-        private SerializedProperty m_PressedTriggerProperty;
-        private SerializedProperty m_UseToggleProperty;
-        private SerializedProperty m_TargetToggleProperty;
-        private SerializedProperty m_ActiveColorProperty;
-        private SerializedProperty m_ActiveSpriteProperty;
-        private SerializedProperty m_ActiveBoolProperty;
-        private SerializedProperty m_TargetCanvasGroupProperty;
-        private SerializedProperty m_NormalAlphaProperty;
-        private SerializedProperty m_HighlightedAlphaProperty;
-        private SerializedProperty m_SelectedAlphaProperty;
-        private SerializedProperty m_PressedAlphaProperty;
-        private SerializedProperty m_ActiveAlphaProperty;
+		private SerializedProperty m_ActiveAlphaProperty;
+		private SerializedProperty m_ActiveBoolProperty;
+		private SerializedProperty m_ActiveColorProperty;
+		private SerializedProperty m_ActiveSpriteProperty;
+		private SerializedProperty m_ColorMultiplierProperty;
+		private SerializedProperty m_DurationProperty;
+		private SerializedProperty m_HighlightedAlphaProperty;
+		private SerializedProperty m_HighlightedColorProperty;
+		private SerializedProperty m_HighlightedSpriteProperty;
+		private SerializedProperty m_HighlightedTriggerProperty;
+		private SerializedProperty m_NormalAlphaProperty;
+		private SerializedProperty m_NormalColorProperty;
+		private SerializedProperty m_NormalTriggerProperty;
+		private SerializedProperty m_PressedAlphaProperty;
+		private SerializedProperty m_PressedColorProperty;
+		private SerializedProperty m_PressedSpriteProperty;
+		private SerializedProperty m_PressedTriggerProperty;
+		private SerializedProperty m_SelectedAlphaProperty;
+		private SerializedProperty m_SelectedColorProperty;
+		private SerializedProperty m_SelectedSpriteProperty;
+		private SerializedProperty m_SelectedTriggerProperty;
+		private SerializedProperty m_TargetCanvasGroupProperty;
+		private SerializedProperty m_TargetGameObjectProperty;
+		private SerializedProperty m_TargetGraphicProperty;
+		private SerializedProperty m_TargetToggleProperty;
 
-        protected void OnEnable() {
-            this.m_TransitionProperty = this.serializedObject.FindProperty("m_Transition");
-            this.m_TargetGraphicProperty = this.serializedObject.FindProperty("m_TargetGraphic");
-            this.m_TargetGameObjectProperty = this.serializedObject.FindProperty("m_TargetGameObject");
-            this.m_NormalColorProperty = this.serializedObject.FindProperty("m_NormalColor");
-            this.m_HighlightedColorProperty = this.serializedObject.FindProperty("m_HighlightedColor");
-            this.m_SelectedColorProperty = this.serializedObject.FindProperty("m_SelectedColor");
-            this.m_PressedColorProperty = this.serializedObject.FindProperty("m_PressedColor");
-            this.m_DurationProperty = this.serializedObject.FindProperty("m_Duration");
-            this.m_ColorMultiplierProperty = this.serializedObject.FindProperty("m_ColorMultiplier");
-            this.m_HighlightedSpriteProperty = this.serializedObject.FindProperty("m_HighlightedSprite");
-            this.m_SelectedSpriteProperty = this.serializedObject.FindProperty("m_SelectedSprite");
-            this.m_PressedSpriteProperty = this.serializedObject.FindProperty("m_PressedSprite");
-            this.m_NormalTriggerProperty = this.serializedObject.FindProperty("m_NormalTrigger");
-            this.m_HighlightedTriggerProperty = this.serializedObject.FindProperty("m_HighlightedTrigger");
-            this.m_SelectedTriggerProperty = this.serializedObject.FindProperty("m_SelectedTrigger");
-            this.m_PressedTriggerProperty = this.serializedObject.FindProperty("m_PressedTrigger");
-            this.m_UseToggleProperty = this.serializedObject.FindProperty("m_UseToggle");
-            this.m_TargetToggleProperty = this.serializedObject.FindProperty("m_TargetToggle");
-            this.m_ActiveColorProperty = this.serializedObject.FindProperty("m_ActiveColor");
-            this.m_ActiveSpriteProperty = this.serializedObject.FindProperty("m_ActiveSprite");
-            this.m_ActiveBoolProperty = this.serializedObject.FindProperty("m_ActiveBool");
-            this.m_TargetCanvasGroupProperty = this.serializedObject.FindProperty("m_TargetCanvasGroup");
-            this.m_NormalAlphaProperty = this.serializedObject.FindProperty("m_NormalAlpha");
-            this.m_HighlightedAlphaProperty = this.serializedObject.FindProperty("m_HighlightedAlpha");
-            this.m_SelectedAlphaProperty = this.serializedObject.FindProperty("m_SelectedAlpha");
-            this.m_PressedAlphaProperty = this.serializedObject.FindProperty("m_PressedAlpha");
-            this.m_ActiveAlphaProperty = this.serializedObject.FindProperty("m_ActiveAlpha");
-        }
+		private SerializedProperty m_TransitionProperty;
+		private SerializedProperty m_UseToggleProperty;
 
-        public override void OnInspectorGUI() {
-            this.serializedObject.Update();
+		protected void OnEnable() {
+			m_TransitionProperty = serializedObject.FindProperty("m_Transition");
+			m_TargetGraphicProperty = serializedObject.FindProperty("m_TargetGraphic");
+			m_TargetGameObjectProperty = serializedObject.FindProperty("m_TargetGameObject");
+			m_NormalColorProperty = serializedObject.FindProperty("m_NormalColor");
+			m_HighlightedColorProperty = serializedObject.FindProperty("m_HighlightedColor");
+			m_SelectedColorProperty = serializedObject.FindProperty("m_SelectedColor");
+			m_PressedColorProperty = serializedObject.FindProperty("m_PressedColor");
+			m_DurationProperty = serializedObject.FindProperty("m_Duration");
+			m_ColorMultiplierProperty = serializedObject.FindProperty("m_ColorMultiplier");
+			m_HighlightedSpriteProperty = serializedObject.FindProperty("m_HighlightedSprite");
+			m_SelectedSpriteProperty = serializedObject.FindProperty("m_SelectedSprite");
+			m_PressedSpriteProperty = serializedObject.FindProperty("m_PressedSprite");
+			m_NormalTriggerProperty = serializedObject.FindProperty("m_NormalTrigger");
+			m_HighlightedTriggerProperty = serializedObject.FindProperty("m_HighlightedTrigger");
+			m_SelectedTriggerProperty = serializedObject.FindProperty("m_SelectedTrigger");
+			m_PressedTriggerProperty = serializedObject.FindProperty("m_PressedTrigger");
+			m_UseToggleProperty = serializedObject.FindProperty("m_UseToggle");
+			m_TargetToggleProperty = serializedObject.FindProperty("m_TargetToggle");
+			m_ActiveColorProperty = serializedObject.FindProperty("m_ActiveColor");
+			m_ActiveSpriteProperty = serializedObject.FindProperty("m_ActiveSprite");
+			m_ActiveBoolProperty = serializedObject.FindProperty("m_ActiveBool");
+			m_TargetCanvasGroupProperty = serializedObject.FindProperty("m_TargetCanvasGroup");
+			m_NormalAlphaProperty = serializedObject.FindProperty("m_NormalAlpha");
+			m_HighlightedAlphaProperty = serializedObject.FindProperty("m_HighlightedAlpha");
+			m_SelectedAlphaProperty = serializedObject.FindProperty("m_SelectedAlpha");
+			m_PressedAlphaProperty = serializedObject.FindProperty("m_PressedAlpha");
+			m_ActiveAlphaProperty = serializedObject.FindProperty("m_ActiveAlpha");
+		}
 
-            UIHighlightTransition.Transition transition = (UIHighlightTransition.Transition)this.m_TransitionProperty.enumValueIndex;
-            Graphic graphic = this.m_TargetGraphicProperty.objectReferenceValue as Graphic;
-            GameObject targetGameObject = this.m_TargetGameObjectProperty.objectReferenceValue as GameObject;
-            CanvasGroup targetCanvasGroup = this.m_TargetCanvasGroupProperty.objectReferenceValue as CanvasGroup;
+		public override void OnInspectorGUI() {
+			serializedObject.Update();
 
-            EditorGUILayout.Space();
-            EditorGUILayout.PropertyField(this.m_TransitionProperty, new GUIContent("Transition"));
-            EditorGUI.indentLevel++;
+			UIHighlightTransition.Transition transition =
+				(UIHighlightTransition.Transition) m_TransitionProperty.enumValueIndex;
+			Graphic graphic = m_TargetGraphicProperty.objectReferenceValue as Graphic;
+			GameObject targetGameObject = m_TargetGameObjectProperty.objectReferenceValue as GameObject;
+			CanvasGroup targetCanvasGroup = m_TargetCanvasGroupProperty.objectReferenceValue as CanvasGroup;
 
-            // Check if the transition requires a graphic
-            switch (transition) {
-                case UIHighlightTransition.Transition.ColorTint:
-                case UIHighlightTransition.Transition.SpriteSwap:
-                case UIHighlightTransition.Transition.TextColor:
-                    EditorGUILayout.PropertyField(m_TargetGraphicProperty, new GUIContent("Target Graphic"));
-                    switch (transition) {
-                        case UIHighlightTransition.Transition.ColorTint:
-                            if (graphic == null) {
-                                EditorGUILayout.HelpBox("You must have a Graphic target in order to use a color transition.", MessageType.Info);
-                            } else {
-                                EditorGUI.BeginChangeCheck();
-                                EditorGUILayout.PropertyField(m_NormalColorProperty, true);
-                                if (EditorGUI.EndChangeCheck())
-                                    graphic.canvasRenderer.SetColor(m_NormalColorProperty.colorValue);
+			EditorGUILayout.Space();
+			EditorGUILayout.PropertyField(m_TransitionProperty, new GUIContent("Transition"));
+			EditorGUI.indentLevel++;
 
-                                EditorGUILayout.PropertyField(m_HighlightedColorProperty, true);
-                                EditorGUILayout.PropertyField(m_SelectedColorProperty, true);
-                                EditorGUILayout.PropertyField(m_PressedColorProperty, true);
-                                EditorGUILayout.PropertyField(m_ColorMultiplierProperty, true);
-                                EditorGUILayout.PropertyField(m_DurationProperty, true);
-                            }
-                            break;
-                        case UIHighlightTransition.Transition.TextColor:
-                            if (graphic == null || (graphic is Text == false && graphic is TextMeshProUGUI == false)) {
-                                EditorGUILayout.HelpBox("You must have a Text target in order to use a text color transition.", MessageType.Info);
-                            } else {
-                                EditorGUI.BeginChangeCheck();
-                                EditorGUILayout.PropertyField(m_NormalColorProperty, true);
-                                if (EditorGUI.EndChangeCheck()) {
-                                    switch (graphic) {
-                                        case Text t:
-                                            t.color = m_NormalColorProperty.colorValue;
-                                            break;
-                                        case TextMeshProUGUI t:
-                                            t.color = m_NormalColorProperty.colorValue;
-                                            break;
-                                    }
-                                }
+			// Check if the transition requires a graphic
+			switch (transition) {
+				case UIHighlightTransition.Transition.ColorTint:
+				case UIHighlightTransition.Transition.SpriteSwap:
+				case UIHighlightTransition.Transition.TextColor:
+					EditorGUILayout.PropertyField(m_TargetGraphicProperty, new GUIContent("Target Graphic"));
+					switch (transition) {
+						case UIHighlightTransition.Transition.ColorTint:
+							if (graphic == null) {
+								EditorGUILayout.HelpBox(
+									"You must have a Graphic target in order to use a color transition.",
+									MessageType.Info);
+							} else {
+								EditorGUI.BeginChangeCheck();
+								EditorGUILayout.PropertyField(m_NormalColorProperty, true);
+								if (EditorGUI.EndChangeCheck())
+									graphic.canvasRenderer.SetColor(m_NormalColorProperty.colorValue);
 
-                                EditorGUILayout.PropertyField(m_HighlightedColorProperty, true);
-                                EditorGUILayout.PropertyField(m_SelectedColorProperty, true);
-                                EditorGUILayout.PropertyField(m_PressedColorProperty, true);
-                                EditorGUILayout.PropertyField(m_DurationProperty, true);
-                            }
-                            break;
-                        case UIHighlightTransition.Transition.SpriteSwap:
-                            if (graphic == null || graphic is Image == false) {
-                                EditorGUILayout.HelpBox("You must have a Image target in order to use a sprite swap transition.", MessageType.Info);
-                            } else {
-                                EditorGUILayout.PropertyField(m_HighlightedSpriteProperty, true);
-                                EditorGUILayout.PropertyField(m_SelectedSpriteProperty, true);
-                                EditorGUILayout.PropertyField(m_PressedSpriteProperty, true);
-                            }
-                            break;
-                    }
-                    break;
-                case UIHighlightTransition.Transition.Animation: {
-                    EditorGUILayout.PropertyField(m_TargetGameObjectProperty, new GUIContent("Target GameObject"));
-                    if (targetGameObject == null) {
-                        EditorGUILayout.HelpBox("You must have a Game Object target in order to use a animation transition.", MessageType.Info);
-                    } else {
-                        EditorGUILayout.PropertyField(m_NormalTriggerProperty, true);
-                        EditorGUILayout.PropertyField(m_HighlightedTriggerProperty, true);
-                        EditorGUILayout.PropertyField(m_SelectedTriggerProperty, true);
-                        EditorGUILayout.PropertyField(m_PressedTriggerProperty, true);
+								EditorGUILayout.PropertyField(m_HighlightedColorProperty, true);
+								EditorGUILayout.PropertyField(m_SelectedColorProperty, true);
+								EditorGUILayout.PropertyField(m_PressedColorProperty, true);
+								EditorGUILayout.PropertyField(m_ColorMultiplierProperty, true);
+								EditorGUILayout.PropertyField(m_DurationProperty, true);
+							}
 
-                        Animator animator = targetGameObject.GetComponent<Animator>();
+							break;
+						case UIHighlightTransition.Transition.TextColor:
+							if (graphic == null || graphic is Text == false && graphic is TextMeshProUGUI == false) {
+								EditorGUILayout.HelpBox(
+									"You must have a Text target in order to use a text color transition.",
+									MessageType.Info);
+							} else {
+								EditorGUI.BeginChangeCheck();
+								EditorGUILayout.PropertyField(m_NormalColorProperty, true);
+								if (EditorGUI.EndChangeCheck())
+									switch (graphic) {
+										case Text t:
+											t.color = m_NormalColorProperty.colorValue;
+											break;
+										case TextMeshProUGUI t:
+											t.color = m_NormalColorProperty.colorValue;
+											break;
+									}
 
-                        if (animator == null || animator.runtimeAnimatorController == null) {
-                            Rect controlRect = EditorGUILayout.GetControlRect();
-                            controlRect.xMin = controlRect.xMin + EditorGUIUtility.labelWidth;
+								EditorGUILayout.PropertyField(m_HighlightedColorProperty, true);
+								EditorGUILayout.PropertyField(m_SelectedColorProperty, true);
+								EditorGUILayout.PropertyField(m_PressedColorProperty, true);
+								EditorGUILayout.PropertyField(m_DurationProperty, true);
+							}
 
-                            if (GUI.Button(controlRect, "Auto Generate Animation", EditorStyles.miniButton)) {
-                                // Generate the animator controller
-                                UnityEditor.Animations.AnimatorController animatorController = GenerateAnimatorController();
+							break;
+						case UIHighlightTransition.Transition.SpriteSwap:
+							if (graphic == null || graphic is Image == false) {
+								EditorGUILayout.HelpBox(
+									"You must have a Image target in order to use a sprite swap transition.",
+									MessageType.Info);
+							} else {
+								EditorGUILayout.PropertyField(m_HighlightedSpriteProperty, true);
+								EditorGUILayout.PropertyField(m_SelectedSpriteProperty, true);
+								EditorGUILayout.PropertyField(m_PressedSpriteProperty, true);
+							}
 
-                                if (animatorController != null) {
-                                    if (animator == null) {
-                                        animator = targetGameObject.AddComponent<Animator>();
-                                    }
-                                    UnityEditor.Animations.AnimatorController.SetAnimatorController(animator, animatorController);
-                                }
-                            }
-                        }
-                    }
-                    break;
-                }
-                case UIHighlightTransition.Transition.CanvasGroup:
-                    EditorGUILayout.PropertyField(m_TargetCanvasGroupProperty, new GUIContent("Target Canvas Group"));
-                    if (targetCanvasGroup == null) {
-                        EditorGUILayout.HelpBox("You must have a CanvasGroup target in order to use this transition.", MessageType.Info);
-                    } else {
-                        EditorGUI.BeginChangeCheck();
-                        EditorGUILayout.PropertyField(m_NormalAlphaProperty, true);
-                        if (EditorGUI.EndChangeCheck())
-                            targetCanvasGroup.alpha = m_NormalAlphaProperty.floatValue;
+							break;
+					}
 
-                        EditorGUILayout.PropertyField(m_HighlightedAlphaProperty, true);
-                        EditorGUILayout.PropertyField(m_SelectedAlphaProperty, true);
-                        EditorGUILayout.PropertyField(m_PressedAlphaProperty, true);
-                        EditorGUILayout.PropertyField(m_DurationProperty, true);
-                    }
-                    break;
-            }
+					break;
+				case UIHighlightTransition.Transition.Animation: {
+					EditorGUILayout.PropertyField(m_TargetGameObjectProperty, new GUIContent("Target GameObject"));
+					if (targetGameObject == null) {
+						EditorGUILayout.HelpBox(
+							"You must have a Game Object target in order to use a animation transition.",
+							MessageType.Info);
+					} else {
+						EditorGUILayout.PropertyField(m_NormalTriggerProperty, true);
+						EditorGUILayout.PropertyField(m_HighlightedTriggerProperty, true);
+						EditorGUILayout.PropertyField(m_SelectedTriggerProperty, true);
+						EditorGUILayout.PropertyField(m_PressedTriggerProperty, true);
 
-            EditorGUILayout.PropertyField(this.m_UseToggleProperty, true);
+						Animator animator = targetGameObject.GetComponent<Animator>();
 
-            if (this.m_UseToggleProperty.boolValue) {
-                EditorGUILayout.PropertyField(this.m_TargetToggleProperty, true);
-                switch (transition) {
-                    case UIHighlightTransition.Transition.ColorTint:
-                        EditorGUILayout.PropertyField(this.m_ActiveColorProperty, true);
-                        break;
-                    case UIHighlightTransition.Transition.TextColor:
-                        EditorGUILayout.PropertyField(this.m_ActiveColorProperty, true);
-                        break;
-                    case UIHighlightTransition.Transition.SpriteSwap:
-                        EditorGUILayout.PropertyField(this.m_ActiveSpriteProperty, true);
-                        break;
-                    case UIHighlightTransition.Transition.Animation:
-                        EditorGUILayout.PropertyField(this.m_ActiveBoolProperty, true);
-                        break;
-                    case UIHighlightTransition.Transition.CanvasGroup:
-                        EditorGUILayout.PropertyField(this.m_ActiveAlphaProperty, true);
-                        break;
-                }
-            }
+						if (animator == null || animator.runtimeAnimatorController == null) {
+							Rect controlRect = EditorGUILayout.GetControlRect();
+							controlRect.xMin = controlRect.xMin + EditorGUIUtility.labelWidth;
 
-            this.serializedObject.ApplyModifiedProperties();
-        }
+							if (GUI.Button(controlRect, "Auto Generate Animation", EditorStyles.miniButton)) {
+								// Generate the animator controller
+								AnimatorController animatorController = GenerateAnimatorController();
 
-        private UnityEditor.Animations.AnimatorController GenerateAnimatorController() {
-            // Prepare the triggers list
-            List<string> triggers = new List<string>();
+								if (animatorController != null) {
+									if (animator == null)
+										animator = targetGameObject.AddComponent<Animator>();
+									AnimatorController.SetAnimatorController(animator, animatorController);
+								}
+							}
+						}
+					}
 
-            triggers.Add((!string.IsNullOrEmpty(this.m_NormalTriggerProperty.stringValue)) ? this.m_NormalTriggerProperty.stringValue : "Normal");
-            triggers.Add((!string.IsNullOrEmpty(this.m_HighlightedTriggerProperty.stringValue)) ? this.m_HighlightedTriggerProperty.stringValue : "Highlighted");
-            triggers.Add((!string.IsNullOrEmpty(this.m_SelectedTriggerProperty.stringValue)) ? this.m_SelectedTriggerProperty.stringValue : "Selected");
-            triggers.Add((!string.IsNullOrEmpty(this.m_PressedTriggerProperty.stringValue)) ? this.m_PressedTriggerProperty.stringValue : "Pressed");
+					break;
+				}
+				case UIHighlightTransition.Transition.CanvasGroup:
+					EditorGUILayout.PropertyField(m_TargetCanvasGroupProperty, new GUIContent("Target Canvas Group"));
+					if (targetCanvasGroup == null) {
+						EditorGUILayout.HelpBox("You must have a CanvasGroup target in order to use this transition.",
+							MessageType.Info);
+					} else {
+						EditorGUI.BeginChangeCheck();
+						EditorGUILayout.PropertyField(m_NormalAlphaProperty, true);
+						if (EditorGUI.EndChangeCheck())
+							targetCanvasGroup.alpha = m_NormalAlphaProperty.floatValue;
 
-            return UIAnimatorControllerGenerator.GenerateAnimatorContoller(triggers, this.m_TargetGameObjectProperty.objectReferenceValue.name);
-        }
-    }
+						EditorGUILayout.PropertyField(m_HighlightedAlphaProperty, true);
+						EditorGUILayout.PropertyField(m_SelectedAlphaProperty, true);
+						EditorGUILayout.PropertyField(m_PressedAlphaProperty, true);
+						EditorGUILayout.PropertyField(m_DurationProperty, true);
+					}
+
+					break;
+			}
+
+			EditorGUILayout.PropertyField(m_UseToggleProperty, true);
+
+			if (m_UseToggleProperty.boolValue) {
+				EditorGUILayout.PropertyField(m_TargetToggleProperty, true);
+				switch (transition) {
+					case UIHighlightTransition.Transition.ColorTint:
+						EditorGUILayout.PropertyField(m_ActiveColorProperty, true);
+						break;
+					case UIHighlightTransition.Transition.TextColor:
+						EditorGUILayout.PropertyField(m_ActiveColorProperty, true);
+						break;
+					case UIHighlightTransition.Transition.SpriteSwap:
+						EditorGUILayout.PropertyField(m_ActiveSpriteProperty, true);
+						break;
+					case UIHighlightTransition.Transition.Animation:
+						EditorGUILayout.PropertyField(m_ActiveBoolProperty, true);
+						break;
+					case UIHighlightTransition.Transition.CanvasGroup:
+						EditorGUILayout.PropertyField(m_ActiveAlphaProperty, true);
+						break;
+				}
+			}
+
+			serializedObject.ApplyModifiedProperties();
+		}
+
+		private AnimatorController GenerateAnimatorController() {
+			// Prepare the triggers list
+			List<string> triggers = new List<string>();
+
+			triggers.Add(!string.IsNullOrEmpty(m_NormalTriggerProperty.stringValue)
+				? m_NormalTriggerProperty.stringValue
+				: "Normal");
+			triggers.Add(!string.IsNullOrEmpty(m_HighlightedTriggerProperty.stringValue)
+				? m_HighlightedTriggerProperty.stringValue
+				: "Highlighted");
+			triggers.Add(!string.IsNullOrEmpty(m_SelectedTriggerProperty.stringValue)
+				? m_SelectedTriggerProperty.stringValue
+				: "Selected");
+			triggers.Add(!string.IsNullOrEmpty(m_PressedTriggerProperty.stringValue)
+				? m_PressedTriggerProperty.stringValue
+				: "Pressed");
+
+			return UIAnimatorControllerGenerator.GenerateAnimatorContoller(triggers,
+				m_TargetGameObjectProperty.objectReferenceValue.name);
+		}
+
+	}
 }

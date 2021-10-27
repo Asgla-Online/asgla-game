@@ -16,10 +16,10 @@ public class ColorPropertyDrawer : PropertyDrawer {
 		pos = EditorGUI.PrefixLabel(pos, GUIUtility.GetControlID(FocusType.Passive), label);
 
 		// Don't make child fields be indented
-		var indent = EditorGUI.indentLevel;
+		int indent = EditorGUI.indentLevel;
 		EditorGUI.indentLevel = 0;
 
-		float colorWidth = (pos.width - hexFieldWidth - spacing - alphaFieldWidth - spacing);
+		float colorWidth = pos.width - hexFieldWidth - spacing - alphaFieldWidth - spacing;
 
 		Color32 color = prop.colorValue;
 		Color32 color2 = EditorGUI.ColorField(new Rect(pos.x, pos.y, colorWidth, pos.height), prop.colorValue);
@@ -28,7 +28,7 @@ public class ColorPropertyDrawer : PropertyDrawer {
 			prop.colorValue = color = color2;
 
 		string colorString =
-			EditorGUI.TextField(new Rect((pos.x + colorWidth + spacing), pos.y, hexFieldWidth, pos.height),
+			EditorGUI.TextField(new Rect(pos.x + colorWidth + spacing, pos.y, hexFieldWidth, pos.height),
 				CommonColorBuffer.ColorToString(color));
 		try {
 			color2 = CommonColorBuffer.StringToColor(colorString);
@@ -41,7 +41,7 @@ public class ColorPropertyDrawer : PropertyDrawer {
 
 		float newAlpha =
 			EditorGUI.Slider(
-				new Rect((pos.x + colorWidth + hexFieldWidth + (spacing * 2f)), pos.y, alphaFieldWidth, pos.height),
+				new Rect(pos.x + colorWidth + hexFieldWidth + spacing * 2f, pos.y, alphaFieldWidth, pos.height),
 				prop.colorValue.a, 0f, 1f);
 
 		if (!newAlpha.Equals(prop.colorValue.a))

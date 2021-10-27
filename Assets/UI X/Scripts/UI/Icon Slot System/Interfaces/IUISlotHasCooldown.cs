@@ -1,11 +1,14 @@
+using Asgla.Data.Skill;
+
 namespace AsglaUI.UI {
-    using Asgla.Data.Skill;
 
-    public interface IUISlotHasCooldown {
+	public interface IUISlotHasCooldown {
 
-        SkillData GetSkillData();
-        UISlotCooldown cooldownComponent { get; }
-        void SetCooldownComponent(UISlotCooldown cooldown);
+		UISlotCooldown cooldownComponent { get; }
 
-    }
+		SkillData GetSkillData();
+
+		void SetCooldownComponent(UISlotCooldown cooldown);
+
+	}
 }

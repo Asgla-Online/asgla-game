@@ -1,35 +1,29 @@
-using UnityEngine;
 using UnityEditor;
-using System.Collections;
+using UnityEngine;
 
-public static class CreatePrefabs
-{
-    [MenuItem("Tools/Create Prefabs from Selection")]
-    static void CreatePrefabsFromSelection()
-    {
-        if (Selection.transforms.Length == 0)
-        {
-            Debug.LogWarning("Please make a selection first.");
-            return;
-        }
+public static class CreatePrefabs {
 
-        string savePath = GetSavePath();
+	[MenuItem("Tools/Create Prefabs from Selection")]
+	private static void CreatePrefabsFromSelection() {
+		if (Selection.transforms.Length == 0) {
+			Debug.LogWarning("Please make a selection first.");
+			return;
+		}
 
-        if (!string.IsNullOrEmpty(savePath))
-        {
-            savePath = savePath.Remove(0, savePath.IndexOf("Assets")) + "/";
+		string savePath = GetSavePath();
 
-            foreach (Transform trans in Selection.transforms)
-            {
-                PrefabUtility.SaveAsPrefabAsset(trans.gameObject, savePath + trans.name + ".prefab");
-            }
+		if (!string.IsNullOrEmpty(savePath)) {
+			savePath = savePath.Remove(0, savePath.IndexOf("Assets")) + "/";
 
-            AssetDatabase.Refresh();
-        }
-    }
+			foreach (Transform trans in Selection.transforms)
+				PrefabUtility.SaveAsPrefabAsset(trans.gameObject, savePath + trans.name + ".prefab");
 
-    private static string GetSavePath()
-    {
-        return EditorUtility.SaveFolderPanel("Prefabs directory", "assets", ""); 
-    }
+			AssetDatabase.Refresh();
+		}
+	}
+
+	private static string GetSavePath() {
+		return EditorUtility.SaveFolderPanel("Prefabs directory", "assets", "");
+	}
+
 }

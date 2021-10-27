@@ -1,152 +1,121 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace AsglaUI.UI
-{
-    public class UISceneRegistry
-    {
-        private static UISceneRegistry m_Instance;
+namespace AsglaUI.UI {
+	public class UISceneRegistry {
 
-        protected UISceneRegistry()
-        {
-            this.m_Scenes = new List<UIScene>();
-        }
+		private static UISceneRegistry m_Instance;
 
-        public static UISceneRegistry instance
-        {
-            get
-            {
-                if (m_Instance == null)
-                    m_Instance = new UISceneRegistry();
-                return m_Instance;
-            }
-        }
+		private List<UIScene> m_Scenes;
 
-        private List<UIScene> m_Scenes;
-        private UIScene m_LastScene;
+		protected UISceneRegistry() {
+			m_Scenes = new List<UIScene>();
+		}
 
-        /// <summary>
-        /// Get all the registered scenes.
-        /// </summary>
-        public UIScene[] scenes
-        {
-            get { return this.m_Scenes.ToArray(); }
-        }
+		public static UISceneRegistry instance {
+			get{
+				if (m_Instance == null)
+					m_Instance = new UISceneRegistry();
+				return m_Instance;
+			}
+		}
 
-        /// <summary>
-        /// Get the last active scene before the current one.
-        /// </summary>
-        public UIScene lastScene
-        {
-            get { return this.m_LastScene; }
-        }
+		/// <summary>
+		///     Get all the registered scenes.
+		/// </summary>
+		public UIScene[] scenes => m_Scenes.ToArray();
 
-        /// <summary>
-        /// Register a scene.
-        /// </summary>
-        /// <param name="scene"></param>
-        public void RegisterScene(UIScene scene)
-        {
-            // Make sure we have the list set
-            if (this.m_Scenes == null)
-            {
-                this.m_Scenes = new List<UIScene>();
-            }
+		/// <summary>
+		///     Get the last active scene before the current one.
+		/// </summary>
+		public UIScene lastScene { get; private set; }
 
-            // Check if already registered
-            if (this.m_Scenes.Contains(scene))
-            {
-                Debug.LogWarning("Trying to register a UIScene multiple times.");
-                return;
-            }
+		/// <summary>
+		///     Register a scene.
+		/// </summary>
+		/// <param name="scene"></param>
+		public void RegisterScene(UIScene scene) {
+			// Make sure we have the list set
+			if (m_Scenes == null)
+				m_Scenes = new List<UIScene>();
 
-            // Store in the list
-            this.m_Scenes.Add(scene);
-        }
+			// Check if already registered
+			if (m_Scenes.Contains(scene)) {
+				Debug.LogWarning("Trying to register a UIScene multiple times.");
+				return;
+			}
 
-        /// <summary>
-        /// Unregister a scene.
-        /// </summary>
-        /// <param name="scene"></param>
-        public void UnregisterScene(UIScene scene)
-        {
-            if (this.m_Scenes != null)
-            {
-                this.m_Scenes.Remove(scene);
-            }
-        }
+			// Store in the list
+			m_Scenes.Add(scene);
+		}
 
-        /// <summary>
-        /// Get all the active scenes.
-        /// </summary>
-        /// <returns></returns>
-        public UIScene[] GetActiveScenes()
-        {
-            List<UIScene> activeScenes = this.m_Scenes.FindAll(x => x.isActivated == true);
+		/// <summary>
+		///     Unregister a scene.
+		/// </summary>
+		/// <param name="scene"></param>
+		public void UnregisterScene(UIScene scene) {
+			if (m_Scenes != null)
+				m_Scenes.Remove(scene);
+		}
 
-            return activeScenes.ToArray();
-        }
+		/// <summary>
+		///     Get all the active scenes.
+		/// </summary>
+		/// <returns></returns>
+		public UIScene[] GetActiveScenes() {
+			List<UIScene> activeScenes = m_Scenes.FindAll(x => x.isActivated);
 
-        /// <summary>
-        /// Get the scene with the specified id. Returns null if not found.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public UIScene GetScene(int id)
-        {
-            if (this.m_Scenes == null || this.m_Scenes.Count == 0)
-            {
-                return null;
-            }
+			return activeScenes.ToArray();
+		}
 
-            return this.m_Scenes.Find(x => x.id == id);
-        }
+		/// <summary>
+		///     Get the scene with the specified id. Returns null if not found.
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		public UIScene GetScene(int id) {
+			if (m_Scenes == null || m_Scenes.Count == 0)
+				return null;
 
-        /// <summary>
-        /// Get the next available scene id;
-        /// </summary>
-        /// <returns></returns>
-        public int GetAvailableSceneId()
-        {
-            if (this.m_Scenes.Count == 0)
-            {
-                return 0;
-            }
+			return m_Scenes.Find(x => x.id == id);
+		}
 
-            int id = 0;
+		/// <summary>
+		///     Get the next available scene id;
+		/// </summary>
+		/// <returns></returns>
+		public int GetAvailableSceneId() {
+			if (m_Scenes.Count == 0)
+				return 0;
 
-            foreach (UIScene scene in this.m_Scenes)
-            {
-                if (scene.id > id)
-                {
-                    id = scene.id;
-                }
-            }
+			int id = 0;
 
-            return id + 1;
-        }
+			foreach (UIScene scene in m_Scenes)
+				if (scene.id > id)
+					id = scene.id;
 
-        /// <summary>
-        /// Transitions out of the active scene and in to the new one.
-        /// </summary>
-        /// <param name="scene"></param>
-        public void TransitionToScene(UIScene scene)
-        {
-            // Transition out of the current scenes
-            UIScene[] activeScenes = this.GetActiveScenes();
+			return id + 1;
+		}
 
-            foreach (UIScene activeScene in activeScenes)
-            {
-                // Transition the scene out
-                activeScene.TransitionOut();
+		/// <summary>
+		///     Transitions out of the active scene and in to the new one.
+		/// </summary>
+		/// <param name="scene"></param>
+		public void TransitionToScene(UIScene scene) {
+			// Transition out of the current scenes
+			UIScene[] activeScenes = GetActiveScenes();
 
-                // Set as last scene
-                this.m_LastScene = activeScene;
-            }
+			foreach (UIScene activeScene in activeScenes) {
+				// Transition the scene out
+				activeScene.TransitionOut();
 
-            // Transition in the new scene
-            scene.TransitionIn();
-        }
-    }
+				// Set as last scene
+				lastScene = activeScene;
+			}
+
+			// Transition in the new scene
+			scene.TransitionIn();
+		}
+
+	}
 }

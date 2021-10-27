@@ -1,44 +1,47 @@
-using UnityEngine;
 using AsglaUI.UI;
 using UnityEditor;
+using UnityEngine;
 
 namespace AsglaUIEditor.UI {
-    [CanEditMultipleObjects, CustomEditor(typeof(UITalentSlot), true)]
-    public class UITalentSlotEditor : UISlotBaseEditor {
+	[CanEditMultipleObjects]
+	[CustomEditor(typeof(UITalentSlot), true)]
+	public class UITalentSlotEditor : UISlotBaseEditor {
 
-        private SerializedProperty m_PointsTextProperty;
-        private SerializedProperty m_pointsMinColorProperty;
-        private SerializedProperty m_pointsMaxColorProperty;
-        private SerializedProperty m_pointsActiveColorProperty;
+		private SerializedProperty m_pointsActiveColorProperty;
+		private SerializedProperty m_pointsMaxColorProperty;
+		private SerializedProperty m_pointsMinColorProperty;
 
-        protected override void OnEnable() {
-            base.OnEnable();
-            this.m_PointsTextProperty = this.serializedObject.FindProperty("m_PointsText");
-            this.m_pointsMinColorProperty = this.serializedObject.FindProperty("m_pointsMinColor");
-            this.m_pointsMaxColorProperty = this.serializedObject.FindProperty("m_pointsMaxColor");
-            this.m_pointsActiveColorProperty = this.serializedObject.FindProperty("m_pointsActiveColor");
-        }
+		private SerializedProperty m_PointsTextProperty;
 
-        public override void OnInspectorGUI() {
-            this.serializedObject.Update();
-            EditorGUILayout.Separator();
-            this.DrawPointsProperties();
-            this.serializedObject.ApplyModifiedProperties();
-            EditorGUILayout.Separator();
-            base.OnInspectorGUI();
-            EditorGUILayout.Separator();
-        }
+		protected override void OnEnable() {
+			base.OnEnable();
+			m_PointsTextProperty = serializedObject.FindProperty("m_PointsText");
+			m_pointsMinColorProperty = serializedObject.FindProperty("m_pointsMinColor");
+			m_pointsMaxColorProperty = serializedObject.FindProperty("m_pointsMaxColor");
+			m_pointsActiveColorProperty = serializedObject.FindProperty("m_pointsActiveColor");
+		}
 
-        protected void DrawPointsProperties() {
-            EditorGUILayout.LabelField("Points Properties", EditorStyles.boldLabel);
-            EditorGUI.indentLevel = (EditorGUI.indentLevel + 1);
+		public override void OnInspectorGUI() {
+			serializedObject.Update();
+			EditorGUILayout.Separator();
+			DrawPointsProperties();
+			serializedObject.ApplyModifiedProperties();
+			EditorGUILayout.Separator();
+			base.OnInspectorGUI();
+			EditorGUILayout.Separator();
+		}
 
-            EditorGUILayout.PropertyField(this.m_PointsTextProperty, new GUIContent("Text Component"));
-            EditorGUILayout.PropertyField(this.m_pointsMinColorProperty, new GUIContent("Minimum Color"));
-            EditorGUILayout.PropertyField(this.m_pointsMaxColorProperty, new GUIContent("Maximum Color"));
-            EditorGUILayout.PropertyField(this.m_pointsActiveColorProperty, new GUIContent("Active Color"));
+		protected void DrawPointsProperties() {
+			EditorGUILayout.LabelField("Points Properties", EditorStyles.boldLabel);
+			EditorGUI.indentLevel = EditorGUI.indentLevel + 1;
 
-            EditorGUI.indentLevel = (EditorGUI.indentLevel - 1);
-        }
-    }
+			EditorGUILayout.PropertyField(m_PointsTextProperty, new GUIContent("Text Component"));
+			EditorGUILayout.PropertyField(m_pointsMinColorProperty, new GUIContent("Minimum Color"));
+			EditorGUILayout.PropertyField(m_pointsMaxColorProperty, new GUIContent("Maximum Color"));
+			EditorGUILayout.PropertyField(m_pointsActiveColorProperty, new GUIContent("Active Color"));
+
+			EditorGUI.indentLevel = EditorGUI.indentLevel - 1;
+		}
+
+	}
 }

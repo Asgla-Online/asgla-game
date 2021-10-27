@@ -1,277 +1,292 @@
-using UnityEngine;
-using UnityEngine.UI;
+using System.Collections.Generic;
 using AsglaUI.UI;
 using UnityEditor;
-using System.Collections.Generic;
+using UnityEditor.Animations;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace AsglaUIEditor.UI {
-    [CanEditMultipleObjects, CustomEditor(typeof(UISlotBase), true)]
-    public class UISlotBaseEditor : Editor {
+	[CanEditMultipleObjects]
+	[CustomEditor(typeof(UISlotBase), true)]
+	public class UISlotBaseEditor : Editor {
 
-        private SerializedProperty m_IconGraphicProperty;
-        private SerializedProperty m_CloneTargetProperty;
-        private SerializedProperty m_DragAndDropEnabledProperty;
-        private SerializedProperty m_IsStaticProperty;
-        private SerializedProperty m_AllowThrowAwayProperty;
-        private SerializedProperty m_DragKeyModifierProperty;
-        private SerializedProperty m_TooltipEnabledProperty;
-        private SerializedProperty m_TooltipDelayProperty;
-        private SerializedProperty hoverTransitionProperty;
-        private SerializedProperty hoverTargetGraphicProperty;
-        private SerializedProperty hoverNormalColorProperty;
-        private SerializedProperty hoverHighlightColorProperty;
-        private SerializedProperty hoverTransitionDurationProperty;
-        private SerializedProperty hoverOverrideSpriteProperty;
-        private SerializedProperty hoverNormalTriggerProperty;
-        private SerializedProperty hoverHighlightTriggerProperty;
-        private SerializedProperty pressTransitionProperty;
-        private SerializedProperty pressTargetGraphicProperty;
-        private SerializedProperty pressNormalColorProperty;
-        private SerializedProperty pressPressColorProperty;
-        private SerializedProperty pressTransitionDurationProperty;
-        private SerializedProperty pressTransitionInstaOutProperty;
-        private SerializedProperty pressOverrideSpriteProperty;
-        private SerializedProperty pressNormalTriggerProperty;
-        private SerializedProperty pressPressTriggerProperty;
-        private SerializedProperty pressForceHoverNormalProperty;
+		private SerializedProperty hoverHighlightColorProperty;
+		private SerializedProperty hoverHighlightTriggerProperty;
+		private SerializedProperty hoverNormalColorProperty;
+		private SerializedProperty hoverNormalTriggerProperty;
+		private SerializedProperty hoverOverrideSpriteProperty;
+		private SerializedProperty hoverTargetGraphicProperty;
+		private SerializedProperty hoverTransitionDurationProperty;
+		private SerializedProperty hoverTransitionProperty;
+		private SerializedProperty m_AllowThrowAwayProperty;
+		private SerializedProperty m_CloneTargetProperty;
+		private SerializedProperty m_DragAndDropEnabledProperty;
+		private SerializedProperty m_DragKeyModifierProperty;
 
-        protected virtual void OnEnable() {
-            this.m_IconGraphicProperty = this.serializedObject.FindProperty("iconGraphic");
-            this.m_CloneTargetProperty = this.serializedObject.FindProperty("m_CloneTarget");
-            this.m_DragAndDropEnabledProperty = this.serializedObject.FindProperty("m_DragAndDropEnabled");
-            this.m_IsStaticProperty = this.serializedObject.FindProperty("m_IsStatic");
-            this.m_AllowThrowAwayProperty = this.serializedObject.FindProperty("m_AllowThrowAway");
-            this.m_DragKeyModifierProperty = this.serializedObject.FindProperty("m_DragKeyModifier");
-            this.m_TooltipEnabledProperty = this.serializedObject.FindProperty("m_TooltipEnabled");
-            this.m_TooltipDelayProperty = this.serializedObject.FindProperty("m_TooltipDelay");
-            this.hoverTransitionProperty = this.serializedObject.FindProperty("hoverTransition");
-            this.hoverTargetGraphicProperty = this.serializedObject.FindProperty("hoverTargetGraphic");
-            this.hoverNormalColorProperty = this.serializedObject.FindProperty("hoverNormalColor");
-            this.hoverHighlightColorProperty = this.serializedObject.FindProperty("hoverHighlightColor");
-            this.hoverTransitionDurationProperty = this.serializedObject.FindProperty("hoverTransitionDuration");
-            this.hoverOverrideSpriteProperty = this.serializedObject.FindProperty("hoverOverrideSprite");
-            this.hoverNormalTriggerProperty = this.serializedObject.FindProperty("hoverNormalTrigger");
-            this.hoverHighlightTriggerProperty = this.serializedObject.FindProperty("hoverHighlightTrigger");
-            this.pressTransitionProperty = this.serializedObject.FindProperty("pressTransition");
-            this.pressTargetGraphicProperty = this.serializedObject.FindProperty("pressTargetGraphic");
-            this.pressNormalColorProperty = this.serializedObject.FindProperty("pressNormalColor");
-            this.pressPressColorProperty = this.serializedObject.FindProperty("pressPressColor");
-            this.pressTransitionDurationProperty = this.serializedObject.FindProperty("pressTransitionDuration");
-            this.pressTransitionInstaOutProperty = this.serializedObject.FindProperty("m_PressTransitionInstaOut");
-            this.pressOverrideSpriteProperty = this.serializedObject.FindProperty("pressOverrideSprite");
-            this.pressNormalTriggerProperty = this.serializedObject.FindProperty("pressNormalTrigger");
-            this.pressPressTriggerProperty = this.serializedObject.FindProperty("pressPressTrigger");
-            this.pressForceHoverNormalProperty = this.serializedObject.FindProperty("m_PressForceHoverNormal");
-        }
+		private SerializedProperty m_IconGraphicProperty;
+		private SerializedProperty m_IsStaticProperty;
+		private SerializedProperty m_TooltipDelayProperty;
+		private SerializedProperty m_TooltipEnabledProperty;
+		private SerializedProperty pressForceHoverNormalProperty;
+		private SerializedProperty pressNormalColorProperty;
+		private SerializedProperty pressNormalTriggerProperty;
+		private SerializedProperty pressOverrideSpriteProperty;
+		private SerializedProperty pressPressColorProperty;
+		private SerializedProperty pressPressTriggerProperty;
+		private SerializedProperty pressTargetGraphicProperty;
+		private SerializedProperty pressTransitionDurationProperty;
+		private SerializedProperty pressTransitionInstaOutProperty;
+		private SerializedProperty pressTransitionProperty;
 
-        public override void OnInspectorGUI() {
-            this.serializedObject.Update();
-            this.DrawIconGraphicProperties();
-            EditorGUILayout.Separator();
-            this.DrawDragAndDropProperties();
-            EditorGUILayout.Separator();
-            this.DrawTooltipProperties();
-            EditorGUILayout.Separator();
-            this.DrawHoverProperties();
-            EditorGUILayout.Separator();
-            this.DrawPressProperties();
-            this.serializedObject.ApplyModifiedProperties();
-        }
+		protected virtual void OnEnable() {
+			m_IconGraphicProperty = serializedObject.FindProperty("iconGraphic");
+			m_CloneTargetProperty = serializedObject.FindProperty("m_CloneTarget");
+			m_DragAndDropEnabledProperty = serializedObject.FindProperty("m_DragAndDropEnabled");
+			m_IsStaticProperty = serializedObject.FindProperty("m_IsStatic");
+			m_AllowThrowAwayProperty = serializedObject.FindProperty("m_AllowThrowAway");
+			m_DragKeyModifierProperty = serializedObject.FindProperty("m_DragKeyModifier");
+			m_TooltipEnabledProperty = serializedObject.FindProperty("m_TooltipEnabled");
+			m_TooltipDelayProperty = serializedObject.FindProperty("m_TooltipDelay");
+			hoverTransitionProperty = serializedObject.FindProperty("hoverTransition");
+			hoverTargetGraphicProperty = serializedObject.FindProperty("hoverTargetGraphic");
+			hoverNormalColorProperty = serializedObject.FindProperty("hoverNormalColor");
+			hoverHighlightColorProperty = serializedObject.FindProperty("hoverHighlightColor");
+			hoverTransitionDurationProperty = serializedObject.FindProperty("hoverTransitionDuration");
+			hoverOverrideSpriteProperty = serializedObject.FindProperty("hoverOverrideSprite");
+			hoverNormalTriggerProperty = serializedObject.FindProperty("hoverNormalTrigger");
+			hoverHighlightTriggerProperty = serializedObject.FindProperty("hoverHighlightTrigger");
+			pressTransitionProperty = serializedObject.FindProperty("pressTransition");
+			pressTargetGraphicProperty = serializedObject.FindProperty("pressTargetGraphic");
+			pressNormalColorProperty = serializedObject.FindProperty("pressNormalColor");
+			pressPressColorProperty = serializedObject.FindProperty("pressPressColor");
+			pressTransitionDurationProperty = serializedObject.FindProperty("pressTransitionDuration");
+			pressTransitionInstaOutProperty = serializedObject.FindProperty("m_PressTransitionInstaOut");
+			pressOverrideSpriteProperty = serializedObject.FindProperty("pressOverrideSprite");
+			pressNormalTriggerProperty = serializedObject.FindProperty("pressNormalTrigger");
+			pressPressTriggerProperty = serializedObject.FindProperty("pressPressTrigger");
+			pressForceHoverNormalProperty = serializedObject.FindProperty("m_PressForceHoverNormal");
+		}
 
-        protected void DrawIconGraphicProperties() {
-            EditorGUILayout.LabelField("Icon Properties", EditorStyles.boldLabel);
-            EditorGUI.indentLevel = (EditorGUI.indentLevel + 1);
+		public override void OnInspectorGUI() {
+			serializedObject.Update();
+			DrawIconGraphicProperties();
+			EditorGUILayout.Separator();
+			DrawDragAndDropProperties();
+			EditorGUILayout.Separator();
+			DrawTooltipProperties();
+			EditorGUILayout.Separator();
+			DrawHoverProperties();
+			EditorGUILayout.Separator();
+			DrawPressProperties();
+			serializedObject.ApplyModifiedProperties();
+		}
 
-            EditorGUILayout.PropertyField(this.m_IconGraphicProperty, new GUIContent("Icon Graphic"));
-            EditorGUILayout.PropertyField(this.m_CloneTargetProperty, new GUIContent("Clone Target"));
+		protected void DrawIconGraphicProperties() {
+			EditorGUILayout.LabelField("Icon Properties", EditorStyles.boldLabel);
+			EditorGUI.indentLevel = EditorGUI.indentLevel + 1;
 
-            EditorGUI.indentLevel = (EditorGUI.indentLevel - 1);
-        }
+			EditorGUILayout.PropertyField(m_IconGraphicProperty, new GUIContent("Icon Graphic"));
+			EditorGUILayout.PropertyField(m_CloneTargetProperty, new GUIContent("Clone Target"));
 
-        protected void DrawDragAndDropProperties() {
-            EditorGUILayout.LabelField("Drag & Drop Properties", EditorStyles.boldLabel);
-            EditorGUI.indentLevel = (EditorGUI.indentLevel + 1);
-            EditorGUIUtility.labelWidth = 150f;
+			EditorGUI.indentLevel = EditorGUI.indentLevel - 1;
+		}
 
-            EditorGUILayout.PropertyField(this.m_DragAndDropEnabledProperty, new GUIContent("Enabled"));
-            if (this.m_DragAndDropEnabledProperty.boolValue) {
-                EditorGUILayout.PropertyField(this.m_DragKeyModifierProperty, new GUIContent("Drag Key Modifier"));
-                EditorGUILayout.PropertyField(this.m_IsStaticProperty, new GUIContent("Is Static"));
-                EditorGUILayout.PropertyField(this.m_AllowThrowAwayProperty, new GUIContent("Allow Throw Away"));
-            }
+		protected void DrawDragAndDropProperties() {
+			EditorGUILayout.LabelField("Drag & Drop Properties", EditorStyles.boldLabel);
+			EditorGUI.indentLevel = EditorGUI.indentLevel + 1;
+			EditorGUIUtility.labelWidth = 150f;
 
-            EditorGUIUtility.labelWidth = 120f;
-            EditorGUI.indentLevel = (EditorGUI.indentLevel - 1);
-        }
+			EditorGUILayout.PropertyField(m_DragAndDropEnabledProperty, new GUIContent("Enabled"));
+			if (m_DragAndDropEnabledProperty.boolValue) {
+				EditorGUILayout.PropertyField(m_DragKeyModifierProperty, new GUIContent("Drag Key Modifier"));
+				EditorGUILayout.PropertyField(m_IsStaticProperty, new GUIContent("Is Static"));
+				EditorGUILayout.PropertyField(m_AllowThrowAwayProperty, new GUIContent("Allow Throw Away"));
+			}
 
-        protected void DrawTooltipProperties() {
-            EditorGUILayout.LabelField("Tooltip Properties", EditorStyles.boldLabel);
-            EditorGUI.indentLevel = (EditorGUI.indentLevel + 1);
-            EditorGUIUtility.labelWidth = 150f;
+			EditorGUIUtility.labelWidth = 120f;
+			EditorGUI.indentLevel = EditorGUI.indentLevel - 1;
+		}
 
-            EditorGUILayout.PropertyField(this.m_TooltipEnabledProperty, new GUIContent("Enabled"));
-            if (this.m_TooltipEnabledProperty.boolValue) {
-                EditorGUILayout.PropertyField(this.m_TooltipDelayProperty, new GUIContent("Display Delay"));
-            }
+		protected void DrawTooltipProperties() {
+			EditorGUILayout.LabelField("Tooltip Properties", EditorStyles.boldLabel);
+			EditorGUI.indentLevel = EditorGUI.indentLevel + 1;
+			EditorGUIUtility.labelWidth = 150f;
 
-            EditorGUIUtility.labelWidth = 120f;
-            EditorGUI.indentLevel = (EditorGUI.indentLevel - 1);
-        }
+			EditorGUILayout.PropertyField(m_TooltipEnabledProperty, new GUIContent("Enabled"));
+			if (m_TooltipEnabledProperty.boolValue)
+				EditorGUILayout.PropertyField(m_TooltipDelayProperty, new GUIContent("Display Delay"));
 
-        protected void DrawHoverProperties() {
-            EditorGUILayout.LabelField("Hovered State Properties", EditorStyles.boldLabel);
-            EditorGUI.indentLevel = (EditorGUI.indentLevel + 1);
+			EditorGUIUtility.labelWidth = 120f;
+			EditorGUI.indentLevel = EditorGUI.indentLevel - 1;
+		}
 
-            EditorGUILayout.PropertyField(this.hoverTargetGraphicProperty, new GUIContent("Target Graphic"));
-            EditorGUILayout.PropertyField(this.hoverTransitionProperty, new GUIContent("Transition"));
+		protected void DrawHoverProperties() {
+			EditorGUILayout.LabelField("Hovered State Properties", EditorStyles.boldLabel);
+			EditorGUI.indentLevel = EditorGUI.indentLevel + 1;
 
-            Graphic graphic = this.hoverTargetGraphicProperty.objectReferenceValue as Graphic;
-            UISlotBase.Transition transition = (UISlotBase.Transition)this.hoverTransitionProperty.enumValueIndex;
+			EditorGUILayout.PropertyField(hoverTargetGraphicProperty, new GUIContent("Target Graphic"));
+			EditorGUILayout.PropertyField(hoverTransitionProperty, new GUIContent("Transition"));
 
-            if (transition != UISlotBase.Transition.None) {
-                EditorGUI.indentLevel = (EditorGUI.indentLevel + 1);
+			Graphic graphic = hoverTargetGraphicProperty.objectReferenceValue as Graphic;
+			UISlotBase.Transition transition = (UISlotBase.Transition) hoverTransitionProperty.enumValueIndex;
 
-                if (transition == UISlotBase.Transition.ColorTint) {
-                    if (graphic == null) {
-                        EditorGUILayout.HelpBox("You must have a Graphic target in order to use a color transition.", MessageType.Info);
-                    } else {
-                        EditorGUI.BeginChangeCheck();
-                        EditorGUILayout.PropertyField(this.hoverNormalColorProperty, new GUIContent("Normal"));
-                        if (EditorGUI.EndChangeCheck())
-                            graphic.canvasRenderer.SetColor(this.hoverNormalColorProperty.colorValue);
+			if (transition != UISlotBase.Transition.None) {
+				EditorGUI.indentLevel = EditorGUI.indentLevel + 1;
 
-                        EditorGUILayout.PropertyField(this.hoverHighlightColorProperty, new GUIContent("Highlighted"));
-                        EditorGUILayout.PropertyField(this.hoverTransitionDurationProperty, new GUIContent("Duration"));
-                    }
-                } else if (transition == UISlotBase.Transition.SpriteSwap) {
-                    if (graphic as Image == null) {
-                        EditorGUILayout.HelpBox("You must have a Image target in order to use a sprite swap transition.", MessageType.Info);
-                    } else {
-                        EditorGUILayout.PropertyField(this.hoverOverrideSpriteProperty, new GUIContent("Override Sprite"));
-                    }
-                } else if (transition == UISlotBase.Transition.Animation) {
-                    if (graphic == null) {
-                        EditorGUILayout.HelpBox("You must have a Graphic target in order to use a animation transition.", MessageType.Info);
-                    } else {
-                        EditorGUILayout.PropertyField(this.hoverNormalTriggerProperty, new GUIContent("Normal"));
-                        EditorGUILayout.PropertyField(this.hoverHighlightTriggerProperty, new GUIContent("Highlighted"));
+				if (transition == UISlotBase.Transition.ColorTint) {
+					if (graphic == null) {
+						EditorGUILayout.HelpBox("You must have a Graphic target in order to use a color transition.",
+							MessageType.Info);
+					} else {
+						EditorGUI.BeginChangeCheck();
+						EditorGUILayout.PropertyField(hoverNormalColorProperty, new GUIContent("Normal"));
+						if (EditorGUI.EndChangeCheck())
+							graphic.canvasRenderer.SetColor(hoverNormalColorProperty.colorValue);
 
-                        Animator animator = graphic.gameObject.GetComponent<Animator>();
+						EditorGUILayout.PropertyField(hoverHighlightColorProperty, new GUIContent("Highlighted"));
+						EditorGUILayout.PropertyField(hoverTransitionDurationProperty, new GUIContent("Duration"));
+					}
+				} else if (transition == UISlotBase.Transition.SpriteSwap) {
+					if (graphic as Image == null)
+						EditorGUILayout.HelpBox(
+							"You must have a Image target in order to use a sprite swap transition.", MessageType.Info);
+					else
+						EditorGUILayout.PropertyField(hoverOverrideSpriteProperty, new GUIContent("Override Sprite"));
+				} else if (transition == UISlotBase.Transition.Animation) {
+					if (graphic == null) {
+						EditorGUILayout.HelpBox(
+							"You must have a Graphic target in order to use a animation transition.", MessageType.Info);
+					} else {
+						EditorGUILayout.PropertyField(hoverNormalTriggerProperty, new GUIContent("Normal"));
+						EditorGUILayout.PropertyField(hoverHighlightTriggerProperty, new GUIContent("Highlighted"));
 
-                        if (animator == null || animator.runtimeAnimatorController == null) {
-                            Rect controlRect = EditorGUILayout.GetControlRect();
-                            controlRect.xMin = (controlRect.xMin + EditorGUIUtility.labelWidth);
+						Animator animator = graphic.gameObject.GetComponent<Animator>();
 
-                            if (GUI.Button(controlRect, "Auto Generate Animation", EditorStyles.miniButton)) {
-                                // Generate the animator controller
-                                UnityEditor.Animations.AnimatorController animatorController = this.GenerateHoverAnimatorController();
+						if (animator == null || animator.runtimeAnimatorController == null) {
+							Rect controlRect = EditorGUILayout.GetControlRect();
+							controlRect.xMin = controlRect.xMin + EditorGUIUtility.labelWidth;
 
-                                if (animatorController != null) {
-                                    if (animator == null) {
-                                        animator = graphic.gameObject.AddComponent<Animator>();
-                                    }
-                                    UnityEditor.Animations.AnimatorController.SetAnimatorController(animator, animatorController);
-                                }
-                            }
-                        }
-                    }
-                }
+							if (GUI.Button(controlRect, "Auto Generate Animation", EditorStyles.miniButton)) {
+								// Generate the animator controller
+								AnimatorController animatorController = GenerateHoverAnimatorController();
 
-                EditorGUI.indentLevel = (EditorGUI.indentLevel - 1);
-            }
+								if (animatorController != null) {
+									if (animator == null)
+										animator = graphic.gameObject.AddComponent<Animator>();
+									AnimatorController.SetAnimatorController(animator, animatorController);
+								}
+							}
+						}
+					}
+				}
 
-            EditorGUI.indentLevel = (EditorGUI.indentLevel - 1);
-        }
+				EditorGUI.indentLevel = EditorGUI.indentLevel - 1;
+			}
 
-        protected void DrawPressProperties() {
-            EditorGUILayout.LabelField("Pressed State Properties", EditorStyles.boldLabel);
-            EditorGUI.indentLevel = (EditorGUI.indentLevel + 1);
+			EditorGUI.indentLevel = EditorGUI.indentLevel - 1;
+		}
 
-            EditorGUILayout.PropertyField(this.pressTargetGraphicProperty, new GUIContent("Target Graphic"));
-            EditorGUILayout.PropertyField(this.pressTransitionProperty, new GUIContent("Transition"));
+		protected void DrawPressProperties() {
+			EditorGUILayout.LabelField("Pressed State Properties", EditorStyles.boldLabel);
+			EditorGUI.indentLevel = EditorGUI.indentLevel + 1;
 
-            Graphic graphic = this.pressTargetGraphicProperty.objectReferenceValue as Graphic;
-            UISlotBase.Transition transition = (UISlotBase.Transition)this.pressTransitionProperty.enumValueIndex;
+			EditorGUILayout.PropertyField(pressTargetGraphicProperty, new GUIContent("Target Graphic"));
+			EditorGUILayout.PropertyField(pressTransitionProperty, new GUIContent("Transition"));
 
-            if (transition != UISlotBase.Transition.None) {
-                EditorGUI.indentLevel = (EditorGUI.indentLevel + 1);
+			Graphic graphic = pressTargetGraphicProperty.objectReferenceValue as Graphic;
+			UISlotBase.Transition transition = (UISlotBase.Transition) pressTransitionProperty.enumValueIndex;
 
-                if (transition == UISlotBase.Transition.ColorTint) {
-                    if (graphic == null) {
-                        EditorGUILayout.HelpBox("You must have a Graphic target in order to use a color transition.", MessageType.Info);
-                    } else {
-                        EditorGUI.BeginChangeCheck();
-                        EditorGUILayout.PropertyField(this.pressNormalColorProperty, new GUIContent("Normal"));
-                        if (EditorGUI.EndChangeCheck())
-                            graphic.canvasRenderer.SetColor(this.pressNormalColorProperty.colorValue);
+			if (transition != UISlotBase.Transition.None) {
+				EditorGUI.indentLevel = EditorGUI.indentLevel + 1;
 
-                        EditorGUILayout.PropertyField(this.pressPressColorProperty, new GUIContent("Pressed"));
-                        EditorGUILayout.PropertyField(this.pressTransitionDurationProperty, new GUIContent("Duration"));
-                        EditorGUIUtility.labelWidth = 150f;
-                        EditorGUILayout.PropertyField(this.pressTransitionInstaOutProperty, new GUIContent("Instant Out"));
-                        EditorGUIUtility.labelWidth = 120f;
-                    }
-                } else if (transition == UISlotBase.Transition.SpriteSwap) {
-                    if (graphic as Image == null) {
-                        EditorGUILayout.HelpBox("You must have a Image target in order to use a sprite swap transition.", MessageType.Info);
-                    } else {
-                        EditorGUILayout.PropertyField(this.pressOverrideSpriteProperty, new GUIContent("Override Sprite"));
-                    }
-                } else if (transition == UISlotBase.Transition.Animation) {
-                    if (graphic == null) {
-                        EditorGUILayout.HelpBox("You must have a Graphic target in order to use a animation transition.", MessageType.Info);
-                    } else {
-                        EditorGUILayout.PropertyField(this.pressNormalTriggerProperty, new GUIContent("Normal"));
-                        EditorGUILayout.PropertyField(this.pressPressTriggerProperty, new GUIContent("Pressed"));
+				if (transition == UISlotBase.Transition.ColorTint) {
+					if (graphic == null) {
+						EditorGUILayout.HelpBox("You must have a Graphic target in order to use a color transition.",
+							MessageType.Info);
+					} else {
+						EditorGUI.BeginChangeCheck();
+						EditorGUILayout.PropertyField(pressNormalColorProperty, new GUIContent("Normal"));
+						if (EditorGUI.EndChangeCheck())
+							graphic.canvasRenderer.SetColor(pressNormalColorProperty.colorValue);
 
-                        Animator animator = graphic.gameObject.GetComponent<Animator>();
+						EditorGUILayout.PropertyField(pressPressColorProperty, new GUIContent("Pressed"));
+						EditorGUILayout.PropertyField(pressTransitionDurationProperty, new GUIContent("Duration"));
+						EditorGUIUtility.labelWidth = 150f;
+						EditorGUILayout.PropertyField(pressTransitionInstaOutProperty, new GUIContent("Instant Out"));
+						EditorGUIUtility.labelWidth = 120f;
+					}
+				} else if (transition == UISlotBase.Transition.SpriteSwap) {
+					if (graphic as Image == null)
+						EditorGUILayout.HelpBox(
+							"You must have a Image target in order to use a sprite swap transition.", MessageType.Info);
+					else
+						EditorGUILayout.PropertyField(pressOverrideSpriteProperty, new GUIContent("Override Sprite"));
+				} else if (transition == UISlotBase.Transition.Animation) {
+					if (graphic == null) {
+						EditorGUILayout.HelpBox(
+							"You must have a Graphic target in order to use a animation transition.", MessageType.Info);
+					} else {
+						EditorGUILayout.PropertyField(pressNormalTriggerProperty, new GUIContent("Normal"));
+						EditorGUILayout.PropertyField(pressPressTriggerProperty, new GUIContent("Pressed"));
 
-                        if (animator == null || animator.runtimeAnimatorController == null) {
-                            Rect controlRect = EditorGUILayout.GetControlRect();
-                            controlRect.xMin = (controlRect.xMin + EditorGUIUtility.labelWidth);
+						Animator animator = graphic.gameObject.GetComponent<Animator>();
 
-                            if (GUI.Button(controlRect, "Auto Generate Animation", EditorStyles.miniButton)) {
-                                // Generate the animator controller
-                                UnityEditor.Animations.AnimatorController animatorController = this.GeneratePressAnimatorController();
+						if (animator == null || animator.runtimeAnimatorController == null) {
+							Rect controlRect = EditorGUILayout.GetControlRect();
+							controlRect.xMin = controlRect.xMin + EditorGUIUtility.labelWidth;
 
-                                if (animatorController != null) {
-                                    if (animator == null) {
-                                        animator = graphic.gameObject.AddComponent<Animator>();
-                                    }
-                                    UnityEditor.Animations.AnimatorController.SetAnimatorController(animator, animatorController);
-                                }
-                            }
-                        }
-                    }
-                }
+							if (GUI.Button(controlRect, "Auto Generate Animation", EditorStyles.miniButton)) {
+								// Generate the animator controller
+								AnimatorController animatorController = GeneratePressAnimatorController();
 
-                EditorGUIUtility.labelWidth = 150f;
-                EditorGUILayout.PropertyField(this.pressForceHoverNormalProperty, new GUIContent("Force Hover Normal"));
-                EditorGUIUtility.labelWidth = 120f;
-                EditorGUI.indentLevel = (EditorGUI.indentLevel - 1);
-            }
+								if (animatorController != null) {
+									if (animator == null)
+										animator = graphic.gameObject.AddComponent<Animator>();
+									AnimatorController.SetAnimatorController(animator, animatorController);
+								}
+							}
+						}
+					}
+				}
 
-            EditorGUI.indentLevel = (EditorGUI.indentLevel - 1);
-        }
+				EditorGUIUtility.labelWidth = 150f;
+				EditorGUILayout.PropertyField(pressForceHoverNormalProperty, new GUIContent("Force Hover Normal"));
+				EditorGUIUtility.labelWidth = 120f;
+				EditorGUI.indentLevel = EditorGUI.indentLevel - 1;
+			}
 
-        protected UnityEditor.Animations.AnimatorController GenerateHoverAnimatorController() {
-            // Prepare the triggers list
-            List<string> triggers = new List<string>();
+			EditorGUI.indentLevel = EditorGUI.indentLevel - 1;
+		}
 
-            triggers.Add((!string.IsNullOrEmpty(this.hoverNormalTriggerProperty.stringValue)) ? this.hoverNormalTriggerProperty.stringValue : "Normal");
-            triggers.Add((!string.IsNullOrEmpty(this.hoverHighlightTriggerProperty.stringValue)) ? this.hoverHighlightTriggerProperty.stringValue : "Highlighted");
+		protected AnimatorController GenerateHoverAnimatorController() {
+			// Prepare the triggers list
+			List<string> triggers = new List<string>();
 
-            return UIAnimatorControllerGenerator.GenerateAnimatorContoller(triggers, this.hoverTargetGraphicProperty.objectReferenceValue.name);
-        }
+			triggers.Add(!string.IsNullOrEmpty(hoverNormalTriggerProperty.stringValue)
+				? hoverNormalTriggerProperty.stringValue
+				: "Normal");
+			triggers.Add(!string.IsNullOrEmpty(hoverHighlightTriggerProperty.stringValue)
+				? hoverHighlightTriggerProperty.stringValue
+				: "Highlighted");
 
-        protected UnityEditor.Animations.AnimatorController GeneratePressAnimatorController() {
-            // Prepare the triggers list
-            List<string> triggers = new List<string>();
+			return UIAnimatorControllerGenerator.GenerateAnimatorContoller(triggers,
+				hoverTargetGraphicProperty.objectReferenceValue.name);
+		}
 
-            triggers.Add((!string.IsNullOrEmpty(this.pressNormalTriggerProperty.stringValue)) ? this.pressNormalTriggerProperty.stringValue : "Normal");
-            triggers.Add((!string.IsNullOrEmpty(this.pressPressTriggerProperty.stringValue)) ? this.pressPressTriggerProperty.stringValue : "Pressed");
+		protected AnimatorController GeneratePressAnimatorController() {
+			// Prepare the triggers list
+			List<string> triggers = new List<string>();
 
-            return UIAnimatorControllerGenerator.GenerateAnimatorContoller(triggers, this.pressTargetGraphicProperty.objectReferenceValue.name);
-        }
-    }
+			triggers.Add(!string.IsNullOrEmpty(pressNormalTriggerProperty.stringValue)
+				? pressNormalTriggerProperty.stringValue
+				: "Normal");
+			triggers.Add(!string.IsNullOrEmpty(pressPressTriggerProperty.stringValue)
+				? pressPressTriggerProperty.stringValue
+				: "Pressed");
+
+			return UIAnimatorControllerGenerator.GenerateAnimatorContoller(triggers,
+				pressTargetGraphicProperty.objectReferenceValue.name);
+		}
+
+	}
 }

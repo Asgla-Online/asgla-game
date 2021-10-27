@@ -2,116 +2,102 @@ using UnityEngine;
 using UnityEngine.Events;
 
 namespace AsglaUI.UI.Tweens {
-    public struct FloatTween : ITweenValue {
+	public struct FloatTween : ITweenValue {
 
-        public class FloatTweenCallback : UnityEvent<float> { }
-        public class FloatFinishCallback : UnityEvent { }
+		public class FloatTweenCallback : UnityEvent<float> {
 
-        private float m_StartFloat;
-        private float m_TargetFloat;
-        private float m_Duration;
-        private bool m_IgnoreTimeScale;
-        private TweenEasing m_Easing;
-        private FloatTweenCallback m_Target;
-        private FloatFinishCallback m_Finish;
+		}
 
-        /// <summary>
-        /// Gets or sets the starting float.
-        /// </summary>
-        /// <value>The start float.</value>
-        public float startFloat {
-            get { return m_StartFloat; }
-            set { m_StartFloat = value; }
-        }
+		public class FloatFinishCallback : UnityEvent {
 
-        /// <summary>
-        /// Gets or sets the target float.
-        /// </summary>
-        /// <value>The target float.</value>
-        public float targetFloat {
-            get { return m_TargetFloat; }
-            set { m_TargetFloat = value; }
-        }
+		}
 
-        /// <summary>
-        /// Gets or sets the duration of the tween.
-        /// </summary>
-        /// <value>The duration.</value>
-        public float duration {
-            get { return m_Duration; }
-            set { m_Duration = value; }
-        }
+		private FloatTweenCallback m_Target;
+		private FloatFinishCallback m_Finish;
 
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="UnityEngine.UI.Tweens.ColorTween"/> should ignore time scale.
-        /// </summary>
-        /// <value><c>true</c> if ignore time scale; otherwise, <c>false</c>.</value>
-        public bool ignoreTimeScale {
-            get { return m_IgnoreTimeScale; }
-            set { m_IgnoreTimeScale = value; }
-        }
+		/// <summary>
+		///     Gets or sets the starting float.
+		/// </summary>
+		/// <value>The start float.</value>
+		public float startFloat { get; set; }
 
-        /// <summary>
-        /// Gets or sets the tween easing.
-        /// </summary>
-        /// <value>The easing.</value>
-        public TweenEasing easing {
-            get { return m_Easing; }
-            set { m_Easing = value; }
-        }
+		/// <summary>
+		///     Gets or sets the target float.
+		/// </summary>
+		/// <value>The target float.</value>
+		public float targetFloat { get; set; }
 
-        /// <summary>
-        /// Tweens the float based on percentage.
-        /// </summary>
-        /// <param name="floatPercentage">Float percentage.</param>
-        public void TweenValue(float floatPercentage) {
-            if (!ValidTarget())
-                return;
+		/// <summary>
+		///     Gets or sets the duration of the tween.
+		/// </summary>
+		/// <value>The duration.</value>
+		public float duration { get; set; }
 
-            m_Target.Invoke(Mathf.Lerp(m_StartFloat, m_TargetFloat, floatPercentage));
-        }
+		/// <summary>
+		///     Gets or sets a value indicating whether this <see cref="UnityEngine.UI.Tweens.ColorTween" /> should ignore time
+		///     scale.
+		/// </summary>
+		/// <value><c>true</c> if ignore time scale; otherwise, <c>false</c>.</value>
+		public bool ignoreTimeScale { get; set; }
 
-        /// <summary>
-        /// Adds a on changed callback.
-        /// </summary>
-        /// <param name="callback">Callback.</param>
-        public void AddOnChangedCallback(UnityAction<float> callback) {
-            if (m_Target == null)
-                m_Target = new FloatTweenCallback();
+		/// <summary>
+		///     Gets or sets the tween easing.
+		/// </summary>
+		/// <value>The easing.</value>
+		public TweenEasing easing { get; set; }
 
-            m_Target.AddListener(callback);
-        }
+		/// <summary>
+		///     Tweens the float based on percentage.
+		/// </summary>
+		/// <param name="floatPercentage">Float percentage.</param>
+		public void TweenValue(float floatPercentage) {
+			if (!ValidTarget())
+				return;
 
-        /// <summary>
-        /// Adds a on finish callback.
-        /// </summary>
-        /// <param name="callback">Callback.</param>
-        public void AddOnFinishCallback(UnityAction callback) {
-            if (m_Finish == null)
-                m_Finish = new FloatFinishCallback();
+			m_Target.Invoke(Mathf.Lerp(startFloat, targetFloat, floatPercentage));
+		}
 
-            m_Finish.AddListener(callback);
-        }
+		/// <summary>
+		///     Adds a on changed callback.
+		/// </summary>
+		/// <param name="callback">Callback.</param>
+		public void AddOnChangedCallback(UnityAction<float> callback) {
+			if (m_Target == null)
+				m_Target = new FloatTweenCallback();
 
-        public bool GetIgnoreTimescale() {
-            return m_IgnoreTimeScale;
-        }
+			m_Target.AddListener(callback);
+		}
 
-        public float GetDuration() {
-            return m_Duration;
-        }
+		/// <summary>
+		///     Adds a on finish callback.
+		/// </summary>
+		/// <param name="callback">Callback.</param>
+		public void AddOnFinishCallback(UnityAction callback) {
+			if (m_Finish == null)
+				m_Finish = new FloatFinishCallback();
 
-        public bool ValidTarget() {
-            return m_Target != null;
-        }
+			m_Finish.AddListener(callback);
+		}
 
-        /// <summary>
-        /// Invokes the on finish callback.
-        /// </summary>
-        public void Finished() {
-            if (m_Finish != null)
-                m_Finish.Invoke();
-        }
+		public bool GetIgnoreTimescale() {
+			return ignoreTimeScale;
+		}
 
-    }
+		public float GetDuration() {
+			return duration;
+		}
+
+		public bool ValidTarget() {
+			return m_Target != null;
+		}
+
+		/// <summary>
+		///     Invokes the on finish callback.
+		/// </summary>
+		public void Finished() {
+			if (m_Finish != null)
+				m_Finish.Invoke();
+		}
+
+	}
 }

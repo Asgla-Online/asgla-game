@@ -1,48 +1,46 @@
-﻿using Asgla.UI;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace AsglaUI.UI {
-    public class UILoadingOverlayManager : ScriptableObject {
+	public class UILoadingOverlayManager : ScriptableObject {
 
-        #region singleton
-        private static UILoadingOverlayManager m_Instance;
-        public static UILoadingOverlayManager Instance {
-            get {
-                if (m_Instance == null)
-                    m_Instance = Resources.Load("LoadingOverlayManager") as UILoadingOverlayManager;
+#pragma warning disable 0649
+		[SerializeField] private GameObject m_LoadingOverlayPrefab;
+#pragma warning restore 0649
 
-                return m_Instance;
-            }
-        }
-        #endregion
+		/// <summary>
+		///     Gets the loading overlay prefab.
+		/// </summary>
+		public GameObject prefab => m_LoadingOverlayPrefab;
 
-        #pragma warning disable 0649
-        [SerializeField] private GameObject m_LoadingOverlayPrefab;
-        #pragma warning restore 0649
+		/// <summary>
+		///     Creates a loading overlay.
+		/// </summary>
+		/// <returns>The loading overlay component.</returns>
+		public UILoadingOverlay Create() {
+			if (m_LoadingOverlayPrefab == null)
+				return null;
 
-        /// <summary>
-        /// Gets the loading overlay prefab.
-        /// </summary>
-        public GameObject prefab {
-            get {
-                return this.m_LoadingOverlayPrefab;
-            }
-        }
+			GameObject obj = Instantiate(m_LoadingOverlayPrefab);
 
-        /// <summary>
-        /// Creates a loading overlay.
-        /// </summary>
-        /// <returns>The loading overlay component.</returns>
-        public UILoadingOverlay Create() {
-            if (this.m_LoadingOverlayPrefab == null)
-                return null;
+			///obj.GetComponent<LoadingMapOverlay>().enabled = false;
 
-            GameObject obj = Instantiate(this.m_LoadingOverlayPrefab);
+			return obj.GetComponent<UILoadingOverlay>();
+		}
 
-            ///obj.GetComponent<LoadingMapOverlay>().enabled = false;
+		#region singleton
 
-            return obj.GetComponent<UILoadingOverlay>();
-        }
+		private static UILoadingOverlayManager m_Instance;
 
-    }
+		public static UILoadingOverlayManager Instance {
+			get{
+				if (m_Instance == null)
+					m_Instance = Resources.Load("LoadingOverlayManager") as UILoadingOverlayManager;
+
+				return m_Instance;
+			}
+		}
+
+		#endregion
+
+	}
 }

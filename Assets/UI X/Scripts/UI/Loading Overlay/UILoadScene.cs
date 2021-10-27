@@ -1,110 +1,113 @@
+using Asgla;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using Asgla;
+using UnityEngine.UI;
 
 namespace AsglaUI.UI {
-    [AddComponentMenu("Miscellaneous/Load Scene")]
-    public class UILoadScene : MonoBehaviour {
+	[AddComponentMenu("Miscellaneous/Load Scene")]
+	public class UILoadScene : MonoBehaviour {
 
-        enum InputKey {
-            None,
-            Submit,
-            Cancel,
-            Jump
-        }
+		protected void Update() {
+			if (!isActiveAndEnabled || !gameObject.activeInHierarchy || m_InputKey == InputKey.None)
+				return;
 
-        #pragma warning disable 0649
-        [SerializeField] private string m_Scene;
-        [SerializeField] private bool m_UseLoadingOverlay = false;
-        [SerializeField] private InputKey m_InputKey = InputKey.None;
-        [SerializeField] private Button m_HookToButton;
-        #pragma warning restore 0649
+			// Break if the currently selected game object is a selectable
+			if (EventSystem.current.currentSelectedGameObject != null) {
+				// Check for selectable
+				Selectable selectable = EventSystem.current.currentSelectedGameObject.GetComponent<Selectable>();
 
-        protected void OnEnable() {
-            if (this.m_HookToButton != null)
-                this.m_HookToButton.onClick.AddListener(LoadScene);
-        }
+				if (selectable != null)
+					return;
+			}
 
-        protected void OnDisable() {
-            if (this.m_HookToButton != null)
-                this.m_HookToButton.onClick.RemoveListener(LoadScene);
-        }
+			// Check if we are using the escape input for this and if the escape key was used in the window manager
+			if (m_InputKey == InputKey.Cancel)
+				if (UIWindowManager.Instance != null && UIWindowManager.Instance.escapeInputName == "Cancel" &&
+				    UIWindowManager.Instance.escapedUsed)
+					return;
 
-        public void LoadScene() {
-            if (!string.IsNullOrEmpty(this.m_Scene)) {
-                int id;
-                bool isNumeric = int.TryParse(this.m_Scene, out id);
+			// Check if we are using the escape input for this and if we have an active modal box
+			if (m_InputKey == InputKey.Cancel && UIModalBoxManager.Instance != null &&
+			    UIModalBoxManager.Instance.activeBoxes.Length > 0)
+				return;
 
-                if (this.m_UseLoadingOverlay && UILoadingOverlayManager.Instance != null) {
-                    UILoadingOverlay loadingOverlay = UILoadingOverlayManager.Instance.Create();
+			string buttonName = string.Empty;
 
-                    if (loadingOverlay != null) {
-                        if (isNumeric)
-                            loadingOverlay.LoadScene(id);
-                        else
-                            loadingOverlay.LoadScene(this.m_Scene);
-                    } else {
-                        Debug.LogWarning("Failed to instantiate the loading overlay prefab, make sure it's assigned on the manager.");
-                    }
-                } else {
-                    if (isNumeric)
-                        SceneManager.LoadScene(id);
-                    else
-                        SceneManager.LoadScene(this.m_Scene);
-                }
-            }
+			switch (m_InputKey) {
+				case InputKey.Submit:
+					buttonName = "Submit";
+					break;
+				case InputKey.Cancel:
+					buttonName = "Cancel";
+					break;
+				case InputKey.Jump:
+					buttonName = "Jump";
+					break;
+				case InputKey.None:
+				default:
+					buttonName = "None";
+					break;
+			}
 
-            if (this.m_Scene == "0")
-                Main.Singleton.Network.Connection.Close();
-        }
+			if (!string.IsNullOrEmpty(buttonName) && Input.GetButtonDown(buttonName))
+				LoadScene();
+		}
 
-        protected void Update() {
-            if (!this.isActiveAndEnabled || !this.gameObject.activeInHierarchy || this.m_InputKey == InputKey.None)
-                return;
+		protected void OnEnable() {
+			if (m_HookToButton != null)
+				m_HookToButton.onClick.AddListener(LoadScene);
+		}
 
-            // Break if the currently selected game object is a selectable
-            if (EventSystem.current.currentSelectedGameObject != null) {
-                // Check for selectable
-                Selectable selectable = EventSystem.current.currentSelectedGameObject.GetComponent<Selectable>();
+		protected void OnDisable() {
+			if (m_HookToButton != null)
+				m_HookToButton.onClick.RemoveListener(LoadScene);
+		}
 
-                if (selectable != null)
-                    return;
-            }
+		public void LoadScene() {
+			if (!string.IsNullOrEmpty(m_Scene)) {
+				int id;
+				bool isNumeric = int.TryParse(m_Scene, out id);
 
-            // Check if we are using the escape input for this and if the escape key was used in the window manager
-            if (this.m_InputKey == InputKey.Cancel) {
-                if (UIWindowManager.Instance != null && UIWindowManager.Instance.escapeInputName == "Cancel" && UIWindowManager.Instance.escapedUsed)
-                    return;
-            }
+				if (m_UseLoadingOverlay && UILoadingOverlayManager.Instance != null) {
+					UILoadingOverlay loadingOverlay = UILoadingOverlayManager.Instance.Create();
 
-            // Check if we are using the escape input for this and if we have an active modal box
-            if (this.m_InputKey == InputKey.Cancel && UIModalBoxManager.Instance != null && UIModalBoxManager.Instance.activeBoxes.Length > 0)
-                return;
+					if (loadingOverlay != null) {
+						if (isNumeric)
+							loadingOverlay.LoadScene(id);
+						else
+							loadingOverlay.LoadScene(m_Scene);
+					} else {
+						Debug.LogWarning(
+							"Failed to instantiate the loading overlay prefab, make sure it's assigned on the manager.");
+					}
+				} else {
+					if (isNumeric)
+						SceneManager.LoadScene(id);
+					else
+						SceneManager.LoadScene(m_Scene);
+				}
+			}
 
-            string buttonName = string.Empty;
+			if (m_Scene == "0")
+				Main.Singleton.Network.Connection.Close();
+		}
 
-            switch (this.m_InputKey) {
-                case InputKey.Submit:
-                    buttonName = "Submit";
-                    break;
-                case InputKey.Cancel:
-                    buttonName = "Cancel";
-                    break;
-                case InputKey.Jump:
-                    buttonName = "Jump";
-                    break;
-                case InputKey.None:
-                default:
-                    buttonName = "None";
-                    break;
-            }
+		private enum InputKey {
 
-            if (!string.IsNullOrEmpty(buttonName) && Input.GetButtonDown(buttonName)) {
-                this.LoadScene();
-            }
-        }
+			None,
+			Submit,
+			Cancel,
+			Jump
 
-    }
+		}
+
+#pragma warning disable 0649
+		[SerializeField] private string m_Scene;
+		[SerializeField] private bool m_UseLoadingOverlay;
+		[SerializeField] private InputKey m_InputKey = InputKey.None;
+		[SerializeField] private Button m_HookToButton;
+#pragma warning restore 0649
+
+	}
 }

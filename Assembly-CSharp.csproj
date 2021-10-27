@@ -52,9 +52,9 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Asgla\Scripts\Data\Avatar\Helper\EntityType.cs"/>
      <Compile Include="Assets\FX\Scripts\ETFXPitchRandomizer.cs" />
      <Compile Include="Assets\CharacterCreator2D\Creator UI\Scripts\UIColor\UIPartColor.cs" />
+     <Compile Include="Assets\Asgla\Scripts\Data\Avatar\Helper\EntityType.cs"/>
      <Compile Include="Assets\CharacterCreator2D\Data\Scripts\Utilities\CharacterBaker.cs" />
      <Compile Include="Assets\CharacterCreator2D\Data\Scripts\Utilities\SpritePacker.cs" />
      <Compile Include="Assets\CharacterCreator2D\Creator UI\Scripts\UIExportPNG\UIToggler.cs" />

@@ -3,99 +3,110 @@ using UnityEngine.EventSystems;
 
 namespace AsglaUI.UI {
 
-    [AddComponentMenu("UI/Audio/Play Audio")]
-    public class UIPlayAudio : MonoBehaviour, IEventSystemHandler, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler {
-        public enum Event {
-            None,
-            PointerEnter,
-            PointerExit,
-            PointerDown,
-            PointerUp,
-            Click,
-            DoubleClick
-        }
+	[AddComponentMenu("UI/Audio/Play Audio")]
+	public class UIPlayAudio : MonoBehaviour, IEventSystemHandler, IPointerEnterHandler, IPointerExitHandler,
+		IPointerDownHandler, IPointerUpHandler {
 
-        [SerializeField] private AudioClip m_AudioClip;
-        [SerializeField] [Range(0f, 1f)] private float m_Volume = 1f;
-        [SerializeField] private Event m_PlayOnEvent = Event.None;
+		public enum Event {
 
-        /// <summary>
-        /// Gets or sets the audio clip.
-        /// </summary>
-        public AudioClip audioClip { get { return this.m_AudioClip; } set { this.m_AudioClip = value; } }
+			None,
+			PointerEnter,
+			PointerExit,
+			PointerDown,
+			PointerUp,
+			Click,
+			DoubleClick
 
-        /// <summary>
-        /// Gets or sets the volume level.
-        /// </summary>
-        public float volume { get { return this.m_Volume; } set { this.m_Volume = value; } }
+		}
 
-        /// <summary>
-        /// Gets or sets the event on which the audio clip should be played.
-        /// </summary>
-        public Event playOnEvent { get { return this.m_PlayOnEvent; } set { this.m_PlayOnEvent = value; } }
+		[SerializeField] private AudioClip m_AudioClip;
+		[SerializeField] [Range(0f, 1f)] private float m_Volume = 1f;
+		[SerializeField] private Event m_PlayOnEvent = Event.None;
 
-        private bool m_Pressed = false;
+		private bool m_Pressed;
 
-        public void OnPointerEnter(PointerEventData eventData) {
-            if (!this.m_Pressed)
-                this.TriggerEvent(Event.PointerEnter);
-        }
+		/// <summary>
+		///     Gets or sets the audio clip.
+		/// </summary>
+		public AudioClip audioClip {
+			get => m_AudioClip;
+			set => m_AudioClip = value;
+		}
 
-        public void OnPointerExit(PointerEventData eventData) {
-            if (!this.m_Pressed)
-                this.TriggerEvent(Event.PointerExit);
-        }
+		/// <summary>
+		///     Gets or sets the volume level.
+		/// </summary>
+		public float volume {
+			get => m_Volume;
+			set => m_Volume = value;
+		}
 
-        public void OnPointerDown(PointerEventData eventData) {
-            if (eventData.button != PointerEventData.InputButton.Left)
-                return;
+		/// <summary>
+		///     Gets or sets the event on which the audio clip should be played.
+		/// </summary>
+		public Event playOnEvent {
+			get => m_PlayOnEvent;
+			set => m_PlayOnEvent = value;
+		}
 
-            this.TriggerEvent(Event.PointerDown);
+		public void OnPointerDown(PointerEventData eventData) {
+			if (eventData.button != PointerEventData.InputButton.Left)
+				return;
 
-            this.m_Pressed = true;
-        }
+			TriggerEvent(Event.PointerDown);
 
-        public void OnPointerUp(PointerEventData eventData) {
-            if (eventData.button != PointerEventData.InputButton.Left)
-                return;
+			m_Pressed = true;
+		}
 
-            this.TriggerEvent(Event.PointerUp);
+		public void OnPointerEnter(PointerEventData eventData) {
+			if (!m_Pressed)
+				TriggerEvent(Event.PointerEnter);
+		}
 
-            if (this.m_Pressed) {
-                if (eventData.clickCount > 1) {
-                    this.TriggerEvent(Event.DoubleClick);
-                    eventData.clickCount = 0;
-                } else {
-                    this.TriggerEvent(Event.Click);
-                }
-            }
+		public void OnPointerExit(PointerEventData eventData) {
+			if (!m_Pressed)
+				TriggerEvent(Event.PointerExit);
+		}
 
-            this.m_Pressed = false;
-        }
+		public void OnPointerUp(PointerEventData eventData) {
+			if (eventData.button != PointerEventData.InputButton.Left)
+				return;
 
-        private void TriggerEvent(Event e) {
-            if (e == this.m_PlayOnEvent) {
-                this.PlayAudio();
-            }
-        }
+			TriggerEvent(Event.PointerUp);
 
-        public void PlayAudio() {
-            if (!this.enabled || !this.gameObject.activeInHierarchy) {
-                return;
-            }
+			if (m_Pressed) {
+				if (eventData.clickCount > 1) {
+					TriggerEvent(Event.DoubleClick);
+					eventData.clickCount = 0;
+				} else {
+					TriggerEvent(Event.Click);
+				}
+			}
 
-            if (this.m_AudioClip == null) {
-                return;
-            }
+			m_Pressed = false;
+		}
 
-            if (UIAudioSource.Instance == null) {
-                Debug.LogWarning("You dont have UIAudioSource in your scene. Cannot play audio clip.");
-                return;
-            }
+		private void TriggerEvent(Event e) {
+			if (e == m_PlayOnEvent)
+				PlayAudio();
+		}
 
-            // Play the audio clip
-            UIAudioSource.Instance.PlayAudio(this.m_AudioClip, this.m_Volume);
-        }
-    }
+		public void PlayAudio() {
+			if (!enabled || !gameObject.activeInHierarchy)
+				return;
+
+			if (m_AudioClip == null)
+				return;
+
+			if (UIAudioSource.Instance == null) {
+				Debug.LogWarning("You dont have UIAudioSource in your scene. Cannot play audio clip.");
+				return;
+			}
+
+			// Play the audio clip
+			UIAudioSource.Instance.PlayAudio(m_AudioClip, m_Volume);
+		}
+
+	}
 
 }

@@ -1,69 +1,64 @@
+using AsglaUI.UI;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor;
-using AsglaUI.UI;
 
-namespace AsglaUIEditor.UI
-{
-    [CanEditMultipleObjects, CustomEditor(typeof(UIEffectTransition))]
-    public class UIEffectTransitionEditor : Editor
-    {
-        private SerializedProperty m_TargetEffectProperty;
-        private SerializedProperty m_NormalColorProperty;
-        private SerializedProperty m_HighlightedColorProperty;
-        private SerializedProperty m_SelectedColorProperty;
-        private SerializedProperty m_PressedColorProperty;
-        private SerializedProperty m_DurationProperty;
-        private SerializedProperty m_UseToggleProperty;
-        private SerializedProperty m_TargetToggleProperty;
-        private SerializedProperty m_ActiveColorProperty;
+namespace AsglaUIEditor.UI {
+	[CanEditMultipleObjects]
+	[CustomEditor(typeof(UIEffectTransition))]
+	public class UIEffectTransitionEditor : Editor {
 
-        protected void OnEnable()
-        {
-            this.m_TargetEffectProperty = this.serializedObject.FindProperty("m_TargetEffect");
-            this.m_NormalColorProperty = this.serializedObject.FindProperty("m_NormalColor");
-            this.m_HighlightedColorProperty = this.serializedObject.FindProperty("m_HighlightedColor");
-            this.m_SelectedColorProperty = this.serializedObject.FindProperty("m_SelectedColor");
-            this.m_PressedColorProperty = this.serializedObject.FindProperty("m_PressedColor");
-            this.m_DurationProperty = this.serializedObject.FindProperty("m_Duration");
-            this.m_UseToggleProperty = this.serializedObject.FindProperty("m_UseToggle");
-            this.m_TargetToggleProperty = this.serializedObject.FindProperty("m_TargetToggle");
-            this.m_ActiveColorProperty = this.serializedObject.FindProperty("m_ActiveColor");
-        }
+		private SerializedProperty m_ActiveColorProperty;
+		private SerializedProperty m_DurationProperty;
+		private SerializedProperty m_HighlightedColorProperty;
+		private SerializedProperty m_NormalColorProperty;
+		private SerializedProperty m_PressedColorProperty;
+		private SerializedProperty m_SelectedColorProperty;
+		private SerializedProperty m_TargetEffectProperty;
+		private SerializedProperty m_TargetToggleProperty;
+		private SerializedProperty m_UseToggleProperty;
 
-        public override void OnInspectorGUI()
-        {
-            this.serializedObject.Update();
+		protected void OnEnable() {
+			m_TargetEffectProperty = serializedObject.FindProperty("m_TargetEffect");
+			m_NormalColorProperty = serializedObject.FindProperty("m_NormalColor");
+			m_HighlightedColorProperty = serializedObject.FindProperty("m_HighlightedColor");
+			m_SelectedColorProperty = serializedObject.FindProperty("m_SelectedColor");
+			m_PressedColorProperty = serializedObject.FindProperty("m_PressedColor");
+			m_DurationProperty = serializedObject.FindProperty("m_Duration");
+			m_UseToggleProperty = serializedObject.FindProperty("m_UseToggle");
+			m_TargetToggleProperty = serializedObject.FindProperty("m_TargetToggle");
+			m_ActiveColorProperty = serializedObject.FindProperty("m_ActiveColor");
+		}
 
-            BaseMeshEffect effect = this.m_TargetEffectProperty.objectReferenceValue as BaseMeshEffect;
+		public override void OnInspectorGUI() {
+			serializedObject.Update();
 
-            EditorGUILayout.Space();
-            EditorGUILayout.PropertyField(this.m_TargetEffectProperty, new GUIContent("Target Effect"));
-            EditorGUI.indentLevel++;
-            
-            if (effect == null || ((effect is Shadow) == false && (effect is Outline) == false))
-            {
-                EditorGUILayout.HelpBox("You must have Shadow or Outline effect target in order to use this transition.", MessageType.Info);
-            }
-            else
-            {
-                EditorGUILayout.PropertyField(this.m_NormalColorProperty, true);
-                EditorGUILayout.PropertyField(this.m_HighlightedColorProperty, true);
-                EditorGUILayout.PropertyField(this.m_SelectedColorProperty, true);
-                EditorGUILayout.PropertyField(this.m_PressedColorProperty, true);
-                EditorGUILayout.PropertyField(this.m_DurationProperty, true);
-            }
+			BaseMeshEffect effect = m_TargetEffectProperty.objectReferenceValue as BaseMeshEffect;
 
-            EditorGUILayout.PropertyField(this.m_UseToggleProperty, true);
+			EditorGUILayout.Space();
+			EditorGUILayout.PropertyField(m_TargetEffectProperty, new GUIContent("Target Effect"));
+			EditorGUI.indentLevel++;
 
-            if (this.m_UseToggleProperty.boolValue)
-            {
-                EditorGUILayout.PropertyField(this.m_TargetToggleProperty, true);
-                EditorGUILayout.PropertyField(this.m_ActiveColorProperty, true);
-                
-            }
+			if (effect == null || effect is Shadow == false && effect is Outline == false) {
+				EditorGUILayout.HelpBox(
+					"You must have Shadow or Outline effect target in order to use this transition.", MessageType.Info);
+			} else {
+				EditorGUILayout.PropertyField(m_NormalColorProperty, true);
+				EditorGUILayout.PropertyField(m_HighlightedColorProperty, true);
+				EditorGUILayout.PropertyField(m_SelectedColorProperty, true);
+				EditorGUILayout.PropertyField(m_PressedColorProperty, true);
+				EditorGUILayout.PropertyField(m_DurationProperty, true);
+			}
 
-            this.serializedObject.ApplyModifiedProperties();
-        }
-    }
+			EditorGUILayout.PropertyField(m_UseToggleProperty, true);
+
+			if (m_UseToggleProperty.boolValue) {
+				EditorGUILayout.PropertyField(m_TargetToggleProperty, true);
+				EditorGUILayout.PropertyField(m_ActiveColorProperty, true);
+			}
+
+			serializedObject.ApplyModifiedProperties();
+		}
+
+	}
 }

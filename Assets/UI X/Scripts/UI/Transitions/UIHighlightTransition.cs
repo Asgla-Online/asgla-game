@@ -1,538 +1,540 @@
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using AsglaUI.UI.Tweens;
+using System;
 using System.Collections.Generic;
+using AsglaUI.UI.Tweens;
 using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace AsglaUI.UI {
 
-    [ExecuteInEditMode, AddComponentMenu("UI/Highlight Transition")]
-    public class UIHighlightTransition : MonoBehaviour, IEventSystemHandler, ISelectHandler, IDeselectHandler, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler {
-        public enum VisualState {
-            Normal,
-            Highlighted,
-            Selected,
-            Pressed,
-            Active
-        }
+	[ExecuteInEditMode]
+	[AddComponentMenu("UI/Highlight Transition")]
+	public class UIHighlightTransition : MonoBehaviour, IEventSystemHandler, ISelectHandler, IDeselectHandler,
+		IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler {
 
-        public enum Transition {
-            None,
-            ColorTint,
-            SpriteSwap,
-            Animation,
-            TextColor,
-            CanvasGroup
-        }
+		public enum Transition {
 
-        #pragma warning disable 0649
-        [SerializeField] private Transition m_Transition = Transition.None;
+			None,
+			ColorTint,
+			SpriteSwap,
+			Animation,
+			TextColor,
+			CanvasGroup
 
-        [SerializeField] private Color m_NormalColor = ColorBlock.defaultColorBlock.normalColor;
-        [SerializeField] private Color m_HighlightedColor = ColorBlock.defaultColorBlock.highlightedColor;
-        [SerializeField] private Color m_SelectedColor = ColorBlock.defaultColorBlock.highlightedColor;
-        [SerializeField] private Color m_PressedColor = ColorBlock.defaultColorBlock.pressedColor;
-        [SerializeField] private Color m_ActiveColor = ColorBlock.defaultColorBlock.highlightedColor;
-        [SerializeField] private float m_Duration = 0.1f;
+		}
 
-        [SerializeField, Range(1f, 6f)] private float m_ColorMultiplier = 1f;
+		public enum VisualState {
 
-        [SerializeField] private Sprite m_HighlightedSprite;
-        [SerializeField] private Sprite m_SelectedSprite;
-        [SerializeField] private Sprite m_PressedSprite;
-        [SerializeField] private Sprite m_ActiveSprite;
+			Normal,
+			Highlighted,
+			Selected,
+			Pressed,
+			Active
 
-        [SerializeField] private string m_NormalTrigger = "Normal";
-        [SerializeField] private string m_HighlightedTrigger = "Highlighted";
-        [SerializeField] private string m_SelectedTrigger = "Selected";
-        [SerializeField] private string m_PressedTrigger = "Pressed";
-        [SerializeField] private string m_ActiveBool = "Active";
+		}
 
-        [SerializeField] [Range(0f, 1f)] private float m_NormalAlpha = 0f;
-        [SerializeField] [Range(0f, 1f)] private float m_HighlightedAlpha = 1f;
-        [SerializeField] [Range(0f, 1f)] private float m_SelectedAlpha = 1f;
-        [SerializeField] [Range(0f, 1f)] private float m_PressedAlpha = 1f;
-        [SerializeField] [Range(0f, 1f)] private float m_ActiveAlpha = 1f;
+		private readonly List<CanvasGroup> m_CanvasGroupCache = new List<CanvasGroup>();
 
-        [SerializeField, Tooltip("Graphic that will have the selected transtion applied.")]
-        private Graphic m_TargetGraphic;
+		// Tween controls
+		[NonSerialized] private readonly TweenRunner<ColorTween> m_ColorTweenRunner;
 
-        [SerializeField, Tooltip("GameObject that will have the selected transtion applied.")]
-        private GameObject m_TargetGameObject;
+		[NonSerialized] private readonly TweenRunner<FloatTween> m_FloatTweenRunner;
 
-        [SerializeField, Tooltip("CanvasGroup that will have the selected transtion applied.")]
-        private CanvasGroup m_TargetCanvasGroup;
+		private bool m_Active;
+		private bool m_GroupsAllowInteraction = true;
 
-        [SerializeField] private bool m_UseToggle = false;
-        [SerializeField] private Toggle m_TargetToggle;
-        #pragma warning restore 0649
+		private bool m_Highlighted;
+		private bool m_Pressed;
 
-        private bool m_Highlighted = false;
-        private bool m_Selected = false;
-        private bool m_Pressed = false;
-        private bool m_Active = false;
+		private Selectable m_Selectable;
+		private bool m_Selected;
 
-        private Selectable m_Selectable;
-        private bool m_GroupsAllowInteraction = true;
+		// Called by Unity prior to deserialization, 
+		// should not be called by users
+		protected UIHighlightTransition() {
+			if (m_ColorTweenRunner == null)
+				m_ColorTweenRunner = new TweenRunner<ColorTween>();
 
-        /// <summary>
-        /// Gets or sets the transition type.
-        /// </summary>
-        /// <value>The transition.</value>
-        public Transition transition {
-            get {
-                return this.m_Transition;
-            }
-            set {
-                this.m_Transition = value;
-            }
-        }
+			if (m_FloatTweenRunner == null)
+				m_FloatTweenRunner = new TweenRunner<FloatTween>();
 
-        /// <summary>
-        /// Gets or sets the target graphic.
-        /// </summary>
-        /// <value>The target graphic.</value>
-        public Graphic targetGraphic {
-            get {
-                return this.m_TargetGraphic;
-            }
-            set {
-                this.m_TargetGraphic = value;
-            }
-        }
+			m_ColorTweenRunner.Init(this);
+			m_FloatTweenRunner.Init(this);
+		}
 
-        /// <summary>
-        /// Gets or sets the target game object.
-        /// </summary>
-        /// <value>The target game object.</value>
-        public GameObject targetGameObject {
-            get {
-                return this.m_TargetGameObject;
-            }
-            set {
-                this.m_TargetGameObject = value;
-            }
-        }
+		/// <summary>
+		///     Gets or sets the transition type.
+		/// </summary>
+		/// <value>The transition.</value>
+		public Transition transition {
+			get => m_Transition;
+			set => m_Transition = value;
+		}
 
-        /// <summary>
-        /// Gets or sets the target canvas group.
-        /// </summary>
-        /// <value>The target canvas group.</value>
-        public CanvasGroup targetCanvasGroup {
-            get {
-                return this.m_TargetCanvasGroup;
-            }
-            set {
-                this.m_TargetCanvasGroup = value;
-            }
-        }
+		/// <summary>
+		///     Gets or sets the target graphic.
+		/// </summary>
+		/// <value>The target graphic.</value>
+		public Graphic targetGraphic {
+			get => m_TargetGraphic;
+			set => m_TargetGraphic = value;
+		}
 
-        /// <summary>
-        /// Gets the animator.
-        /// </summary>
-        /// <value>The animator.</value>
-        public Animator animator {
-            get {
-                if (this.m_TargetGameObject != null)
-                    return this.m_TargetGameObject.GetComponent<Animator>();
+		/// <summary>
+		///     Gets or sets the target game object.
+		/// </summary>
+		/// <value>The target game object.</value>
+		public GameObject targetGameObject {
+			get => m_TargetGameObject;
+			set => m_TargetGameObject = value;
+		}
 
-                // Default
-                return null;
-            }
-        }
+		/// <summary>
+		///     Gets or sets the target canvas group.
+		/// </summary>
+		/// <value>The target canvas group.</value>
+		public CanvasGroup targetCanvasGroup {
+			get => m_TargetCanvasGroup;
+			set => m_TargetCanvasGroup = value;
+		}
 
-        // Tween controls
-        [System.NonSerialized]
-        private readonly TweenRunner<ColorTween> m_ColorTweenRunner;
-        [System.NonSerialized]
-        private readonly TweenRunner<FloatTween> m_FloatTweenRunner;
+		/// <summary>
+		///     Gets the animator.
+		/// </summary>
+		/// <value>The animator.</value>
+		public Animator animator {
+			get{
+				if (m_TargetGameObject != null)
+					return m_TargetGameObject.GetComponent<Animator>();
 
-        // Called by Unity prior to deserialization, 
-        // should not be called by users
-        protected UIHighlightTransition() {
-            if (this.m_ColorTweenRunner == null)
-                this.m_ColorTweenRunner = new TweenRunner<ColorTween>();
+				// Default
+				return null;
+			}
+		}
 
-            if (this.m_FloatTweenRunner == null)
-                this.m_FloatTweenRunner = new TweenRunner<FloatTween>();
+		protected void Awake() {
+			if (m_UseToggle) {
+				if (m_TargetToggle == null)
+					m_TargetToggle = gameObject.GetComponent<Toggle>();
 
-            this.m_ColorTweenRunner.Init(this);
-            this.m_FloatTweenRunner.Init(this);
-        }
+				if (m_TargetToggle != null)
+					m_Active = m_TargetToggle.isOn;
+			}
 
-        protected void Awake() {
-            if (this.m_UseToggle) {
-                if (this.m_TargetToggle == null)
-                    this.m_TargetToggle = this.gameObject.GetComponent<Toggle>();
+			m_Selectable = gameObject.GetComponent<Selectable>();
+		}
 
-                if (this.m_TargetToggle != null)
-                    this.m_Active = this.m_TargetToggle.isOn;
-            }
+		protected void OnEnable() {
+			if (m_TargetToggle != null)
+				m_TargetToggle.onValueChanged.AddListener(OnToggleValueChange);
 
-            this.m_Selectable = this.gameObject.GetComponent<Selectable>();
-        }
+			InternalEvaluateAndTransitionToNormalState(true);
+		}
 
-        protected void OnEnable() {
-            if (this.m_TargetToggle != null)
-                this.m_TargetToggle.onValueChanged.AddListener(OnToggleValueChange);
+		protected void OnDisable() {
+			if (m_TargetToggle != null)
+				m_TargetToggle.onValueChanged.RemoveListener(OnToggleValueChange);
 
-            this.InternalEvaluateAndTransitionToNormalState(true);
-        }
+			InstantClearState();
+		}
 
-        protected void OnDisable() {
-            if (this.m_TargetToggle != null)
-                this.m_TargetToggle.onValueChanged.RemoveListener(OnToggleValueChange);
+		protected void OnCanvasGroupChanged() {
+			// Figure out if parent groups allow interaction
+			// If no interaction is alowed... then we need
+			// to not do that :)
+			bool groupAllowInteraction = true;
+			Transform t = transform;
+			while (t != null) {
+				t.GetComponents(m_CanvasGroupCache);
+				bool shouldBreak = false;
+				for (int i = 0; i < m_CanvasGroupCache.Count; i++) {
+					// if the parent group does not allow interaction
+					// we need to break
+					if (!m_CanvasGroupCache[i].interactable) {
+						groupAllowInteraction = false;
+						shouldBreak = true;
+					}
 
-            this.InstantClearState();
-        }
+					// if this is a 'fresh' group, then break
+					// as we should not consider parents
+					if (m_CanvasGroupCache[i].ignoreParentGroups)
+						shouldBreak = true;
+				}
 
-        /// <summary>
-		/// Internally evaluates and transitions to normal state.
+				if (shouldBreak)
+					break;
+
+				t = t.parent;
+			}
+
+			if (groupAllowInteraction != m_GroupsAllowInteraction) {
+				m_GroupsAllowInteraction = groupAllowInteraction;
+				InternalEvaluateAndTransitionToNormalState(true);
+			}
+		}
+
+#if UNITY_EDITOR
+		protected void OnValidate() {
+			m_Duration = Mathf.Max(m_Duration, 0f);
+
+			if (isActiveAndEnabled) {
+				DoSpriteSwap(null);
+
+				if (m_Transition != Transition.CanvasGroup)
+					InternalEvaluateAndTransitionToNormalState(true);
+			}
+		}
+#endif
+
+		public void OnDeselect(BaseEventData eventData) {
+			m_Selected = false;
+
+			if (m_Active)
+				return;
+
+			DoStateTransition(m_Highlighted ? VisualState.Highlighted : VisualState.Normal, false);
+		}
+
+		public virtual void OnPointerDown(PointerEventData eventData) {
+			if (eventData.button != PointerEventData.InputButton.Left)
+				return;
+
+			if (!m_Highlighted)
+				return;
+
+			if (m_Active)
+				return;
+
+			m_Pressed = true;
+			DoStateTransition(VisualState.Pressed, false);
+		}
+
+		public void OnPointerEnter(PointerEventData eventData) {
+			m_Highlighted = true;
+
+			if (!m_Selected && !m_Pressed && !m_Active)
+				DoStateTransition(VisualState.Highlighted, false);
+		}
+
+		public void OnPointerExit(PointerEventData eventData) {
+			m_Highlighted = false;
+
+			if (!m_Selected && !m_Pressed && !m_Active)
+				DoStateTransition(VisualState.Normal, false);
+		}
+
+		public virtual void OnPointerUp(PointerEventData eventData) {
+			if (eventData.button != PointerEventData.InputButton.Left)
+				return;
+
+			m_Pressed = false;
+
+			VisualState newState = VisualState.Normal;
+
+			if (m_Active)
+				newState = VisualState.Active;
+			else if (m_Selected)
+				newState = VisualState.Selected;
+			else if (m_Highlighted)
+				newState = VisualState.Highlighted;
+
+			DoStateTransition(newState, false);
+		}
+
+		public void OnSelect(BaseEventData eventData) {
+			m_Selected = true;
+
+			if (m_Active)
+				return;
+
+			DoStateTransition(VisualState.Selected, false);
+		}
+
+		/// <summary>
+		///     Internally evaluates and transitions to normal state.
 		/// </summary>
 		/// <param name="instant">If set to <c>true</c> instant.</param>
 		private void InternalEvaluateAndTransitionToNormalState(bool instant) {
-            this.DoStateTransition(this.m_Active ? VisualState.Active : VisualState.Normal, instant);
-        }
+			DoStateTransition(m_Active ? VisualState.Active : VisualState.Normal, instant);
+		}
 
-#if UNITY_EDITOR
-        protected void OnValidate() {
-            this.m_Duration = Mathf.Max(this.m_Duration, 0f);
+		public virtual bool IsInteractable() {
+			if (m_Selectable != null)
+				return m_Selectable.IsInteractable() && m_GroupsAllowInteraction;
 
-            if (this.isActiveAndEnabled) {
-                this.DoSpriteSwap(null);
+			return m_GroupsAllowInteraction;
+		}
 
-                if (this.m_Transition != Transition.CanvasGroup)
-                    this.InternalEvaluateAndTransitionToNormalState(true);
-            }
-        }
-#endif
+		protected void OnToggleValueChange(bool value) {
+			if (!m_UseToggle || m_TargetToggle == null)
+				return;
 
-        private readonly List<CanvasGroup> m_CanvasGroupCache = new List<CanvasGroup>();
-        protected void OnCanvasGroupChanged() {
-            // Figure out if parent groups allow interaction
-            // If no interaction is alowed... then we need
-            // to not do that :)
-            var groupAllowInteraction = true;
-            Transform t = transform;
-            while (t != null) {
-                t.GetComponents(m_CanvasGroupCache);
-                bool shouldBreak = false;
-                for (var i = 0; i < m_CanvasGroupCache.Count; i++) {
-                    // if the parent group does not allow interaction
-                    // we need to break
-                    if (!m_CanvasGroupCache[i].interactable) {
-                        groupAllowInteraction = false;
-                        shouldBreak = true;
-                    }
-                    // if this is a 'fresh' group, then break
-                    // as we should not consider parents
-                    if (m_CanvasGroupCache[i].ignoreParentGroups)
-                        shouldBreak = true;
-                }
-                if (shouldBreak)
-                    break;
+			m_Active = m_TargetToggle.isOn;
 
-                t = t.parent;
-            }
+			if (m_Transition == Transition.Animation) {
+				if (targetGameObject == null || animator == null || !animator.isActiveAndEnabled ||
+				    animator.runtimeAnimatorController == null || string.IsNullOrEmpty(m_ActiveBool))
+					return;
 
-            if (groupAllowInteraction != this.m_GroupsAllowInteraction) {
-                this.m_GroupsAllowInteraction = groupAllowInteraction;
-                this.InternalEvaluateAndTransitionToNormalState(true);
-            }
-        }
+				animator.SetBool(m_ActiveBool, m_Active);
+			}
 
-        public virtual bool IsInteractable() {
-            if (this.m_Selectable != null)
-                return this.m_Selectable.IsInteractable() && this.m_GroupsAllowInteraction;
+			DoStateTransition(m_Active ? VisualState.Active :
+				m_Selected ? VisualState.Selected :
+				m_Highlighted ? VisualState.Highlighted : VisualState.Normal, false);
+		}
 
-            return this.m_GroupsAllowInteraction;
-        }
+		/// <summary>
+		///     Instantly clears the visual state.
+		/// </summary>
+		protected void InstantClearState() {
+			switch (m_Transition) {
+				case Transition.ColorTint:
+					StartColorTween(Color.white, true);
+					break;
+				case Transition.SpriteSwap:
+					DoSpriteSwap(null);
+					break;
+				case Transition.TextColor:
+					SetTextColor(m_NormalColor);
+					break;
+				case Transition.CanvasGroup:
+					SetCanvasGroupAlpha(1f);
+					break;
+			}
+		}
 
-        protected void OnToggleValueChange(bool value) {
-            if (!this.m_UseToggle || this.m_TargetToggle == null)
-                return;
+		/// <summary>
+		///     Does the state transition.
+		/// </summary>
+		/// <param name="state">State.</param>
+		/// <param name="instant">If set to <c>true</c> instant.</param>
+		protected virtual void DoStateTransition(VisualState state, bool instant) {
+			// Check if active in the scene
+			if (!gameObject.activeInHierarchy)
+				return;
 
-            this.m_Active = this.m_TargetToggle.isOn;
+			// Check if it's interactable
+			if (!IsInteractable())
+				state = VisualState.Normal;
 
-            if (this.m_Transition == Transition.Animation) {
-                if (this.targetGameObject == null || this.animator == null || !this.animator.isActiveAndEnabled || this.animator.runtimeAnimatorController == null || string.IsNullOrEmpty(this.m_ActiveBool))
-                    return;
+			Color color = m_NormalColor;
+			Sprite newSprite = null;
+			string triggername = m_NormalTrigger;
+			float alpha = m_NormalAlpha;
 
-                this.animator.SetBool(this.m_ActiveBool, this.m_Active);
-            }
+			// Prepare the transition values
+			switch (state) {
+				case VisualState.Normal:
+					color = m_NormalColor;
+					newSprite = null;
+					triggername = m_NormalTrigger;
+					alpha = m_NormalAlpha;
+					break;
+				case VisualState.Highlighted:
+					color = m_HighlightedColor;
+					newSprite = m_HighlightedSprite;
+					triggername = m_HighlightedTrigger;
+					alpha = m_HighlightedAlpha;
+					break;
+				case VisualState.Selected:
+					color = m_SelectedColor;
+					newSprite = m_SelectedSprite;
+					triggername = m_SelectedTrigger;
+					alpha = m_SelectedAlpha;
+					break;
+				case VisualState.Pressed:
+					color = m_PressedColor;
+					newSprite = m_PressedSprite;
+					triggername = m_PressedTrigger;
+					alpha = m_PressedAlpha;
+					break;
+				case VisualState.Active:
+					color = m_ActiveColor;
+					newSprite = m_ActiveSprite;
+					alpha = m_ActiveAlpha;
+					break;
+			}
 
-            this.DoStateTransition(this.m_Active ? VisualState.Active :
-                (this.m_Selected ? VisualState.Selected :
-                    (this.m_Highlighted ? VisualState.Highlighted : VisualState.Normal)), false);
-        }
+			// Do the transition
+			switch (m_Transition) {
+				case Transition.ColorTint:
+					StartColorTween(color * m_ColorMultiplier, instant);
+					break;
+				case Transition.SpriteSwap:
+					DoSpriteSwap(newSprite);
+					break;
+				case Transition.Animation:
+					TriggerAnimation(triggername);
+					break;
+				case Transition.TextColor:
+					StartTextColorTween(color, false);
+					break;
+				case Transition.CanvasGroup:
+					StartCanvasGroupTween(alpha, instant);
+					break;
+			}
+		}
 
-        /// <summary>
-        /// Instantly clears the visual state.
-        /// </summary>
-        protected void InstantClearState() {
-            switch (this.m_Transition) {
-                case Transition.ColorTint:
-                    this.StartColorTween(Color.white, true);
-                    break;
-                case Transition.SpriteSwap:
-                    this.DoSpriteSwap(null);
-                    break;
-                case Transition.TextColor:
-                    this.SetTextColor(this.m_NormalColor);
-                    break;
-                case Transition.CanvasGroup:
-                    this.SetCanvasGroupAlpha(1f);
-                    break;
-            }
-        }
+		/// <summary>
+		///     Starts the color tween.
+		/// </summary>
+		/// <param name="targetColor">Target color.</param>
+		/// <param name="instant">If set to <c>true</c> instant.</param>
+		private void StartColorTween(Color targetColor, bool instant) {
+			if (m_TargetGraphic == null)
+				return;
 
-        public void OnSelect(BaseEventData eventData) {
-            this.m_Selected = true;
+			if (instant || m_Duration == 0f || !Application.isPlaying)
+				m_TargetGraphic.canvasRenderer.SetColor(targetColor);
+			else
+				m_TargetGraphic.CrossFadeColor(targetColor, m_Duration, true, true);
+		}
 
-            if (this.m_Active)
-                return;
+		private void DoSpriteSwap(Sprite newSprite) {
+			Image image = m_TargetGraphic as Image;
 
-            this.DoStateTransition(VisualState.Selected, false);
-        }
+			if (image == null)
+				return;
 
-        public void OnDeselect(BaseEventData eventData) {
-            this.m_Selected = false;
+			image.overrideSprite = newSprite;
+		}
 
-            if (this.m_Active)
-                return;
+		private void TriggerAnimation(string triggername) {
+			if (targetGameObject == null || animator == null || !animator.isActiveAndEnabled ||
+			    animator.runtimeAnimatorController == null || !animator.hasBoundPlayables ||
+			    string.IsNullOrEmpty(triggername))
+				return;
 
-            this.DoStateTransition((this.m_Highlighted ? VisualState.Highlighted : VisualState.Normal), false);
-        }
+			animator.ResetTrigger(m_HighlightedTrigger);
+			animator.ResetTrigger(m_SelectedTrigger);
+			animator.ResetTrigger(m_PressedTrigger);
+			animator.SetTrigger(triggername);
+		}
 
-        public void OnPointerEnter(PointerEventData eventData) {
-            this.m_Highlighted = true;
+		private void StartTextColorTween(Color targetColor, bool instant) {
+			if (m_TargetGraphic == null)
+				return;
 
-            if (!this.m_Selected && !this.m_Pressed && !this.m_Active)
-                this.DoStateTransition(VisualState.Highlighted, false);
-        }
+			if (m_TargetGraphic is Text == false && m_TargetGraphic is TextMeshProUGUI == false)
+				return;
 
-        public void OnPointerExit(PointerEventData eventData) {
-            this.m_Highlighted = false;
+			if (instant || m_Duration == 0f || !Application.isPlaying) {
+				switch (m_TargetGraphic) {
+					case Text t:
+						t.color = targetColor;
+						break;
+					case TextMeshProUGUI t:
+						t.color = targetColor;
+						break;
+				}
+			} else {
+				ColorTween colorTween = new ColorTween {
+					duration = m_Duration,
+					startColor = m_TargetGraphic is Text t ? t.color : (m_TargetGraphic as TextMeshProUGUI).color,
+					targetColor = targetColor
+				};
 
-            if (!this.m_Selected && !this.m_Pressed && !this.m_Active)
-                this.DoStateTransition(VisualState.Normal, false);
-        }
+				colorTween.AddOnChangedCallback(SetTextColor);
+				colorTween.ignoreTimeScale = true;
 
-        public virtual void OnPointerDown(PointerEventData eventData) {
-            if (eventData.button != PointerEventData.InputButton.Left)
-                return;
+				m_ColorTweenRunner.StartTween(colorTween);
+			}
+		}
 
-            if (!this.m_Highlighted)
-                return;
-
-            if (this.m_Active)
-                return;
-
-            this.m_Pressed = true;
-            this.DoStateTransition(VisualState.Pressed, false);
-        }
-
-        public virtual void OnPointerUp(PointerEventData eventData) {
-            if (eventData.button != PointerEventData.InputButton.Left)
-                return;
-
-            this.m_Pressed = false;
-
-            VisualState newState = VisualState.Normal;
-
-            if (this.m_Active) {
-                newState = VisualState.Active;
-            } else if (this.m_Selected) {
-                newState = VisualState.Selected;
-            } else if (this.m_Highlighted) {
-                newState = VisualState.Highlighted;
-            }
-
-            this.DoStateTransition(newState, false);
-        }
-
-        /// <summary>
-        /// Does the state transition.
-        /// </summary>
-        /// <param name="state">State.</param>
-        /// <param name="instant">If set to <c>true</c> instant.</param>
-        protected virtual void DoStateTransition(VisualState state, bool instant) {
-            // Check if active in the scene
-            if (!this.gameObject.activeInHierarchy)
-                return;
-
-            // Check if it's interactable
-            if (!this.IsInteractable())
-                state = VisualState.Normal;
-
-            Color color = this.m_NormalColor;
-            Sprite newSprite = null;
-            string triggername = this.m_NormalTrigger;
-            float alpha = this.m_NormalAlpha;
-
-            // Prepare the transition values
-            switch (state) {
-                case VisualState.Normal:
-                    color = this.m_NormalColor;
-                    newSprite = null;
-                    triggername = this.m_NormalTrigger;
-                    alpha = this.m_NormalAlpha;
-                    break;
-                case VisualState.Highlighted:
-                    color = this.m_HighlightedColor;
-                    newSprite = this.m_HighlightedSprite;
-                    triggername = this.m_HighlightedTrigger;
-                    alpha = this.m_HighlightedAlpha;
-                    break;
-                case VisualState.Selected:
-                    color = this.m_SelectedColor;
-                    newSprite = this.m_SelectedSprite;
-                    triggername = this.m_SelectedTrigger;
-                    alpha = this.m_SelectedAlpha;
-                    break;
-                case VisualState.Pressed:
-                    color = this.m_PressedColor;
-                    newSprite = this.m_PressedSprite;
-                    triggername = this.m_PressedTrigger;
-                    alpha = this.m_PressedAlpha;
-                    break;
-                case VisualState.Active:
-                    color = this.m_ActiveColor;
-                    newSprite = this.m_ActiveSprite;
-                    alpha = this.m_ActiveAlpha;
-                    break;
-            }
-
-            // Do the transition
-            switch (this.m_Transition) {
-                case Transition.ColorTint:
-                    this.StartColorTween(color * this.m_ColorMultiplier, instant);
-                    break;
-                case Transition.SpriteSwap:
-                    this.DoSpriteSwap(newSprite);
-                    break;
-                case Transition.Animation:
-                    this.TriggerAnimation(triggername);
-                    break;
-                case Transition.TextColor:
-                    this.StartTextColorTween(color, false);
-                    break;
-                case Transition.CanvasGroup:
-                    this.StartCanvasGroupTween(alpha, instant);
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Starts the color tween.
-        /// </summary>
-        /// <param name="targetColor">Target color.</param>
-        /// <param name="instant">If set to <c>true</c> instant.</param>
-        private void StartColorTween(Color targetColor, bool instant) {
-            if (this.m_TargetGraphic == null)
-                return;
-
-            if (instant || this.m_Duration == 0f || !Application.isPlaying) {
-                this.m_TargetGraphic.canvasRenderer.SetColor(targetColor);
-            } else {
-                this.m_TargetGraphic.CrossFadeColor(targetColor, this.m_Duration, true, true);
-            }
-        }
-
-        private void DoSpriteSwap(Sprite newSprite) {
-            Image image = this.m_TargetGraphic as Image;
-
-            if (image == null)
-                return;
-
-            image.overrideSprite = newSprite;
-        }
-
-        private void TriggerAnimation(string triggername) {
-            if (this.targetGameObject == null || this.animator == null || !this.animator.isActiveAndEnabled || this.animator.runtimeAnimatorController == null || !this.animator.hasBoundPlayables || string.IsNullOrEmpty(triggername))
-                return;
-
-            this.animator.ResetTrigger(this.m_HighlightedTrigger);
-            this.animator.ResetTrigger(this.m_SelectedTrigger);
-            this.animator.ResetTrigger(this.m_PressedTrigger);
-            this.animator.SetTrigger(triggername);
-        }
-
-        private void StartTextColorTween(Color targetColor, bool instant) {
-            if (this.m_TargetGraphic == null)
-                return;
-
-            if ((this.m_TargetGraphic is Text) == false && (this.m_TargetGraphic is TextMeshProUGUI) == false)
-                return;
-
-            if (instant || this.m_Duration == 0f || !Application.isPlaying) {
-                switch (m_TargetGraphic) {
-                    case Text t:
-                        t.color = targetColor;
-                        break;
-                    case TextMeshProUGUI t:
-                        t.color = targetColor;
-                        break;
-                }
-            } else {
-                ColorTween colorTween = new ColorTween { duration = this.m_Duration, startColor = m_TargetGraphic is Text t ? t.color : (m_TargetGraphic as TextMeshProUGUI).color, targetColor = targetColor };
-
-                colorTween.AddOnChangedCallback(SetTextColor);
-                colorTween.ignoreTimeScale = true;
-
-                this.m_ColorTweenRunner.StartTween(colorTween);
-            }
-        }
-
-        /// <summary>
-		/// Sets the text color.
+		/// <summary>
+		///     Sets the text color.
 		/// </summary>
 		/// <param name="targetColor">Target color.</param>
 		private void SetTextColor(Color targetColor) {
-            if (this.m_TargetGraphic == null)
-                return;
+			if (m_TargetGraphic == null)
+				return;
 
-            switch (m_TargetGraphic) {
-                case Text t:
-                    t.color = targetColor;
-                    break;
-                case TextMeshProUGUI t:
-                    t.color = targetColor;
-                    break;
-            }
-        }
+			switch (m_TargetGraphic) {
+				case Text t:
+					t.color = targetColor;
+					break;
+				case TextMeshProUGUI t:
+					t.color = targetColor;
+					break;
+			}
+		}
 
-        /// <summary>
-		/// Starts the color tween.
+		/// <summary>
+		///     Starts the color tween.
 		/// </summary>
 		/// <param name="targetAlpha">Target alpha.</param>
 		/// <param name="instant">If set to <c>true</c> instant.</param>
 		private void StartCanvasGroupTween(float targetAlpha, bool instant) {
-            if (this.m_TargetCanvasGroup == null)
-                return;
+			if (m_TargetCanvasGroup == null)
+				return;
 
-            if (instant || this.m_Duration == 0f || !Application.isPlaying) {
-                this.SetCanvasGroupAlpha(targetAlpha);
-            } else {
-                var floatTween = new FloatTween { duration = this.m_Duration, startFloat = this.m_TargetCanvasGroup.alpha, targetFloat = targetAlpha };
-                floatTween.AddOnChangedCallback(SetCanvasGroupAlpha);
-                floatTween.ignoreTimeScale = true;
+			if (instant || m_Duration == 0f || !Application.isPlaying) {
+				SetCanvasGroupAlpha(targetAlpha);
+			} else {
+				FloatTween floatTween = new FloatTween
+					{duration = m_Duration, startFloat = m_TargetCanvasGroup.alpha, targetFloat = targetAlpha};
+				floatTween.AddOnChangedCallback(SetCanvasGroupAlpha);
+				floatTween.ignoreTimeScale = true;
 
-                this.m_FloatTweenRunner.StartTween(floatTween);
-            }
-        }
+				m_FloatTweenRunner.StartTween(floatTween);
+			}
+		}
 
-        /// <summary>
-        /// Sets the canvas group alpha value.
-        /// </summary>
-        /// <param name="alpha">The alpha value.</param>
-        private void SetCanvasGroupAlpha(float alpha) {
-            if (this.m_TargetCanvasGroup == null)
-                return;
+		/// <summary>
+		///     Sets the canvas group alpha value.
+		/// </summary>
+		/// <param name="alpha">The alpha value.</param>
+		private void SetCanvasGroupAlpha(float alpha) {
+			if (m_TargetCanvasGroup == null)
+				return;
 
-            this.m_TargetCanvasGroup.alpha = alpha;
-        }
-    }
+			m_TargetCanvasGroup.alpha = alpha;
+		}
+
+#pragma warning disable 0649
+		[SerializeField] private Transition m_Transition = Transition.None;
+
+		[SerializeField] private Color m_NormalColor = ColorBlock.defaultColorBlock.normalColor;
+		[SerializeField] private Color m_HighlightedColor = ColorBlock.defaultColorBlock.highlightedColor;
+		[SerializeField] private Color m_SelectedColor = ColorBlock.defaultColorBlock.highlightedColor;
+		[SerializeField] private Color m_PressedColor = ColorBlock.defaultColorBlock.pressedColor;
+		[SerializeField] private Color m_ActiveColor = ColorBlock.defaultColorBlock.highlightedColor;
+		[SerializeField] private float m_Duration = 0.1f;
+
+		[SerializeField] [Range(1f, 6f)] private float m_ColorMultiplier = 1f;
+
+		[SerializeField] private Sprite m_HighlightedSprite;
+		[SerializeField] private Sprite m_SelectedSprite;
+		[SerializeField] private Sprite m_PressedSprite;
+		[SerializeField] private Sprite m_ActiveSprite;
+
+		[SerializeField] private string m_NormalTrigger = "Normal";
+		[SerializeField] private string m_HighlightedTrigger = "Highlighted";
+		[SerializeField] private string m_SelectedTrigger = "Selected";
+		[SerializeField] private string m_PressedTrigger = "Pressed";
+		[SerializeField] private string m_ActiveBool = "Active";
+
+		[SerializeField] [Range(0f, 1f)] private float m_NormalAlpha;
+		[SerializeField] [Range(0f, 1f)] private float m_HighlightedAlpha = 1f;
+		[SerializeField] [Range(0f, 1f)] private float m_SelectedAlpha = 1f;
+		[SerializeField] [Range(0f, 1f)] private float m_PressedAlpha = 1f;
+		[SerializeField] [Range(0f, 1f)] private float m_ActiveAlpha = 1f;
+
+		[SerializeField] [Tooltip("Graphic that will have the selected transtion applied.")]
+		private Graphic m_TargetGraphic;
+
+		[SerializeField] [Tooltip("GameObject that will have the selected transtion applied.")]
+		private GameObject m_TargetGameObject;
+
+		[SerializeField] [Tooltip("CanvasGroup that will have the selected transtion applied.")]
+		private CanvasGroup m_TargetCanvasGroup;
+
+		[SerializeField] private bool m_UseToggle;
+		[SerializeField] private Toggle m_TargetToggle;
+#pragma warning restore 0649
+
+	}
 
 }

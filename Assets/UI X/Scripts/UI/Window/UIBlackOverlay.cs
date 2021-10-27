@@ -1,231 +1,211 @@
-using UnityEngine;
+using System;
 using AsglaUI.UI.Tweens;
+using UnityEngine;
 
-namespace AsglaUI.UI
-{
-    /// <summary>
-    /// The black overlay used behind windows such as the game menu.
-    /// </summary>
-	[ExecuteInEditMode, RequireComponent(typeof(CanvasGroup))]
-    public class UIBlackOverlay : MonoBehaviour {
-        
+namespace AsglaUI.UI {
+	/// <summary>
+	///     The black overlay used behind windows such as the game menu.
+	/// </summary>
+	[ExecuteInEditMode]
+	[RequireComponent(typeof(CanvasGroup))]
+	public class UIBlackOverlay : MonoBehaviour {
+
+		// Tween controls
+		[NonSerialized] private readonly TweenRunner<FloatTween> m_FloatTweenRunner;
+
 		private CanvasGroup m_CanvasGroup;
-        private int m_WindowsCount = 0;
 
-        private bool m_Transitioning = false;
+		private bool m_Transitioning;
+		private int m_WindowsCount;
 
-        // Tween controls
-        [System.NonSerialized]
-        private readonly TweenRunner<FloatTween> m_FloatTweenRunner;
+		// Called by Unity prior to deserialization, 
+		// should not be called by users
+		protected UIBlackOverlay() {
+			if (m_FloatTweenRunner == null)
+				m_FloatTweenRunner = new TweenRunner<FloatTween>();
 
-        // Called by Unity prior to deserialization, 
-        // should not be called by users
-        protected UIBlackOverlay()
-        {
-            if (this.m_FloatTweenRunner == null)
-                this.m_FloatTweenRunner = new TweenRunner<FloatTween>();
+			m_FloatTweenRunner.Init(this);
+		}
 
-            this.m_FloatTweenRunner.Init(this);
-        }
+		protected void Awake() {
+			m_CanvasGroup = gameObject.GetComponent<CanvasGroup>();
+			m_CanvasGroup.interactable = false;
+			m_CanvasGroup.blocksRaycasts = false;
+		}
 
-        protected void Awake()
-		{
-			this.m_CanvasGroup = this.gameObject.GetComponent<CanvasGroup>();
-            this.m_CanvasGroup.interactable = false;
-            this.m_CanvasGroup.blocksRaycasts = false;
-        }
-		
-		protected void Start()
-		{
+		protected void Start() {
 			// Non interactable
-			this.m_CanvasGroup.interactable = false;
+			m_CanvasGroup.interactable = false;
 
 			// Hide the overlay
-			this.Hide();
+			Hide();
 		}
-		
-		protected void OnEnable()
-		{
+
+		protected void OnEnable() {
 			// Hide the overlay
 			if (!Application.isPlaying)
-				this.Hide();
-        }
-        
-        /// <summary>
-        /// Instantly show the overlay.
-        /// </summary>
-        public void Show()
-		{
+				Hide();
+		}
+
+		/// <summary>
+		///     Instantly show the overlay.
+		/// </summary>
+		public void Show() {
 			// Show the overlay
-			this.SetAlpha(1f);
-			
+			SetAlpha(1f);
+
 			// Toggle block raycast on
-			this.m_CanvasGroup.blocksRaycasts = true;
-        }
-		
-        /// <summary>
-        /// Instantly hide the overlay.
-        /// </summary>
-		public void Hide()
-		{
+			m_CanvasGroup.blocksRaycasts = true;
+		}
+
+		/// <summary>
+		///     Instantly hide the overlay.
+		/// </summary>
+		public void Hide() {
 			// Hide the overlay
-			this.SetAlpha(0f);
-			
+			SetAlpha(0f);
+
 			// Toggle block raycast off
-			this.m_CanvasGroup.blocksRaycasts = false;
+			m_CanvasGroup.blocksRaycasts = false;
 		}
-		
-        /// <summary>
-        /// If the overlay is enabled and active in the hierarchy.
-        /// </summary>
-        /// <returns></returns>
-		public bool IsActive()
-		{
-			return (this.enabled && this.gameObject.activeInHierarchy);
+
+		/// <summary>
+		///     If the overlay is enabled and active in the hierarchy.
+		/// </summary>
+		/// <returns></returns>
+		public bool IsActive() {
+			return enabled && gameObject.activeInHierarchy;
 		}
-		
-        /// <summary>
-        /// If the overlay is visible at all (alpha > 0f).
-        /// </summary>
-        /// <returns></returns>
-		public bool IsVisible()
-		{
-			return (this.m_CanvasGroup.alpha > 0f);
+
+		/// <summary>
+		///     If the overlay is visible at all (alpha > 0f).
+		/// </summary>
+		/// <returns></returns>
+		public bool IsVisible() {
+			return m_CanvasGroup.alpha > 0f;
 		}
-		
-        /// <summary>
-        /// This method is hooked to the window on transition begin event.
-        /// </summary>
-        /// <param name="window">The window.</param>
-        /// <param name="state">The window visual state that we are transitioning to.</param>
-        /// <param name="instant">If the transition is instant or not.</param>
-		public void OnTransitionBegin(UIWindow window, UIWindow.VisualState state, bool instant)
-		{
-			if (!this.IsActive() || window == null)
+
+		/// <summary>
+		///     This method is hooked to the window on transition begin event.
+		/// </summary>
+		/// <param name="window">The window.</param>
+		/// <param name="state">The window visual state that we are transitioning to.</param>
+		/// <param name="instant">If the transition is instant or not.</param>
+		public void OnTransitionBegin(UIWindow window, UIWindow.VisualState state, bool instant) {
+			if (!IsActive() || window == null)
 				return;
-			
+
 			// Check if we are receiving hide event and we are not showing the overlay to begin with, return
-			if (state == UIWindow.VisualState.Hidden && !this.IsVisible())
+			if (state == UIWindow.VisualState.Hidden && !IsVisible())
 				return;
-			
+
 			// Prepare transition duration
-			float duration = (instant) ? 0f : window.transitionDuration;
-            TweenEasing easing = window.transitionEasing;
+			float duration = instant ? 0f : window.transitionDuration;
+			TweenEasing easing = window.transitionEasing;
 
 			// Showing a window
-			if (state == UIWindow.VisualState.Shown)
-			{
+			if (state == UIWindow.VisualState.Shown) {
 				// Increase the window count so we know when to hide the overlay
-				this.m_WindowsCount += 1;
-				
+				m_WindowsCount += 1;
+
 				// Check if the overlay is already visible
-				if (this.IsVisible() && !this.m_Transitioning)
-				{
+				if (IsVisible() && !m_Transitioning) {
 					// Bring the window forward
 					UIUtility.BringToFront(window.gameObject);
-                    
-                    // Break
-                    return;
+
+					// Break
+					return;
 				}
-				
+
 				// Bring the overlay forward
-				UIUtility.BringToFront(this.gameObject);
-				
+				UIUtility.BringToFront(gameObject);
+
 				// Bring the window forward
 				UIUtility.BringToFront(window.gameObject);
-                
-                // Transition
-                this.StartAlphaTween(1f, duration, easing);
 
-                // Toggle block raycast on
-                this.m_CanvasGroup.blocksRaycasts = true;
+				// Transition
+				StartAlphaTween(1f, duration, easing);
+
+				// Toggle block raycast on
+				m_CanvasGroup.blocksRaycasts = true;
 			}
 			// Hiding a window
-			else
-			{
+			else {
 				// Decrease the window count
-				this.m_WindowsCount -= 1;
-                
-                // Never go below 0
-                if (this.m_WindowsCount < 0)
-					this.m_WindowsCount = 0;
-				
-				// Check if we still have windows using the overlay
-				if (this.m_WindowsCount > 0)
-					return;
-                
-                // Transition
-                this.StartAlphaTween(0f, duration, easing);
+				m_WindowsCount -= 1;
 
-                // Toggle block raycast on
-                this.m_CanvasGroup.blocksRaycasts = false;
+				// Never go below 0
+				if (m_WindowsCount < 0)
+					m_WindowsCount = 0;
+
+				// Check if we still have windows using the overlay
+				if (m_WindowsCount > 0)
+					return;
+
+				// Transition
+				StartAlphaTween(0f, duration, easing);
+
+				// Toggle block raycast on
+				m_CanvasGroup.blocksRaycasts = false;
 			}
 		}
 
-        private void StartAlphaTween(float targetAlpha, float duration, TweenEasing easing)
-        {
-            if (this.m_CanvasGroup == null)
-                return;
-            
-            // Check if currently transitioning
-            if (this.m_Transitioning)
-            {
-                this.m_FloatTweenRunner.StopTween();
-            }
+		private void StartAlphaTween(float targetAlpha, float duration, TweenEasing easing) {
+			if (m_CanvasGroup == null)
+				return;
 
-            if (duration == 0f || !Application.isPlaying)
-            {
-                this.SetAlpha(targetAlpha);
-            }
-            else
-            {
-                this.m_Transitioning = true;
+			// Check if currently transitioning
+			if (m_Transitioning)
+				m_FloatTweenRunner.StopTween();
 
-                var floatTween = new FloatTween { duration = duration, startFloat = this.m_CanvasGroup.alpha, targetFloat = targetAlpha };
-                floatTween.AddOnChangedCallback(SetAlpha);
-                floatTween.ignoreTimeScale = true;
-                floatTween.easing = easing;
-                floatTween.AddOnFinishCallback(OnTweenFinished);
+			if (duration == 0f || !Application.isPlaying) {
+				SetAlpha(targetAlpha);
+			} else {
+				m_Transitioning = true;
 
-                this.m_FloatTweenRunner.StartTween(floatTween);
-            }
-        }
+				FloatTween floatTween = new FloatTween
+					{duration = duration, startFloat = m_CanvasGroup.alpha, targetFloat = targetAlpha};
+				floatTween.AddOnChangedCallback(SetAlpha);
+				floatTween.ignoreTimeScale = true;
+				floatTween.easing = easing;
+				floatTween.AddOnFinishCallback(OnTweenFinished);
 
-        public void SetAlpha(float alpha)
-		{
-            if (this.m_CanvasGroup != null)
-			    this.m_CanvasGroup.alpha = alpha;
+				m_FloatTweenRunner.StartTween(floatTween);
+			}
 		}
 
-        protected void OnTweenFinished()
-        {
-            this.m_Transitioning = false;
-        }
+		public void SetAlpha(float alpha) {
+			if (m_CanvasGroup != null)
+				m_CanvasGroup.alpha = alpha;
+		}
 
-        /// <summary>
-        /// Gets the black overlay based on relative game object. (In case we have multiple canvases.)
-        /// </summary>
-        /// <param name="relativeGameObject">The relative game object.</param>
-        /// <returns>The black overlay component.</returns>
-        public static UIBlackOverlay GetOverlay(GameObject relativeGameObject)
-        {
-            // Find the black overlay in the current canvas
-            Canvas canvas = UIUtility.FindInParents<Canvas>(relativeGameObject);
+		protected void OnTweenFinished() {
+			m_Transitioning = false;
+		}
 
-            if (canvas != null)
-            {
-                // Try finding an overlay in the canvas
-                UIBlackOverlay overlay = canvas.gameObject.GetComponentInChildren<UIBlackOverlay>();
+		/// <summary>
+		///     Gets the black overlay based on relative game object. (In case we have multiple canvases.)
+		/// </summary>
+		/// <param name="relativeGameObject">The relative game object.</param>
+		/// <returns>The black overlay component.</returns>
+		public static UIBlackOverlay GetOverlay(GameObject relativeGameObject) {
+			// Find the black overlay in the current canvas
+			Canvas canvas = UIUtility.FindInParents<Canvas>(relativeGameObject);
 
-                if (overlay != null)
-                    return overlay;
+			if (canvas != null) {
+				// Try finding an overlay in the canvas
+				UIBlackOverlay overlay = canvas.gameObject.GetComponentInChildren<UIBlackOverlay>();
 
-                // In case no overlay is found instantiate one
-                if (UIBlackOverlayManager.Instance != null && UIBlackOverlayManager.Instance.prefab != null)
-                    return UIBlackOverlayManager.Instance.Create(canvas.transform);
-            }
+				if (overlay != null)
+					return overlay;
 
-            return null;
-        }
+				// In case no overlay is found instantiate one
+				if (UIBlackOverlayManager.Instance != null && UIBlackOverlayManager.Instance.prefab != null)
+					return UIBlackOverlayManager.Instance.Create(canvas.transform);
+			}
+
+			return null;
+		}
+
 	}
 }

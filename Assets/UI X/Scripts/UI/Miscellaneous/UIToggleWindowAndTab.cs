@@ -1,32 +1,28 @@
 using UnityEngine;
 
-namespace AsglaUI.UI
-{
+namespace AsglaUI.UI {
 	public class UIToggleWindowAndTab : MonoBehaviour {
-		
+
 		public UIWindow window;
 		public UITab tab;
-		
-		public void Toggle()
-		{
-			if (this.window == null || this.tab == null)
+
+		public void Toggle() {
+			if (window == null || tab == null)
 				return;
-			
+
 			// Check if the window is open
-			if (this.window.IsOpen)
-			{
+			if (window.IsOpen)
 				// Check if the tab is active
-				if (this.tab.isOn)
-				{
+				if (tab.isOn) {
 					// Close the window since everything was already opened
-					this.window.Hide();
+					window.Hide();
 					return;
 				}
-			}
-			
+
 			// If we have reached this part of the code, that means the we should open up things
-			this.window.Show();
-			this.tab.Activate();
+			window.Show();
+			tab.Activate();
 		}
+
 	}
 }

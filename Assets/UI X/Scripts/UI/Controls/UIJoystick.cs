@@ -1,203 +1,221 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 
 namespace AsglaUI.UI {
-    [AddComponentMenu("UI/Joystick", 36), RequireComponent(typeof(RectTransform))]
-    public class UIJoystick : UIBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerDownHandler, IPointerUpHandler {
+	[AddComponentMenu("UI/Joystick", 36)]
+	[RequireComponent(typeof(RectTransform))]
+	public class UIJoystick : UIBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerDownHandler,
+		IPointerUpHandler {
 
-        public enum AxisOption {
-            // Options for which axes to use
-            Both, // Use both
-            OnlyHorizontal, // Only horizontal
-            OnlyVertical // Only vertical
-        }
+		public enum AxisOption {
 
-        [SerializeField, Tooltip("The child graphic that will be moved around.")]
-        private RectTransform m_Handle;
-        public RectTransform Handle {
-            get { return this.m_Handle; }
-            set {
-                this.m_Handle = value;
-                UpdateHandle();
-            }
-        }
+			// Options for which axes to use
+			Both, // Use both
+			OnlyHorizontal, // Only horizontal
+			OnlyVertical // Only vertical
 
-        [SerializeField, Tooltip("The handling area that the handle is allowed to be moved in.")]
-        private RectTransform m_HandlingArea;
-        public RectTransform HandlingArea {
-            get { return this.m_HandlingArea; }
-            set { this.m_HandlingArea = value; }
-        }
+		}
 
-        [SerializeField, Tooltip("The child graphic that will be shown when the joystick is active.")]
-        private Image m_ActiveGraphic;
-        public Image ActiveGraphic {
-            get { return this.m_ActiveGraphic; }
-            set { this.m_ActiveGraphic = value; }
-        }
+		[SerializeField] [Tooltip("The child graphic that will be moved around.")]
+		private RectTransform m_Handle;
 
-        [SerializeField] private Vector2 m_Axis;
-        [SerializeField] private AxisOption m_AxesToUse = AxisOption.Both; // The options for the axes that the still will use
+		[SerializeField] [Tooltip("The handling area that the handle is allowed to be moved in.")]
+		private RectTransform m_HandlingArea;
 
-        [SerializeField, Tooltip("How fast the joystick will go back to the center")]
-        private float m_Spring = 25f;
-        public float Spring {
-            get { return this.m_Spring; }
-            set { this.m_Spring = value; }
-        }
+		[SerializeField] [Tooltip("The child graphic that will be shown when the joystick is active.")]
+		private Image m_ActiveGraphic;
 
-        [SerializeField, Tooltip("How close to the center that the axis will be output as 0")]
-        private float m_DeadZone = 0.1f;
-        public float DeadZone {
-            get { return this.m_DeadZone; }
-            set { this.m_DeadZone = value; }
-        }
+		[SerializeField] private Vector2 m_Axis;
 
-        [Tooltip("Customize the output that is sent in OnValueChange")]
-        public AnimationCurve outputCurve = new AnimationCurve(new Keyframe(0, 0, 1, 1), new Keyframe(1, 1, 1, 1));
+		[SerializeField]
+		private AxisOption m_AxesToUse = AxisOption.Both; // The options for the axes that the still will use
 
-        private bool m_IsDragging = false;
+		[SerializeField] [Tooltip("How fast the joystick will go back to the center")]
+		private float m_Spring = 25f;
 
-        [SerializeField] private string m_HorizontalAxisName = "Horizontal"; // The name given to the horizontal axis for the cross platform input
-        [SerializeField] private string m_VerticalAxisName = "Vertical"; // The name given to the vertical axis for the cross platform input
-        private bool m_UseX; // Toggle for using the x axis
-        private bool m_UseY; // Toggle for using the Y axis
-        private CrossPlatformInputManager.VirtualAxis m_HorizontalVirtualAxis; // Reference to the joystick in the cross platform input
-        private CrossPlatformInputManager.VirtualAxis m_VerticalVirtualAxis; // Reference to the joystick in the cross platform input
+		[SerializeField] [Tooltip("How close to the center that the axis will be output as 0")]
+		private float m_DeadZone = 0.1f;
 
-        #if UNITY_EDITOR
-        protected override void OnValidate() {
-            base.OnValidate();
+		[Tooltip("Customize the output that is sent in OnValueChange")]
+		public AnimationCurve outputCurve = new AnimationCurve(new Keyframe(0, 0, 1, 1), new Keyframe(1, 1, 1, 1));
 
-            // Fix anchors
-            if (this.m_HandlingArea != null) {
-                this.m_HandlingArea.anchorMin = new Vector2(0.5f, 0.5f);
-                this.m_HandlingArea.anchorMax = new Vector2(0.5f, 0.5f);
-            }
+		[SerializeField] private string
+			m_HorizontalAxisName = "Horizontal"; // The name given to the horizontal axis for the cross platform input
 
-            // Hide active
-            if (this.m_ActiveGraphic != null)
-                this.m_ActiveGraphic.canvasRenderer.SetAlpha(0f);
+		[SerializeField] private string
+			m_VerticalAxisName = "Vertical"; // The name given to the vertical axis for the cross platform input
 
-            this.UpdateHandle();
-        }
-        #endif
+		private CrossPlatformInputManager.VirtualAxis
+			m_HorizontalVirtualAxis; // Reference to the joystick in the cross platform input
 
-        protected override void OnEnable() {
-            base.OnEnable();
-            this.CreateVirtualAxes();
+		private bool m_IsDragging;
+		private bool m_UseX; // Toggle for using the x axis
+		private bool m_UseY; // Toggle for using the Y axis
 
-            if (this.m_HandlingArea == null)
-                this.m_HandlingArea = this.transform as RectTransform;
+		private CrossPlatformInputManager.VirtualAxis
+			m_VerticalVirtualAxis; // Reference to the joystick in the cross platform input
 
-            if (this.m_ActiveGraphic != null)
-                this.m_ActiveGraphic.canvasRenderer.SetAlpha(0f);
-        }
+		public RectTransform Handle {
+			get => m_Handle;
+			set{
+				m_Handle = value;
+				UpdateHandle();
+			}
+		}
 
-        protected void CreateVirtualAxes() {
-            // set axes to use
-            this.m_UseX = (this.m_AxesToUse == AxisOption.Both || this.m_AxesToUse == AxisOption.OnlyHorizontal);
-            this.m_UseY = (this.m_AxesToUse == AxisOption.Both || this.m_AxesToUse == AxisOption.OnlyVertical);
+		public RectTransform HandlingArea {
+			get => m_HandlingArea;
+			set => m_HandlingArea = value;
+		}
 
-            if (this.m_UseX) {
-                this.m_HorizontalVirtualAxis = new CrossPlatformInputManager.VirtualAxis(this.m_HorizontalAxisName);
-                CrossPlatformInputManager.RegisterVirtualAxis(this.m_HorizontalVirtualAxis);
-            }
+		public Image ActiveGraphic {
+			get => m_ActiveGraphic;
+			set => m_ActiveGraphic = value;
+		}
 
-            if (this.m_UseY) {
-                this.m_VerticalVirtualAxis = new CrossPlatformInputManager.VirtualAxis(this.m_VerticalAxisName);
-                CrossPlatformInputManager.RegisterVirtualAxis(this.m_VerticalVirtualAxis);
-            }
-        }
+		public float Spring {
+			get => m_Spring;
+			set => m_Spring = value;
+		}
 
-        protected void LateUpdate() {
-            if (this.isActiveAndEnabled && !this.m_IsDragging) {
-                if (this.m_Axis != Vector2.zero) {
-                    Vector2 newAxis = this.m_Axis - (this.m_Axis * Time.unscaledDeltaTime * this.m_Spring);
+		public float DeadZone {
+			get => m_DeadZone;
+			set => m_DeadZone = value;
+		}
 
-                    if (newAxis.sqrMagnitude <= .0001f)
-                        newAxis = Vector2.zero;
+		public Vector2 JoystickAxis {
+			get{
+				Vector2 outputPoint = m_Axis.magnitude > m_DeadZone ? m_Axis : Vector2.zero;
+				float magnitude = outputPoint.magnitude;
 
-                    this.SetAxis(newAxis);
-                }
-            }
-        }
+				outputPoint *= outputCurve.Evaluate(magnitude);
 
-        public Vector2 JoystickAxis {
-            get {
-                Vector2 outputPoint = this.m_Axis.magnitude > this.m_DeadZone ? this.m_Axis : Vector2.zero;
-                float magnitude = outputPoint.magnitude;
+				return outputPoint;
+			}
+			set => SetAxis(value);
+		}
 
-                outputPoint *= outputCurve.Evaluate(magnitude);
+		protected void LateUpdate() {
+			if (isActiveAndEnabled && !m_IsDragging)
+				if (m_Axis != Vector2.zero) {
+					Vector2 newAxis = m_Axis - m_Axis * Time.unscaledDeltaTime * m_Spring;
 
-                return outputPoint;
-            }
-            set { this.SetAxis(value); }
-        }
+					if (newAxis.sqrMagnitude <= .0001f)
+						newAxis = Vector2.zero;
 
-        public void SetAxis(Vector2 axis) {
-            this.m_Axis = Vector2.ClampMagnitude(axis, 1);
+					SetAxis(newAxis);
+				}
+		}
 
-            Vector2 outputPoint = this.m_Axis.magnitude > this.m_DeadZone ? this.m_Axis : Vector2.zero;
-            float magnitude = outputPoint.magnitude;
+		protected override void OnEnable() {
+			base.OnEnable();
+			CreateVirtualAxes();
 
-            outputPoint *= outputCurve.Evaluate(magnitude);
+			if (m_HandlingArea == null)
+				m_HandlingArea = transform as RectTransform;
 
-            if (this.m_UseX)
-                this.m_HorizontalVirtualAxis.Update(outputPoint.x);
-            if (this.m_UseY)
-                this.m_VerticalVirtualAxis.Update(outputPoint.y);
+			if (m_ActiveGraphic != null)
+				m_ActiveGraphic.canvasRenderer.SetAlpha(0f);
+		}
 
-            this.UpdateHandle();
-        }
+#if UNITY_EDITOR
+		protected override void OnValidate() {
+			base.OnValidate();
 
-        public void OnBeginDrag(PointerEventData eventData) {
-            if (!this.IsActive() || this.m_HandlingArea == null)
-                return;
+			// Fix anchors
+			if (m_HandlingArea != null) {
+				m_HandlingArea.anchorMin = new Vector2(0.5f, 0.5f);
+				m_HandlingArea.anchorMax = new Vector2(0.5f, 0.5f);
+			}
 
-            Vector2 newAxis = this.m_HandlingArea.InverseTransformPoint(eventData.position);
-            newAxis.x /= this.m_HandlingArea.sizeDelta.x * 0.5f;
-            newAxis.y /= this.m_HandlingArea.sizeDelta.y * 0.5f;
+			// Hide active
+			if (m_ActiveGraphic != null)
+				m_ActiveGraphic.canvasRenderer.SetAlpha(0f);
 
-            this.SetAxis(newAxis);
-            this.m_IsDragging = true;
-        }
+			UpdateHandle();
+		}
+#endif
 
-        public void OnEndDrag(PointerEventData eventData) {
-            this.m_IsDragging = false;
-        }
+		public void OnBeginDrag(PointerEventData eventData) {
+			if (!IsActive() || m_HandlingArea == null)
+				return;
 
-        public void OnDrag(PointerEventData eventData) {
-            if (this.m_HandlingArea == null)
-                return;
+			Vector2 newAxis = m_HandlingArea.InverseTransformPoint(eventData.position);
+			newAxis.x /= m_HandlingArea.sizeDelta.x * 0.5f;
+			newAxis.y /= m_HandlingArea.sizeDelta.y * 0.5f;
 
-            Vector2 axis = Vector2.zero;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(this.m_HandlingArea, eventData.position, eventData.pressEventCamera, out axis);
+			SetAxis(newAxis);
+			m_IsDragging = true;
+		}
 
-            axis -= this.m_HandlingArea.rect.center;
-            axis.x /= this.m_HandlingArea.sizeDelta.x * 0.5f;
-            axis.y /= this.m_HandlingArea.sizeDelta.y * 0.5f;
+		public void OnDrag(PointerEventData eventData) {
+			if (m_HandlingArea == null)
+				return;
 
-            this.SetAxis(axis);
-        }
+			Vector2 axis = Vector2.zero;
+			RectTransformUtility.ScreenPointToLocalPointInRectangle(m_HandlingArea, eventData.position,
+				eventData.pressEventCamera, out axis);
 
-        private void UpdateHandle() {
-            if (this.m_Handle && this.m_HandlingArea) {
-                this.m_Handle.anchoredPosition = new Vector2(this.m_Axis.x * this.m_HandlingArea.sizeDelta.x * 0.5f, this.m_Axis.y * this.m_HandlingArea.sizeDelta.y * 0.5f);
-            }
-        }
+			axis -= m_HandlingArea.rect.center;
+			axis.x /= m_HandlingArea.sizeDelta.x * 0.5f;
+			axis.y /= m_HandlingArea.sizeDelta.y * 0.5f;
 
-        public void OnPointerDown(PointerEventData eventData) {
-            if (this.m_ActiveGraphic != null)
-                this.m_ActiveGraphic.CrossFadeAlpha(1f, 0.2f, false);
-        }
+			SetAxis(axis);
+		}
 
-        public void OnPointerUp(PointerEventData eventData) {
-            if (this.m_ActiveGraphic != null)
-                this.m_ActiveGraphic.CrossFadeAlpha(0f, 0.2f, false);
-        }
+		public void OnEndDrag(PointerEventData eventData) {
+			m_IsDragging = false;
+		}
 
-    }
+		public void OnPointerDown(PointerEventData eventData) {
+			if (m_ActiveGraphic != null)
+				m_ActiveGraphic.CrossFadeAlpha(1f, 0.2f, false);
+		}
+
+		public void OnPointerUp(PointerEventData eventData) {
+			if (m_ActiveGraphic != null)
+				m_ActiveGraphic.CrossFadeAlpha(0f, 0.2f, false);
+		}
+
+		protected void CreateVirtualAxes() {
+			// set axes to use
+			m_UseX = m_AxesToUse == AxisOption.Both || m_AxesToUse == AxisOption.OnlyHorizontal;
+			m_UseY = m_AxesToUse == AxisOption.Both || m_AxesToUse == AxisOption.OnlyVertical;
+
+			if (m_UseX) {
+				m_HorizontalVirtualAxis = new CrossPlatformInputManager.VirtualAxis(m_HorizontalAxisName);
+				CrossPlatformInputManager.RegisterVirtualAxis(m_HorizontalVirtualAxis);
+			}
+
+			if (m_UseY) {
+				m_VerticalVirtualAxis = new CrossPlatformInputManager.VirtualAxis(m_VerticalAxisName);
+				CrossPlatformInputManager.RegisterVirtualAxis(m_VerticalVirtualAxis);
+			}
+		}
+
+		public void SetAxis(Vector2 axis) {
+			m_Axis = Vector2.ClampMagnitude(axis, 1);
+
+			Vector2 outputPoint = m_Axis.magnitude > m_DeadZone ? m_Axis : Vector2.zero;
+			float magnitude = outputPoint.magnitude;
+
+			outputPoint *= outputCurve.Evaluate(magnitude);
+
+			if (m_UseX)
+				m_HorizontalVirtualAxis.Update(outputPoint.x);
+			if (m_UseY)
+				m_VerticalVirtualAxis.Update(outputPoint.y);
+
+			UpdateHandle();
+		}
+
+		private void UpdateHandle() {
+			if (m_Handle && m_HandlingArea)
+				m_Handle.anchoredPosition = new Vector2(m_Axis.x * m_HandlingArea.sizeDelta.x * 0.5f,
+					m_Axis.y * m_HandlingArea.sizeDelta.y * 0.5f);
+		}
+
+	}
 }

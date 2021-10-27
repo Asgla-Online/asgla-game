@@ -1,38 +1,41 @@
-using UnityEngine;
 using AsglaUI.UI;
 using UnityEditor;
 using UnityEditor.SceneManagement;
+using UnityEngine;
 
 namespace AsglaUIEditor.UI {
-    [CustomEditor(typeof(ColorScheme))]
-    public class ColorSchemeEditor : Editor {
-        public override void OnInspectorGUI() {
-            base.OnInspectorGUI();
-            EditorGUILayout.Space();
+	[CustomEditor(typeof(ColorScheme))]
+	public class ColorSchemeEditor : Editor {
 
-            if (GUILayout.Button("Apply Color Scheme")) {
-                ColorScheme scheme = this.target as ColorScheme;
+		public override void OnInspectorGUI() {
+			base.OnInspectorGUI();
+			EditorGUILayout.Space();
 
-                if (scheme != null) {
-                    // Apply the color scheme to the loaded scenes
-                    scheme.ApplyColorScheme();
+			if (GUILayout.Button("Apply Color Scheme")) {
+				ColorScheme scheme = target as ColorScheme;
 
-                    if (!Application.isPlaying)
-                        EditorSceneManager.MarkAllScenesDirty();
-                }
-            }
-        }
+				if (scheme != null) {
+					// Apply the color scheme to the loaded scenes
+					scheme.ApplyColorScheme();
 
-        private static string GetSavePath() {
-            return EditorUtility.SaveFilePanelInProject("New color scheme", "ColorScheme", "asset", "Create a new color scheme.");
-        }
+					if (!Application.isPlaying)
+						EditorSceneManager.MarkAllScenesDirty();
+				}
+			}
+		}
 
-        [MenuItem("Assets/Create/UI Color Scheme")]
-        public static void CreateManager() {
-            string assetPath = GetSavePath();
-            ColorScheme asset = ScriptableObject.CreateInstance("ColorScheme") as ColorScheme;  //scriptable object
-            AssetDatabase.CreateAsset(asset, AssetDatabase.GenerateUniqueAssetPath(assetPath));
-            AssetDatabase.Refresh();
-        }
-    }
+		private static string GetSavePath() {
+			return EditorUtility.SaveFilePanelInProject("New color scheme", "ColorScheme", "asset",
+				"Create a new color scheme.");
+		}
+
+		[MenuItem("Assets/Create/UI Color Scheme")]
+		public static void CreateManager() {
+			string assetPath = GetSavePath();
+			ColorScheme asset = CreateInstance("ColorScheme") as ColorScheme; //scriptable object
+			AssetDatabase.CreateAsset(asset, AssetDatabase.GenerateUniqueAssetPath(assetPath));
+			AssetDatabase.Refresh();
+		}
+
+	}
 }
