@@ -1,14 +1,14 @@
 ﻿using Asgla.Utility;
 using UnityEngine;
 
-namespace Asgla.NPC {
-	public class NPCAvatar : MonoBehaviour {
+namespace Asgla.Avatar.NPC {
+	public class NpcAvatar : MonoBehaviour {
 
-		private NPCMain _npc;
+		private NpcMain _npc;
 
 		private SpriteRenderer _sprite;
 
-		public void NPC(NPCMain npc) {
+		public void Npc(NpcMain npc) {
 			_npc = npc;
 		}
 

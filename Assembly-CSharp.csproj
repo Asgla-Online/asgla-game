@@ -52,9 +52,9 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Asgla\Scripts\Data\Avatar\Helper\EntityType.cs"/>
      <Compile Include="Assets\FX\Scripts\ETFXPitchRandomizer.cs" />
      <Compile Include="Assets\CharacterCreator2D\Creator UI\Scripts\UIColor\UIPartColor.cs" />
-     <Compile Include="Assets\Asgla\Scripts\Data\Entity\EntityType.cs" />
      <Compile Include="Assets\CharacterCreator2D\Data\Scripts\Utilities\CharacterBaker.cs" />
      <Compile Include="Assets\CharacterCreator2D\Data\Scripts\Utilities\SpritePacker.cs" />
      <Compile Include="Assets\CharacterCreator2D\Creator UI\Scripts\UIExportPNG\UIToggler.cs" />
@@ -82,7 +82,7 @@
      <Compile Include="Assets\UI X\Scripts\UI\UIPagination.cs" />
      <Compile Include="Assets\UI X\Scripts\UI\UIDragObject.cs" />
      <Compile Include="Assets\Asgla\Scripts\Requests\Unity\MoveToLocal.cs" />
-     <Compile Include="Assets\Asgla\Scripts\Data\NPC\NPCData.cs" />
+      <Compile Include="Assets\Asgla\Scripts\Data\Avatar\NPC\NPCData.cs"/>
      <Compile Include="Assets\UI X\Scripts\UI\Icon Slot System\Interfaces\IUISlotHasCooldown.cs" />
      <Compile Include="Assets\Asgla\Scripts\Main.cs" />
      <Compile Include="Assets\CharacterCreator2D\Data\Scripts\Character\CharacterViewer.DataManager.cs" />
@@ -117,7 +117,7 @@
      <Compile Include="Assets\CharacterCreator2D\Creator UI\Scripts\UICreator\PartGroup.cs" />
      <Compile Include="Assets\Asgla\Scripts\Data\Skill\SkillData.cs" />
      <Compile Include="Assets\Asgla\Scripts\Window\ItemPreviewWindow.cs" />
-     <Compile Include="Assets\Asgla\Scripts\Area\AreaLocal.cs"/>
+      <Compile Include="Assets\Asgla\Scripts\Area\AreaLocal.cs"/>
      <Compile Include="Assets\UI X\Scripts\UI\Controls\UISliderExtended.cs" />
      <Compile Include="Assets\UI X\Scripts\UI\Miscellaneous\UICanvasAnchorToCamera.cs" />
      <Compile Include="Assets\Test\Test Scripts\Test_UIEquipSlot_Assign.cs" />
@@ -144,7 +144,7 @@
      <Compile Include="Assets\UI X\Scripts\UI\UIUtility.cs" />
      <Compile Include="Assets\Asgla\Scripts\UI\Quest\Track\QuestTracker.cs" />
      <Compile Include="Assets\UI X\Scripts\UI\Databases\Serializables\UITalentInfo.cs" />
-     <Compile Include="Assets\Asgla\Scripts\NPC\NPCMain.cs" />
+      <Compile Include="Assets\Asgla\Scripts\Avatar\NPC\NPCMain.cs"/>
      <Compile Include="Assets\CharacterCreator2D\Creator UI\Scripts\UIColorPalette\UIColorPalette.cs" />
      <Compile Include="Assets\Asgla\Scripts\Avatar\AvatarMain.cs" />
      <Compile Include="Assets\UI X\Scripts\UI\Loading Overlay\UILoadingOverlayManager.cs" />
@@ -232,7 +232,7 @@
      <Compile Include="Assets\UI X\Scripts\UI\Tweening\FloatTween.cs" />
      <Compile Include="Assets\Asgla\Scripts\Requests\IRequest.cs" />
      <Compile Include="Assets\Asgla\Scripts\Avatar\Player\PlayerCharacter.cs" />
-     <Compile Include="Assets\Asgla\Scripts\Data\Monster\MonsterData.cs" />
+      <Compile Include="Assets\Asgla\Scripts\Data\Avatar\Monster\MonsterData.cs"/>
      <Compile Include="Assets\UI X\Scripts\UI\Icon Slot System\UISlotCooldown.cs" />
      <Compile Include="Assets\Asgla\Scripts\Utility\GameUtil.cs" />
      <Compile Include="Assets\UI X\Scripts\UI\Window\UIWindowManager.cs" />
@@ -366,7 +366,7 @@
      <Compile Include="Assets\Asgla\Scripts\UI\Unit Frame\UnitFrameBig.cs" />
      <Compile Include="Assets\Asgla\Scripts\UI\Loading\LoadingAssetOverlay.cs" />
      <Compile Include="Assets\Asgla\Scripts\Avatar\AvatarUtility.cs" />
-     <Compile Include="Assets\Asgla\Scripts\NPC\NPCAvatar.cs" />
+      <Compile Include="Assets\Asgla\Scripts\Avatar\NPC\NPCAvatar.cs"/>
      <Compile Include="Assets\Asgla\Scripts\UI\Menu.cs" />
      <Compile Include="Assets\Asgla\Scripts\CreateAccount.cs" />
      <Compile Include="Assets\CharacterCreator2D\Data\Scripts\Part\PartTemplate.cs" />

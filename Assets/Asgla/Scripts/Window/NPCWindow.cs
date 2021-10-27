@@ -1,4 +1,4 @@
-﻿using Asgla.NPC;
+﻿using Asgla.Avatar.NPC;
 using AsglaUI.UI;
 using TMPro;
 using UnityEngine;
@@ -18,7 +18,7 @@ namespace Asgla.Window {
 
 		[SerializeField] private Button _shop;
 
-		private NPCMain _npc;
+		private NpcMain _npc;
 
 		//[SerializeField] private GameObject _npcImgTemp;
 
@@ -41,7 +41,7 @@ namespace Asgla.Window {
 			//_npcImgTemp.SetActive(false);
 		}
 
-		public void Init(NPCMain npc) {
+		public void Init(NpcMain npc) {
 			_npc = npc;
 
 			_name.text = _npc.Name();
@@ -55,7 +55,7 @@ namespace Asgla.Window {
 		}
 
 		public void OnQuestClick() {
-			Main.Singleton.Request.Send("QuestLoad", _npc.NPCId());
+			Main.Singleton.Request.Send("QuestLoad", _npc.NpcId());
 		}
 
 	}

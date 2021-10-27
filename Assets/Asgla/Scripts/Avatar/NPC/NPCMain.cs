@@ -1,19 +1,19 @@
 ﻿using Asgla.Data.Area;
 using UnityEngine;
 
-namespace Asgla.NPC {
-	public class NPCMain : MonoBehaviour {
+namespace Asgla.Avatar.NPC {
+	public class NpcMain : MonoBehaviour {
 
-		[SerializeField] private int _id;
+		[SerializeField] private int id;
 
-		[SerializeField] private NPCAvatar _avatar;
+		[SerializeField] private NpcAvatar avatar;
 
 		private AreaLocalNpc _data;
 
 		#region Unity
 
 		private void Start() {
-			_avatar.NPC(this);
+			avatar.Npc(this);
 		}
 
 		#endregion
@@ -27,11 +27,11 @@ namespace Asgla.NPC {
 		}
 
 		public int AreaId() {
-			return _id;
+			return id;
 			// _data.databaseId;
 		}
 
-		public int NPCId() {
+		public int NpcId() {
 			return _data.npc.DatabaseID;
 		}
 

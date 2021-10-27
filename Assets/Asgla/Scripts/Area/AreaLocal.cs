@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Asgla.Avatar.NPC;
 using Asgla.Avatar.Player;
-using Asgla.NPC;
 using Asgla.Utility;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,7 +12,7 @@ namespace Asgla.Area {
 
 		public OnPlayerScaleUpdateEvent OnPlayerScaleUpdate = new OnPlayerScaleUpdateEvent();
 
-		private readonly List<NPCMain> _npcs = new List<NPCMain>();
+		private readonly List<NpcMain> _npcs = new List<NpcMain>();
 
 		private readonly List<Transform> _zones = new List<Transform>();
 
@@ -71,7 +71,7 @@ namespace Asgla.Area {
 			return _npc;
 		}
 
-		public List<NPCMain> NPCs() {
+		public List<NpcMain> NPCs() {
 			return _npcs;
 		}
 
@@ -79,7 +79,7 @@ namespace Asgla.Area {
 			return _zones.Where(zone => zone.name == name).FirstOrDefault();
 		}
 
-		public NPCMain NpcById(int id) {
+		public NpcMain NpcById(int id) {
 			return _npcs.Where(npc => npc.AreaId() == id).FirstOrDefault();
 		}
 
@@ -114,7 +114,7 @@ namespace Asgla.Area {
 						Debug.LogFormat("<color=blue>[MapArea]</color> NPC Transform not found");
 						break;
 					default:
-						_npcs.AddRange(from Transform npcT in _npc let npc = npcT.GetComponent<NPCMain>() select npc);
+						_npcs.AddRange(from Transform npcT in _npc let npc = npcT.GetComponent<NpcMain>() select npc);
 						break;
 				}
 
