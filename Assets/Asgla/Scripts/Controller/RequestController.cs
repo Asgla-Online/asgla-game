@@ -19,20 +19,18 @@ namespace Asgla.Controller {
 				JsonData request = JsonMapper.ToObject(json);
 
 				RequestFactory.Create(JsonUtil.ParseInt(request["cmd"])).onRequest(Main, json);
-
-				//Login(JsonMapper.ToObject<LoginRequest>(json));
 			} catch (Exception exception) {
 				Debug.LogFormat("<color=orange>[INVALID] 1 </color> {0}", json);
 				Debug.LogException(exception);
 			}
 		}
 
-		public void Send(string cmd) {
-			Send(cmd, "");
+		public void Send(string command) {
+			Send(command, "");
 		}
 
-		public void Send(string cmd, params object[] args) {
-			RequestMake obj = new RequestMake {Cmd = cmd, Params = args.ToArray()};
+		public void Send(string command, params object[] args) {
+			RequestMake obj = new RequestMake {Cmd = command, Params = args.ToArray()};
 
 			string json = JsonMapper.ToJson(obj);
 
