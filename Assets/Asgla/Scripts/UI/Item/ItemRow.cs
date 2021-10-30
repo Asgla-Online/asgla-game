@@ -1,16 +1,17 @@
-﻿using Asgla.Data.Item;
+﻿using System;
+using Asgla.Data.Item;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Asgla.UI.Item {
-	public class ItemSlot : MonoBehaviour {
+	public class ItemRow : MonoBehaviour {
 
-		[SerializeField] private Image _icon;
+		[SerializeField] private Image icon;
 
-		[SerializeField] private Image _background;
+		[SerializeField] private Image background;
 
-		[SerializeField] private TextMeshProUGUI _name;
+		[SerializeField] private TextMeshProUGUI itemName;
 
 		private string _buttonText;
 
@@ -42,22 +43,21 @@ namespace Asgla.UI.Item {
 			return _buttonText;
 		}
 
-		public ItemSlot Init(int databaseId, ItemListType type, ItemData item) {
+		public ItemRow Init(int databaseId, ItemListType type, ItemData item) {
 			name = databaseId.ToString();
 
 			_databaseId = databaseId;
 			_item = item;
 			_type = type;
 
-			_name.text = _item.name;
+			itemName.text = _item.name;
 
 			Sprite sprite = _item.GetIcon;
 
 			if (sprite == null)
 				Debug.Log("Icon null {0}");
 			else
-				_icon.sprite = _item.GetIcon;
-
+				icon.sprite = _item.GetIcon;
 
 			switch (_type) {
 				case ItemListType.Equip:
@@ -76,6 +76,8 @@ namespace Asgla.UI.Item {
 					_send = "";
 					_buttonText = "Quest";
 					break;
+				default:
+					throw new ArgumentOutOfRangeException();
 			}
 
 			return this;
