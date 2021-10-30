@@ -61,6 +61,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.16862746, g: 0.16862746, b: 0.16862746, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -148,6 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 0
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -216,8 +218,7 @@ MonoBehaviour:
     m_ActiveHighlightedTrigger: ActiveHighlighted
     m_ActivePressedTrigger: ActivePressed
     m_DisabledTrigger: Disabled
-  listBackgroundSprite: {fileID: 21300000, guid: 1a71705bd86075f42bb9e0654ec86bc3,
-    type: 3}
+  listBackgroundSprite: {fileID: 21300000, guid: 1a71705bd86075f42bb9e0654ec86bc3, type: 3}
   listBackgroundSpriteType: 2
   listBackgroundColor: {r: 0.16862746, g: 0.16862746, b: 0.16862746, a: 1}
   listMargins:
@@ -244,8 +245,7 @@ MonoBehaviour:
   scrollSensitivity: 112
   scrollMinOptions: 5
   scrollListHeight: 444
-  scrollBarPrefab: {fileID: 1877979183116402, guid: f7b36a85e4291814cb8cf119c181d1a3,
-    type: 3}
+  scrollBarPrefab: {fileID: 1877979183116402, guid: f7b36a85e4291814cb8cf119c181d1a3, type: 3}
   scrollbarSpacing: 14
   optionFont: {fileID: 12800000, guid: 4cc67bcd8053e8649821232d841f4f97, type: 3}
   optionFontSize: 32
@@ -271,8 +271,7 @@ MonoBehaviour:
   optionTextEffectColor: {r: 0, g: 0, b: 0, a: 128}
   optionTextEffectDistance: {x: 1, y: -1}
   optionTextEffectUseGraphicAlpha: 1
-  optionBackgroundSprite: {fileID: 21300000, guid: ab8b3d82517c1cb498e837339911609e,
-    type: 3}
+  optionBackgroundSprite: {fileID: 21300000, guid: ab8b3d82517c1cb498e837339911609e, type: 3}
   optionBackgroundSpriteColor: {r: 1, g: 1, b: 1, a: 0}
   optionBackgroundSpriteType: 1
   optionBackgroundTransitionType: 0
@@ -322,8 +321,7 @@ MonoBehaviour:
     m_DisabledColor: {r: 1, g: 1, b: 1, a: 0}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
-  listSeparatorSprite: {fileID: 21300000, guid: ab8b3d82517c1cb498e837339911609e,
-    type: 3}
+  listSeparatorSprite: {fileID: 21300000, guid: ab8b3d82517c1cb498e837339911609e, type: 3}
   listSeparatorType: 1
   listSeparatorColor: {r: 1, g: 1, b: 1, a: 0.05}
   listSeparatorHeight: 4
@@ -357,6 +355,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.16862746, g: 0.16862746, b: 0.16862746, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -558,6 +557,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.4}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -634,6 +634,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -708,6 +709,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.4}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -782,6 +784,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
