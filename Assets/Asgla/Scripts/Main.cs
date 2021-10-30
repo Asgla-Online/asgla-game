@@ -5,6 +5,7 @@ using Asgla.Avatar.Player;
 using Asgla.Controller;
 using Asgla.Data;
 using Asgla.Effect;
+using Asgla.Scenes;
 using AsglaUI.UI;
 using AssetBundles;
 using CharacterCreator2D;

@@ -2,6 +2,7 @@
 using System.Linq;
 using Asgla.Data.Avatar.Player;
 using Asgla.Data.Quest;
+using Asgla.Scenes;
 using Asgla.UI.Quest.Track;
 
 namespace Asgla.Quest {

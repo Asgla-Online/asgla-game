@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Asgla {
+namespace Asgla.Scenes {
 	public class CreateAccount : MonoBehaviour {
 
 		public void OnHairChange(int id, string select) {

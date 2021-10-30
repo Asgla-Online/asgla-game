@@ -13,7 +13,7 @@ using AsglaUI.UI;
 using Cinemachine;
 using UnityEngine;
 
-namespace Asgla {
+namespace Asgla.Scenes {
 	public class Game : MonoBehaviour {
 
 		[SerializeField] private QuestTracker _questTrack;

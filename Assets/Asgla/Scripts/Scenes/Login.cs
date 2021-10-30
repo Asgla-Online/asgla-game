@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static Asgla.Data.Web.WebSetting;
 
-namespace Asgla {
+namespace Asgla.Scenes {
 	public class Login : MonoBehaviour {
 
 		[SerializeField] private TMP_InputField _inputUsername;
