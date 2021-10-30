@@ -8,7 +8,7 @@ using Asgla.UI.ActionBar;
 using Asgla.UI.Loading;
 using Asgla.UI.Quest.Track;
 using Asgla.UI.UnitFrame;
-using Asgla.Window;
+using Asgla.UI.Window;
 using AsglaUI.UI;
 using Cinemachine;
 using UnityEngine;
@@ -62,7 +62,7 @@ namespace Asgla {
 		[Header("Window")] [SerializeField] private InventoryWindow _windowInventory;
 
 		[SerializeField] private ItemPreviewWindow _windowItemPreview;
-		[SerializeField] private NPCWindow _windowNPC;
+		[SerializeField] private NpcWindow _windowNPC;
 		[SerializeField] private QuestWindow _windowQuest;
 		[SerializeField] private RespawnWindow _windowRespawn;
 		[SerializeField] private SettingWindow _windowSetting;
@@ -144,7 +144,7 @@ namespace Asgla {
 
 		public ItemPreviewWindow WindowItemPreview => _windowItemPreview;
 
-		public NPCWindow WindowNPC => _windowNPC;
+		public NpcWindow WindowNpc => _windowNPC;
 
 		public RespawnWindow WindowRespawn => _windowRespawn;
 

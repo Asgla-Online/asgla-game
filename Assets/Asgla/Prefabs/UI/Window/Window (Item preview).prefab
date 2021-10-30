@@ -19292,11 +19292,11 @@ MonoBehaviour:
   onTransitionComplete:
     m_PersistentCalls:
       m_Calls: []
-  _characterPreviewPrefab: {fileID: 778248715644226242, guid: fd31e5fe6932524459c5f3042e88a6cc, type: 3}
-  _image: {fileID: 904829845189470107}
-  _name: {fileID: 7971573901784865435}
-  _button: {fileID: 4468083818880920838}
-  _buttonText: {fileID: 7098015309365031303}
+  characterPreviewPrefab: {fileID: 778248715644226242, guid: fd31e5fe6932524459c5f3042e88a6cc, type: 3}
+  image: {fileID: 904829845189470107}
+  itemName: {fileID: 7971573901784865435}
+  button: {fileID: 4468083818880920838}
+  buttonText: {fileID: 7098015309365031303}
 --- !u!222 &9101239033650230003
 CanvasRenderer:
   m_ObjectHideFlags: 0

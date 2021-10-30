@@ -20,7 +20,7 @@ namespace Asgla.Avatar.NPC {
 
 		private void OnMouseDown() {
 			_sprite.color = CommonColorBuffer.StringToColor("D9D9D9");
-			Main.Singleton.Game.WindowNPC.Init(_npc);
+			Main.Singleton.Game.WindowNpc.Init(_npc);
 		}
 
 		private void OnMouseEnter() {

@@ -4,19 +4,19 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Asgla.Window {
+namespace Asgla.UI.Window {
 	[DisallowMultipleComponent]
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(CanvasGroup))]
-	public class NPCWindow : UIWindow {
+	public class NpcWindow : UIWindow {
 
-		[SerializeField] private TextMeshProUGUI _name;
+		[SerializeField] private TextMeshProUGUI npcName;
 
-		[SerializeField] private TextMeshProUGUI _description;
+		[SerializeField] private TextMeshProUGUI description;
 
-		[SerializeField] private Button _quest;
+		[SerializeField] private Button quest;
 
-		[SerializeField] private Button _shop;
+		[SerializeField] private Button shop;
 
 		private NpcMain _npc;
 
@@ -44,8 +44,8 @@ namespace Asgla.Window {
 		public void Init(NpcMain npc) {
 			_npc = npc;
 
-			_name.text = _npc.Name();
-			_description.text = _npc.Description();
+			npcName.text = _npc.Name();
+			description.text = _npc.Description();
 
 			Show();
 		}

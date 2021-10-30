@@ -10,43 +10,43 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Asgla.Window {
+namespace Asgla.UI.Window {
 
 	[DisallowMultipleComponent]
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(CanvasGroup))]
 	public class QuestWindow : UIWindow {
 
-		[SerializeField] private Transform _info;
+		[SerializeField] private Transform info;
 
-		[Header("Button")] [SerializeField] private Button _button;
+		[Header("Button")] [SerializeField] private Button button;
 
-		[SerializeField] private TextMeshProUGUI _buttonText;
+		[SerializeField] private TextMeshProUGUI buttonText;
 
-		[Header("Text")] [SerializeField] private TextMeshProUGUI _title;
+		[Header("Text")] [SerializeField] private TextMeshProUGUI title;
 
-		[SerializeField] private TextMeshProUGUI _description;
+		[SerializeField] private TextMeshProUGUI description;
 
-		[Header("Slot")] [SerializeField] private QuestSlot _questSlot;
+		[Header("Slot")] [SerializeField] private QuestSlot questSlot;
 
-		[SerializeField] private ToggleGroup _slotGroup;
+		[SerializeField] private ToggleGroup slotGroup;
 
-		[Header("Objective")] [SerializeField] private QuestObjectiveAndReward _objectiveSlot;
+		[Header("Objective")] [SerializeField] private QuestObjectiveAndReward objectiveSlot;
 
-		[SerializeField] private Transform _objectiveContent;
+		[SerializeField] private Transform objectiveContent;
 
-		[Header("Reward")] [SerializeField] private QuestObjectiveAndReward _rewardSlot;
+		[Header("Reward")] [SerializeField] private QuestObjectiveAndReward rewardSlot;
 
-		[SerializeField] private ItemSlot _itemSlot;
-		[SerializeField] private Transform _rewardAmountContent;
-		[SerializeField] private Transform _rewardContent;
+		[SerializeField] private ItemRow itemRow;
+		[SerializeField] private Transform rewardAmountContent;
+		[SerializeField] private Transform rewardContent;
 
 		#region Unity
 
 		protected override void Awake() {
 			base.Awake();
 
-			_info.gameObject.SetActive(false);
+			info.gameObject.SetActive(false);
 		}
 
 		#endregion
@@ -59,21 +59,21 @@ namespace Asgla.Window {
 		}
 
 		private void Add(QuestData quest) {
-			QuestSlot q = Instantiate(_questSlot.gameObject, _slotGroup.transform).GetComponent<QuestSlot>();
+			QuestSlot q = Instantiate(questSlot.gameObject, slotGroup.transform).GetComponent<QuestSlot>();
 			q.Init(quest);
 			q.Toggle().onValueChanged.AddListener(delegate { Select(q); });
-			q.Toggle().group = _slotGroup;
+			q.Toggle().group = slotGroup;
 		}
 
 		public void Select(QuestSlot slot) {
-			_info.gameObject.SetActive(false);
+			info.gameObject.SetActive(false);
 
 			Clear2();
 
 			QuestData quest = slot.Quest();
 
-			_title.text = quest.Name;
-			_description.text = quest.Description;
+			title.text = quest.Name;
+			description.text = quest.Description;
 
 			if (quest.Requirement.Count != 0)
 				foreach (Requirement requirement in quest.Requirement) {
@@ -93,22 +93,22 @@ namespace Asgla.Window {
 			foreach (Reward reward in quest.Reward)
 				AddRewardSlot(reward.DatabaseID, reward.Item);
 
-			_button.onClick.RemoveAllListeners();
+			button.onClick.RemoveAllListeners();
 
 			if (Main.Singleton.Game.Quest.InProgress(quest)) {
 				if (Main.Singleton.Game.Quest.Check(quest)) {
-					_button.onClick.AddListener(delegate { Turn(quest); });
-					_buttonText.text = "Turn";
+					button.onClick.AddListener(delegate { Turn(quest); });
+					buttonText.text = "Turn";
 				} else {
-					_button.onClick.AddListener(delegate { Abandon(quest); });
-					_buttonText.text = "Abandon";
+					button.onClick.AddListener(delegate { Abandon(quest); });
+					buttonText.text = "Abandon";
 				}
 			} else {
-				_button.onClick.AddListener(delegate { Accept(quest); });
-				_buttonText.text = "Accept";
+				button.onClick.AddListener(delegate { Accept(quest); });
+				buttonText.text = "Accept";
 			}
 
-			_info.gameObject.SetActive(true);
+			info.gameObject.SetActive(true);
 		}
 
 		private void Accept(QuestData q) {
@@ -116,9 +116,9 @@ namespace Asgla.Window {
 			Main.Singleton.Request.Send("QuestAccept", q.DatabaseID);
 
 			if (Main.Singleton.Game.Quest.Check(q)) {
-				_button.onClick.RemoveAllListeners();
-				_button.onClick.AddListener(delegate { Turn(q); });
-				_buttonText.text = "Turn";
+				button.onClick.RemoveAllListeners();
+				button.onClick.AddListener(delegate { Turn(q); });
+				buttonText.text = "Turn";
 			}
 		}
 
@@ -128,36 +128,36 @@ namespace Asgla.Window {
 
 		private void Turn(QuestData q) {
 			Main.Singleton.Request.Send("QuestTurn", q.DatabaseID);
-			_button.onClick.RemoveAllListeners();
-			_button.onClick.AddListener(delegate { Accept(q); });
-			_buttonText.text = "Accept";
+			button.onClick.RemoveAllListeners();
+			button.onClick.AddListener(delegate { Accept(q); });
+			buttonText.text = "Accept";
 			Main.Singleton.Game.Quest.Turn(q);
 		}
 
 		private void AddRequirementSlot(int databaseId, string amount, string objective) {
-			Instantiate(_objectiveSlot.gameObject, _objectiveContent)
+			Instantiate(objectiveSlot.gameObject, objectiveContent)
 				.GetComponent<QuestObjectiveAndReward>()
 				.Init(databaseId.ToString(), amount, objective, "FFFFFF");
 		}
 
 		private void AddRewardAmountSlot(string amount, string name, string color) {
-			Instantiate(_objectiveSlot.gameObject, _rewardAmountContent)
+			Instantiate(objectiveSlot.gameObject, rewardAmountContent)
 				.GetComponent<QuestObjectiveAndReward>()
 				.Init(name, amount, name, color);
 		}
 
 		private void AddRewardSlot(int databaseId, ItemData item) {
-			Instantiate(_itemSlot.gameObject, _rewardContent)
-				.GetComponent<ItemSlot>()
+			Instantiate(itemRow.gameObject, rewardContent)
+				.GetComponent<ItemRow>()
 				.Init(databaseId, ItemListType.Quest, item);
 		}
 
 		private void Clear() {
-			UIController.ClearChild(_slotGroup.transform);
+			UIController.ClearChild(slotGroup.transform);
 		}
 
 		private void Clear2() {
-			UIController.ClearChild(_objectiveContent, _rewardAmountContent, _rewardContent);
+			UIController.ClearChild(objectiveContent, rewardAmountContent, rewardContent);
 		}
 
 	}

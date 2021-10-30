@@ -2,16 +2,16 @@
 using Asgla.Data.Avatar.Player;
 using UnityEngine;
 
-namespace Asgla.Window {
+namespace Asgla.UI.Window {
 
 	[DisallowMultipleComponent]
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(CanvasGroup))]
 	public class InventoryWindow : ItemListMain {
 
-		public void Init(List<PlayerInventory> inventory_items) {
+		public void Init(List<PlayerInventory> inventoryItems) {
 			Clear();
-			foreach (PlayerInventory inventory in inventory_items)
+			foreach (PlayerInventory inventory in inventoryItems)
 				AddItem(inventory.databaseId, inventory.item);
 			Order();
 		}

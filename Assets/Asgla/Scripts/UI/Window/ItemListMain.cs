@@ -7,26 +7,27 @@ using AsglaUI.UI;
 using CharacterCreator2D;
 using UnityEngine;
 
-namespace Asgla.Window {
+namespace Asgla.UI.Window {
 	public abstract class ItemListMain : UIWindow {
 
-		[SerializeField] private ItemListType _type = ItemListType.Equip;
+		[SerializeField] private ItemListType type = ItemListType.Equip;
 
-		[SerializeField] protected Transform _all;
-		[SerializeField] protected Transform _class;
-		[SerializeField] protected Transform _armor;
-		[SerializeField] protected Transform _weapon;
-		[SerializeField] protected Transform _helm;
+		[SerializeField] protected Transform all;
 
-		[SerializeField] private ItemSlot _slot;
+		//[SerializeField] protected Transform @class;
+		[SerializeField] protected Transform armor;
+		[SerializeField] protected Transform weapon;
+		[SerializeField] protected Transform helm;
 
-		[SerializeField] private List<ItemSlot> _slots;
+		[SerializeField] private ItemRow row;
+
+		[SerializeField] private List<ItemRow> slots;
 
 		public void AddItem(int databaseId, ItemData item) {
-			AddSlot(databaseId, item, _all);
+			AddSlot(databaseId, item, all);
 			switch (item.Type.Category) {
 				case PartCategory.Armor:
-					AddSlot(databaseId, item, _armor);
+					AddSlot(databaseId, item, armor);
 					break;
 				case PartCategory.Boots:
 					break;
@@ -43,7 +44,7 @@ namespace Asgla.Window {
 				case PartCategory.Hair:
 					break;
 				case PartCategory.Helmet:
-					AddSlot(databaseId, item, _helm);
+					AddSlot(databaseId, item, helm);
 					break;
 				case PartCategory.Mouth:
 					break;
@@ -54,7 +55,7 @@ namespace Asgla.Window {
 				case PartCategory.SkinDetails:
 					break;
 				case PartCategory.Weapon:
-					AddSlot(databaseId, item, _weapon);
+					AddSlot(databaseId, item, weapon);
 					break;
 				case PartCategory.Cape:
 					break;
@@ -69,28 +70,28 @@ namespace Asgla.Window {
 		}
 
 		public void RemoveItem(int databaseId) {
-			ItemSlot slot = _slots.Where(s => s.Id() == databaseId).FirstOrDefault();
-			if (slot != null)
-				Destroy(slot.gameObject);
+			ItemRow itemRow = slots.FirstOrDefault(s => s.Id() == databaseId);
+			if (itemRow != null)
+				Destroy(itemRow.gameObject);
 		}
 
 		private void AddSlot(int databaseId, ItemData item, Transform content) {
-			_slots.Add(Instantiate(_slot.gameObject, content)
-				.GetComponent<ItemSlot>()
-				.Init(databaseId, _type, item));
+			slots.Add(Instantiate(row.gameObject, content)
+				.GetComponent<ItemRow>()
+				.Init(databaseId, type, item));
 		}
 
 		protected void Order() {
 			int i = 0;
-			foreach (ItemSlot slot in from s in _slots orderby s.Item().Type.Category select s) {
+			foreach (ItemRow itemSlot in from s in slots orderby s.Item().Type.Category select s) {
 				//Debug.LogFormat("{0} {1}", slot.Item().Name, i);
-				slot.transform.SetSiblingIndex(i);
+				itemSlot.transform.SetSiblingIndex(i);
 				i++;
 			}
 		}
 
 		protected void Clear() {
-			UIController.ClearChild(_all.transform, _armor.transform, _weapon.transform, _helm.transform);
+			UIController.ClearChild(all.transform, armor.transform, weapon.transform, helm.transform);
 		}
 
 	}

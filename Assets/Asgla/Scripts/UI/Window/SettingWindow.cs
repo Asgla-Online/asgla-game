@@ -5,39 +5,39 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-namespace Asgla.Window {
+namespace Asgla.UI.Window {
 
 	[DisallowMultipleComponent]
 	[RequireComponent(typeof(CanvasGroup))]
 	public class SettingWindow : UIWindow {
 
-		[SerializeField] private UISelectField _resolutionSelect;
-		[SerializeField] private UISelectField _graphicSelect;
-		[SerializeField] private Slider _volumeSlider;
-		[SerializeField] private Toggle _fullScreen;
+		[SerializeField] private UISelectField resolutionSelect;
+		[SerializeField] private UISelectField graphicSelect;
+		[SerializeField] private Slider volumeSlider;
+		[SerializeField] private Toggle fullScreen;
 
 		protected override void Start() {
 			base.Start();
 
 			//Resolution select
-			_resolutionSelect.ClearOptions();
+			resolutionSelect.ClearOptions();
 
 			foreach (Resolution res in Screen.resolutions)
-				_resolutionSelect.AddOption(res.width + "x" + res.height + " @ " + res.refreshRate + "Hz");
+				resolutionSelect.AddOption(res.width + "x" + res.height + " @ " + res.refreshRate + "Hz");
 
 			Resolution currentRes = Screen.currentResolution;
-			_resolutionSelect.SelectOption(currentRes.width + "x" + currentRes.height + " @ " + currentRes.refreshRate +
-			                               "Hz");
+			resolutionSelect.SelectOption(currentRes.width + "x" + currentRes.height + " @ " + currentRes.refreshRate +
+			                              "Hz");
 
-			_fullScreen.isOn = Screen.fullScreen;
+			fullScreen.isOn = Screen.fullScreen;
 
 			//Graphic select
-			_graphicSelect.ClearOptions();
+			graphicSelect.ClearOptions();
 
 			foreach (URPA asset in Main.Singleton.URPA)
-				_graphicSelect.AddOption(asset.name);
+				graphicSelect.AddOption(asset.name);
 
-			_volumeSlider.value = PlayerPrefs.GetFloat("volumeMain");
+			volumeSlider.value = PlayerPrefs.GetFloat("volumeMain");
 
 			//Resolution currentGra = Screen.currentResolution;
 			//_graphicSelect.SelectOption(currentGra.width + "x" + currentGra.height + " @ " + currentGra.refreshRate + "Hz");
@@ -52,8 +52,8 @@ namespace Asgla.Window {
 			PlayerPrefs.Save();
 		}
 
-		public void FullScreen(bool IsFull) {
-			Screen.fullScreen = IsFull;
+		public void FullScreen(bool isFull) {
+			Screen.fullScreen = isFull;
 		}
 
 		public void Resolution(int index, string option) {
