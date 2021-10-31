@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using Asgla.Data.Avatar;
-using Asgla.Data.Entity;
-using Asgla.Data.Monster;
+using Asgla.Data.Avatar.Helper;
+using Asgla.Data.Avatar.Monster;
 using AssetBundles;
 using UnityEngine;
 using static AssetBundles.AssetBundleManager;

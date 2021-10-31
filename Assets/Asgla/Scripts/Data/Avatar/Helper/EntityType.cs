@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Asgla.Data.Entity {
+namespace Asgla.Data.Avatar.Helper {
 
 	[Serializable]
 	public enum EntityType {

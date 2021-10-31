@@ -1,6 +1,6 @@
 ﻿using Asgla.Area;
 using Asgla.Data.Avatar;
-using Asgla.Data.Entity;
+using Asgla.Data.Avatar.Helper;
 using Asgla.Data.Skill;
 using UnityEngine;
 

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Asgla.UI.UnitFrame {
+namespace Asgla.UI.Unit_Frame {
 	public class UnitFrameBase : MonoBehaviour {
 
 		[SerializeField] private UnitFrameBar _health;

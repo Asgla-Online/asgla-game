@@ -1,4 +1,7 @@
-﻿namespace UnityEngine.UI {
+﻿using UnityEngine;
+using UnityEngine.UI;
+
+namespace Asgla.Utility {
 	[AddComponentMenu("Layout/Auto Expand Grid Layout Group", 152)]
 	public class AutoExpandGridLayoutGroup : LayoutGroup {
 

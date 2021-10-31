@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Asgla.UI.UnitFrame {
+namespace Asgla.UI.Unit_Frame {
 	public class UnitFrameBig : UnitFrameBase {
 
 		[SerializeField] private Button _close;

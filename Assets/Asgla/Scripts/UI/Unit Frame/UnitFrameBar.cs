@@ -4,7 +4,7 @@ using AsglaUI.UI.Tweens;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Asgla.UI.UnitFrame {
+namespace Asgla.UI.Unit_Frame {
 	public class UnitFrameBar : MonoBehaviour {
 
 		[SerializeField] private UIProgressBar _progressBar;

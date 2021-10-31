@@ -1,9 +1,8 @@
 ﻿using System;
 using Asgla.Area;
-using Asgla.Data.Avatar;
 using Asgla.Data.Avatar.Helper;
 
-namespace Asgla.Data.Monster {
+namespace Asgla.Data.Avatar.Monster {
 
 	[Serializable]
 	public class MonsterData {

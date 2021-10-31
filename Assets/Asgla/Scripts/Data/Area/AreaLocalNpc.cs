@@ -1,5 +1,5 @@
 ﻿using System;
-using Asgla.Data.NPC;
+using Asgla.Data.Avatar.NPC;
 
 namespace Asgla.Data.Area {
 	[Serializable]

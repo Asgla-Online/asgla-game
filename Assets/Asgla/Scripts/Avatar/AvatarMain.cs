@@ -1,8 +1,9 @@
 ﻿using Asgla.Area;
 using Asgla.Data.Avatar;
-using Asgla.Data.Entity;
+using Asgla.Data.Avatar.Helper;
 using Asgla.Data.Skill;
-using Asgla.UI.UnitFrame;
+using Asgla.UI;
+using Asgla.UI.Unit_Frame;
 using Asgla.Utility;
 using UnityEngine;
 

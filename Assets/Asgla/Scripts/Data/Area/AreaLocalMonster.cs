@@ -1,6 +1,6 @@
 ﻿using System;
 using Asgla.Data.Avatar;
-using Asgla.Data.Monster;
+using Asgla.Data.Avatar.Monster;
 
 namespace Asgla.Data.Area {
 	[Serializable]

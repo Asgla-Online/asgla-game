@@ -4,13 +4,13 @@ using System.Linq;
 using Asgla.Avatar;
 using Asgla.Avatar.Monster;
 using Asgla.Avatar.Player;
-using Asgla.Data.Entity;
+using Asgla.Data.Avatar.Helper;
 using Asgla.Data.Skill;
 using Asgla.Skill;
 using Asgla.Utility;
 using UnityEngine;
 
-namespace Asgla.UI.ActionBar {
+namespace Asgla.UI.Action_Bar {
 	public class ActionBar : MonoBehaviour {
 
 		//[SerializeField] private ExperienceBar _experience;

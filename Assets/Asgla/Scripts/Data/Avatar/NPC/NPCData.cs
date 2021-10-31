@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Asgla.Data.NPC {
+namespace Asgla.Data.Avatar.NPC {
 
 	[Serializable]
 	public class NPCData {
