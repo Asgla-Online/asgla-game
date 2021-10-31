@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using Asgla.Data.Skill;
 using AsglaUI.UI;
-using UnityEditor.Experimental.SceneManagement;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using Object = UnityEngine.Object;
+#if UNITY_EDITOR
+using UnityEditor.Experimental.SceneManagement;
+#endif
 
 namespace Asgla.Skill {
 	public class SkillMain : UISlotBase, IUISkillSlot, IUISlotHasCooldown {
