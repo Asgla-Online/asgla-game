@@ -90,7 +90,7 @@ namespace Asgla.UI.Loading {
 
 			obj.transform.localPosition = Vector3.zero;
 
-			Main.Singleton.MapManager.Create(_areaData, obj);
+			Main.Singleton.Game.AreaController.Create(_areaData, obj);
 
 			abm.UnloadBundle(assetBundle.AssetBundle);
 

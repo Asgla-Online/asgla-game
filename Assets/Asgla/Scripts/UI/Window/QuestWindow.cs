@@ -77,7 +77,7 @@ namespace Asgla.UI.Window {
 
 			if (quest.Requirement.Count != 0)
 				foreach (Requirement requirement in quest.Requirement) {
-					PlayerInventory inv = Main.Singleton.AvatarManager.Player.Data()
+					PlayerInventory inv = Main.Singleton.Game.AvatarController.Player.Data()
 						.InventoryByItemId(requirement.Item.databaseId);
 
 					int quantity = inv == null ? 0 : inv.quantity;
@@ -95,8 +95,8 @@ namespace Asgla.UI.Window {
 
 			button.onClick.RemoveAllListeners();
 
-			if (Main.Singleton.Game.Quest.InProgress(quest)) {
-				if (Main.Singleton.Game.Quest.Check(quest)) {
+			if (Main.Singleton.Game.QuestController.InProgress(quest)) {
+				if (Main.Singleton.Game.QuestController.Check(quest)) {
 					button.onClick.AddListener(delegate { Turn(quest); });
 					buttonText.text = "Turn";
 				} else {
@@ -112,10 +112,10 @@ namespace Asgla.UI.Window {
 		}
 
 		private void Accept(QuestData q) {
-			Main.Singleton.Game.Quest.AddProgress(q);
+			Main.Singleton.Game.QuestController.AddProgress(q);
 			Main.Singleton.Request.Send("QuestAccept", q.DatabaseID);
 
-			if (Main.Singleton.Game.Quest.Check(q)) {
+			if (Main.Singleton.Game.QuestController.Check(q)) {
 				button.onClick.RemoveAllListeners();
 				button.onClick.AddListener(delegate { Turn(q); });
 				buttonText.text = "Turn";
@@ -131,7 +131,7 @@ namespace Asgla.UI.Window {
 			button.onClick.RemoveAllListeners();
 			button.onClick.AddListener(delegate { Accept(q); });
 			buttonText.text = "Accept";
-			Main.Singleton.Game.Quest.Turn(q);
+			Main.Singleton.Game.QuestController.Turn(q);
 		}
 
 		private void AddRequirementSlot(int databaseId, string amount, string objective) {

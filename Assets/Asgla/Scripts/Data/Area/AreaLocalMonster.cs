@@ -11,7 +11,7 @@ namespace Asgla.Data.Area {
 		public MonsterData monster;
 		public AvatarStats stats;
 
-		public Asgla.Area.AreaLocal AreaLocal => Main.Singleton.MapManager.Map.AreaByName(areaName);
+		public Asgla.Area.AreaLocal AreaLocal => Main.Singleton.Game.AreaController.Map.AreaByName(areaName);
 
 	}
 }

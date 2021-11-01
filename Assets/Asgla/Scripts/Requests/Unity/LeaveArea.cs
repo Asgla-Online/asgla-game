@@ -11,14 +11,14 @@ namespace Asgla.Requests.Unity {
 		public void onRequest(Main main, string json) {
 			LeaveArea leaveMap = JsonMapper.ToObject<LeaveArea>(json);
 
-			Player player = main.MapManager.PlayerByID(leaveMap.playerId);
+			Player player = main.Game.AreaController.PlayerByID(leaveMap.playerId);
 
 			if (player is null)
 				return;
 
 			Object.Destroy(player.gameObject);
 
-			main.MapManager.RemovePlayerFromArea(leaveMap.playerId);
+			main.Game.AreaController.RemovePlayerFromArea(leaveMap.playerId);
 		}
 
 	}

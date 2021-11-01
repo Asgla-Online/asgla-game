@@ -13,7 +13,7 @@ namespace Asgla.Requests.Unity {
 
 
 			foreach (PlayerInventory playerInventory in playerInventoryRemove.inventory)
-				main.AvatarManager.Player.InventoryRemove(playerInventory.databaseId, playerInventory.quantity);
+				main.Game.AvatarController.Player.InventoryRemove(playerInventory.databaseId, playerInventory.quantity);
 		}
 
 	}

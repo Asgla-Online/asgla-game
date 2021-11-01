@@ -31,9 +31,9 @@ namespace Asgla.Area.Utility {
 					if (string.IsNullOrEmpty(area) || string.IsNullOrEmpty(position))
 						return;
 
-					AreaLocal areaLocal = Main.Singleton.MapManager.Map.AreaByName(area);
+					AreaLocal areaLocal = Main.Singleton.Game.AreaController.Map.AreaByName(area);
 
-					Main.Singleton.MapManager.UpdatePlayerArea(player, areaLocal, position);
+					Main.Singleton.Game.AreaController.UpdatePlayerArea(player, areaLocal, position);
 
 					if (player.Data().isControlling)
 						Main.Singleton.Request.Send("MoveToArea", area, position);

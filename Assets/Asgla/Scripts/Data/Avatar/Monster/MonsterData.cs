@@ -28,7 +28,7 @@ namespace Asgla.Data.Avatar.Monster {
 		public MoveToLocal Area = null;
 
 		public AreaLocal MapArea() {
-			return Main.Singleton.MapManager.Map.AreaByName(Area.area);
+			return Main.Singleton.Game.AreaController.Map.AreaByName(Area.area);
 		}
 
 		public bool IsNeutral() {

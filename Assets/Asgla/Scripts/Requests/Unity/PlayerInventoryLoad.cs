@@ -15,7 +15,7 @@ namespace Asgla.Requests.Unity {
 		public void onRequest(Main main, string json) {
 			PlayerInventoryLoad playerInventoryLoad = JsonMapper.ToObject<PlayerInventoryLoad>(json);
 
-			Player player = main.MapManager.PlayerByID(playerInventoryLoad.playerId);
+			Player player = main.Game.AreaController.PlayerByID(playerInventoryLoad.playerId);
 
 			if (player is null)
 				return;

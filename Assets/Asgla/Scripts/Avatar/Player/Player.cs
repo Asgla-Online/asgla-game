@@ -90,7 +90,7 @@ namespace Asgla.Avatar.Player {
 			Data().inventory.Add(i);
 			Main.Singleton.Game.WindowInventory.AddItem(i.databaseId, i.item);
 
-			Main.Singleton.Game.Quest.CheckAll();
+			Main.Singleton.Game.QuestController.CheckAll();
 		}
 
 		public void InventoryRemove(int databaseId, int quantity) {
@@ -107,7 +107,7 @@ namespace Asgla.Avatar.Player {
 				Main.Singleton.Game.WindowInventory.RemoveItem(databaseId);
 			}
 
-			Main.Singleton.Game.Quest.CheckAll();
+			Main.Singleton.Game.QuestController.CheckAll();
 		}
 
 		public void Equip(EquipPart equip) {

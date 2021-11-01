@@ -20,7 +20,7 @@ namespace Asgla.Requests.Unity {
 				? UIController.CreateLoadingMap()
 				: (LoadingMapOverlay) main.UIManager.LoadingOverlay;
 
-			main.AvatarManager.Monsters = new List<AreaAvatar>();
+			main.Game.AvatarController.Monsters = new List<AreaAvatar>();
 
 			loadingMap.LoadMap(joinMap.area);
 		}

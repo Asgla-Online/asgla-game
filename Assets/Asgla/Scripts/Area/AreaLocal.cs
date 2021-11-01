@@ -156,12 +156,12 @@ namespace Asgla.Area {
 		}
 
 		private void OnMouseDown() {
-			if (GameUtil.IsPointerOverUI() || !Main.Singleton.Walkable)
+			if (GameUtil.IsPointerOverUI() || !Main.Singleton.walkable)
 				return;
 
-			Vector2 move = Main.Singleton.Game.Camera.ScreenToWorldPoint(Input.mousePosition);
+			Vector2 move = Main.Singleton.Game.CameraGame.ScreenToWorldPoint(Input.mousePosition);
 
-			Main.Singleton.AvatarManager.Player.MoveByClick(move);
+			Main.Singleton.Game.AvatarController.Player.MoveByClick(move);
 		}
 
 		#endregion

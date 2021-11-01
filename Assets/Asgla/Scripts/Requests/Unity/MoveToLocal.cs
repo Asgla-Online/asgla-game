@@ -8,12 +8,13 @@ namespace Asgla.Requests.Unity {
 			Asgla.Data.Avatar.Helper.MoveToLocal moveToLocal =
 				JsonMapper.ToObject<Asgla.Data.Avatar.Helper.MoveToLocal>(json);
 
-			Player player = main.MapManager.PlayerByID(moveToLocal.playerId);
+			Player player = main.Game.AreaController.PlayerByID(moveToLocal.playerId);
 
 			if (player is null)
 				return;
 
-			main.MapManager.UpdatePlayerArea(player, main.MapManager.Map.AreaByName(moveToLocal.area));
+			main.Game.AreaController.UpdatePlayerArea(player,
+				main.Game.AreaController.Map.AreaByName(moveToLocal.area));
 		}
 
 	}

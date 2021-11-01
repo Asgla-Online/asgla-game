@@ -14,11 +14,10 @@ using static Asgla.Data.Request.RequestAvatar;
 using AreaLocal = Asgla.Area.AreaLocal;
 using Random = System.Random;
 
-namespace Asgla.Controller {
+namespace Asgla.Controller.Game {
 
 	public class AvatarController : Controller {
 
-		public Main Main = null;
 		public List<AreaAvatar> Monsters = null;
 
 		public Player Player;
@@ -76,9 +75,9 @@ namespace Asgla.Controller {
 		public void Create(PlayerData playerData, Area.Area map) {
 			AreaLocal areaLocal = map.AreaByName(playerData.area.area);
 
-			Debug.LogFormat("A {0}", Main.PlayerPrefab.gameObject);
+			Debug.LogFormat("A {0}", Main.playerPrefab.gameObject);
 
-			GameObject clone = Object.Instantiate(Main.PlayerPrefab.gameObject, areaLocal.Players());
+			GameObject clone = Object.Instantiate(Main.playerPrefab.gameObject, areaLocal.Players());
 
 			Debug.LogFormat("B {0}", clone);
 
@@ -148,11 +147,11 @@ namespace Asgla.Controller {
 
 				Main.Singleton.Game.CinemachineVirtual.Follow = player.Avatar().transform;
 
-				Object.Destroy(Main.Singleton.Game.Camera.GetComponent<AudioListener>());
+				Object.Destroy(Main.Singleton.Game.CameraGame.GetComponent<AudioListener>());
 				player.Avatar().AddComponent<AudioListener>();
 			}
 
-			Main.MapManager.UpdatePlayerArea(player, areaLocal, player.Data().area.point);
+			Main.Game.AreaController.UpdatePlayerArea(player, areaLocal, player.Data().area.point);
 
 			if (playerData.x == 0 || playerData.y == 0)
 				return;
@@ -168,7 +167,7 @@ namespace Asgla.Controller {
 		public void Create(AreaLocalMonster data) {
 			//Debug.LogFormat("<color=purple>[PlayerManager]</color> CreatePlayer {0} {1}", data.PlayerID, data.Username);
 
-			GameObject clone = Object.Instantiate(Main.MonsterPrefab.gameObject, data.AreaLocal.Monsters());
+			GameObject clone = Object.Instantiate(Main.monsterPrefab.gameObject, data.AreaLocal.Monsters());
 
 			Monster monster = clone.GetComponent<Monster>();
 
@@ -186,7 +185,7 @@ namespace Asgla.Controller {
 
 			Main.StartCoroutine(monster.AsynchronousLoad());
 
-			Main.MapManager.SetMonsterArea(monster, data.AreaLocal); //TODO: set unique id
+			Main.Game.AreaController.SetMonsterArea(monster, data.AreaLocal); //TODO: set unique id
 		}
 
 		#endregion

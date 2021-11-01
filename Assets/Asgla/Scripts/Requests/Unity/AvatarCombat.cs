@@ -84,7 +84,7 @@ namespace Asgla.Requests.Unity {
 				if (target is null)
 					continue;
 
-				main.AvatarManager.Combat(from, target, result, avatarCombat.Animation);
+				main.Game.AvatarController.Combat(from, target, result, avatarCombat.Animation);
 			}
 		}
 

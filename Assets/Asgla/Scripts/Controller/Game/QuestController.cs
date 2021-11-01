@@ -2,21 +2,14 @@
 using System.Linq;
 using Asgla.Data.Avatar.Player;
 using Asgla.Data.Quest;
-using Asgla.Scenes;
 using Asgla.UI.Quest.Track;
 
-namespace Asgla.Quest {
-	public class QuestMain {
+namespace Asgla.Controller.Game {
+	public class QuestController : Controller {
 
 		private readonly List<QuestData> _completed = new List<QuestData>();
 
 		private readonly List<QuestData> _progress = new List<QuestData>();
-
-		private readonly Game Game;
-
-		public QuestMain(Game game) {
-			Game = game;
-		}
 
 		public bool InProgress(QuestData quest) {
 			return _progress.Where(q => q.DatabaseID == quest.DatabaseID).FirstOrDefault() != null;
@@ -25,16 +18,16 @@ namespace Asgla.Quest {
 		public void AddProgress(QuestData quest) {
 			_progress.Add(quest);
 
-			if (Game.QuestTrack.Get(quest.DatabaseID) == null)
-				Game.QuestTrack.Add(quest);
+			if (Main.Game.QuestTrack.Get(quest.DatabaseID) == null)
+				Main.Game.QuestTrack.Add(quest);
 		}
 
 		/**/
 		public void RemoveProgress(QuestData quest) {
 			_progress.Remove(quest);
 
-			if (Game.QuestTrack.Get(quest.DatabaseID) != null)
-				Game.QuestTrack.Remove(quest.DatabaseID);
+			if (Main.Game.QuestTrack.Get(quest.DatabaseID) != null)
+				Main.Game.QuestTrack.Remove(quest.DatabaseID);
 		}
 
 		public void CompleteProgress(QuestData quest) {
@@ -72,13 +65,13 @@ namespace Asgla.Quest {
 		private bool CheckReq(QuestData quest) {
 			foreach ((Requirement requirement, PlayerInventory inventory) in
 				from Requirement requirement in quest.Requirement
-				let inventory = Main.Singleton.AvatarManager.Player.Data()
+				let inventory = Main.Singleton.Game.AvatarController.Player.Data()
 					.InventoryByItemId(requirement.Item.databaseId)
 				select (requirement, inventory)) {
 				if (inventory == null)
 					return false;
 
-				QuestTrackProgress progress = Game.QuestTrack.Get(quest.DatabaseID);
+				QuestTrackProgress progress = Main.Game.QuestTrack.Get(quest.DatabaseID);
 				if (progress != null) {
 					QuestTrackObjective objective = progress.Get(requirement.DatabaseID);
 					if (objective != null) {

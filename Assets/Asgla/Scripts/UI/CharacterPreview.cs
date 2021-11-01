@@ -47,7 +47,7 @@ namespace Asgla.UI {
 			if (_character != null)
 				Destroy(_character);
 
-			_character = Instantiate(Main.Singleton.AvatarManager.Player.CharacterView().gameObject, transform);
+			_character = Instantiate(Main.Singleton.Game.AvatarController.Player.CharacterView().gameObject, transform);
 
 			Destroy(_character.GetComponent<Animator>());
 

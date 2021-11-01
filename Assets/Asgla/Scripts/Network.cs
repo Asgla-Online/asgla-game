@@ -64,7 +64,7 @@ namespace Asgla {
 			if (!_disconnected) {
 				_disconnected = true;
 
-				Main.AvatarManager.Player = null;
+			Main.Game.AvatarController.Player = null;
 
 				if (SceneManager.GetActiveScene().buildIndex != Main.SceneLogin) {
 					LoadingSceneOverlay loadingScene = UIController.CreateLoadingScene();

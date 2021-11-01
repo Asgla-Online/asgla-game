@@ -8,8 +8,8 @@ using Asgla.Data.Avatar.Player;
 using UnityEngine;
 using AreaLocal = Asgla.Area.AreaLocal;
 
-namespace Asgla.Controller {
-	public class MapController : Controller {
+namespace Asgla.Controller.Game {
+	public class AreaController : Controller {
 
 		public Area.Area Map;
 
@@ -34,34 +34,34 @@ namespace Asgla.Controller {
 
 			bool update = false;
 
-			if (Main.Singleton.MapManager.Map != null) {
-				Main.Singleton.AvatarManager.Player.transform.SetParent(Main.Singleton.Game.transform);
+			if (Main.Game.AreaController.Map != null) {
+				Main.Game.AvatarController.Player.transform.SetParent(Main.Game.transform);
 
-				Object.Destroy(Main.Singleton.MapManager.Map.gameObject);
+				Object.Destroy(Main.Game.AreaController.Map.gameObject);
 
 				update = true;
 			}
 
 			//Above area return null or old area
-			Main.Singleton.MapManager.Map = map;
+			Main.Game.AreaController.Map = map;
 
 			foreach (PlayerData player in map.Data().players)
-				if (update && player.playerID == Main.Singleton.AvatarManager.Player.Id()) {
-					Main.Singleton.MapManager.UpdatePlayerArea(Main.Singleton.AvatarManager.Player,
+				if (update && player.playerID == Main.Game.AvatarController.Player.Id()) {
+					Main.Game.AreaController.UpdatePlayerArea(Main.Game.AvatarController.Player,
 						map.AreaByName(player.area.area), player.area.point);
-					Main.Singleton.AvatarManager.Player.UpdateData(player);
+					Main.Game.AvatarController.Player.UpdateData(player);
 				} else {
-					Main.Singleton.AvatarManager.Create(player, map);
+					Main.Game.AvatarController.Create(player, map);
 
 					players.Add(player.playerID.ToString());
 				}
 
 			if (players.Count > 0)
-				Main.Singleton.Request.Send("PlayerData", players.ToArray());
+				Main.Request.Send("PlayerData", players.ToArray());
 
-			/*map.Data().monsters.ForEach(mapMonster => Main.Singleton.AvatarManager.Create(mapMonster));*/
+			/*map.Data().monsters.ForEach(mapMonster => Main.Game.AvatarManager.Create(mapMonster));*/
 
-			Main.Singleton.UIManager.LoadingOverlay = null;
+			Main.UIManager.LoadingOverlay = null;
 		}
 
 		#endregion
@@ -75,7 +75,7 @@ namespace Asgla.Controller {
 
 			RemovePlayerFromArea(player.Data().playerID);
 
-			Main.AvatarManager.Players.Add(new AreaAvatar {
+			Main.Game.AvatarController.Players.Add(new AreaAvatar {
 				entity = player,
 				areaLocal = areaLocal
 			});
@@ -113,7 +113,7 @@ namespace Asgla.Controller {
 			Debug.LogFormat("<color=teal>[MapManager]</color> SetMonsterArea {0}({1}) {2}", monster.Data().Name,
 				monster.Id(), areaLocal.Name());
 
-			Main.AvatarManager.Monsters.Add(new AreaAvatar {
+			Main.Game.AvatarController.Monsters.Add(new AreaAvatar {
 				entity = monster,
 				areaLocal = areaLocal
 			});
@@ -155,40 +155,30 @@ namespace Asgla.Controller {
 		}
 
 		public Player PlayerByID(int playerID) {
-			return (Player) Main.AvatarManager.Players.Where(map => map.entity.Id() == playerID).FirstOrDefault()
-				.entity;
+			return (Player) Main.Game.AvatarController.Players.FirstOrDefault(map => map.entity.Id() == playerID)
+				?.entity;
 		}
 
 		public Monster MonsterByID(int monsterID) {
-			return (Monster) Main.AvatarManager.Monsters.Where(map => map.entity.Id() == monsterID).FirstOrDefault()
-				.entity;
+			return (Monster) Main.Game.AvatarController.Monsters.FirstOrDefault(map => map.entity.Id() == monsterID)
+				?.entity;
 		}
 
 		public HashSet<AvatarMain> FindAvatars(string name) {
-			HashSet<AvatarMain> avatars = new HashSet<AvatarMain>();
+			List<AreaAvatar> areaAvatars = new List<AreaAvatar>()
+				.Concat(Main.Game.AvatarController.Players)
+				.Concat(Main.Game.AvatarController.Monsters)
+				//TODO: NPC
+				//TODO: PET
+				.ToList();
 
-			avatars
-				.UnionWith(
-					Main.AvatarManager.Players
-						.Select(avatar => avatar.entity)
-						.Where(mapEntity => name == mapEntity.Area().Name()
-						)
-				);
-
-			avatars
-				.UnionWith(
-					Main.AvatarManager.Monsters
-						.Select(avatar => avatar.entity)
-						.Where(mapEntity => name == mapEntity
-							.Area().Name()
-						)
-				);
-
-			return avatars;
+			return new HashSet<AvatarMain>(areaAvatars
+				.Select(avatar => avatar.entity)
+				.Where(mapEntity => name == mapEntity.Area().Name()).ToList());
 		}
 
 		public void RemovePlayerFromArea(int playerID) {
-			Main.AvatarManager.Players.RemoveAll(pm => pm.entity.Id() == playerID);
+			Main.Game.AvatarController.Players.RemoveAll(pm => pm.entity.Id() == playerID);
 		}
 
 	}

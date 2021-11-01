@@ -10,7 +10,7 @@ namespace Asgla.Requests.Unity {
 		public void onRequest(Main main, string json) {
 			PlayerInventoryUpdate playerInventoryUpdate = JsonMapper.ToObject<PlayerInventoryUpdate>(json);
 
-			main.AvatarManager.Player.Inventory(playerInventoryUpdate.inventory);
+			main.Game.AvatarController.Player.Inventory(playerInventoryUpdate.inventory);
 		}
 
 	}

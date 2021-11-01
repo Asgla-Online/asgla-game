@@ -38,19 +38,15 @@ namespace Asgla.Scenes {
 
 		public UnitFrameBig UnitFrameTarget => _unitFrameTarget;
 
-		public ActionBar ActionBar => _actionBar;
+		#region Controller Game
 
-		public UICastBar CastBar => _castBar;
+		public AvatarController AvatarController { get; } = new AvatarController();
 
-		public Chat Chat => _chat;
+		public AreaController AreaController { get; } = new AreaController();
 
-		public Notification NotificationTop => _notificationTop;
+		public QuestController QuestController { get; } = new QuestController();
 
-		public Notification NotificationMiddle => _notificationMiddle;
-
-		public void Logout() {
-			Main.Singleton.Network.Connection.Close();
-		}
+		#endregion
 
 		#region UI
 
@@ -84,17 +80,19 @@ namespace Asgla.Scenes {
 		#region Unity
 
 		private void Awake() {
-			Transform cinemachine = _camera.transform.GetChild(0);
+			Main.Singleton.SetGame(this);
+
+			AvatarController.Main = Main;
+			AreaController.Main = Main;
+			QuestController.Main = Main;
 
 			//Debug.Log(cinemachine.name);
 
 			CinemachineVirtual = cinemachine.GetComponent<CinemachineVirtualCamera>();
 			CinemachineConfiner = cinemachine.GetComponent<CinemachineConfiner>();
 
-			Main.Singleton.SetGame(this);
-
-			Main.Singleton.AvatarManager.Players = new List<AreaAvatar>();
-			Main.Singleton.AvatarManager.Monsters = new List<AreaAvatar>();
+			AvatarController.Players = new List<AreaAvatar>();
+			AvatarController.Monsters = new List<AreaAvatar>();
 
 			Quest = new QuestMain(this);
 

@@ -39,7 +39,7 @@ namespace Asgla.UI.Action_Bar {
 		}
 
 		public void OnSkillClick(SkillMain slot) {
-			Player player = Main.Singleton.AvatarManager.Player;
+			Player player = Main.Singleton.Game.AvatarController.Player;
 
 			SkillData skillInfo = slot.GetSkillData();
 
@@ -89,7 +89,8 @@ namespace Asgla.UI.Action_Bar {
 				Debug.LogFormat("Player target is null/empty selected new from targets list {0} - {1}", player.Id(),
 					player.Data().username);
 				player.Target(GameUtil.FindTarget(1, player.Area().Scale(), skillInfo.Range, player,
-					Main.Singleton.MapManager.FindAvatars(player.Area().Name()), new HashSet<AvatarMain>()).First());
+						Main.Singleton.Game.AreaController.FindAvatars(player.Area().Name()), new HashSet<AvatarMain>())
+					.First());
 			}
 
 			if (slot.cooldownComponent.IsOnCooldown)

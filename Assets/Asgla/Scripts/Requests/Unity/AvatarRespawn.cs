@@ -21,7 +21,7 @@ namespace Asgla.Requests.Unity {
 					if (player.Data().isControlling)
 						main.Game.WindowRespawn.Hide();
 
-					main.MapManager.UpdatePlayerArea(player, main.MapManager.Map.AreaByName("Enter"));
+					main.Game.AreaController.UpdatePlayerArea(player, main.Game.AreaController.Map.AreaByName("Enter"));
 
 					player.ResetCharacter();
 					break;

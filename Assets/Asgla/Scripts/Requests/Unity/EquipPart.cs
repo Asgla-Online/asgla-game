@@ -8,7 +8,7 @@ namespace Asgla.Requests.Unity {
 			Asgla.Data.Avatar.Helper.EquipPart
 				equipPart = JsonMapper.ToObject<Asgla.Data.Avatar.Helper.EquipPart>(json);
 
-			Player player = main.MapManager.PlayerByID(equipPart.playerId);
+			Player player = main.Game.AreaController.PlayerByID(equipPart.playerId);
 
 			if (player is null)
 				return;

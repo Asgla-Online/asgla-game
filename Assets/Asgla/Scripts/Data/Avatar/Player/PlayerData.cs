@@ -46,7 +46,7 @@ namespace Asgla.Data.Avatar.Player {
 		public List<EquipPart> Part = null;
 
 		public AreaLocal MapArea() {
-			return Main.Singleton.MapManager.Map.AreaByName(area.area);
+			return Main.Singleton.Game.AreaController.Map.AreaByName(area.area);
 		}
 
 		public bool IsNeutral() {

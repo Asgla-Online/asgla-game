@@ -23,8 +23,8 @@ namespace Asgla.Data.Request {
 			public EntityType EntityType;
 
 			public AvatarMain Avatar => EntityType == EntityType.PLAYER
-				? Main.Singleton.MapManager.PlayerByID(EntityID)
-				: (AvatarMain) Main.Singleton.MapManager.MonsterByID(EntityID);
+				? Main.Singleton.Game.AreaController.PlayerByID(EntityID)
+				: (AvatarMain) Main.Singleton.Game.AreaController.MonsterByID(EntityID);
 
 		}
 

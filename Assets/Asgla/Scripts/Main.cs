@@ -40,17 +40,14 @@ namespace Asgla {
 
 		public Network Network { get; } = new Network();
 
-		public RequestController Request { get; } = new RequestController();
+		public Player playerPrefab;
+		public Monster monsterPrefab;
 
-		public AvatarController AvatarManager { get; } = new AvatarController();
+		[SerializeField] private GameObject loadingOverlay;
 
-		public MapController MapManager { get; } = new MapController();
+		[SerializeField] public List<URPA> universalRenderPipelineAsset;
 
-		public UIController UIManager { get; } = new UIController();
-
-		public GameObject Loading => _loadingOverlay;
-
-		public List<URPA> URPA => _universalRenderPipelineAsset;
+		public GameObject Loading => loadingOverlay;
 
 		public EffectMain GameAsset { get; private set; }
 
@@ -76,9 +73,6 @@ namespace Asgla {
 
 			Network.Main = this;
 			Request.Main = this;
-
-			AvatarManager.Main = this;
-			MapManager.Main = this;
 			UIManager.Main = this;
 
 			GraphicsSettings.renderPipelineAsset = _universalRenderPipelineAsset.First().asset;
@@ -108,6 +102,7 @@ namespace Asgla {
 
 		public void SetGame(Game game) {
 			Game = game;
+			Game.Main = this;
 		}
 
 		public void SetGameAsset(GameObject go) {
@@ -120,6 +115,20 @@ namespace Asgla {
 			UIManager.Modal = modal;
 			Network.ConnectToServer(token);
 		}
+
+		#region Controller
+
+		public static Main Singleton { get; protected set; }
+
+		public Game Game { get; private set; }
+
+		public Network Network { get; } = new Network();
+
+		public RequestController Request { get; } = new RequestController();
+
+		public UIController UIManager { get; } = new UIController();
+
+		#endregion
 
 		#region Game Information
 
