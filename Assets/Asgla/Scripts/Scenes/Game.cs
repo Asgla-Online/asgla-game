@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Asgla.Controller;
+using Asgla.Controller.Game;
 using Asgla.Data.Area;
-using Asgla.Quest;
 using Asgla.Skill;
 using Asgla.UI;
 using Asgla.UI.Action_Bar;
@@ -16,27 +17,41 @@ using UnityEngine;
 namespace Asgla.Scenes {
 	public class Game : MonoBehaviour {
 
-		[SerializeField] private QuestTracker _questTrack;
+		[SerializeField] private QuestTracker questTrack;
+
+		[NonSerialized] public Main Main;
+
+		public QuestTracker QuestTrack => questTrack;
+
+		public UnitFrameBig UnitFramePlayer => unitFramePlayer;
+
+		public UnitFrameBig UnitFrameTarget => unitFrameTarget;
+
+		public ActionBar ActionBar => actionBar;
+
+		public UICastBar CastBar => castBar;
+
+		public Chat Chat => chat;
+
+		public Notification NotificationTop => notificationTop;
+
+		public Notification NotificationMiddle => notificationMiddle;
+
+		public void Logout() {
+			Main.Singleton.Network.Connection.Close();
+		}
 
 		#region Camera
 
-		[SerializeField] private Camera _camera;
+		[SerializeField] private Camera cameraGame;
 
-		#endregion
-
-		public Camera Camera => _camera;
+		public Camera CameraGame => cameraGame;
 
 		[field: HideInInspector] public CinemachineVirtualCamera CinemachineVirtual { get; private set; }
 
 		[field: HideInInspector] public CinemachineConfiner CinemachineConfiner { get; private set; }
 
-		public QuestMain Quest { get; private set; }
-
-		public QuestTracker QuestTrack => _questTrack;
-
-		public UnitFrameBig UnitFramePlayer => _unitFramePlayer;
-
-		public UnitFrameBig UnitFrameTarget => _unitFrameTarget;
+		#endregion
 
 		#region Controller Game
 
@@ -51,29 +66,29 @@ namespace Asgla.Scenes {
 		#region UI
 
 		[Header("Unit Frame")] [SerializeField]
-		private UnitFrameBig _unitFramePlayer;
+		private UnitFrameBig unitFramePlayer;
 
-		[SerializeField] private UnitFrameBig _unitFrameTarget;
+		[SerializeField] private UnitFrameBig unitFrameTarget;
 
-		[Header("Window")] [SerializeField] private InventoryWindow _windowInventory;
+		[Header("Window")] [SerializeField] private InventoryWindow windowInventory;
 
-		[SerializeField] private ItemPreviewWindow _windowItemPreview;
-		[SerializeField] private NpcWindow _windowNPC;
-		[SerializeField] private QuestWindow _windowQuest;
-		[SerializeField] private RespawnWindow _windowRespawn;
-		[SerializeField] private SettingWindow _windowSetting;
-		[SerializeField] private ShopWindow _windowShop;
+		[SerializeField] private ItemPreviewWindow windowItemPreview;
+		[SerializeField] private NpcWindow windowNpc;
+		[SerializeField] private QuestWindow windowQuest;
+		[SerializeField] private RespawnWindow windowRespawn;
+		[SerializeField] private SettingWindow windowSetting;
+		[SerializeField] private ShopWindow windowShop;
 
-		[Header("Bar")] [SerializeField] private ActionBar _actionBar;
+		[Header("Bar")] [SerializeField] private ActionBar actionBar;
 
-		[SerializeField] private UICastBar _castBar;
+		[SerializeField] private UICastBar castBar;
 
-		[SerializeField] private Chat _chat;
+		[SerializeField] private Chat chat;
 
 		[Header("Notification")] [SerializeField]
-		private Notification _notificationTop;
+		private Notification notificationTop;
 
-		[SerializeField] private Notification _notificationMiddle;
+		[SerializeField] private Notification notificationMiddle;
 
 		#endregion
 
@@ -86,7 +101,9 @@ namespace Asgla.Scenes {
 			AreaController.Main = Main;
 			QuestController.Main = Main;
 
-			//Debug.Log(cinemachine.name);
+			Transform cinemachine = cameraGame.transform.GetChild(0);
+
+			//Debug.Log(cineMachine.name);
 
 			CinemachineVirtual = cinemachine.GetComponent<CinemachineVirtualCamera>();
 			CinemachineConfiner = cinemachine.GetComponent<CinemachineConfiner>();
@@ -94,20 +111,18 @@ namespace Asgla.Scenes {
 			AvatarController.Players = new List<AreaAvatar>();
 			AvatarController.Monsters = new List<AreaAvatar>();
 
-			Quest = new QuestMain(this);
-
-			_unitFrameTarget.gameObject.SetActive(false); //testing
+			unitFrameTarget.gameObject.SetActive(false); //testing
 		}
 
 		private void Start() {
 			LoadingAssetOverlay loadingAsset = UIController.CreateLoadingAsset();
 
 			if (loadingAsset == null)
-				Main.Singleton.UIManager.LoadingOverlay.SetLoadingText(
+				Main.UIManager.LoadingOverlay.SetLoadingText(
 					"Error(Null Asset) loading asset, please contact Asgla Team.");
 
 			loadingAsset.LoadAsset();
-			//Main.Singleton.Request.Send("JoinFirst");
+			//Main.Request.Send("JoinFirst");
 		}
 
 		private void Update() {
@@ -138,19 +153,19 @@ namespace Asgla.Scenes {
 
 		#region Window
 
-		public InventoryWindow WindowInventory => _windowInventory;
+		public InventoryWindow WindowInventory => windowInventory;
 
-		public ItemPreviewWindow WindowItemPreview => _windowItemPreview;
+		public ItemPreviewWindow WindowItemPreview => windowItemPreview;
 
-		public NpcWindow WindowNpc => _windowNPC;
+		public NpcWindow WindowNpc => windowNpc;
 
-		public RespawnWindow WindowRespawn => _windowRespawn;
+		public RespawnWindow WindowRespawn => windowRespawn;
 
-		public QuestWindow WindowQuest => _windowQuest;
+		public QuestWindow WindowQuest => windowQuest;
 
-		public SettingWindow WindowSetting => _windowSetting;
+		public SettingWindow WindowSetting => windowSetting;
 
-		public ShopWindow WindowShop => _windowShop;
+		public ShopWindow WindowShop => windowShop;
 
 		#endregion
 

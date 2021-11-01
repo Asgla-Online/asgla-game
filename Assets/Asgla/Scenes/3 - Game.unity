@@ -383,6 +383,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91fdca997e684c94c816f6424e99ece1, type: 3}
+--- !u!114 &190932266 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1810219771290662795, guid: 91fdca997e684c94c816f6424e99ece1, type: 3}
+  m_PrefabInstance: {fileID: 190932265}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2104239634105db47bc64fbb751e2f50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &226561683
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2867,6 +2878,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4553618990774898969, guid: f39c1f86ecfbb6944a2583472eaa6d3c, type: 3}
   m_PrefabInstance: {fileID: 1194131004}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1194131006 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4644236499032788266, guid: f39c1f86ecfbb6944a2583472eaa6d3c, type: 3}
+  m_PrefabInstance: {fileID: 1194131004}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a3ca9ec38fc4d04fb05cc060d2aa7ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1194825565
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6364,22 +6386,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe17ab8219ede5d44ae3fc940f8fdd17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _questTrack: {fileID: 448044556}
-  _camera: {fileID: 815036358}
-  _unitFramePlayer: {fileID: 7745525757916863690}
-  _unitFrameTarget: {fileID: 6900177672959996159}
-  _windowInventory: {fileID: 7204270631278637934}
-  _windowItemPreview: {fileID: 1626381671}
-  _windowNPC: {fileID: 0}
-  _windowQuest: {fileID: 1194825567}
-  _windowRespawn: {fileID: 1870974035}
-  _windowSetting: {fileID: 1062229762}
-  _windowShop: {fileID: 732842870}
-  _actionBar: {fileID: 0}
-  _castBar: {fileID: 256706396}
-  _chat: {fileID: 1414039725}
-  _notificationTop: {fileID: 399128954}
-  _notificationMiddle: {fileID: 1073894964}
+  questTrack: {fileID: 448044556}
+  cameraGame: {fileID: 815036358}
+  unitFramePlayer: {fileID: 7745525757916863690}
+  unitFrameTarget: {fileID: 6900177672959996159}
+  windowInventory: {fileID: 7204270631278637934}
+  windowItemPreview: {fileID: 1626381671}
+  windowNpc: {fileID: 1194131006}
+  windowQuest: {fileID: 1194825567}
+  windowRespawn: {fileID: 1870974035}
+  windowSetting: {fileID: 1062229762}
+  windowShop: {fileID: 732842870}
+  actionBar: {fileID: 190932266}
+  castBar: {fileID: 256706396}
+  chat: {fileID: 1414039725}
+  notificationTop: {fileID: 399128954}
+  notificationMiddle: {fileID: 1073894964}
 --- !u!1001 &4132535870424618131
 PrefabInstance:
   m_ObjectHideFlags: 0

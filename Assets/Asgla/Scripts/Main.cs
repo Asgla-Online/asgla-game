@@ -7,8 +7,6 @@ using Asgla.Data;
 using Asgla.Effect;
 using Asgla.Scenes;
 using AsglaUI.UI;
-using AssetBundles;
-using CharacterCreator2D;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Rendering;
@@ -16,29 +14,7 @@ using UnityEngine.Rendering;
 namespace Asgla {
 	public class Main : MonoBehaviour {
 
-		public Part part1; //test
-		public Part part2; //test
-
-		public bool Walkable = true;
-
-		public Player PlayerPrefab;
-		public Monster MonsterPrefab;
-
-		[SerializeField] private GameObject _loadingOverlay;
-
-		#region Base
-
-		[SerializeField] private List<URPA> _universalRenderPipelineAsset;
-
-		#endregion
-
-		[HideInInspector] public AssetBundleManager Abm;
-
-		public static Main Singleton { get; protected set; }
-
-		public Game Game { get; private set; }
-
-		public Network Network { get; } = new Network();
+		public bool walkable = true;
 
 		public Player playerPrefab;
 		public Monster monsterPrefab;
@@ -51,7 +27,7 @@ namespace Asgla {
 
 		public EffectMain GameAsset { get; private set; }
 
-		public AudioMixerGroup AudioMixer => _audioMixer;
+		public AudioMixerGroup AudioMixer => audioMixer;
 
 		#region Unity
 
@@ -75,12 +51,12 @@ namespace Asgla {
 			Request.Main = this;
 			UIManager.Main = this;
 
-			GraphicsSettings.renderPipelineAsset = _universalRenderPipelineAsset.First().asset;
+			GraphicsSettings.renderPipelineAsset = universalRenderPipelineAsset.First().asset;
 
 			//Volume
 			float volume = PlayerPrefs.HasKey("volumeMain") ? PlayerPrefs.GetFloat("volumeMain") : 0.15f;
 
-			_audioMixer.audioMixer.SetFloat("volume", Mathf.Log10(volume) * 20);
+			audioMixer.audioMixer.SetFloat("volume", Mathf.Log10(volume) * 20);
 			PlayerPrefs.SetFloat("volumeMain", volume);
 
 			PlayerPrefs.Save();
@@ -132,17 +108,17 @@ namespace Asgla {
 
 		#region Game Information
 
-		public readonly string url_base = "https://asgla.online/";
-		public readonly string url_login = "https://asgla.online/api/game/login";
-		public readonly string url_bundle = "https://asgla.online/gamebundles";
+		public const string URLBase = "https://asgla.online/";
+		public const string URLLogin = "https://asgla.online/api/game/login";
+		public const string URLBundle = "https://asgla.online/gamebundles";
 
-		[SerializeField] private AudioMixerGroup _audioMixer;
+		[SerializeField] private AudioMixerGroup audioMixer;
 
-		public readonly int SceneLogin = 0;
+		public const int SceneLogin = 0;
 
-		//public readonly int SceneCharacterSelect = 1;
-		public readonly int SceneGame = 1;
-		//public readonly int SceneRegister = 3;
+		//public const int SceneCharacterSelect = 1;
+		public const int SceneGame = 1;
+		//public const int SceneRegister = 3;
 
 		#endregion
 

@@ -61,22 +61,24 @@ namespace Asgla {
 		}
 
 		private void Disconnect() {
-			if (!_disconnected) {
-				_disconnected = true;
+			if (_disconnected)
+				return;
+
+			_disconnected = true;
 
 			Main.Game.AvatarController.Player = null;
 
-				if (SceneManager.GetActiveScene().buildIndex != Main.SceneLogin) {
-					LoadingSceneOverlay loadingScene = UIController.CreateLoadingScene();
-					loadingScene.LoadScene(Main.SceneLogin);
-				}
+			if (SceneManager.GetActiveScene().buildIndex == Main.SceneLogin)
+				return;
 
-				/*var modal = Main.UIManager.CreateModal(Main.gameObject);
+			LoadingSceneOverlay loadingScene = UIController.CreateLoadingScene();
+			loadingScene.LoadScene(Main.SceneLogin);
+
+			/*var modal = Main.UIManager.CreateModal(Main.gameObject);
 				modal.SetText2("Connection closed unexpectedly by the remote server.");
 				modal.SetActiveConfirmButton(true);
 				modal.SetConfirmButtonText("BACK");
 				modal.Show();*/
-			}
 		}
 
 	}

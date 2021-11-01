@@ -5,9 +5,9 @@ namespace Asgla.Avatar {
 
 		protected AvatarMain _avatar;
 
-		private bool one_click;
+		private bool _oneClick;
 
-		private float time_for_double_click;
+		private float _timeForDoubleClick;
 
 		public void Avatar(AvatarMain avatar) {
 			_avatar = avatar;
@@ -16,20 +16,20 @@ namespace Asgla.Avatar {
 		#region Unity
 
 		private void OnMouseDown() {
-			float delay = 0.25f;
+			const float delay = 0.25f;
 
-			if (!one_click) {
-				time_for_double_click = Time.time;
-				one_click = true;
-			} else if (Time.time - time_for_double_click > delay) {
-				time_for_double_click = Time.time;
+			if (!_oneClick) {
+				_timeForDoubleClick = Time.time;
+				_oneClick = true;
+			} else if (Time.time - _timeForDoubleClick > delay) {
+				_timeForDoubleClick = Time.time;
 			} else {
 				_avatar.Unselect();
-				one_click = false;
+				_oneClick = false;
 				return;
 			}
 
-			Main.Singleton.AvatarManager.SelectTarget(_avatar);
+			Main.Singleton.Game.AvatarController.SelectTarget(_avatar);
 
 			/*switch (_avatar) {
 			    case Player player:
@@ -42,12 +42,12 @@ namespace Asgla.Avatar {
 		}
 
 		protected virtual void OnMouseEnter() {
-			Main.Singleton.Walkable = false;
+			Main.Singleton.walkable = false;
 			//_monster.CharacterView().TintColor = CommonColorBuffer.StringToColor("ECECEC");
 		}
 
 		protected virtual void OnMouseExit() {
-			Main.Singleton.Walkable = true;
+			Main.Singleton.walkable = true;
 			//_monster.CharacterView().TintColor = Color.white;
 		}
 

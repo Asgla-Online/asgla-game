@@ -24,12 +24,12 @@ namespace Asgla.Avatar.NPC {
 		}
 
 		private void OnMouseEnter() {
-			Main.Singleton.Walkable = false;
+			Main.Singleton.walkable = false;
 			_sprite.color = CommonColorBuffer.StringToColor("ECECEC");
 		}
 
 		private void OnMouseExit() {
-			Main.Singleton.Walkable = true;
+			Main.Singleton.walkable = true;
 			_sprite.color = Color.white;
 		}
 

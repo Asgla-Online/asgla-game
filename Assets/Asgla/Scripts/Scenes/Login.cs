@@ -35,7 +35,7 @@ namespace Asgla.Scenes {
 
 			_modal.Show();
 
-			_request = new HTTPRequest(new Uri(Main.Singleton.url_login), HTTPMethods.Post, OnAuthRequestFinished);
+			_request = new HTTPRequest(new Uri(Main.URLLogin), HTTPMethods.Post, OnAuthRequestFinished);
 
 			_request.SetHeader("Accept", "application/json; charset=UTF-8");
 

@@ -28,7 +28,7 @@ namespace Asgla.Requests.Unity {
 			main.UIManager.Modal.Close();
 
 			LoadingSceneOverlay loadingScene = UIController.CreateLoadingScene();
-			loadingScene.LoadScene(main.SceneGame);
+			loadingScene.LoadScene(Main.SceneGame);
 		}
 
 	}

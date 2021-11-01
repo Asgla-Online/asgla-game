@@ -34,7 +34,7 @@ namespace Asgla.UI.Window {
 			//Graphic select
 			graphicSelect.ClearOptions();
 
-			foreach (URPA asset in Main.Singleton.URPA)
+			foreach (URPA asset in Main.Singleton.universalRenderPipelineAsset)
 				graphicSelect.AddOption(asset.name);
 
 			volumeSlider.value = PlayerPrefs.GetFloat("volumeMain");
@@ -66,7 +66,7 @@ namespace Asgla.UI.Window {
 		}
 
 		public void Graphic(int index, string option) {
-			URPA urpa = Main.Singleton.URPA.Where(u => u.name == option).FirstOrDefault();
+			URPA urpa = Main.Singleton.universalRenderPipelineAsset.Where(u => u.name == option).FirstOrDefault();
 
 			if (urpa != null)
 				GraphicsSettings.renderPipelineAsset = urpa.asset;

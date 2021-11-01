@@ -4,11 +4,11 @@
 		#region Unity
 
 		protected override void OnMouseEnter() {
-			Main.Singleton.Walkable = false;
+			Main.Singleton.walkable = false;
 		}
 
 		protected override void OnMouseExit() {
-			Main.Singleton.Walkable = true;
+			Main.Singleton.walkable = true;
 		}
 
 		#endregion

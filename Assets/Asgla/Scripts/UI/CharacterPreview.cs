@@ -71,7 +71,7 @@ namespace Asgla.UI {
 
 			abm.DisableDebugLogging();
 			abm.SetPrioritizationStrategy(PrioritizationStrategy.PrioritizeRemote);
-			abm.SetBaseUri(Main.Singleton.url_bundle);
+			abm.SetBaseUri(Main.URLBundle);
 
 			AssetBundleManifestAsync manifest = abm.InitializeAsync();
 			yield return manifest;

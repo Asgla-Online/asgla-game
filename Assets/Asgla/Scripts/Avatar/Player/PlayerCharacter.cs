@@ -8,12 +8,12 @@ namespace Asgla.Avatar.Player {
 
 		protected override void OnMouseEnter() {
 			base.OnMouseEnter();
-			(_avatar as Player).CharacterView().TintColor = CommonColorBuffer.StringToColor("ECECEC");
+			((Player) _avatar).CharacterView().TintColor = CommonColorBuffer.StringToColor("ECECEC");
 		}
 
 		protected override void OnMouseExit() {
 			base.OnMouseExit();
-			(_avatar as Player).CharacterView().TintColor = Color.white;
+			((Player) _avatar).CharacterView().TintColor = Color.white;
 		}
 
 		#endregion
