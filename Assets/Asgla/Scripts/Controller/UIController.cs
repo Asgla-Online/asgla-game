@@ -41,5 +41,9 @@ namespace Asgla.Controller {
 				Object.Destroy(child.gameObject);
 		}
 
+		public static Transform FindChildByName(string name, Transform transform) {
+			return transform.Cast<Transform>().FirstOrDefault(child => child.name == name);
+		}
+
 	}
 }
