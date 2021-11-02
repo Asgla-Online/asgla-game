@@ -377,7 +377,7 @@ namespace Asgla.Avatar.Player {
 		}
 
 		public override EntityType Type() {
-			return EntityType.PLAYER;
+			return EntityType.Player;
 		}
 
 		#endregion

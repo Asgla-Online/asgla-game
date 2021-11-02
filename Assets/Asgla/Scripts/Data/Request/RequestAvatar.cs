@@ -1,4 +1,5 @@
-﻿using Asgla.Avatar;
+﻿using System;
+using Asgla.Avatar;
 using Asgla.Data.Avatar;
 using Asgla.Data.Avatar.Helper;
 using Asgla.Data.Avatar.Player;
@@ -22,9 +23,13 @@ namespace Asgla.Data.Request {
 			public int EntityID = -1;
 			public EntityType EntityType;
 
-			public AvatarMain Avatar => EntityType == EntityType.PLAYER
-				? Main.Singleton.Game.AreaController.PlayerByID(EntityID)
-				: (AvatarMain) Main.Singleton.Game.AreaController.MonsterByID(EntityID);
+			public AvatarMain Avatar => EntityType switch {
+				EntityType.Player => Main.Singleton.Game.AreaController.PlayerByID(EntityID),
+				EntityType.Monster => Main.Singleton.Game.AreaController.MonsterByID(EntityID),
+				EntityType.Npc => throw new ArgumentOutOfRangeException(),
+				EntityType.Pet => throw new ArgumentOutOfRangeException(),
+				_ => throw new ArgumentOutOfRangeException()
+			};
 
 		}
 

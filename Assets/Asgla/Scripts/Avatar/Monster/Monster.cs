@@ -188,7 +188,7 @@ namespace Asgla.Avatar.Monster {
 		}
 
 		public override EntityType Type() {
-			return EntityType.MONSTER;
+			return EntityType.Monster;
 		}
 
 		public MonsterData Data() {
