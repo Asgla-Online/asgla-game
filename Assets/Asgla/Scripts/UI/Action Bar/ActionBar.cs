@@ -57,7 +57,7 @@ namespace Asgla.UI.Action_Bar {
 					player.Target(player);
 			}
 
-			if (player.Target().Type() == EntityType.PLAYER && player.Area().IsSafe() &&
+			if (player.Target().Type() == EntityType.Player && player.Area().IsSafe() &&
 			    skillInfo.Target != SkillTarget.SELF) {
 				//TODO: Chat
 				Main.Singleton.Game.Chat.ReceiveChatMessage(1,
