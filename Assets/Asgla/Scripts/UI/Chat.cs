@@ -12,10 +12,6 @@ using Random = System.Random;
 namespace Asgla.UI {
 	public class Chat : MonoBehaviour {
 
-		public static string Game = "game";
-		public static string Warning = "warning";
-		public static string Staff = "staff";
-
 		private static readonly List<Channel> Channels = new List<Channel> {
 			new Channel {ID = 0, Name = "All"},
 			new Channel {ID = 1, Name = "Global"},
