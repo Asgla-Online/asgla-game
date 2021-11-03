@@ -7,9 +7,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using Random = System.Random;
 
-namespace Asgla.UI {
+namespace Asgla.UI.Chat {
 	public class Chat : MonoBehaviour {
 
 		private static readonly List<Channel> Channels = new List<Channel> {
@@ -78,28 +77,40 @@ namespace Asgla.UI {
 		/// </summary>
 		/// <param name="text">The message.</param>
 		private void SendChatMessage(string text) {
-			//Main.Singleton.Request.Send("Chat", _activeChannel?.ID ?? 1, text);
-
-			Debug.Log("1");
-			ReceiveChatMessage(_activeChannel?.ID ?? 0, text, "anthony",
-				Tags.ElementAt(new Random().Next(Tags.Count)).Key);
+			Main.Singleton.Request.Send("Chat", _activeChannel?.ID ?? 1, text);
 
 			// Clear the input field
 			if (inputField != null)
 				inputField.text = "";
 		}
 
-		public void ReceiveChatMessage(int tabId, string text) {
+		/// <summary>
+		///     Adds a chat message to the ALL tab.
+		/// </summary>
+		/// <param name="entityTag">Entity tag</param>
+		/// <param name="text">The message.</param>
+		public void ChatMessage(string entityTag, string text) {
+			ChatMessage(0, entityTag, null, text);
 		}
 
 		/// <summary>
 		///     Adds a chat message to the specified tab.
 		/// </summary>
 		/// <param name="tabId">The tab id.</param>
-		/// <param name="text">The message.</param>
-		/// <param name="entityName">Entity name</param>
 		/// <param name="entityTag">Entity tag</param>
-		public void ReceiveChatMessage(int tabId, string text, string entityName, string entityTag) {
+		/// <param name="text">The message.</param>
+		public void ChatMessage(int tabId, string entityTag, string text) {
+			ChatMessage(tabId, entityTag, null, text);
+		}
+
+		/// <summary>
+		///     Adds a chat message to the specified tab.
+		/// </summary>
+		/// <param name="tabId">The tab id.</param>
+		/// <param name="entityTag">Entity tag</param>
+		/// <param name="entityName">Entity name</param>
+		/// <param name="text">The message.</param>
+		public void ChatMessage(int tabId, string entityTag, string entityName, string text) {
 			Channel channel = GetTabInfo(tabId);
 
 			// Make sure we have tab info
@@ -134,13 +145,11 @@ namespace Asgla.UI {
 			textComp.lineSpacing = 0;
 			textComp.color = Color.white;
 
-			Debug.Log(entityTag);
-
 			string color = Tags.First(pair => pair.Key == entityTag).Value;
 
-			//textComp.text = $"<size=22>{DateTime.Now.ToShortTimeString()}</size> <b><color={channel.Color}>{entityName}</color></b>: <color=#FFF>{text}</color>";
-			textComp.text =
-				$"<b><size=21>{DateTime.Now.ToShortTimeString()}</size> <size=24><color={color}>[{entityTag}]</color></size> {entityName}</b><color={color}>:</color> <color=#FFF>{text}</color>";
+			textComp.text = entityName == null
+				? $"<b><size=21>{DateTime.Now.ToShortTimeString()}</size> <size=24><color={color}>[{entityTag}]</color></size> </b><color=#FFF>{text}</color>"
+				: $"<b><size=21>{DateTime.Now.ToShortTimeString()}</size> <size=24><color={color}>[{entityTag}]</color></size> {entityName}</b><color={color}>:</color> <color=#FFF>{text}</color>";
 
 			// Rebuild the content layout
 			LayoutRebuilder.ForceRebuildLayoutImmediate(channel.Content.GetComponent<RectTransform>());

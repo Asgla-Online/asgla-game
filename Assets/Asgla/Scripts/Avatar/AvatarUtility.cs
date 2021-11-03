@@ -1,4 +1,5 @@
-﻿using Asgla.UI.Unit_Frame;
+﻿using Asgla.UI.Chat.Buddle;
+using Asgla.UI.Unit_Frame;
 using TMPro;
 using UnityEngine;
 
@@ -14,12 +15,12 @@ namespace Asgla.Avatar {
 		private GameObject _loadFlame;
 
 		[SerializeField] private UnitFrameSmall _smallUnitFrameOne;
-		//[SerializeField] private UnitFrameSmall _smallUnitFrameTwo;
+		[SerializeField] private ChatBubble chatBubble;
 
 		public GameObject LoadFlame => _loadFlame;
 
 		public UnitFrameSmall SmallUnitFrameOne => _smallUnitFrameOne;
-		//public UnitFrameSmall SmallUnitFrameTwo => _smallUnitFrameTwo;
+		public ChatBubble Bubble => chatBubble;
 
 		public void SetTitle(string title) {
 			_title.text = title;

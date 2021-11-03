@@ -6,6 +6,7 @@ using Asgla.Data.Area;
 using Asgla.Skill;
 using Asgla.UI;
 using Asgla.UI.Action_Bar;
+using Asgla.UI.Chat;
 using Asgla.UI.Loading;
 using Asgla.UI.Quest.Track;
 using Asgla.UI.Unit_Frame;

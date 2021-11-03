@@ -314,6 +314,7 @@ MonoBehaviour:
   _guild: {fileID: 0}
   _loadFlame: {fileID: 0}
   _smallUnitFrameOne: {fileID: 308980679898142958}
+  chatBubble: {fileID: 0}
 --- !u!223 &3683269475809138914
 Canvas:
   m_ObjectHideFlags: 0

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Asgla.Avatar;
 using Asgla.Avatar.Monster;
@@ -45,11 +44,7 @@ namespace Asgla.UI.Action_Bar {
 
 			if (player.Target() == null) {
 				if (player.Targets().Count == 0 && skillInfo.Target != SkillTarget.SELF) {
-					//TODO: Chat
-					Main.Singleton.Game.Chat.ReceiveChatMessage(1,
-						string.Format("<size=22>{1}</size> <b><color=#{0}>{3}</color></b> <color=#{2}>{4}</color>",
-							CommonColorBuffer.ColorToString(Color.red), DateTime.Now.ToShortTimeString(),
-							CommonColorBuffer.ColorToString(Color.white), "game", "select target"));
+					Main.Singleton.Game.Chat.ChatMessage("Warning", "select target");
 					return;
 				}
 
@@ -59,30 +54,18 @@ namespace Asgla.UI.Action_Bar {
 
 			if (player.Target().Type() == EntityType.Player && player.Area().IsSafe() &&
 			    skillInfo.Target != SkillTarget.SELF) {
-				//TODO: Chat
-				Main.Singleton.Game.Chat.ReceiveChatMessage(1,
-					string.Format("<size=22>{1}</size> <b><color=#{0}>{3}</color></b> <color=#{2}>{4}</color>",
-						CommonColorBuffer.ColorToString(Color.green), DateTime.Now.ToShortTimeString(),
-						CommonColorBuffer.ColorToString(Color.white), "game", "safe area, please no"));
+				Main.Singleton.Game.Chat.ChatMessage("Warning", "safe area, please no");
 				return;
 			}
 
 			if (Main.Singleton.Game.CastBar.IsCasting) {
-				//TODO: Chat
-				Main.Singleton.Game.Chat.ReceiveChatMessage(1,
-					string.Format("<size=22>{1}</size> <b><color=#{0}>{3}</color></b> <color=#{2}>{4}</color>",
-						"ffa500", DateTime.Now.ToShortTimeString(), CommonColorBuffer.ColorToString(Color.white),
-						"game", "casting.. wait"));
+				Main.Singleton.Game.Chat.ChatMessage("Warning", "casting.. wait");
 				return;
 			}
 
 			if (player.Target() != null) {
 				if (!player.IsNear(player.Target(), skillInfo.Range)) {
-					//TODO: Chat
-					Main.Singleton.Game.Chat.ReceiveChatMessage(1,
-						string.Format("<size=22>{1}</size> <b><color=#{0}>{3}</color></b> <color=#{2}>{4}</color>",
-							"ffa500", DateTime.Now.ToShortTimeString(), CommonColorBuffer.ColorToString(Color.white),
-							"game", "target distance not in range"));
+					Main.Singleton.Game.Chat.ChatMessage("Warning", "target distance not in range");
 					return;
 				}
 			} else {

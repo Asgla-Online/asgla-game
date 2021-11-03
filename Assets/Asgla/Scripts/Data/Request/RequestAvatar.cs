@@ -20,12 +20,12 @@ namespace Asgla.Data.Request {
 
 		public class Entity {
 
-			public int EntityID = -1;
-			public EntityType EntityType;
+			public int entityId = -1;
+			public EntityType entityType;
 
-			public AvatarMain Avatar => EntityType switch {
-				EntityType.Player => Main.Singleton.Game.AreaController.PlayerByID(EntityID),
-				EntityType.Monster => Main.Singleton.Game.AreaController.MonsterByID(EntityID),
+			public AvatarMain Avatar => entityType switch {
+				EntityType.Player => Main.Singleton.Game.AreaController.PlayerByID(entityId),
+				EntityType.Monster => Main.Singleton.Game.AreaController.MonsterByID(entityId),
 				EntityType.Npc => throw new ArgumentOutOfRangeException(),
 				EntityType.Pet => throw new ArgumentOutOfRangeException(),
 				_ => throw new ArgumentOutOfRangeException()

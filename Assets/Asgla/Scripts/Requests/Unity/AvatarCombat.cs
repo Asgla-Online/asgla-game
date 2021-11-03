@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Asgla.Avatar;
 using Asgla.Avatar.Player;
 using Asgla.Data.Request;
 using Asgla.Skill;
-using Asgla.Utility;
 using AsglaUI.UI;
 using BestHTTP.JSON.LitJson;
 using UnityEngine;
@@ -34,10 +32,7 @@ namespace Asgla.Requests.Unity {
 
 			//reset skill cooldown
 			if (avatarCombat.Message != null) {
-				main.Game.Chat.ReceiveChatMessage(
-					1,
-					$"<size=22>{DateTime.Now.ToShortTimeString()}</size> <b><color=#{CommonColorBuffer.ColorToString(Color.red)}>{"game"}</color></b> <color=#{CommonColorBuffer.ColorToString(Color.white)}>{avatarCombat.Message}</color>"
-				);
+				main.Game.Chat.ChatMessage("Warning", avatarCombat.Message);
 
 				UISlotCooldown.CooldownInfo cooldownInfo = new UISlotCooldown.CooldownInfo(0f, Time.time, Time.time);
 
