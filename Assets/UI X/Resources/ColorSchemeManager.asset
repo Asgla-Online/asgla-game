@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9f2cfde0e57df34dbee1c921ef89330, type: 3}
   m_Name: ColorSchemeManager
   m_EditorClassIdentifier: 
-  m_ActiveColorScheme: {fileID: 11400000, guid: 7c7d81386b88dc14ea4efdca890cad6d,
-    type: 2}
+  m_ActiveColorScheme: {fileID: 11400000, guid: 7c7d81386b88dc14ea4efdca890cad6d, type: 2}

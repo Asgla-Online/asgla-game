@@ -243,6 +243,46 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4625743732463985006, guid: 175efca0f6322a244a0b54249a09bfeb, type: 3}
+      propertyPath: m_Color.b
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 4625743732463985006, guid: 175efca0f6322a244a0b54249a09bfeb, type: 3}
+      propertyPath: m_Color.g
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 4625743732463985006, guid: 175efca0f6322a244a0b54249a09bfeb, type: 3}
+      propertyPath: m_Color.r
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 4626191748586417034, guid: 175efca0f6322a244a0b54249a09bfeb, type: 3}
+      propertyPath: m_Color.g
+      value: 0.8156863
+      objectReference: {fileID: 0}
+    - target: {fileID: 4626191748586417034, guid: 175efca0f6322a244a0b54249a09bfeb, type: 3}
+      propertyPath: m_Color.r
+      value: 0.42745098
+      objectReference: {fileID: 0}
+    - target: {fileID: 4626228292040026122, guid: 175efca0f6322a244a0b54249a09bfeb, type: 3}
+      propertyPath: m_Color.g
+      value: 0.8156863
+      objectReference: {fileID: 0}
+    - target: {fileID: 4626228292040026122, guid: 175efca0f6322a244a0b54249a09bfeb, type: 3}
+      propertyPath: m_Color.r
+      value: 0.42745098
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628757442098675006, guid: 175efca0f6322a244a0b54249a09bfeb, type: 3}
+      propertyPath: m_Color.b
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628757442098675006, guid: 175efca0f6322a244a0b54249a09bfeb, type: 3}
+      propertyPath: m_Color.g
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628757442098675006, guid: 175efca0f6322a244a0b54249a09bfeb, type: 3}
+      propertyPath: m_Color.r
+      value: 0.16862746
+      objectReference: {fileID: 0}
     - target: {fileID: 4730875679027439994, guid: 175efca0f6322a244a0b54249a09bfeb, type: 3}
       propertyPath: m_Name
       value: Loading Bar
