@@ -231,6 +231,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Username InputField (TMP)
       objectReference: {fileID: 0}
+    - target: {fileID: 5361324331164016163, guid: f0db5207dabd7df4fb3e7541f640e34c, type: 3}
+      propertyPath: m_Color.b
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 5361324331164016163, guid: f0db5207dabd7df4fb3e7541f640e34c, type: 3}
+      propertyPath: m_Color.g
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 5361324331164016163, guid: f0db5207dabd7df4fb3e7541f640e34c, type: 3}
+      propertyPath: m_Color.r
+      value: 0.16862746
+      objectReference: {fileID: 0}
     - target: {fileID: 6143928373969032123, guid: f0db5207dabd7df4fb3e7541f640e34c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -314,6 +326,18 @@ PrefabInstance:
     - target: {fileID: 6143928373969032123, guid: f0db5207dabd7df4fb3e7541f640e34c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7633252348559030093, guid: f0db5207dabd7df4fb3e7541f640e34c, type: 3}
+      propertyPath: m_Color.b
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 7633252348559030093, guid: f0db5207dabd7df4fb3e7541f640e34c, type: 3}
+      propertyPath: m_Color.g
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 7633252348559030093, guid: f0db5207dabd7df4fb3e7541f640e34c, type: 3}
+      propertyPath: m_Color.r
+      value: 0.16862746
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0db5207dabd7df4fb3e7541f640e34c, type: 3}
@@ -539,6 +563,30 @@ PrefabInstance:
     - target: {fileID: 736828539746824718, guid: 217e495a627e56249b9e3d0b3f58c272, type: 3}
       propertyPath: m_Type
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 736828539746824718, guid: 217e495a627e56249b9e3d0b3f58c272, type: 3}
+      propertyPath: m_Color.b
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 736828539746824718, guid: 217e495a627e56249b9e3d0b3f58c272, type: 3}
+      propertyPath: m_Color.g
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 736828539746824718, guid: 217e495a627e56249b9e3d0b3f58c272, type: 3}
+      propertyPath: m_Color.r
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 3003970377648757600, guid: 217e495a627e56249b9e3d0b3f58c272, type: 3}
+      propertyPath: m_Color.b
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 3003970377648757600, guid: 217e495a627e56249b9e3d0b3f58c272, type: 3}
+      propertyPath: m_Color.g
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 3003970377648757600, guid: 217e495a627e56249b9e3d0b3f58c272, type: 3}
+      propertyPath: m_Color.r
+      value: 0.16862746
       objectReference: {fileID: 0}
     - target: {fileID: 3933016295295047416, guid: 217e495a627e56249b9e3d0b3f58c272, type: 3}
       propertyPath: m_Pivot.x
@@ -1071,6 +1119,18 @@ PrefabInstance:
     - target: {fileID: 5014485939221297960, guid: 7109614aeae9b70468237297acd2621a, type: 3}
       propertyPath: m_Name
       value: Button (Login)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5014485939221297962, guid: 7109614aeae9b70468237297acd2621a, type: 3}
+      propertyPath: m_Color.b
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 5014485939221297962, guid: 7109614aeae9b70468237297acd2621a, type: 3}
+      propertyPath: m_Color.g
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 5014485939221297962, guid: 7109614aeae9b70468237297acd2621a, type: 3}
+      propertyPath: m_Color.r
+      value: 0.16862746
       objectReference: {fileID: 0}
     - target: {fileID: 5014485939221297963, guid: 7109614aeae9b70468237297acd2621a, type: 3}
       propertyPath: m_Pivot.x

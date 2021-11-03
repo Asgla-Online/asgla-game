@@ -17,7 +17,6 @@ namespace Asgla.Data.Avatar.Player {
 		public string username = "";
 
 		public string colorSkin;
-
 		public string colorEye;
 		public string colorHair;
 		public string colorMouth;
