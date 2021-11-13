@@ -3,30 +3,28 @@ using Asgla.Skill;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace AsglaUI.UI
-{
-    public class Demo_Spellbook_SpellRow : MonoBehaviour
-    {
-        #pragma warning disable 0649
-        [SerializeField] private SkillMain m_Slot;
-        [SerializeField] private Text m_NameText;
-        [SerializeField] private Text m_RankText;
-        [SerializeField] private Text m_DescriptionText;
-        [SerializeField] private bool m_IsDemo = false;
-        #pragma warning restore 0649
+namespace AsglaUI.UI {
+	public class Demo_Spellbook_SpellRow : MonoBehaviour {
 
-        void Start()
-        {
-            if (UISkillDatabase.Instance == null || !this.m_IsDemo)
-                return;
-            
-            SkillData[] spells = UISkillDatabase.Instance.spells;
-            SkillData spell = spells[Random.Range(0, spells.Length)];
+		private void Start() {
+			if (UISkillDatabase.Instance == null || !m_IsDemo)
+				return;
 
-            if (this.m_Slot != null) this.m_Slot.Assign(spell);
-            if (this.m_NameText != null) this.m_NameText.text = spell.Name;
-            if (this.m_RankText != null) this.m_RankText.text = Random.Range(1, 6).ToString();
-            if (this.m_DescriptionText != null) this.m_DescriptionText.text = spell.Description;
-        }
-    }
+			SkillData[] spells = UISkillDatabase.Instance.spells;
+			SkillData spell = spells[Random.Range(0, spells.Length)];
+
+			if (m_Slot != null) m_Slot.Assign(spell);
+			if (m_NameText != null) m_NameText.text = spell.Name;
+			if (m_RankText != null) m_RankText.text = Random.Range(1, 6).ToString();
+			if (m_DescriptionText != null) m_DescriptionText.text = spell.Description;
+		}
+#pragma warning disable 0649
+		[SerializeField] private SkillMain m_Slot;
+		[SerializeField] private Text m_NameText;
+		[SerializeField] private Text m_RankText;
+		[SerializeField] private Text m_DescriptionText;
+		[SerializeField] private bool m_IsDemo;
+#pragma warning restore 0649
+
+	}
 }

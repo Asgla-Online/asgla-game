@@ -1,60 +1,55 @@
 using UnityEngine;
 
-namespace AsglaUI.UI
-{
-    public class Demo_ResolutionSelect : MonoBehaviour {
+namespace AsglaUI.UI {
+	public class Demo_ResolutionSelect : MonoBehaviour {
 
-        #pragma warning disable 0649
-        [SerializeField] private UISelectField m_SelectField;
-        #pragma warning restore 0649
+#pragma warning disable 0649
+		[SerializeField] private UISelectField m_SelectField;
+#pragma warning restore 0649
 
-        protected void Start()
-        {
-            if (this.m_SelectField == null)
-                return;
+		protected void Start() {
+			if (m_SelectField == null)
+				return;
 
-            // Clear the options
-            this.m_SelectField.ClearOptions();
-            
-            // Add the supported resolutions
-            Resolution[] resolutions = Screen.resolutions;
+			// Clear the options
+			m_SelectField.ClearOptions();
 
-            foreach (Resolution res in resolutions)
-            {
-                // Add new resolution option
-                this.m_SelectField.AddOption(res.width + "x" + res.height + " @ " + res.refreshRate + "Hz");
-            }
+			// Add the supported resolutions
+			Resolution[] resolutions = Screen.resolutions;
 
-            Resolution currentResolution = Screen.currentResolution;
+			foreach (Resolution res in resolutions)
+				// Add new resolution option
+				m_SelectField.AddOption(res.width + "x" + res.height + " @ " + res.refreshRate + "Hz");
 
-            // Set the current resolution as selected
-            this.m_SelectField.SelectOption(currentResolution.width + "x" + currentResolution.height + " @ " + currentResolution.refreshRate + "Hz");
-        }
+			Resolution currentResolution = Screen.currentResolution;
 
-        protected void OnEnable()
-        {
-            if (this.m_SelectField == null)
-                return;
+			// Set the current resolution as selected
+			m_SelectField.SelectOption(currentResolution.width + "x" + currentResolution.height + " @ " +
+			                           currentResolution.refreshRate + "Hz");
+		}
 
-            this.m_SelectField.onChange.AddListener(OnSelectedOption);
-        }
+		protected void OnEnable() {
+			if (m_SelectField == null)
+				return;
 
-        protected void OnDisable()
-        {
-            if (this.m_SelectField == null)
-                return;
+			m_SelectField.onChange.AddListener(OnSelectedOption);
+		}
 
-            this.m_SelectField.onChange.RemoveListener(OnSelectedOption);
-        }
+		protected void OnDisable() {
+			if (m_SelectField == null)
+				return;
 
-        protected void OnSelectedOption(int index, string option)
-        {
-            Resolution res = Screen.resolutions[index];
+			m_SelectField.onChange.RemoveListener(OnSelectedOption);
+		}
 
-            if (res.Equals(Screen.currentResolution))
-                return;
+		protected void OnSelectedOption(int index, string option) {
+			Resolution res = Screen.resolutions[index];
 
-            Screen.SetResolution(res.width, res.height, true, res.refreshRate);
-        }
-    }
+			if (res.Equals(Screen.currentResolution))
+				return;
+
+			Screen.SetResolution(res.width, res.height, true, res.refreshRate);
+		}
+
+	}
 }

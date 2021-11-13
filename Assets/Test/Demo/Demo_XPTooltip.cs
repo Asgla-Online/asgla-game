@@ -1,73 +1,41 @@
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace AsglaUI.UI {
-    public class Demo_XPTooltip : UIBehaviour, IEventSystemHandler, IPointerEnterHandler, IPointerExitHandler {
+	public class Demo_XPTooltip : UIBehaviour, IEventSystemHandler, IPointerEnterHandler, IPointerExitHandler {
 
-        #pragma warning disable 0649
-        [SerializeField] private GameObject m_TooltipObject;
-        [SerializeField] private UIProgressBar m_ProgressBar;
-        [SerializeField] private Text m_PercentText;
-        [SerializeField] private float m_OffsetY = 0f;
-        #pragma warning restore 0649
+		[SerializeField] [Tooltip("How long of a delay to expect before showing the tooltip.")] [Range(0f, 10f)]
+		private float m_Delay = 1f;
 
-        [SerializeField, Tooltip("How long of a delay to expect before showing the tooltip."), Range(0f, 10f)]
-        private float m_Delay = 1f;
+		private bool m_IsTooltipShown;
 
-        private bool m_IsTooltipShown = false;
+		protected override void Awake() {
+			base.Awake();
 
-        protected override void Awake() {
-            base.Awake();
+			if (m_TooltipObject != null) {
+				RectTransform tooltipRect = m_TooltipObject.transform as RectTransform;
+				tooltipRect.anchorMin = new Vector2(0f, 1f);
+				tooltipRect.anchorMax = new Vector2(0f, 1f);
+				tooltipRect.pivot = new Vector2(0.5f, 0f);
+				m_TooltipObject.SetActive(false);
+			}
+		}
 
-            if (this.m_TooltipObject != null) {
-                RectTransform tooltipRect = (this.m_TooltipObject.transform as RectTransform);
-                tooltipRect.anchorMin = new Vector2(0f, 1f);
-                tooltipRect.anchorMax = new Vector2(0f, 1f);
-                tooltipRect.pivot = new Vector2(0.5f, 0f);
-                this.m_TooltipObject.SetActive(false);
-            }
-        }
+		protected override void OnEnable() {
+			base.OnEnable();
 
-        protected override void OnEnable() {
-            base.OnEnable();
+			if (m_ProgressBar != null)
+				m_ProgressBar.onChange.AddListener(OnProgressChange);
+		}
 
-            if (this.m_ProgressBar != null)
-                this.m_ProgressBar.onChange.AddListener(OnProgressChange);
-        }
+		protected override void OnDisable() {
+			base.OnDisable();
 
-        protected override void OnDisable() {
-            base.OnDisable();
-
-            if (this.m_ProgressBar != null)
-                this.m_ProgressBar.onChange.RemoveListener(OnProgressChange);
-        }
-
-        private void OnProgressChange(float value) {
-            // Update tooltip position
-            this.UpdatePosition();
-        }
-
-        /// <summary>
-        /// Raises the tooltip event.
-        /// </summary>
-        /// <param name="show">If set to <c>true</c> show.</param>
-        public virtual void OnTooltip(bool show) {
-            if (this.m_TooltipObject == null)
-                return;
-
-            if (show) {
-                // Update tooltip position
-                this.UpdatePosition();
-
-                // Enable the tooltip
-                this.m_TooltipObject.SetActive(true);
-            } else {
-                // Disable the tooltip
-                this.m_TooltipObject.SetActive(false);
-            }
-        }
+			if (m_ProgressBar != null)
+				m_ProgressBar.onChange.RemoveListener(OnProgressChange);
+		}
 
         /// <summary>
         /// Raises the pointer enter event.
@@ -112,40 +80,49 @@ namespace AsglaUI.UI {
             // Cancel the delayed show coroutine
             this.StopCoroutine("DelayedShow");
 
-            // Call the on tooltip only if it's currently shown
-            if (this.m_IsTooltipShown) {
-                this.m_IsTooltipShown = false;
-                this.OnTooltip(false);
-            }
-        }
+			// Call the on tooltip only if it's currently shown
+			if (m_IsTooltipShown) {
+				m_IsTooltipShown = false;
+				OnTooltip(false);
+			}
+		}
 
-        protected IEnumerator DelayedShow() {
-            yield return new WaitForSeconds(this.m_Delay);
-            this.InternalShowTooltip();
-        }
+		protected IEnumerator DelayedShow() {
+			yield return new WaitForSeconds(m_Delay);
+			InternalShowTooltip();
+		}
 
-        public void UpdatePosition() {
-            if (this.m_ProgressBar == null || this.m_TooltipObject == null)
-                return;
+		public void UpdatePosition() {
+			if (m_ProgressBar == null || m_TooltipObject == null)
+				return;
 
-            RectTransform tooltipRect = (this.m_TooltipObject.transform as RectTransform);
-            RectTransform fillRect = (this.m_ProgressBar.type == UIProgressBar.Type.Filled ? (this.m_ProgressBar.targetImage.transform as RectTransform) : (this.m_ProgressBar.targetTransform.parent as RectTransform));
+			RectTransform tooltipRect = m_TooltipObject.transform as RectTransform;
+			RectTransform fillRect = m_ProgressBar.type == UIProgressBar.Type.Filled
+				? m_ProgressBar.targetImage.transform as RectTransform
+				: m_ProgressBar.targetTransform.parent as RectTransform;
 
-            Transform parent = tooltipRect.parent;
+			Transform parent = tooltipRect.parent;
 
-            // Change the parent so we can calculate the position correctly
-            tooltipRect.SetParent(fillRect, true);
+			// Change the parent so we can calculate the position correctly
+			tooltipRect.SetParent(fillRect, true);
 
-            // Change the position based on fill
-            tooltipRect.anchoredPosition = new Vector2(fillRect.rect.width * this.m_ProgressBar.fillAmount, this.m_OffsetY);
+			// Change the position based on fill
+			tooltipRect.anchoredPosition = new Vector2(fillRect.rect.width * m_ProgressBar.fillAmount, m_OffsetY);
 
-            // Bring to top
-            tooltipRect.SetParent(parent, true);
+			// Bring to top
+			tooltipRect.SetParent(parent, true);
 
-            // Set the percent text
-            if (this.m_PercentText != null)
-                this.m_PercentText.text = (this.m_ProgressBar.fillAmount * 100f).ToString("0") + "%";
-        }
+			// Set the percent text
+			if (m_PercentText != null)
+				m_PercentText.text = (m_ProgressBar.fillAmount * 100f).ToString("0") + "%";
+		}
 
-    }
+#pragma warning disable 0649
+		[SerializeField] private GameObject m_TooltipObject;
+		[SerializeField] private UIProgressBar m_ProgressBar;
+		[SerializeField] private Text m_PercentText;
+		[SerializeField] private float m_OffsetY;
+#pragma warning restore 0649
+
+	}
 }

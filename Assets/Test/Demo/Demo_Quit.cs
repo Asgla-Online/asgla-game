@@ -4,33 +4,30 @@ using UnityEngine.UI;
 using UnityEditor;
 #endif
 
-namespace AsglaUI.UI
-{
-    public class Demo_Quit : MonoBehaviour
-    {
-        #pragma warning disable 0649
-        [SerializeField] private Button m_HookToButton;
-        #pragma warning restore 0649
+namespace AsglaUI.UI {
+	public class Demo_Quit : MonoBehaviour {
 
-        protected void OnEnable()
-        {
-            if (this.m_HookToButton != null)
-                this.m_HookToButton.onClick.AddListener(ExitGame);
-        }
+#pragma warning disable 0649
+		[SerializeField] private Button m_HookToButton;
+#pragma warning restore 0649
 
-        protected void OnDisable()
-        {
-            if (this.m_HookToButton != null)
-                this.m_HookToButton.onClick.RemoveListener(ExitGame);
-        }
+		protected void OnEnable() {
+			if (m_HookToButton != null)
+				m_HookToButton.onClick.AddListener(ExitGame);
+		}
 
-        public void ExitGame()
-        {
+		protected void OnDisable() {
+			if (m_HookToButton != null)
+				m_HookToButton.onClick.RemoveListener(ExitGame);
+		}
+
+		public void ExitGame() {
 #if UNITY_EDITOR
-            EditorApplication.isPlaying = false;
+			EditorApplication.isPlaying = false;
 #else
             Application.Quit();
 #endif
-        }
-    }
+		}
+
+	}
 }

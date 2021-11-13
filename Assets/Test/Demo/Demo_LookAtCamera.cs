@@ -1,20 +1,18 @@
 using UnityEngine;
 
-namespace AsglaUI.UI
-{
-    public class Demo_LookAtCamera : MonoBehaviour
-    {
-        [SerializeField] private Camera m_Camera;
+namespace AsglaUI.UI {
+	public class Demo_LookAtCamera : MonoBehaviour {
 
-        protected void Awake()
-        {
-            if (this.m_Camera == null) this.m_Camera = Camera.main;
-        }
+		[SerializeField] private Camera m_Camera;
 
-        void Update()
-        {
-            if (this.m_Camera)
-                transform.rotation = Quaternion.LookRotation(this.m_Camera.transform.forward);
-        }
-    }
+		protected void Awake() {
+			if (m_Camera == null) m_Camera = Camera.main;
+		}
+
+		private void Update() {
+			if (m_Camera)
+				transform.rotation = Quaternion.LookRotation(m_Camera.transform.forward);
+		}
+
+	}
 }
