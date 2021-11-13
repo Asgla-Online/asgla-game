@@ -1,35 +1,33 @@
 ﻿using System;
+using System.Collections.Generic;
+using Asgla.Controller;
+using Asgla.Data.Web;
 using AsglaUI.UI;
 using BestHTTP;
-using BestHTTP.JSON.LitJson;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static Asgla.Data.Web.WebSetting;
+using Random = UnityEngine.Random;
 
 namespace Asgla.Scenes {
 	public class Login : MonoBehaviour {
 
-		[SerializeField] private TMP_InputField _inputUsername;
-		[SerializeField] private TMP_InputField _inputPassword;
+		[SerializeField] private TMP_InputField inputUsername;
+		[SerializeField] private TMP_InputField inputPassword;
 
-		[SerializeField] private Toggle _toggleRemember;
+		[SerializeField] private Toggle toggleRemember;
 
-		[SerializeField] private Button _button;
+		[SerializeField] private Button button;
 
 		private UIModalBox _modal;
 
 		private HTTPRequest _request;
 
-		public void StartAuthentication() {
-			Main.Singleton.UIManager.CreateModal(gameObject);
-
-			_modal = Main.Singleton.UIManager.Modal;
-
-			_modal.SetText1("Account");
-			_modal.SetText2("Authenticating account..");
-			_modal.SetConfirmButtonText("BACK");
-			_modal.SetActiveCancelButton(false);
+		private void StartAuthentication() {
+			_modal.SetText1("Account")
+				.SetText2("Authenticating account..")
+				.SetConfirmButtonText("BACK")
+				.SetActiveCancelButton(false);
 
 			_modal.onConfirm.AddListener(OnConfirm);
 
@@ -39,31 +37,59 @@ namespace Asgla.Scenes {
 
 			_request.SetHeader("Accept", "application/json; charset=UTF-8");
 
-			_request.AddField("username", _inputUsername.text);
-			_request.AddField("password", _inputPassword.text);
+			_request.AddField("username", inputUsername.text);
+			_request.AddField("password", inputPassword.text);
 
 			_request.Send();
 		}
 
 		private void OnAuthRequestFinished(HTTPRequest req, HTTPResponse resp) {
+			// ReSharper disable once SwitchStatementMissingSomeEnumCasesNoDefault
 			switch (req.State) {
 				case HTTPRequestStates.Finished:
 					Debug.Log(resp.DataAsText);
 
-					LoginWebRequest login = JsonMapper.ToObject<LoginWebRequest>(resp.DataAsText.Trim());
+					//Test
+					string[] names =
+						{"Annika", "Evita", "Herb", "Thad", "Myesha", "Lucile", "Sharice", "Tatiana", "Isis", "Allen"};
 
-					if (resp.IsSuccess && login != null && login.user != null && login.user.Token != null) {
+					List<Server> servers = new List<Server>();
+
+					for (int i = 0; i < Random.Range(1, 20); i++) {
+						servers.Add(new Server {
+							Count = Random.Range(100, 1000),
+							Max = 1000,
+							Name = names[Random.Range(0, names.Length - 1)],
+							Uri = "ws://localhost:4431"
+						});
+					}
+
+					LoginWebRequest login = new LoginWebRequest {
+						Message = "test",
+						User = new User {
+							Username = "test",
+							Token = "test"
+						},
+						Servers = servers
+					};
+
+					//LoginWebRequest login = JsonMapper.ToObject<LoginWebRequest>(resp.DataAsText.Trim());
+
+					if (resp.IsSuccess && login != null && login.User != null && login.User.Token != null) {
 						_modal.SetText2("Authentication successfully");
 						_modal.SetActiveConfirmButton(false);
 
-						if (_toggleRemember.isOn) {
-							PlayerPrefs.SetString("loginUsername", _inputUsername.text);
-							PlayerPrefs.SetString("loginPassword", _inputPassword.text);
+						if (toggleRemember.isOn) {
+							PlayerPrefs.SetString("loginUsername", inputUsername.text);
+							PlayerPrefs.SetString("loginPassword", inputPassword.text);
 						}
 
 						PlayerPrefs.Save();
 
-						Main.Singleton.Login(_modal, login.user.Token);
+						Main.Singleton.Login = login;
+
+						UIController.CreateLoadingScene()
+							.LoadScene(Main.SceneServers);
 					} else {
 						_modal.SetText1("Warning");
 						_modal.SetText2(login?.Message ?? "Error");
@@ -86,7 +112,7 @@ namespace Asgla.Scenes {
 			}
 		}
 
-		public void OnConfirm() {
+		private void OnConfirm() {
 			Debug.Log("[Login] OnConfirm");
 
 			_request.Abort();
@@ -97,8 +123,8 @@ namespace Asgla.Scenes {
 
 		public void OnToggleUsername(bool on) {
 			if (on) {
-				PlayerPrefs.SetString("loginUsername", _inputUsername.text);
-				PlayerPrefs.SetString("loginPassword", _inputPassword.text);
+				PlayerPrefs.SetString("loginUsername", inputUsername.text);
+				PlayerPrefs.SetString("loginPassword", inputPassword.text);
 			} else if (PlayerPrefs.HasKey("loginUsername")) {
 				PlayerPrefs.DeleteKey("loginUsername");
 				PlayerPrefs.DeleteKey("loginPassword");
@@ -110,20 +136,26 @@ namespace Asgla.Scenes {
 		#region Unity
 
 		private void Awake() {
+			_modal = Main.Singleton.UIManager.Modal;
+
 			if (PlayerPrefs.HasKey("loginUsername")) {
-				_inputUsername.text = PlayerPrefs.GetString("loginUsername");
-				_inputPassword.text = PlayerPrefs.GetString("loginPassword");
-				_toggleRemember.isOn = true;
+				inputUsername.text = PlayerPrefs.GetString("loginUsername");
+				inputPassword.text = PlayerPrefs.GetString("loginPassword");
+				toggleRemember.isOn = true;
 			} else {
-				_inputUsername.text = "";
-				_inputPassword.text = "";
-				_toggleRemember.isOn = false;
+				inputUsername.text = "";
+				inputPassword.text = "";
+				toggleRemember.isOn = false;
 			}
 		}
 
 		private void Start() {
-			if (PlayerPrefs.HasKey("loginUsername"))
-				StartAuthentication();
+			// ReSharper disable once RedundantCheckBeforeAssignment
+			if (Main.Singleton.Login != null)
+				Main.Singleton.Login = null;
+
+			//if (PlayerPrefs.HasKey("loginUsername"))
+			//	StartAuthentication();
 		}
 
 		private void Update() {
@@ -132,11 +164,11 @@ namespace Asgla.Scenes {
 		}
 
 		protected void OnEnable() {
-			_button.onClick.AddListener(StartAuthentication);
+			button.onClick.AddListener(StartAuthentication);
 		}
 
 		protected void OnDisable() {
-			_button.onClick.RemoveListener(StartAuthentication);
+			button.onClick.RemoveListener(StartAuthentication);
 		}
 
 		#endregion

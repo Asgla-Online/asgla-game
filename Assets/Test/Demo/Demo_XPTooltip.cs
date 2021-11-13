@@ -37,48 +37,72 @@ namespace AsglaUI.UI {
 				m_ProgressBar.onChange.RemoveListener(OnProgressChange);
 		}
 
-        /// <summary>
-        /// Raises the pointer enter event.
-        /// </summary>
-        /// <param name="eventData">Event data.</param>
-        public virtual void OnPointerEnter(PointerEventData eventData) {
-            // Check if tooltip is enabled
-            if (this.enabled && this.IsActive()) {
-                // Start the tooltip delayed show coroutine
-                // If delay is set at all
-                if (this.m_Delay > 0f) {
-                    this.StartCoroutine("DelayedShow");
-                } else {
-                    this.InternalShowTooltip();
-                }
-            }
-        }
+		/// <summary>
+		///     Raises the pointer enter event.
+		/// </summary>
+		/// <param name="eventData">Event data.</param>
+		public virtual void OnPointerEnter(PointerEventData eventData) {
+			// Check if tooltip is enabled
+			if (enabled && IsActive()) {
+				// Start the tooltip delayed show coroutine
+				// If delay is set at all
+				if (m_Delay > 0f)
+					StartCoroutine("DelayedShow");
+				else
+					InternalShowTooltip();
+			}
+		}
 
-        /// <summary>
-        /// Raises the pointer exit event.
-        /// </summary>
-        /// <param name="eventData">Event data.</param>
-        public virtual void OnPointerExit(PointerEventData eventData) {
-            this.InternalHideTooltip();
-        }
+		/// <summary>
+		///     Raises the pointer exit event.
+		/// </summary>
+		/// <param name="eventData">Event data.</param>
+		public virtual void OnPointerExit(PointerEventData eventData) {
+			InternalHideTooltip();
+		}
 
-        /// <summary>
-		/// Internal call for show tooltip.
+		private void OnProgressChange(float value) {
+			// Update tooltip position
+			UpdatePosition();
+		}
+
+		/// <summary>
+		///     Raises the tooltip event.
+		/// </summary>
+		/// <param name="show">If set to <c>true</c> show.</param>
+		public virtual void OnTooltip(bool show) {
+			if (m_TooltipObject == null)
+				return;
+
+			if (show) {
+				// Update tooltip position
+				UpdatePosition();
+
+				// Enable the tooltip
+				m_TooltipObject.SetActive(true);
+			} else {
+				// Disable the tooltip
+				m_TooltipObject.SetActive(false);
+			}
+		}
+
+		/// <summary>
+		///     Internal call for show tooltip.
 		/// </summary>
 		protected void InternalShowTooltip() {
-            // Call the on tooltip only if it's currently not shown
-            if (!this.m_IsTooltipShown) {
-                this.m_IsTooltipShown = true;
-                this.OnTooltip(true);
-            }
-        }
+			// Call the on tooltip only if it's currently not shown
+			if (!m_IsTooltipShown) {
+				m_IsTooltipShown = true;
+				OnTooltip(true);
+			}
+		}
 
-        /// <summary>
-        /// Internal call for hide tooltip.
-        /// </summary>
-        protected void InternalHideTooltip() {
-            // Cancel the delayed show coroutine
-            this.StopCoroutine("DelayedShow");
+		/// <summary>
+		///     Internal call for hide tooltip.
+		/// </summary>
+		protected void InternalHideTooltip() {
+			// Cancel the delayed show coroutine
+			StopCoroutine("DelayedShow");
 
 			// Call the on tooltip only if it's currently shown
 			if (m_IsTooltipShown) {

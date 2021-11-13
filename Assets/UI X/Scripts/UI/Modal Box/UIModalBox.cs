@@ -56,31 +56,37 @@ namespace AsglaUI.UI {
 		///     Sets the text on the first line.
 		/// </summary>
 		/// <param name="text"></param>
-		public void SetText1(string text) {
+		public UIModalBox SetText1(string text) {
 			if (m_Text1 != null) {
 				m_Text1.text = text;
 				m_Text1.gameObject.SetActive(!string.IsNullOrEmpty(text));
 			}
+
+			return this;
 		}
 
 		/// <summary>
 		///     Sets the text on the second line.
 		/// </summary>
 		/// <param name="text"></param>
-		public void SetText2(string text) {
+		public UIModalBox SetText2(string text) {
 			if (m_Text2 != null) {
 				m_Text2.text = text;
 				m_Text2.gameObject.SetActive(!string.IsNullOrEmpty(text));
 			}
+
+			return this;
 		}
 
 		/// <summary>
 		///     Sets the confirm button text.
 		/// </summary>
 		/// <param name="text">The confirm button text.</param>
-		public void SetConfirmButtonText(string text) {
+		public UIModalBox SetConfirmButtonText(string text) {
 			if (m_ConfirmButtonText != null)
 				m_ConfirmButtonText.text = text;
+
+			return this;
 		}
 
 		/// <summary>
@@ -97,18 +103,22 @@ namespace AsglaUI.UI {
 		///     Set cancel button active.
 		/// </summary>
 		/// <param name="value">The cancel button SetActive value.</param>
-		public void SetActiveCancelButton(bool value) {
+		public UIModalBox SetActiveCancelButton(bool value) {
 			if (m_CancelButton != null)
 				m_CancelButton.gameObject.SetActive(value);
+
+			return this;
 		}
 
 		/// <summary>
 		///     Set confirm button active.
 		/// </summary>
 		/// <param name="value">The confirm button SetActive value.</param>
-		public void SetActiveConfirmButton(bool value) {
+		public UIModalBox SetActiveConfirmButton(bool value) {
 			if (m_ConfirmButton != null)
 				m_ConfirmButton.gameObject.SetActive(value);
+
+			return this;
 		}
 
 		/// <summary>

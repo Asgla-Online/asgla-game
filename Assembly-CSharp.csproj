@@ -35,16 +35,16 @@
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>Temp\bin\Release\</OutputPath>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <NoWarn></NoWarn>
-      <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
-      <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
-  </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>Temp\bin\Release\</OutputPath>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <NoWarn></NoWarn>
+        <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+        <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    </PropertyGroup>
     <PropertyGroup>
         <NoConfig>true</NoConfig>
         <NoStdLib>true</NoStdLib>
@@ -74,7 +74,7 @@
         <Compile Include="Assets\Asgla\Scripts\UI\Window\SettingWindow.cs"/>
         <Compile Include="Assets\Asgla\Scripts\UI\PopupText.cs"/>
         <Compile Include="Assets\CharacterCreator2D\Data\Scripts\Part\WeaponTemplate.cs"/>
-        <Compile Include="Assets\Asgla\Scripts\Data\Web\WebSetting.cs"/>
+        <Compile Include="Assets\Asgla\Scripts\Data\Web\User.cs"/>
         <Compile Include="Assets\FX\Scripts\ETFXLightFade.cs"/>
         <Compile Include="Assets\FX\Demo\Scripts\ETFXButtonScript.cs"/>
         <Compile Include="Assets\UI X\Scripts\UI\Icon Slot System\UITalentSlot.cs"/>
@@ -107,6 +107,7 @@
         <Compile Include="Assets\Test\Test Scripts\Test_UITalentSlot_Assign.cs"/>
         <Compile Include="Assets\Asgla\Scripts\UI\Loading\LoadingOverlay.cs"/>
         <Compile Include="Assets\CharacterCreator2D\Data\Scripts\Character\SetupData.cs"/>
+        <Compile Include="Assets\Asgla\Scripts\UI\Chat\Buddle\ChatBubble.cs"/>
         <Compile Include="Assets\CharacterCreator2D\Creator UI\Scripts\UICreator\PackageItem.cs"/>
         <Compile Include="Assets\CharacterCreator2D\Data\Scripts\Part\PartList.cs"/>
         <Compile Include="Assets\Asgla\Scripts\Requests\Unity\PlayerInventoryRemove.cs"/>
@@ -211,6 +212,7 @@
         <Compile Include="Assets\UI X\Scripts\UI\Tweening\TweenEasingHandler.cs"/>
         <Compile Include="Assets\CharacterCreator2D\Data\Scripts\Misc\CharacterEntity.cs"/>
         <Compile Include="Assets\FX\Demo\Scripts\ETFXLoopScript.cs"/>
+        <Compile Include="Assets\Asgla\Scripts\UI\Chat\Buddle\ChatBubbleMessage.cs"/>
         <Compile Include="Assets\Asgla\Scripts\Network.cs"/>
         <Compile Include="Assets\CharacterCreator2D\Data\Scripts\Character\BodySegment\PositionedAffection.cs"/>
         <Compile Include="Assets\UI X\Scripts\UI\Controls\Select Field\UISelectField_OptionOverlay.cs"/>
@@ -259,6 +261,7 @@
         <Compile Include="Assets\Asgla\Scripts\UI\Window\RespawnWindow.cs"/>
         <Compile Include="Assets\Test\Test Scripts\Test_UIItemSlot_Assign.cs"/>
         <Compile Include="Assets\UI X\Scripts\UI\Audio\UIAudioSource.cs"/>
+        <Compile Include="Assets\Asgla\Scripts\UI\ServerItem.cs"/>
         <Compile Include="Assets\CharacterCreator2D\Data\Scripts\Character\BodySegment\ScaledAffection.cs"/>
         <Compile Include="Assets\CharacterCreator2D\Data\Scripts\Utilities\RendererUtility.cs"/>
         <Compile Include="Assets\CharacterCreator2D\Creator UI\Scripts\UIColor\UIBodyColor.cs"/>
@@ -293,7 +296,7 @@
         <Compile Include="Assets\Asgla\Scripts\UI\Unit Frame\UnitFrameBase.cs"/>
         <Compile Include="Assets\Asgla\Scripts\Requests\Unity\PlayerDataLoad.cs"/>
         <Compile Include="Assets\CharacterCreator2D\Data\Scripts\Character\BodySegment\ScaledObjectData.cs"/>
-        <Compile Include="Assets\Asgla\Scripts\UI\Chat.cs"/>
+        <Compile Include="Assets\Asgla\Scripts\UI\Chat\Chat.cs"/>
         <Compile Include="Assets\Asgla\Scripts\Requests\Unity\LeaveArea.cs"/>
         <Compile Include="Assets\UI X\Scripts\UI\Tooltips\UITooltipShow.cs"/>
         <Compile Include="Assets\UI X\Scripts\UI\Mesh Modifiers\UIDrawVertices.cs"/>
@@ -327,16 +330,16 @@
         <Compile Include="Assets\UI X\Scripts\UI\Scene System\UISceneManager.cs"/>
         <Compile Include="Assets\UI X\Scripts\Attributes\ResourcePathAttribute.cs"/>
         <Compile Include="Assets\CharacterCreator2D\Data\Scripts\Utilities\Humanoid\HumanoidSlotRenderer.cs"/>
-     <Compile Include="Assets\Asgla\Scripts\UI\Quest\QuestObjectiveAndReward.cs" />
-     <Compile Include="Assets\UI X\Scripts\UI\Tooltips\UITooltipLineContent.cs" />
-     <Compile Include="Assets\Asgla\Scripts\Requests\Unity\Default.cs" />
-     <Compile Include="Assets\CharacterCreator2D\Creator UI\Scripts\UICreator\CameraZoom.cs" />
-     <Compile Include="Assets\UI X\Scripts\UI\Scene System\UISceneOpen.cs" />
-     <Compile Include="Assets\Asgla\Scripts\Data\Area\AreaAvatar.cs" />
-     <Compile Include="Assets\Test\Test Scripts\Test_CompassTester.cs" />
-     <Compile Include="Assets\Asgla\Scripts\Requests\Unity\AvatarDataUpdate.cs" />
-     <Compile Include="Assets\Asgla\Scripts\Requests\Unity\AvatarCombat.cs" />
-     <Compile Include="Assets\Asgla\Scripts\UI\Quest\Track\QuestTrackObjective.cs" />
+        <Compile Include="Assets\Asgla\Scripts\UI\Quest\QuestObjectiveAndReward.cs"/>
+        <Compile Include="Assets\UI X\Scripts\UI\Tooltips\UITooltipLineContent.cs"/>
+        <Compile Include="Assets\Asgla\Scripts\Requests\Unity\Default.cs"/>
+        <Compile Include="Assets\CharacterCreator2D\Creator UI\Scripts\UICreator\CameraZoom.cs"/>
+        <Compile Include="Assets\UI X\Scripts\UI\Scene System\UISceneOpen.cs"/>
+        <Compile Include="Assets\Asgla\Scripts\Data\Area\AreaAvatar.cs"/>
+        <Compile Include="Assets\Test\Test Scripts\Test_CompassTester.cs"/>
+        <Compile Include="Assets\Asgla\Scripts\Requests\Unity\AvatarDataUpdate.cs"/>
+        <Compile Include="Assets\Asgla\Scripts\Requests\Unity\AvatarCombat.cs"/>
+        <Compile Include="Assets\Asgla\Scripts\UI\Quest\Track\QuestTrackObjective.cs"/>
         <Compile Include="Assets\Asgla\Scripts\UI\Window\NpcWindow.cs"/>
      <Compile Include="Assets\UI X\Scripts\UI\Tooltips\UITooltipLineStyle.cs" />
      <Compile Include="Assets\UI X\Scripts\UI\Window\UICloseAndShowWindow.cs" />
@@ -374,26 +377,29 @@
         <Compile Include="Assets\Asgla\Scripts\Controller\Game\AreaController.cs"/>
      <Compile Include="Assets\UI X\Scripts\UI\Loading Overlay\UILoadScene.cs" />
      <Compile Include="Assets\Asgla\Scripts\UI\Loading\LoadingSceneOverlay.cs" />
-     <Compile Include="Assets\CharacterCreator2D\Data\Scripts\Character\CharacterData.cs" />
-     <Compile Include="Assets\UI X\Scripts\UI\Miscellaneous\UIToggleWindowAndTab.cs" />
-     <Compile Include="Assets\Asgla\Scripts\Data\Avatar\Helper\MoveToLocal.cs" />
-     <Compile Include="Assets\UI X\Scripts\UI\Tweening\TweenRunner.cs" />
-     <Compile Include="Assets\Asgla\Scripts\Requests\Unity\PlayerUpdate.cs" />
-     <Compile Include="Assets\UI X\Scripts\UI\Databases\UITalentDatabase.cs" />
-     <Compile Include="Assets\UI X\Scripts\UI\Modal Box\UIModalBox.cs" />
-     <Compile Include="Assets\UI X\Scripts\UI\Window\UIWindowID.cs" />
-     <Compile Include="Assets\Asgla\Scripts\Requests\Unity\Chat.cs" />
-     <Compile Include="Assets\Asgla\Scripts\Data\Avatar\Player\PlayerData.cs" />
-     <None Include="Assets\FX\Prefabs\Environment\Environment FX.txt" />
-     <None Include="Assets\CharacterCreator2D\Creator UI\Scripts\UIExportPNG\DefaultConfig\Portrait.txt" />
-     <None Include="Assets\Asgla\Fonts\Roboto\LICENSE.txt" />
-     <None Include="Assets\CharacterCreator2D\Data\Shaders\Character Skin URP.shader" />
-     <None Include="Assets\CharacterCreator2D\Data\Shaders\Armor Recolor URP.shader" />
-     <None Include="Assets\CharacterCreator2D\Data\Shaders\Character Skin 2DRP.shader" />
-     <None Include="Assets\CharacterCreator2D\Creator UI\Scripts\UIExportPNG\DefaultConfig\Default.txt" />
-     <None Include="Assets\Asgla\Fonts\Galdeano\OFL.txt" />
-     <None Include="Assets\CharacterCreator2D\Creator UI\Scripts\UIExportPNG\DefaultConfig\FullBody.txt" />
-     <None Include="Assets\UI X\Shaders\UIOverlay.shader" />
+        <Compile Include="Assets\CharacterCreator2D\Data\Scripts\Character\CharacterData.cs"/>
+        <Compile Include="Assets\UI X\Scripts\UI\Miscellaneous\UIToggleWindowAndTab.cs"/>
+        <Compile Include="Assets\Asgla\Scripts\Data\Avatar\Helper\MoveToLocal.cs"/>
+        <Compile Include="Assets\UI X\Scripts\UI\Tweening\TweenRunner.cs"/>
+        <Compile Include="Assets\Asgla\Scripts\Requests\Unity\PlayerUpdate.cs"/>
+        <Compile Include="Assets\UI X\Scripts\UI\Databases\UITalentDatabase.cs"/>
+        <Compile Include="Assets\UI X\Scripts\UI\Modal Box\UIModalBox.cs"/>
+        <Compile Include="Assets\UI X\Scripts\UI\Window\UIWindowID.cs"/>
+        <Compile Include="Assets\Asgla\Scripts\Requests\Unity\Chat.cs"/>
+        <Compile Include="Assets\Asgla\Scripts\Data\Avatar\Player\PlayerData.cs"/>
+        <Compile Include="Assets\Asgla\Scripts\Scenes\Servers.cs"/>
+        <Compile Include="Assets\Asgla\Scripts\Data\Web\Server.cs"/>
+        <Compile Include="Assets\Asgla\Scripts\Data\Web\LoginWebRequest.cs"/>
+        <None Include="Assets\FX\Prefabs\Environment\Environment FX.txt"/>
+        <None Include="Assets\CharacterCreator2D\Creator UI\Scripts\UIExportPNG\DefaultConfig\Portrait.txt"/>
+        <None Include="Assets\Asgla\Fonts\Roboto\LICENSE.txt"/>
+        <None Include="Assets\CharacterCreator2D\Data\Shaders\Character Skin URP.shader"/>
+        <None Include="Assets\CharacterCreator2D\Data\Shaders\Armor Recolor URP.shader"/>
+        <None Include="Assets\CharacterCreator2D\Data\Shaders\Character Skin 2DRP.shader"/>
+        <None Include="Assets\CharacterCreator2D\Creator UI\Scripts\UIExportPNG\DefaultConfig\Default.txt"/>
+        <None Include="Assets\Asgla\Fonts\Galdeano\OFL.txt"/>
+        <None Include="Assets\CharacterCreator2D\Creator UI\Scripts\UIExportPNG\DefaultConfig\FullBody.txt"/>
+        <None Include="Assets\UI X\Shaders\UIOverlay.shader"/>
      <None Include="Assets\CharacterCreator2D\Creator UI\Scripts\UIExportPNG\DefaultConfig\Atlas.txt" />
      <None Include="Assets\CharacterCreator2D\Creator UI\Scripts\UIExportPNG\DefaultConfig\Animation.txt" />
      <None Include="Assets\FX\Prefabs\Interactive\Interactive FX.txt" />

@@ -48,7 +48,7 @@ SpriteAtlas:
     - {fileID: 102900000, guid: 73ff264d06890064e9637267368f7001, type: 3}
     - {fileID: 102900000, guid: 2842fc19d141ed243abefd1faeaec11d, type: 3}
     - {fileID: 102900000, guid: a7931015c46baa9439f49454a3e85536, type: 3}
-    totalSpriteSurfaceArea: 6172336
+    totalSpriteSurfaceArea: 6378608
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -156,6 +156,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: e9bb7915d0a1a4a4bb4c76fe38b08225, type: 3}
   - {fileID: 21300000, guid: 14044f15a36f9ff4fb551a5c4cf41e22, type: 3}
   - {fileID: 21300000, guid: f65f6035d2516284e892af741d40500b, type: 3}
+  - {fileID: 21300000, guid: a731c335acf16524a9faf915d3089530, type: 3}
   - {fileID: 21300000, guid: decb744556e4c044f83fd5050cc9ab51, type: 3}
   - {fileID: 21300000, guid: 2e2e9b45ab0abb54c8ada8ba65c71b48, type: 3}
   - {fileID: 21300000, guid: 026b8d650d5bfca49bb4988621626101, type: 3}
@@ -234,6 +235,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 281519ea54e3f9c408703ef92a720e9f, type: 3}
   - {fileID: 21300000, guid: 822392fa23d054742aad948e95d1da57, type: 3}
   - {fileID: 21300000, guid: f74236fa1930c0247a3abbddd78d0b5f, type: 3}
+  - {fileID: 21300000, guid: a303e10b93de33948a05d5233b2bddbd, type: 3}
   - {fileID: 21300000, guid: 77e6940b54b11934790c50fe164c5741, type: 3}
   - {fileID: 21300000, guid: 1538c01b23adc4e40ab5ec2e72ce01c1, type: 3}
   - {fileID: 21300000, guid: 0567181b931e08243a53ce2c434a3b64, type: 3}
@@ -412,6 +414,7 @@ SpriteAtlas:
   - Potion_Blue
   - Chat_Border_Middle
   - ActionBar_Slot_Background
+  - Asgla_Button_Large
   - UnitFrame_Primary_Fill
   - ActionBar_Bar_Background
   - UnitFrame_ComboPoint_Border
@@ -490,6 +493,7 @@ SpriteAtlas:
   - GameMenu_Button_Tribal
   - QuestTracker_Checkbox_Complete
   - Dialog_Avatar_Frame
+  - Asgla_Button_Large_Overlay
   - Star
   - Minimap_Tribal_Bottom
   - ActionButton_Large_Background

@@ -4,9 +4,9 @@ using Asgla.Avatar.Monster;
 using Asgla.Avatar.Player;
 using Asgla.Controller;
 using Asgla.Data;
+using Asgla.Data.Web;
 using Asgla.Effect;
 using Asgla.Scenes;
-using AsglaUI.UI;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Rendering;
@@ -22,6 +22,8 @@ namespace Asgla {
 		[SerializeField] private GameObject loadingOverlay;
 
 		[SerializeField] public List<URPA> universalRenderPipelineAsset;
+
+		public LoginWebRequest Login = null;
 
 		public GameObject Loading => loadingOverlay;
 
@@ -87,11 +89,6 @@ namespace Asgla {
 			GameAsset = go.GetComponent<EffectMain>();
 		}
 
-		public void Login(UIModalBox modal, string token) {
-			UIManager.Modal = modal;
-			Network.ConnectToServer(token);
-		}
-
 		#region Controller
 
 		public static Main Singleton { get; protected set; }
@@ -115,10 +112,8 @@ namespace Asgla {
 		[SerializeField] private AudioMixerGroup audioMixer;
 
 		public const int SceneLogin = 0;
-
-		//public const int SceneCharacterSelect = 1;
-		public const int SceneGame = 1;
-		//public const int SceneRegister = 3;
+		public const int SceneServers = 1;
+		public const int SceneGame = 2;
 
 		#endregion
 

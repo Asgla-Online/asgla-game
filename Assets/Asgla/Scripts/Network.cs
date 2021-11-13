@@ -1,14 +1,10 @@
 ﻿using System;
-using Asgla.Controller;
-using Asgla.UI.Loading;
 using BestHTTP.WebSocket;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Asgla {
 	public class Network {
-
-		private readonly string _ip = "ws://localhost:4431";
 
 		private bool _disconnected;
 
@@ -18,14 +14,14 @@ namespace Asgla {
 
 		public WebSocket Connection { get; private set; }
 
-		public void ConnectToServer(string token) {
+		public void ConnectToServer(string uri, string token) {
 			_token = token;
 
 			_disconnected = false;
 
 			//BestHTTP.HTTPManager.Logger.Level = BestHTTP.Logger.Loglevels.None;
 
-			Connection = new WebSocket(new Uri(_ip));
+			Connection = new WebSocket(new Uri(uri));
 
 			Connection.OnOpen += OnOpen;
 			Connection.OnMessage += OnReceived;
@@ -38,6 +34,8 @@ namespace Asgla {
 #endif
 
 			Connection.Open();
+
+			Main.UIManager.Modal.SetText1(null);
 
 			Main.UIManager.Modal.SetText2("Connecting...");
 		}
@@ -66,19 +64,16 @@ namespace Asgla {
 
 			_disconnected = true;
 
-			Main.Game.AvatarController.Player = null;
+			if (Main.Game != null)
+				Main.Game.AvatarController.Player = null;
 
 			if (SceneManager.GetActiveScene().buildIndex == Main.SceneLogin)
 				return;
 
-			LoadingSceneOverlay loadingScene = UIController.CreateLoadingScene();
-			loadingScene.LoadScene(Main.SceneLogin);
+			//UIController.CreateLoadingScene()
+			//	.LoadScene(Main.SceneLogin);
 
-			/*var modal = Main.UIManager.CreateModal(Main.gameObject);
-				modal.SetText2("Connection closed unexpectedly by the remote server.");
-				modal.SetActiveConfirmButton(true);
-				modal.SetConfirmButtonText("BACK");
-				modal.Show();*/
+			Main.UIManager.Modal.SetText2("Connection closed unexpectedly by the remote server.");
 		}
 
 	}

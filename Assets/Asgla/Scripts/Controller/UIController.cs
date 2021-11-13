@@ -6,17 +6,20 @@ using UnityEngine;
 namespace Asgla.Controller {
 	public class UIController : Controller {
 
+		private UIModalBox _modal;
+
 		public LoadingOverlay LoadingOverlay;
 
-		public UIModalBox Modal;
+		public UIModalBox Modal {
+			get{
+				if (_modal != null)
+					return _modal;
 
-		public UIModalBox CreateModal(GameObject rel) {
-			if (Modal != null)
-				return Modal;
+				_modal = UIModalBoxManager.Instance.Create(GameObject.Find("Canvas"));
 
-			Modal = UIModalBoxManager.Instance.Create(rel);
-
-			return Modal;
+				return _modal;
+			}
+			set => _modal = value;
 		}
 
 		public static LoadingMapOverlay CreateLoadingMap() {

@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Asgla/Scenes/1 - Login.unity
+    path: Assets/Asgla/Scenes/0 - Login.unity
     guid: 8e742e48962cba048b6bd6090ce7173a
   - enabled: 1
-    path: Assets/Asgla/Scenes/3 - Game.unity
+    path: Assets/Asgla/Scenes/1 - Servers.unity
+    guid: a79c1e4d55b1ec64eb40ff98003fa47e
+  - enabled: 1
+    path: Assets/Asgla/Scenes/2 - Game.unity
     guid: 6746bf5878abdeb49b7c2ae768d46d08
   m_configObjects: {}

@@ -11,10 +11,15 @@ namespace AsglaUI.UI {
 		private int m_SelectedIndex = -1;
 		private Transform m_SelectedTransform;
 
-        protected void Awake()
-        {
-            // Save a reference to the instance
-            m_Mgr = this;
+		#region Singleton
+
+		public static Demo_CharacterSelectMgr instance { get; private set; }
+
+		#endregion
+
+		protected void Awake() {
+			// Save a reference to the instance
+			instance = this;
 
 			// Get a camera if not set
 			if (m_Camera == null) m_Camera = Camera.main;
@@ -63,16 +68,15 @@ namespace AsglaUI.UI {
 			instance = null;
 		}
 
-        /// <summary>
-        /// Adds a character to the slot at the specified index.
-        /// </summary>
-        /// <param name="info">The character info.</param>
-        /// <param name="modelPrefab">The character model prefab.</param>
-        /// <param name="index">Slot index.</param>
-        public void AddCharacter(Demo_CharacterInfo info, GameObject modelPrefab, int index)
-        {
-            if (this.m_Slots.Count == 0 || this.m_Slots.Count < (index + 1))
-                return;
+		/// <summary>
+		///     Adds a character to the slot at the specified index.
+		/// </summary>
+		/// <param name="info">The character info.</param>
+		/// <param name="modelPrefab">The character model prefab.</param>
+		/// <param name="index">Slot index.</param>
+		public void AddCharacter(Demo_CharacterInfo info, GameObject modelPrefab, int index) {
+			if (m_Slots.Count == 0 || m_Slots.Count < index + 1)
+				return;
 
 			if (modelPrefab == null)
 				return;
@@ -106,13 +110,12 @@ namespace AsglaUI.UI {
 			model.transform.localRotation = modelPrefab.transform.localRotation;
 		}
 
-        /// <summary>
-        /// Selects the first available character if any.
-        /// </summary>
-        public void SelectFirstAvailable()
-        {
-            if (this.m_Slots.Count == 0)
-                return;
+		/// <summary>
+		///     Selects the first available character if any.
+		/// </summary>
+		public void SelectFirstAvailable() {
+			if (m_Slots.Count == 0)
+				return;
 
 			foreach (Transform trans in m_Slots) {
 				if (trans == null)
@@ -129,14 +132,13 @@ namespace AsglaUI.UI {
 			}
 		}
 
-        /// <summary>
-        /// Selects the character slot at the given index.
-        /// </summary>
-        /// <param name="index"></param>
-        public void SelectCharacter(int index)
-        {
-            if (this.m_Slots.Count == 0)
-                return;
+		/// <summary>
+		///     Selects the character slot at the given index.
+		/// </summary>
+		/// <param name="index"></param>
+		public void SelectCharacter(int index) {
+			if (m_Slots.Count == 0)
+				return;
 
 			// Get the slot
 			Transform slotTrans = m_Slots[index];
@@ -151,21 +153,19 @@ namespace AsglaUI.UI {
 			if (slot != null) SelectCharacter(slot);
 		}
 
-        /// <summary>
-        /// Selects the character slot.
-        /// </summary>
-        /// <param name="slot">The character slot component.</param>
-        public void SelectCharacter(Demo_CharacterSelectSlot slot)
-        {
-            // Check if already selected
-            if (this.m_SelectedIndex == slot.index)
-                return;
-            
-            // Deselect
-            if (this.m_SelectedIndex > -1)
-            {
-                // Get the slot
-                Transform selectedSlotTrans = this.m_Slots[this.m_SelectedIndex];
+		/// <summary>
+		///     Selects the character slot.
+		/// </summary>
+		/// <param name="slot">The character slot component.</param>
+		public void SelectCharacter(Demo_CharacterSelectSlot slot) {
+			// Check if already selected
+			if (m_SelectedIndex == slot.index)
+				return;
+
+			// Deselect
+			if (m_SelectedIndex > -1) {
+				// Get the slot
+				Transform selectedSlotTrans = m_Slots[m_SelectedIndex];
 
 				if (selectedSlotTrans != null) {
 					// Get the character script
@@ -202,15 +202,14 @@ namespace AsglaUI.UI {
 			slot.OnSelected();
 		}
 
-        /// <summary>
-        /// Gets the character in the specified direction (1 or -1).
-        /// </summary>
-        /// <param name="direction">The direction 1 or -1.</param>
-        /// <returns>The character slot.</returns>
-        public Demo_CharacterSelectSlot GetCharacterInDirection(float direction)
-        {
-            if (this.m_Slots.Count == 0)
-                return null;
+		/// <summary>
+		///     Gets the character in the specified direction (1 or -1).
+		/// </summary>
+		/// <param name="direction">The direction 1 or -1.</param>
+		/// <returns>The character slot.</returns>
+		public Demo_CharacterSelectSlot GetCharacterInDirection(float direction) {
+			if (m_Slots.Count == 0)
+				return null;
 
 			if (m_SelectedTransform == null && m_Slots[0] != null)
 				return m_Slots[0].gameObject.GetComponent<Demo_CharacterSelectSlot>();
@@ -256,36 +255,33 @@ namespace AsglaUI.UI {
 			return closest;
 		}
 
-        /// <summary>
-        /// Selects the next character slot.
-        /// </summary>
-        public void SelectNext()
-        {
-            Demo_CharacterSelectSlot next = this.GetCharacterInDirection(1f);
+		/// <summary>
+		///     Selects the next character slot.
+		/// </summary>
+		public void SelectNext() {
+			Demo_CharacterSelectSlot next = GetCharacterInDirection(1f);
 
 			if (next != null)
 				SelectCharacter(next);
 		}
 
-        /// <summary>
-        /// Selects the previous character slot.
-        /// </summary>
-        public void SelectPrevious()
-        {
-            Demo_CharacterSelectSlot prev = this.GetCharacterInDirection(-1f);
+		/// <summary>
+		///     Selects the previous character slot.
+		/// </summary>
+		public void SelectPrevious() {
+			Demo_CharacterSelectSlot prev = GetCharacterInDirection(-1f);
 
 			if (prev != null)
 				SelectCharacter(prev);
 		}
 
-        /// <summary>
-        /// Remove the character at the given index.
-        /// </summary>
-        /// <param name="index">The index.</param>
-        public void RemoveCharacter(int index)
-        {
-            if (this.m_Slots.Count == 0)
-                return;
+		/// <summary>
+		///     Remove the character at the given index.
+		/// </summary>
+		/// <param name="index">The index.</param>
+		public void RemoveCharacter(int index) {
+			if (m_Slots.Count == 0)
+				return;
 
 			// Get the slot
 			Transform slotTrans = m_Slots[index];
@@ -322,23 +318,63 @@ namespace AsglaUI.UI {
 			}
 		}
 
-        /// <summary>
-        /// Deletes the selected character.
-        /// </summary>
-        public void DeleteSelected()
-        {
-            if (this.m_SelectedIndex > -1)
-            {
-                this.RemoveCharacter(this.m_SelectedIndex);
-            }
-        }
-        
-        public void OnPlayClick()
-        {
-            UILoadingOverlay loadingOverlay = UILoadingOverlayManager.Instance.Create();
+		/// <summary>
+		///     Deletes the selected character.
+		/// </summary>
+		public void DeleteSelected() {
+			if (m_SelectedIndex > -1)
+				RemoveCharacter(m_SelectedIndex);
+		}
 
-            if (loadingOverlay != null)
-                loadingOverlay.LoadScene(this.m_IngameSceneId);
-        }
-    }
+		public void OnPlayClick() {
+			UILoadingOverlay loadingOverlay = UILoadingOverlayManager.Instance.Create();
+
+			if (loadingOverlay != null)
+				loadingOverlay.LoadScene(m_IngameSceneId);
+		}
+
+		[Serializable]
+		public class OnCharacterSelectedEvent : UnityEvent<Demo_CharacterInfo> {
+
+		}
+
+		[Serializable]
+		public class OnCharacterDeleteEvent : UnityEvent<Demo_CharacterInfo> {
+
+		}
+
+#pragma warning disable 0649
+		[SerializeField] private int m_IngameSceneId;
+
+		[Header("Camera Properties")] [SerializeField]
+		private Camera m_Camera;
+
+		[SerializeField] private float m_CameraSpeed = 10f;
+		[SerializeField] private float m_CameraDistance = 10f;
+		[SerializeField] private Vector3 m_CameraDirection = Vector3.forward;
+
+		[Header("Character Slots")] [SerializeField]
+		private List<Transform> m_Slots;
+
+		[Header("Selected Character Info")] [SerializeField]
+		private GameObject m_InfoContainer;
+
+		[SerializeField] private Text m_NameText;
+		[SerializeField] private Text m_LevelText;
+		[SerializeField] private Text m_RaceText;
+		[SerializeField] private Text m_ClassText;
+
+		[Header("Demo Properties")] [SerializeField]
+		private bool m_IsDemo;
+
+		[SerializeField] private GameObject m_CharacterPrefab;
+		[SerializeField] private int m_AddCharacters = 5;
+
+		[Header("Events")] [SerializeField]
+		private OnCharacterSelectedEvent m_OnCharacterSelected = new OnCharacterSelectedEvent();
+
+		[SerializeField] private OnCharacterDeleteEvent m_OnCharacterDelete = new OnCharacterDeleteEvent();
+#pragma warning restore 0649
+
+	}
 }

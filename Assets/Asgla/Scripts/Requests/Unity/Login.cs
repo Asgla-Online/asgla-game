@@ -1,5 +1,4 @@
 ﻿using Asgla.Controller;
-using Asgla.UI.Loading;
 using BestHTTP.JSON.LitJson;
 
 namespace Asgla.Requests.Unity {
@@ -15,8 +14,8 @@ namespace Asgla.Requests.Unity {
 			Login login = JsonMapper.ToObject<Login>(json);
 
 			if (!login.status) {
-				main.UIManager.Modal.SetText2(login.message);
-				main.UIManager.Modal.SetActiveConfirmButton(true);
+				main.UIManager.Modal.SetText2(login.message)
+					.SetActiveConfirmButton(true);
 				return;
 			}
 
@@ -27,8 +26,8 @@ namespace Asgla.Requests.Unity {
 
 			main.UIManager.Modal.Close();
 
-			LoadingSceneOverlay loadingScene = UIController.CreateLoadingScene();
-			loadingScene.LoadScene(Main.SceneGame);
+			UIController.CreateLoadingScene()
+				.LoadScene(Main.SceneGame);
 		}
 
 	}
