@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7ed31e0a3f5eda41a440e307d1d743e, type: 3}
   m_Name: TooltipManager
   m_EditorClassIdentifier: 
-  m_TooltipPrefab: {fileID: 1057459311759878, guid: 0786c30c569a5014987ac78b52f15461,
-    type: 3}
+  m_TooltipPrefab: {fileID: 1057459311759878, guid: 0786c30c569a5014987ac78b52f15461, type: 3}
   m_SpacerHeight: 16
   m_ItemTooltipWidth: 514
   m_SpellTooltipWidth: 650

@@ -87,7 +87,7 @@ namespace Asgla {
 
 		#region Controller
 
-		public static Main Singleton { get; protected set; }
+		public static Main Singleton { get; private set; }
 
 		public Game Game { get; private set; }
 
