@@ -51,10 +51,10 @@ namespace Asgla.Scenes {
 					string[] names =
 						{"Annika", "Evita", "Herb", "Thad", "Myesha", "Lucile", "Sharice", "Tatiana", "Isis", "Allen"};
 
-					List<Server> servers = new List<Server>();
+					List<Data.Web.Server> servers = new List<Data.Web.Server>();
 
 					for (int i = 0; i < Random.Range(1, 20); i++) {
-						servers.Add(new Server {
+						servers.Add(new Data.Web.Server {
 							Count = Random.Range(100, 1000),
 							Max = 1000,
 							Name = names[Random.Range(0, names.Length - 1)],

@@ -1,9 +1,8 @@
-﻿using Asgla.Data.Web;
-using Asgla.UI;
+﻿using Asgla.UI;
 using UnityEngine;
 
 namespace Asgla.Scenes {
-	public class Servers : MonoBehaviour {
+	public class Server : MonoBehaviour {
 
 		[SerializeField] private ServerItem serverItemPrefab;
 
@@ -21,7 +20,7 @@ namespace Asgla.Scenes {
 		///     Adds a server to the servers list.
 		/// </summary>
 		/// <param name="info">The server info.</param>
-		private void AddServer(Server info) {
+		private void AddServer(Data.Web.Server info) {
 			if (serverItemPrefab == null || serversGroupTransform == null)
 				return;
 

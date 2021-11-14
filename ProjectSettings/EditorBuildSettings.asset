@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Asgla/Scenes/0 - Login.unity
     guid: 8e742e48962cba048b6bd6090ce7173a
   - enabled: 1
-    path: Assets/Asgla/Scenes/1 - Servers.unity
+    path: Assets/Asgla/Scenes/1 - Server.unity
     guid: a79c1e4d55b1ec64eb40ff98003fa47e
   - enabled: 1
     path: Assets/Asgla/Scenes/2 - Game.unity
