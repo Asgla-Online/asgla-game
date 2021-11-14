@@ -46,12 +46,11 @@ MonoBehaviour:
   walkable: 1
   playerPrefab: {fileID: -3926081161613698834, guid: 95d2f0c3d4165984ba92e08c77b9a48d, type: 3}
   monsterPrefab: {fileID: 2692167299112762613, guid: 550fd8e714471b246abeb9bbcd84bc58, type: 3}
-  loadingOverlay: {fileID: 7807494209728798113, guid: 0e5e578252848664ba95963070913388, type: 3}
-  universalRenderPipelineAsset:
+  GraphicQualities:
   - name: High
     asset: {fileID: 11400000, guid: 12a9c1f55495d2649ab73395a97008ed, type: 2}
-  - name: Low
-    asset: {fileID: 11400000, guid: 3edf730add4c9f546b94bb33db05ee1a, type: 2}
   - name: Medium
     asset: {fileID: 11400000, guid: cbed8f9e7743a794b860acf772a85441, type: 2}
+  - name: Low
+    asset: {fileID: 11400000, guid: 3edf730add4c9f546b94bb33db05ee1a, type: 2}
   audioMixer: {fileID: 24300002, guid: 3a01468dc7acc0f43ae7df8a6087e162, type: 2}

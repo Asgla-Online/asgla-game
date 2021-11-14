@@ -23,7 +23,7 @@
     <BaseDirectory>.</BaseDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
+      <DebugSymbols>true</DebugSymbols>
       <DebugType>full</DebugType>
       <Optimize>false</Optimize>
       <OutputPath>Temp\Bin\Debug\</OutputPath>
@@ -132,7 +132,7 @@
         <Compile Include="Assets\UI X\Scripts\UI\Databases\UISkillDatabase.cs"/>
         <Compile Include="Assets\UI X\Scripts\Color Scheme\ColorSchemeManager.cs"/>
         <Compile Include="Assets\UI X\Scripts\UI\Miscellaneous\UISliderDisplayValue.cs"/>
-        <Compile Include="Assets\Asgla\Scripts\Data\UtilityData.cs"/>
+        <Compile Include="Assets\Asgla\Scripts\Data\GraphicQuality.cs"/>
         <Compile Include="Assets\UI X\Scripts\UI\Modal Box\UIModalBoxManager.cs"/>
         <Compile Include="Assets\CharacterCreator2D\Data\Scripts\Utilities\Humanoid\HumanoidUtility.cs"/>
         <Compile Include="Assets\Asgla\Scripts\Avatar\Monster\MonsterRoot.cs"/>
@@ -355,20 +355,20 @@
         <Compile Include="Assets\UI X\Scripts\UI\Scene System\UIScene.cs"/>
         <Compile Include="Assets\UI X\Scripts\UI\Controls\UIToggle_OnOff.cs"/>
         <Compile Include="Assets\Asgla\Scripts\Area\Area.cs"/>
-     <Compile Include="Assets\UI X\Scripts\UI\Mesh Modifiers\UIFlippable.cs" />
-     <Compile Include="Assets\FX\Demo\Scripts\ETFXProjectileScript.cs" />
-     <Compile Include="Assets\CharacterCreator2D\Creator UI\Scripts\UICreator\EmotionList.cs" />
-     <Compile Include="Assets\CharacterCreator2D\Creator UI\Scripts\UIExportPNG\TextureScaler.cs" />
+        <Compile Include="Assets\UI X\Scripts\UI\Mesh Modifiers\UIFlippable.cs"/>
+        <Compile Include="Assets\FX\Demo\Scripts\ETFXProjectileScript.cs"/>
+        <Compile Include="Assets\CharacterCreator2D\Creator UI\Scripts\UICreator\EmotionList.cs"/>
+        <Compile Include="Assets\CharacterCreator2D\Creator UI\Scripts\UIExportPNG\TextureScaler.cs"/>
         <Compile Include="Assets\Asgla\Scripts\Area\Utility\AreaOverPlayer.cs"/>
-     <Compile Include="Assets\UI X\Scripts\UI\Icon Slot System\Interfaces\IUIItemSlot.cs" />
-     <Compile Include="Assets\Asgla\Scripts\Requests\Unity\EquipPart.cs" />
-     <Compile Include="Assets\UI X\Scripts\UI\Transitions\UIEffectTransition.cs" />
-     <Compile Include="Assets\UI X\Scripts\UI\Controls\Select Field\UISelectField.cs" />
-     <Compile Include="Assets\CharacterCreator2D\Creator UI\Scripts\UICreator\BodyTypeGroup.cs" />
-     <Compile Include="Assets\UI X\Scripts\UI\Transitions\UIPressTransition.cs" />
-     <Compile Include="Assets\UI X\Scripts\UI\Serializables\AnimationTriggersExtended.cs" />
-     <Compile Include="Assets\Asgla\Scripts\Avatar\IAvatar.cs" />
-     <Compile Include="Assets\CharacterCreator2D\Creator UI\Scripts\UIColor\UIColor.cs" />
+        <Compile Include="Assets\UI X\Scripts\UI\Icon Slot System\Interfaces\IUIItemSlot.cs"/>
+        <Compile Include="Assets\Asgla\Scripts\Requests\Unity\EquipPart.cs"/>
+        <Compile Include="Assets\UI X\Scripts\UI\Transitions\UIEffectTransition.cs"/>
+        <Compile Include="Assets\UI X\Scripts\UI\Controls\Select Field\UISelectField.cs"/>
+        <Compile Include="Assets\CharacterCreator2D\Creator UI\Scripts\UICreator\BodyTypeGroup.cs"/>
+        <Compile Include="Assets\UI X\Scripts\UI\Transitions\UIPressTransition.cs"/>
+        <Compile Include="Assets\UI X\Scripts\UI\Serializables\AnimationTriggersExtended.cs"/>
+        <Compile Include="Assets\Asgla\Scripts\Avatar\IAvatar.cs"/>
+        <Compile Include="Assets\CharacterCreator2D\Creator UI\Scripts\UIColor\UIColor.cs"/>
         <Compile Include="Assets\CharacterCreator2D\Creator UI\Scripts\UICreator\UICreator.cs"/>
         <Compile Include="Assets\Asgla\Scripts\UI\Unit Frame\UnitFrameBig.cs"/>
         <Compile Include="Assets\Asgla\Scripts\UI\Loading\LoadingAssetOverlay.cs"/>
@@ -409,16 +409,16 @@
         <None Include="Assets\CharacterCreator2D\Data\Shaders\Character Skin Unlit.shader"/>
         <None Include="Assets\CharacterCreator2D\Data\Shaders\Armor Recolor 2DRP.shader"/>
         <None Include="Assets\CharacterCreator2D\Data\Shaders\Resources\_Baked Skin.shader"/>
-     <None Include="Assets\UI X\Shaders\UIMaskedBlur.shader" />
-     <None Include="Assets\CharacterCreator2D\Data\Shaders\Character Skin Diffuse.shader" />
-     <None Include="Assets\CharacterCreator2D\Data\Shaders\Armor Recolor Diffuse.shader" />
- <Reference Include="UnityEngine">
- <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.AIModule">
- <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.ARModule">
+        <None Include="Assets\UI X\Shaders\UIMaskedBlur.shader"/>
+        <None Include="Assets\CharacterCreator2D\Data\Shaders\Character Skin Diffuse.shader"/>
+        <None Include="Assets\CharacterCreator2D\Data\Shaders\Armor Recolor Diffuse.shader"/>
+        <Reference Include="UnityEngine">
+            <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.AIModule">
+            <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.ARModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.ARModule.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AccessibilityModule">

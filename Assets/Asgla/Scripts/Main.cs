@@ -19,7 +19,7 @@ namespace Asgla {
 		public Player playerPrefab;
 		public Monster monsterPrefab;
 
-		[SerializeField] public List<URPA> universalRenderPipelineAsset;
+		[SerializeField] public List<GraphicQuality> graphicQualities;
 
 		public LoginWebRequest Login = null;
 
@@ -49,7 +49,7 @@ namespace Asgla {
 			Request.Main = this;
 			UIManager.Main = this;
 
-			GraphicsSettings.renderPipelineAsset = universalRenderPipelineAsset.First().asset;
+			GraphicsSettings.renderPipelineAsset = graphicQualities.First().asset;
 
 			//Volume
 			float volume = PlayerPrefs.HasKey("volumeMain") ? PlayerPrefs.GetFloat("volumeMain") : 0.15f;
