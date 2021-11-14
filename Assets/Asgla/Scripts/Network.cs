@@ -1,7 +1,7 @@
 ﻿using System;
+using Asgla.Controller;
 using BestHTTP.WebSocket;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Asgla {
 	public class Network {
@@ -35,9 +35,9 @@ namespace Asgla {
 
 			Connection.Open();
 
-			Main.UIManager.Modal.SetText1(null);
-
-			Main.UIManager.Modal.SetText2("Connecting...");
+			Main.UIManager.ModalGlobal
+				.SetTitle(null)
+				.SetDescription("Connecting...");
 		}
 
 		private void OnOpen(WebSocket ws) {
@@ -50,30 +50,31 @@ namespace Asgla {
 
 		private void OnClosed(WebSocket ws, ushort code, string message) {
 			Debug.LogFormat("WebSocket closed! Code: {0} Message: {1}", code, message);
-			Disconnect();
+
+			Disconnect(message);
 		}
 
 		private void OnError(WebSocket ws, string error) {
 			Debug.LogFormat("An error occured: <color=red>{0}</color>", error);
-			Disconnect();
+
+			Disconnect(error);
 		}
 
-		private void Disconnect() {
+		private void Disconnect(string reason) {
 			if (_disconnected)
 				return;
 
+			Main.UIManager.ModalGlobal
+				.SetTitle(null)
+				.SetDescription(reason)
+				.SetActiveCancelButton(false);
+
+			Main.UIManager.ModalGlobal.onConfirm.AddListener(delegate {
+				UIController.CreateLoadingScene()
+					.LoadScene(Main.SceneLogin);
+			});
+
 			_disconnected = true;
-
-			if (Main.Game != null)
-				Main.Game.AvatarController.Player = null;
-
-			if (SceneManager.GetActiveScene().buildIndex == Main.SceneLogin)
-				return;
-
-			//UIController.CreateLoadingScene()
-			//	.LoadScene(Main.SceneLogin);
-
-			Main.UIManager.Modal.SetText2("Connection closed unexpectedly by the remote server.");
 		}
 
 	}

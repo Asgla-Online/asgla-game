@@ -107,10 +107,10 @@ namespace AsglaUI.UI {
 			// Create a modal box
 			UIModalBox box = UIModalBoxManager.Instance.Create(gameObject);
 			if (box != null) {
-				box.SetText1("Do you really want to delete this character?");
-				box.SetText2(
+				box.SetTitle("Do you really want to delete this character?");
+				box.SetDescription(
 					"You wont be able to reverse this operation and yourcharcater will be permamently removed.");
-				box.SetConfirmButtonText("DELETE");
+				box.SetConfirmText("DELETE");
 				box.onConfirm.AddListener(OnCharacterDeleteConfirm);
 				box.onCancel.AddListener(OnCharacterDeleteCancel);
 				box.Show();

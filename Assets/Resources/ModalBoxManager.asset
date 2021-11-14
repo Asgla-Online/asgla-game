@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f93a6355e84dda1479aaf69c198dd42a, type: 3}
   m_Name: ModalBoxManager
   m_EditorClassIdentifier: 
-  m_ModalBoxPrefab: {fileID: 224770951931135869, guid: b7e1b9ba68952ae4ab714898e15227e1,
-    type: 3}
+  modalBoxPrefab: {fileID: 224770951931135869, guid: b7e1b9ba68952ae4ab714898e15227e1, type: 3}

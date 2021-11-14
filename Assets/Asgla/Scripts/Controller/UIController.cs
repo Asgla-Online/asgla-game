@@ -10,12 +10,17 @@ namespace Asgla.Controller {
 
 		public LoadingOverlay LoadingOverlay;
 
-		public UIModalBox Modal {
+		/// <summary>
+		///     Create or return modal box to use everywhere.
+		/// </summary>
+		public UIModalBox ModalGlobal {
 			get{
 				if (_modal != null)
 					return _modal;
 
-				_modal = UIModalBoxManager.Instance.Create(GameObject.Find("Canvas"));
+				_modal = UIModalBoxManager.Instance.Create(GameObject.Find("Canvas"))
+					.SetTitle(null)
+					.SetDescription(null);
 
 				return _modal;
 			}

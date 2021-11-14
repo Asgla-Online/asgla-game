@@ -282,13 +282,11 @@ MonoBehaviour:
   onCancel:
     m_PersistentCalls:
       m_Calls: []
-  m_Text1: {fileID: 5826768892582440728}
-  m_Text2: {fileID: 2789578115677946501}
-  m_ConfirmButton: {fileID: 2103142188473912030}
-  m_ConfirmButtonText: {fileID: 4733064900141504095}
-  m_CancelButton: {fileID: 224770950361111490}
-  m_ConfirmInput: Submit
-  m_CancelInput: Cancel
+  title: {fileID: 5826768892582440728}
+  description: {fileID: 2789578115677946501}
+  confirm: {fileID: 2103142188473912030}
+  confirmText: {fileID: 4733064900141504095}
+  cancel: {fileID: 224770950361111490}
 --- !u!114 &224770951931135870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -420,7 +418,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1496, y: 0}
+  m_SizeDelta: {x: 1496, y: 401.74}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &224770951947150567
 CanvasRenderer:
@@ -546,10 +544,10 @@ RectTransform:
   m_Father: {fileID: 224770951947150563}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 104, y: -114}
+  m_SizeDelta: {x: 1288, y: 145.74}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &224770951961282006
 MonoBehaviour:
@@ -693,10 +691,10 @@ RectTransform:
   m_Father: {fileID: 224770951961282007}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: -93}
+  m_SizeDelta: {x: 1288, y: 52.74}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1257286476103520067
 CanvasRenderer:
@@ -726,10 +724,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'You wont be able to reverse this operation and your
+  m_text: 'Description
 
-    charcater will
-    be permamently removed.'
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b3cc452611800f441976d344dfe94f0c, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: a13fcf17598dbb1479eb88a35f1f9b97, type: 2}
@@ -810,7 +807,7 @@ GameObject:
   - component: {fileID: 3210342042762841979}
   - component: {fileID: 5826768892582440728}
   m_Layer: 0
-  m_Name: Headline Text (TMP)
+  m_Name: Title Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -830,10 +827,10 @@ RectTransform:
   m_Father: {fileID: 224770951961282007}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 1288, y: 63}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &3210342042762841979
 CanvasRenderer:
@@ -863,7 +860,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Do you really want to delete this character?
+  m_text: 'Title
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cc55d81a0aa1a1745b0768ba10ff75cb, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 9f4889d0226ba7f46841ab637a655999, type: 2}
@@ -1086,7 +1085,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1808175160773322646, guid: 7109614aeae9b70468237297acd2621a, type: 3}
       propertyPath: m_text
-      value: Cancel
+      value: Back
       objectReference: {fileID: 0}
     - target: {fileID: 3320805162593617480, guid: 7109614aeae9b70468237297acd2621a, type: 3}
       propertyPath: m_RootOrder
@@ -1146,7 +1145,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5014485939221297963, guid: 7109614aeae9b70468237297acd2621a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5014485939221297963, guid: 7109614aeae9b70468237297acd2621a, type: 3}
       propertyPath: m_AnchorMin.x
@@ -1154,7 +1153,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5014485939221297963, guid: 7109614aeae9b70468237297acd2621a, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5014485939221297963, guid: 7109614aeae9b70468237297acd2621a, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1202,7 +1201,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5014485939221297963, guid: 7109614aeae9b70468237297acd2621a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 732
       objectReference: {fileID: 0}
     - target: {fileID: 5014485939221297963, guid: 7109614aeae9b70468237297acd2621a, type: 3}
       propertyPath: m_AnchoredPosition.y

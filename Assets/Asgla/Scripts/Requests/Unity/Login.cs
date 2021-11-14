@@ -14,7 +14,7 @@ namespace Asgla.Requests.Unity {
 			Login login = JsonMapper.ToObject<Login>(json);
 
 			if (!login.status) {
-				main.UIManager.Modal.SetText2(login.message)
+				main.UIManager.ModalGlobal.SetDescription(login.message)
 					.SetActiveConfirmButton(true);
 				return;
 			}
@@ -24,7 +24,7 @@ namespace Asgla.Requests.Unity {
 				Main.StartCoroutine(SchedulePing());
 #endif
 
-			main.UIManager.Modal.Close();
+			main.UIManager.ModalGlobal.Close();
 
 			UIController.CreateLoadingScene()
 				.LoadScene(Main.SceneGame);

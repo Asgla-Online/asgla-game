@@ -19,19 +19,17 @@ namespace Asgla.Scenes {
 
 		[SerializeField] private Button button;
 
-		private UIModalBox _modal;
-
 		private HTTPRequest _request;
 
 		private void StartAuthentication() {
-			_modal.SetText1("Account")
-				.SetText2("Authenticating account..")
-				.SetConfirmButtonText("BACK")
+			Main.Singleton.UIManager.ModalGlobal
+				.SetTitle("Account")
+				.SetDescription("Authenticating account..")
 				.SetActiveCancelButton(false);
 
-			_modal.onConfirm.AddListener(OnConfirm);
+			Main.Singleton.UIManager.ModalGlobal.onConfirm.AddListener(OnConfirm);
 
-			_modal.Show();
+			Main.Singleton.UIManager.ModalGlobal.Show();
 
 			_request = new HTTPRequest(new Uri(Main.URLLogin), HTTPMethods.Post, OnAuthRequestFinished);
 
@@ -76,8 +74,9 @@ namespace Asgla.Scenes {
 					//LoginWebRequest login = JsonMapper.ToObject<LoginWebRequest>(resp.DataAsText.Trim());
 
 					if (resp.IsSuccess && login != null && login.User != null && login.User.Token != null) {
-						_modal.SetText2("Authentication successfully");
-						_modal.SetActiveConfirmButton(false);
+						Main.Singleton.UIManager.ModalGlobal
+							.SetDescription("Authentication successfully")
+							.SetActiveConfirmButton(false);
 
 						if (toggleRemember.isOn) {
 							PlayerPrefs.SetString("loginUsername", inputUsername.text);
@@ -91,23 +90,26 @@ namespace Asgla.Scenes {
 						UIController.CreateLoadingScene()
 							.LoadScene(Main.SceneServers);
 					} else {
-						_modal.SetText1("Warning");
-						_modal.SetText2(login?.Message ?? "Error");
+						Main.Singleton.UIManager.ModalGlobal.SetTitle("Warning")
+							.SetDescription(login?.Message ?? "Error");
 					}
 
 					break;
 				case HTTPRequestStates.Error:
-					_modal.SetText1("Error");
-					_modal.SetText2("Request Finished with Error!");
+					Main.Singleton.UIManager.ModalGlobal
+						.SetTitle("Error")
+						.SetDescription("Request Finished with Error!");
 					break;
 				case HTTPRequestStates.Aborted:
-					_modal.SetText1("Error");
-					_modal.SetText2("Request Aborted!");
+					Main.Singleton.UIManager.ModalGlobal
+						.SetTitle("Error")
+						.SetDescription("Request Aborted!");
 					break;
 				case HTTPRequestStates.ConnectionTimedOut:
 				case HTTPRequestStates.TimedOut:
-					_modal.SetText1("Error");
-					_modal.SetText2("Timed Out!");
+					Main.Singleton.UIManager.ModalGlobal
+						.SetTitle("Error")
+						.SetDescription("Timed Out!");
 					break;
 			}
 		}
@@ -136,8 +138,6 @@ namespace Asgla.Scenes {
 		#region Unity
 
 		private void Awake() {
-			_modal = Main.Singleton.UIManager.Modal;
-
 			if (PlayerPrefs.HasKey("loginUsername")) {
 				inputUsername.text = PlayerPrefs.GetString("loginUsername");
 				inputPassword.text = PlayerPrefs.GetString("loginPassword");
@@ -154,12 +154,16 @@ namespace Asgla.Scenes {
 			if (Main.Singleton.Login != null)
 				Main.Singleton.Login = null;
 
+			if (Main.Singleton.Game != null)
+				Main.Singleton.Game.AvatarController.Player = null;
+
 			//if (PlayerPrefs.HasKey("loginUsername"))
 			//	StartAuthentication();
 		}
 
 		private void Update() {
-			if (_modal == null && (Input.GetKey(KeyCode.KeypadEnter) || Input.GetKey(KeyCode.Return)))
+			if (UIModalBoxManager.Instance.ActiveBoxes.Length == 0 &&
+			    (Input.GetKey(KeyCode.KeypadEnter) || Input.GetKey(KeyCode.Return)))
 				StartAuthentication();
 		}
 

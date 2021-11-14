@@ -40,7 +40,7 @@ namespace AsglaUI.UI {
 
 				if (modalBoxes.Length > 0)
 					foreach (UIModalBox box in modalBoxes) // If the box is active
-						if (box.isActive && box.isActiveAndEnabled && box.gameObject.activeInHierarchy)
+						if (box.IsActive && box.isActiveAndEnabled && box.gameObject.activeInHierarchy)
 							return;
 
 				// Get the windows list

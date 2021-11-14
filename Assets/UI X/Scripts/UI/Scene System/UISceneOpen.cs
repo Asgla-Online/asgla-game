@@ -17,7 +17,7 @@ namespace AsglaUI.UI {
 
 			// Check if we are using the escape input for this and if we have an active modal box
 			if (m_InputKey == InputKey.Cancel && UIModalBoxManager.Instance != null &&
-			    UIModalBoxManager.Instance.activeBoxes.Length > 0)
+			    UIModalBoxManager.Instance.ActiveBoxes.Length > 0)
 				return;
 
 			string buttonName = string.Empty;
