@@ -10,7 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f957a29048dcf2a4a804a3b452b93bf1, type: 3}
-  m_Name: LoadingMapOverlayManager
+  m_Name: LoadingOverlayManager
   m_EditorClassIdentifier: 
-  m_LoadingOverlayPrefab: {fileID: 3558929675341109548, guid: 39e609b8c144d8f4b879163da86b6b73,
-    type: 3}
+  loadingOverlayPrefab: {fileID: 7807494209728798113, guid: 0e5e578252848664ba95963070913388, type: 3}

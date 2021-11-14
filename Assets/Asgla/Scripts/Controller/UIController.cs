@@ -24,22 +24,18 @@ namespace Asgla.Controller {
 
 				return _modal;
 			}
-			set => _modal = value;
 		}
 
 		public static LoadingMapOverlay CreateLoadingMap() {
-			GameObject obj = Object.Instantiate(Main.Singleton.Loading);
-			return obj.AddComponent<LoadingMapOverlay>();
+			return UILoadingOverlayManager.Instance.Create<LoadingMapOverlay>();
 		}
 
 		public static LoadingAssetOverlay CreateLoadingAsset() {
-			GameObject obj = Object.Instantiate(Main.Singleton.Loading);
-			return obj.AddComponent<LoadingAssetOverlay>();
+			return UILoadingOverlayManager.Instance.Create<LoadingAssetOverlay>();
 		}
 
 		public static LoadingSceneOverlay CreateLoadingScene() {
-			GameObject obj = Object.Instantiate(Main.Singleton.Loading);
-			return obj.AddComponent<LoadingSceneOverlay>();
+			return UILoadingOverlayManager.Instance.Create<LoadingSceneOverlay>();
 		}
 
 		public static void ClearChild(params Transform[] transforms) {

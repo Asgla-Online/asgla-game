@@ -19,13 +19,9 @@ namespace Asgla {
 		public Player playerPrefab;
 		public Monster monsterPrefab;
 
-		[SerializeField] private GameObject loadingOverlay;
-
 		[SerializeField] public List<URPA> universalRenderPipelineAsset;
 
 		public LoginWebRequest Login = null;
-
-		public GameObject Loading => loadingOverlay;
 
 		public EffectMain GameAsset { get; private set; }
 

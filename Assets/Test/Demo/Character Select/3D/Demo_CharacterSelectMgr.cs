@@ -327,10 +327,10 @@ namespace AsglaUI.UI {
 		}
 
 		public void OnPlayClick() {
-			UILoadingOverlay loadingOverlay = UILoadingOverlayManager.Instance.Create();
+			//UILoadingOverlay loadingOverlay = UILoadingOverlayManager.Instance.Create();
 
-			if (loadingOverlay != null)
-				loadingOverlay.LoadScene(m_IngameSceneId);
+			//if (loadingOverlay != null)
+			//	loadingOverlay.LoadScene(m_IngameSceneId);
 		}
 
 		[Serializable]

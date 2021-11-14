@@ -488,7 +488,6 @@ GameObject:
   - component: {fileID: 1165199566}
   - component: {fileID: 1165199565}
   - component: {fileID: 1165199564}
-  - component: {fileID: 1165199568}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -578,21 +577,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1165199568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1165199563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42d878a8a0284b4d984f02ff5dabcdd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  contentTransform: {fileID: 0}
-  login: {fileID: 4869401173354809532, guid: 4fce8275ceb857e4aa43c43a251ec611, type: 3}
-  servers: {fileID: 3836830878058321525, guid: d9719c480dc711c47838177962b080c0, type: 3}
 --- !u!1 &1539919779
 GameObject:
   m_ObjectHideFlags: 0
@@ -1024,10 +1008,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8480142080028114366, guid: dbf760c03d84e2244977c8a5cc81624c, type: 3}
-      propertyPath: audioMixer
-      value: 
-      objectReference: {fileID: 24300002, guid: 3a01468dc7acc0f43ae7df8a6087e162, type: 2}
-    - target: {fileID: 8480142080028114366, guid: dbf760c03d84e2244977c8a5cc81624c, type: 3}
       propertyPath: _audioMixer
       value: 
       objectReference: {fileID: 24300002, guid: 3a01468dc7acc0f43ae7df8a6087e162, type: 2}
@@ -1036,53 +1016,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -3926081161613698834, guid: 95d2f0c3d4165984ba92e08c77b9a48d, type: 3}
     - target: {fileID: 8480142080028114366, guid: dbf760c03d84e2244977c8a5cc81624c, type: 3}
-      propertyPath: playerPrefab
-      value: 
-      objectReference: {fileID: -3926081161613698834, guid: 95d2f0c3d4165984ba92e08c77b9a48d, type: 3}
-    - target: {fileID: 8480142080028114366, guid: dbf760c03d84e2244977c8a5cc81624c, type: 3}
       propertyPath: MonsterPrefab
       value: 
       objectReference: {fileID: 2692167299112762613, guid: 550fd8e714471b246abeb9bbcd84bc58, type: 3}
     - target: {fileID: 8480142080028114366, guid: dbf760c03d84e2244977c8a5cc81624c, type: 3}
-      propertyPath: monsterPrefab
-      value: 
-      objectReference: {fileID: 2692167299112762613, guid: 550fd8e714471b246abeb9bbcd84bc58, type: 3}
-    - target: {fileID: 8480142080028114366, guid: dbf760c03d84e2244977c8a5cc81624c, type: 3}
-      propertyPath: loadingOverlay
-      value: 
-      objectReference: {fileID: 7807494209728798113, guid: 0e5e578252848664ba95963070913388, type: 3}
-    - target: {fileID: 8480142080028114366, guid: dbf760c03d84e2244977c8a5cc81624c, type: 3}
       propertyPath: _gameAssetBundle
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 8480142080028114366, guid: dbf760c03d84e2244977c8a5cc81624c, type: 3}
-      propertyPath: universalRenderPipelineAsset.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8480142080028114366, guid: dbf760c03d84e2244977c8a5cc81624c, type: 3}
-      propertyPath: universalRenderPipelineAsset.Array.data[0].name
-      value: High
-      objectReference: {fileID: 0}
-    - target: {fileID: 8480142080028114366, guid: dbf760c03d84e2244977c8a5cc81624c, type: 3}
-      propertyPath: universalRenderPipelineAsset.Array.data[1].name
-      value: Low
-      objectReference: {fileID: 0}
-    - target: {fileID: 8480142080028114366, guid: dbf760c03d84e2244977c8a5cc81624c, type: 3}
-      propertyPath: universalRenderPipelineAsset.Array.data[2].name
-      value: Medium
-      objectReference: {fileID: 0}
-    - target: {fileID: 8480142080028114366, guid: dbf760c03d84e2244977c8a5cc81624c, type: 3}
-      propertyPath: universalRenderPipelineAsset.Array.data[0].asset
-      value: 
-      objectReference: {fileID: 11400000, guid: 12a9c1f55495d2649ab73395a97008ed, type: 2}
-    - target: {fileID: 8480142080028114366, guid: dbf760c03d84e2244977c8a5cc81624c, type: 3}
-      propertyPath: universalRenderPipelineAsset.Array.data[1].asset
-      value: 
-      objectReference: {fileID: 11400000, guid: 3edf730add4c9f546b94bb33db05ee1a, type: 2}
-    - target: {fileID: 8480142080028114366, guid: dbf760c03d84e2244977c8a5cc81624c, type: 3}
-      propertyPath: universalRenderPipelineAsset.Array.data[2].asset
-      value: 
-      objectReference: {fileID: 11400000, guid: cbed8f9e7743a794b860acf772a85441, type: 2}
     - target: {fileID: 9206118758329924443, guid: dbf760c03d84e2244977c8a5cc81624c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
