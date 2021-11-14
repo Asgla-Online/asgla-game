@@ -389,6 +389,7 @@
         <Compile Include="Assets\UI X\Scripts\UI\Window\UIWindowID.cs"/>
         <Compile Include="Assets\Asgla\Scripts\Requests\Unity\Chat.cs"/>
         <Compile Include="Assets\Asgla\Scripts\Data\Avatar\Player\PlayerData.cs"/>
+        <Compile Include="Assets\Asgla\Scripts\UI\SceneOnClick.cs"/>
         <None Include="Assets\FX\Prefabs\Environment\Environment FX.txt"/>
         <None Include="Assets\CharacterCreator2D\Creator UI\Scripts\UIExportPNG\DefaultConfig\Portrait.txt"/>
         <None Include="Assets\Asgla\Fonts\Roboto\LICENSE.txt"/>
@@ -419,16 +420,16 @@
             <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.ARModule">
- <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.ARModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.AccessibilityModule">
- <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.AccessibilityModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.AndroidJNIModule">
- <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.AndroidJNIModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.AnimationModule">
- <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.AnimationModule.dll</HintPath>
+            <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.ARModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.AccessibilityModule">
+            <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.AccessibilityModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.AndroidJNIModule">
+            <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.AndroidJNIModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.AnimationModule">
+            <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.AnimationModule.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AssetBundleModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.AssetBundleModule.dll</HintPath>

@@ -46,7 +46,7 @@ MonoBehaviour:
   walkable: 1
   playerPrefab: {fileID: -3926081161613698834, guid: 95d2f0c3d4165984ba92e08c77b9a48d, type: 3}
   monsterPrefab: {fileID: 2692167299112762613, guid: 550fd8e714471b246abeb9bbcd84bc58, type: 3}
-  GraphicQualities:
+  graphicQualities:
   - name: High
     asset: {fileID: 11400000, guid: 12a9c1f55495d2649ab73395a97008ed, type: 2}
   - name: Medium
