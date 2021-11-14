@@ -6,7 +6,7 @@ SpriteAtlas:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UI Component
+  m_Name: UI Player
   m_EditorData:
     serializedVersion: 2
     textureSettings:
@@ -23,7 +23,7 @@ SpriteAtlas:
     platformSettings:
     - serializedVersion: 3
       m_BuildTarget: DefaultTexturePlatform
-      m_MaxTextureSize: 4096
+      m_MaxTextureSize: 1024
       m_ResizeAlgorithm: 0
       m_TextureFormat: -1
       m_TextureCompression: 1
@@ -43,21 +43,16 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 102900000, guid: ab69bb1e4655b45429dfec005d4d848a, type: 3}
-    - {fileID: 102900000, guid: 9d61999fd0bd25646a344795fdd3b3e1, type: 3}
-    totalSpriteSurfaceArea: 357222
+    - {fileID: 102900000, guid: d19f2aae847fa62439f45d3cf2badf8f, type: 3}
+    totalSpriteSurfaceArea: 4096
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: beff26f271e992549a49a65c46ed3d49, type: 3}
-  - {fileID: 21300000, guid: a731c335acf16524a9faf915d3089530, type: 3}
-  - {fileID: 21300000, guid: 3f69eaccfd7d5ce47bb99f6e0bbf63d2, type: 3}
+  - {fileID: 21300000, guid: e944c5b4a5c1ddf4995053da4f09cd90, type: 3}
   m_PackedSpriteNamesToIndex:
-  - logo
-  - Asgla_Button_Large
-  - Asgla_Container
+  - bubble arrow
   m_RenderDataMap: {}
-  m_Tag: UI Component
+  m_Tag: UI Player
   m_IsVariant: 0

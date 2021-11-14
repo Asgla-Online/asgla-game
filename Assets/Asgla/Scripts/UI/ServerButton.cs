@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Asgla.UI {
-	public class ServerItem : MonoBehaviour {
+	public class ServerButton : MonoBehaviour {
 
 		[SerializeField] private Button button;
 
