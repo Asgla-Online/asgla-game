@@ -167,8 +167,8 @@ namespace AsglaUI.UI {
 
 		private void OnWindowTransitionEnd(UIWindow window, UIWindow.VisualState state) {
 			// Destroy the modal box when hidden
-			//if (state == UIWindow.VisualState.Hidden)
-			//	Destroy(gameObject);
+			if (state == UIWindow.VisualState.Hidden)
+				Destroy(gameObject);
 		}
 
 	}

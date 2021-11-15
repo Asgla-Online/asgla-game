@@ -37,7 +37,10 @@ namespace Asgla {
 
 			Main.UIManager.ModalGlobal
 				.SetTitle(null)
-				.SetDescription("Connecting...");
+				.SetDescription("Connecting...")
+				.SetActiveCancelButton(false)
+				.SetConfirmText("Cancel")
+				.onConfirm.AddListener(delegate { Connection.Close(); });
 		}
 
 		private void OnOpen(WebSocket ws) {
@@ -67,12 +70,12 @@ namespace Asgla {
 			Main.UIManager.ModalGlobal
 				.SetTitle(null)
 				.SetDescription(reason)
-				.SetActiveCancelButton(false);
-
-			Main.UIManager.ModalGlobal.onConfirm.AddListener(delegate {
-				UIController.CreateLoadingScene()
-					.LoadScene(Main.SceneLogin);
-			});
+				.SetActiveCancelButton(false)
+				.SetConfirmText("Back")
+				.onConfirm.AddListener(delegate {
+					UIController.CreateLoadingScene()
+						.LoadScene(Main.SceneLogin);
+				});
 
 			_disconnected = true;
 		}
