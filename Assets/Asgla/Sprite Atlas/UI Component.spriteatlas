@@ -45,7 +45,7 @@ SpriteAtlas:
     packables:
     - {fileID: 102900000, guid: ab69bb1e4655b45429dfec005d4d848a, type: 3}
     - {fileID: 102900000, guid: 9d61999fd0bd25646a344795fdd3b3e1, type: 3}
-    totalSpriteSurfaceArea: 357222
+    totalSpriteSurfaceArea: 373606
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -54,10 +54,12 @@ SpriteAtlas:
   - {fileID: 21300000, guid: beff26f271e992549a49a65c46ed3d49, type: 3}
   - {fileID: 21300000, guid: a731c335acf16524a9faf915d3089530, type: 3}
   - {fileID: 21300000, guid: 3f69eaccfd7d5ce47bb99f6e0bbf63d2, type: 3}
+  - {fileID: 21300000, guid: 8d525e8fd186457409fd99472098f8f5, type: 3}
   m_PackedSpriteNamesToIndex:
   - logo
   - Asgla_Button_Large
   - Asgla_Container
+  - Asgla_Container_Red
   m_RenderDataMap: {}
   m_Tag: UI Component
   m_IsVariant: 0

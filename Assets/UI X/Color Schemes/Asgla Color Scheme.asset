@@ -24,4 +24,4 @@ MonoBehaviour:
   m_ButtonForeground: {r: 0.16862746, g: 0.16862746, b: 0.16862746, a: 1}
   m_ButtonEffect: {r: 0.9529412, g: 0.7411765, b: 0.53333336, a: 1}
   m_WindowHeader: {r: 0.38431373, g: 0.6039216, b: 0.7058824, a: 1}
-  m_Animation: {r: 0.13333334, g: 0.16078432, b: 0.18039216, a: 1}
+  m_Animation: {r: 0, g: 0, b: 0, a: 0.1}
