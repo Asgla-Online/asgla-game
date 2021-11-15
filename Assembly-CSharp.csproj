@@ -151,6 +151,7 @@
         <Compile Include="Assets\CharacterCreator2D\Creator UI\Scripts\UIColorPalette\UIColorPalette.cs"/>
         <Compile Include="Assets\Asgla\Scripts\Avatar\AvatarMain.cs"/>
         <Compile Include="Assets\UI X\Scripts\UI\Loading Overlay\UILoadingOverlayManager.cs"/>
+        <Compile Include="Assets\Asgla\Scripts\UI\SceneOnClick.cs"/>
         <Compile Include="Assets\CharacterCreator2D\Creator UI\Scripts\UICreator\AnimationList.cs"/>
         <Compile Include="Assets\CharacterCreator2D\Data\Scripts\Character\CharacterUtils.cs"/>
         <Compile Include="Assets\CharacterCreator2D\Data\Scripts\Utilities\CharacterManager.cs"/>
@@ -263,7 +264,7 @@
         <Compile Include="Assets\Asgla\Scripts\UI\Window\RespawnWindow.cs"/>
         <Compile Include="Assets\Test\Test Scripts\Test_UIItemSlot_Assign.cs"/>
         <Compile Include="Assets\UI X\Scripts\UI\Audio\UIAudioSource.cs"/>
-        <Compile Include="Assets\Asgla\Scripts\UI\ServerButton.cs"/>
+        <Compile Include="Assets\Asgla\Scripts\UI\Buttons\ServerButton.cs"/>
         <Compile Include="Assets\CharacterCreator2D\Data\Scripts\Character\BodySegment\ScaledAffection.cs"/>
         <Compile Include="Assets\CharacterCreator2D\Data\Scripts\Utilities\RendererUtility.cs"/>
         <Compile Include="Assets\CharacterCreator2D\Creator UI\Scripts\UIColor\UIBodyColor.cs"/>
@@ -389,7 +390,6 @@
         <Compile Include="Assets\UI X\Scripts\UI\Window\UIWindowID.cs"/>
         <Compile Include="Assets\Asgla\Scripts\Requests\Unity\Chat.cs"/>
         <Compile Include="Assets\Asgla\Scripts\Data\Avatar\Player\PlayerData.cs"/>
-        <Compile Include="Assets\Asgla\Scripts\UI\SceneOnClick.cs"/>
         <None Include="Assets\FX\Prefabs\Environment\Environment FX.txt"/>
         <None Include="Assets\CharacterCreator2D\Creator UI\Scripts\UIExportPNG\DefaultConfig\Portrait.txt"/>
         <None Include="Assets\Asgla\Fonts\Roboto\LICENSE.txt"/>
@@ -500,16 +500,16 @@
         <Reference Include="UnityEngine.Physics2DModule">
             <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.Physics2DModule.dll</HintPath>
         </Reference>
- <Reference Include="UnityEngine.ProfilerModule">
- <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.ProfilerModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule">
- <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.ScreenCaptureModule">
- <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.ScreenCaptureModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.SharedInternalsModule">
+        <Reference Include="UnityEngine.ProfilerModule">
+            <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.ProfilerModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule">
+            <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.ScreenCaptureModule">
+            <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.ScreenCaptureModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.SharedInternalsModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.SharedInternalsModule.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.SpriteMaskModule">

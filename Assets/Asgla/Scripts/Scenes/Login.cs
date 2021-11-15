@@ -48,19 +48,48 @@ namespace Asgla.Scenes {
 					Debug.Log(resp.DataAsText);
 
 					//Test
-					string[] names =
-						{"Annika", "Evita", "Herb", "Thad", "Myesha", "Lucile", "Sharice", "Tatiana", "Isis", "Allen"};
-
-					List<Data.Web.Server> servers = new List<Data.Web.Server>();
-
-					for (int i = 0; i < Random.Range(1, 20); i++) {
-						servers.Add(new Data.Web.Server {
+					List<Data.Web.Server> servers = new List<Data.Web.Server> {
+						new Data.Web.Server {
+							//Normal
 							Count = Random.Range(100, 1000),
 							Max = 1000,
-							Name = names[Random.Range(0, names.Length - 1)],
-							Uri = "ws://localhost:4431"
-						});
-					}
+							Name = "Annika",
+							Uri = "ws://localhost:4431",
+							IsOnline = true
+						},
+						new Data.Web.Server {
+							//Full
+							Count = Random.Range(500, 2000),
+							Max = 1000,
+							Name = "Evita",
+							Uri = "ws://localhost:4431",
+							IsOnline = true
+						},
+						new Data.Web.Server {
+							//Offline
+							Count = Random.Range(100, 1000),
+							Max = 1000,
+							Name = "Herb",
+							Uri = "ws://localhost:4431",
+							IsOnline = false
+						},
+						new Data.Web.Server {
+							//Normal
+							Count = Random.Range(100, 1000),
+							Max = 1000,
+							Name = "Tatiana",
+							Uri = "ws://localhost:4431",
+							IsOnline = true
+						},
+						new Data.Web.Server {
+							//VIP
+							Count = Random.Range(100, 1000),
+							Max = 1000,
+							Name = "Tatiana",
+							Uri = "ws://localhost:4431",
+							IsOnline = false
+						}
+					};
 
 					LoginWebRequest login = new LoginWebRequest {
 						Message = "test",

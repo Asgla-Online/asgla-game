@@ -1,4 +1,5 @@
-﻿using Asgla.UI;
+﻿using Asgla.Controller;
+using Asgla.UI.Buttons;
 using UnityEngine;
 
 namespace Asgla.Scenes {
@@ -7,14 +8,6 @@ namespace Asgla.Scenes {
 		[SerializeField] private ServerButton serverButtonPrefab;
 
 		[SerializeField] private Transform serversGroupTransform;
-
-		#region Unity
-
-		private void Awake() {
-			Main.Singleton.Login.Servers.ForEach(AddServer);
-		}
-
-		#endregion
 
 		/// <summary>
 		///     Adds a server to the servers list.
@@ -37,6 +30,18 @@ namespace Asgla.Scenes {
 			// Set the info
 			character.SetServerInfo(info);
 		}
+
+		#region Unity
+
+		private void Awake() {
+			UIController.ClearChild(serversGroupTransform.transform);
+		}
+
+		private void Start() {
+			Main.Singleton.Login.Servers.ForEach(AddServer);
+		}
+
+		#endregion
 
 	}
 }

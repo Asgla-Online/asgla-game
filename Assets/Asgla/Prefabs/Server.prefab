@@ -65,7 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9843d37e02a4d54a95a9ab41e750426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serverButtonPrefab: {fileID: 0}
+  serverButtonPrefab: {fileID: 1583135966102895702, guid: 252223cea95363a4ab01c355e1a73200, type: 3}
   serversGroupTransform: {fileID: 5649976739529141095}
 --- !u!1 &5649976738237101385
 GameObject:
@@ -1439,6 +1439,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Button (Server) (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2926248360167451095, guid: 252223cea95363a4ab01c355e1a73200, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.00012207031
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926248360167451095, guid: 252223cea95363a4ab01c355e1a73200, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -7.257019
+      objectReference: {fileID: 0}
     - target: {fileID: 2960574615483024611, guid: 252223cea95363a4ab01c355e1a73200, type: 3}
       propertyPath: m_Interactable
       value: 0
@@ -1565,6 +1573,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Button (Server) (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 2926248360167451095, guid: 252223cea95363a4ab01c355e1a73200, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.00012207031
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926248360167451095, guid: 252223cea95363a4ab01c355e1a73200, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -7.257019
+      objectReference: {fileID: 0}
     - target: {fileID: 2960574615483024611, guid: 252223cea95363a4ab01c355e1a73200, type: 3}
       propertyPath: m_Interactable
       value: 1
@@ -1678,6 +1694,14 @@ PrefabInstance:
     - target: {fileID: 1583135966102895703, guid: 252223cea95363a4ab01c355e1a73200, type: 3}
       propertyPath: m_Name
       value: Button (Server) (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926248360167451095, guid: 252223cea95363a4ab01c355e1a73200, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.00012207031
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926248360167451095, guid: 252223cea95363a4ab01c355e1a73200, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -7.257019
       objectReference: {fileID: 0}
     - target: {fileID: 2960574615483024611, guid: 252223cea95363a4ab01c355e1a73200, type: 3}
       propertyPath: m_Interactable
@@ -2159,6 +2183,14 @@ PrefabInstance:
     - target: {fileID: 1583135966102895703, guid: 252223cea95363a4ab01c355e1a73200, type: 3}
       propertyPath: m_Name
       value: Button (Server)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926248360167451095, guid: 252223cea95363a4ab01c355e1a73200, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.00012207031
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926248360167451095, guid: 252223cea95363a4ab01c355e1a73200, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -7.257019
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 252223cea95363a4ab01c355e1a73200, type: 3}
