@@ -540,16 +540,16 @@
             <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.TextCoreModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.TextRenderingModule">
- <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.TextRenderingModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.TilemapModule">
- <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.TilemapModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UIModule">
- <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.UIModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UIElementsModule">
- <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.UIElementsModule.dll</HintPath>
+            <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.TextRenderingModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.TilemapModule">
+            <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.TilemapModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.UIModule">
+            <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.UIModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.UIElementsModule">
+            <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.UIElementsModule.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UIElementsNativeModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.UIElementsNativeModule.dll</HintPath>
