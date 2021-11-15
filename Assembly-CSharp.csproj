@@ -550,16 +550,16 @@
         </Reference>
         <Reference Include="UnityEngine.UIElementsModule">
             <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.UIElementsModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UIElementsNativeModule">
- <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.UIElementsNativeModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UNETModule">
- <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.UNETModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UmbraModule">
- <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.UmbraModule.dll</HintPath>
- </Reference>
+        </Reference>
+        <Reference Include="UnityEngine.UIElementsNativeModule">
+            <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.UIElementsNativeModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.UNETModule">
+            <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.UNETModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.UmbraModule">
+            <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.UmbraModule.dll</HintPath>
+        </Reference>
  <Reference Include="UnityEngine.UnityAnalyticsModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityAnalyticsModule.dll</HintPath>
  </Reference>
