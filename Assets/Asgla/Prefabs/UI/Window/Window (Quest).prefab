@@ -2463,7 +2463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058389b334c41e143b550cab01d2c1ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_WindowId: 0
+  m_WindowId: 9
   m_StartingState: 1
   m_EscapeKeyAction: 1
   m_UseBlackOverlay: 0
@@ -2536,7 +2536,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7108583826660710939}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
