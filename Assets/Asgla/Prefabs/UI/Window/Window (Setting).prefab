@@ -903,7 +903,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3276766246048129176, guid: c6e0b09017dd9bb4aa4d3b8c8f71d47a, type: 3}
       propertyPath: m_Options.Array.size
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3276766246048129176, guid: c6e0b09017dd9bb4aa4d3b8c8f71d47a, type: 3}
       propertyPath: listBackgroundColor.b
@@ -1218,7 +1218,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4454988561499830587, guid: e7e29756b9b527b4b8d04802ddf7c16b, type: 3}
       propertyPath: m_Value
-      value: 0.1
+      value: 0.3913269
       objectReference: {fileID: 0}
     - target: {fileID: 4454988561499830587, guid: e7e29756b9b527b4b8d04802ddf7c16b, type: 3}
       propertyPath: m_MaxValue
@@ -1819,7 +1819,7 @@ PrefabInstance:
     - target: {fileID: 5690173444049049323, guid: 1b2f2b90c94c74d409e066eb58a716c3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4255475223778107529}
     - target: {fileID: 5690173444049049323, guid: 1b2f2b90c94c74d409e066eb58a716c3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1984,7 +1984,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3276766246048129176, guid: c6e0b09017dd9bb4aa4d3b8c8f71d47a, type: 3}
       propertyPath: m_Options.Array.size
-      value: 13
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3276766246048129176, guid: c6e0b09017dd9bb4aa4d3b8c8f71d47a, type: 3}
       propertyPath: listBackgroundColor.b
@@ -2008,42 +2008,50 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3276766246048129176, guid: c6e0b09017dd9bb4aa4d3b8c8f71d47a, type: 3}
       propertyPath: m_Options.Array.data[3]
-      value: 800x600 @ 144Hz
+      value: 720x576 @ 144Hz
       objectReference: {fileID: 0}
     - target: {fileID: 3276766246048129176, guid: c6e0b09017dd9bb4aa4d3b8c8f71d47a, type: 3}
       propertyPath: m_Options.Array.data[4]
-      value: 832x624 @ 144Hz
+      value: 800x600 @ 144Hz
       objectReference: {fileID: 0}
     - target: {fileID: 3276766246048129176, guid: c6e0b09017dd9bb4aa4d3b8c8f71d47a, type: 3}
       propertyPath: m_Options.Array.data[5]
-      value: 1024x768 @ 144Hz
+      value: 832x624 @ 144Hz
       objectReference: {fileID: 0}
     - target: {fileID: 3276766246048129176, guid: c6e0b09017dd9bb4aa4d3b8c8f71d47a, type: 3}
       propertyPath: m_Options.Array.data[6]
-      value: 1280x720 @ 144Hz
+      value: 1024x768 @ 144Hz
       objectReference: {fileID: 0}
     - target: {fileID: 3276766246048129176, guid: c6e0b09017dd9bb4aa4d3b8c8f71d47a, type: 3}
       propertyPath: m_Options.Array.data[7]
-      value: 1280x1024 @ 144Hz
+      value: 1152x872 @ 144Hz
       objectReference: {fileID: 0}
     - target: {fileID: 3276766246048129176, guid: c6e0b09017dd9bb4aa4d3b8c8f71d47a, type: 3}
       propertyPath: m_Options.Array.data[8]
-      value: 1366x768 @ 144Hz
+      value: 1280x720 @ 144Hz
       objectReference: {fileID: 0}
     - target: {fileID: 3276766246048129176, guid: c6e0b09017dd9bb4aa4d3b8c8f71d47a, type: 3}
       propertyPath: m_Options.Array.data[9]
-      value: 1440x900 @ 144Hz
+      value: 1280x800 @ 144Hz
       objectReference: {fileID: 0}
     - target: {fileID: 3276766246048129176, guid: c6e0b09017dd9bb4aa4d3b8c8f71d47a, type: 3}
       propertyPath: m_Options.Array.data[10]
-      value: 1600x900 @ 144Hz
+      value: 1280x1024 @ 144Hz
       objectReference: {fileID: 0}
     - target: {fileID: 3276766246048129176, guid: c6e0b09017dd9bb4aa4d3b8c8f71d47a, type: 3}
       propertyPath: m_Options.Array.data[11]
-      value: 1680x1050 @ 144Hz
+      value: 1366x768 @ 144Hz
       objectReference: {fileID: 0}
     - target: {fileID: 3276766246048129176, guid: c6e0b09017dd9bb4aa4d3b8c8f71d47a, type: 3}
       propertyPath: m_Options.Array.data[12]
+      value: 1600x900 @ 144Hz
+      objectReference: {fileID: 0}
+    - target: {fileID: 3276766246048129176, guid: c6e0b09017dd9bb4aa4d3b8c8f71d47a, type: 3}
+      propertyPath: m_Options.Array.data[13]
+      value: 1680x1050 @ 144Hz
+      objectReference: {fileID: 0}
+    - target: {fileID: 3276766246048129176, guid: c6e0b09017dd9bb4aa4d3b8c8f71d47a, type: 3}
+      propertyPath: m_Options.Array.data[14]
       value: 1920x1080 @ 144Hz
       objectReference: {fileID: 0}
     - target: {fileID: 3276766246048129176, guid: c6e0b09017dd9bb4aa4d3b8c8f71d47a, type: 3}

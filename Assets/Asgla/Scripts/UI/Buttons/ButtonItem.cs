@@ -1,17 +1,18 @@
 ﻿using System;
 using Asgla.Data.Item;
+using Asgla.Data.Type;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Asgla.UI.Item {
-	public class ItemRow : MonoBehaviour {
+namespace Asgla.UI.Buttons {
+	public class ButtonItem : MonoBehaviour {
 
-		[SerializeField] private Image icon;
-
-		[SerializeField] private Image background;
+		[SerializeField] private Image itemIcon;
+		[SerializeField] private Image itemGlowRarity;
 
 		[SerializeField] private TextMeshProUGUI itemName;
+		[SerializeField] private TextMeshProUGUI itemRarity;
 
 		private string _buttonText;
 
@@ -43,21 +44,26 @@ namespace Asgla.UI.Item {
 			return _buttonText;
 		}
 
-		public ItemRow Init(int databaseId, ItemListType type, ItemData item) {
+		public ButtonItem Init(int databaseId, ItemListType type, ItemData item) {
 			name = databaseId.ToString();
 
 			_databaseId = databaseId;
-			_item = item;
 			_type = type;
-
-			itemName.text = _item.name;
+			_item = item;
 
 			Sprite sprite = _item.GetIcon;
 
-			if (sprite == null)
-				Debug.Log("Icon null {0}");
-			else
-				icon.sprite = _item.GetIcon;
+			if (sprite != null)
+				itemIcon.sprite = sprite;
+
+			Color rarityColor = RarityColor.GetColor(item.rarity);
+
+			itemGlowRarity.color = rarityColor;
+
+			itemName.text = _item.name;
+
+			itemRarity.text = _item.rarity.ToString();
+			itemRarity.color = rarityColor;
 
 			switch (_type) {
 				case ItemListType.Equip:

@@ -1,5 +1,5 @@
 ﻿using Asgla.Data.Avatar.Helper;
-using Asgla.UI.Item;
+using Asgla.UI.Buttons;
 using AsglaUI.UI;
 using TMPro;
 using UnityEngine;
@@ -24,9 +24,9 @@ namespace Asgla.UI.Window {
 
 		private CharacterPreview _characterPreview;
 
-		private ItemRow _row;
+		private ButtonItem _row;
 
-		public void Init(ItemRow row) {
+		public void Init(ButtonItem row) {
 			_row = row;
 
 			itemName.text = _row.Item().name;

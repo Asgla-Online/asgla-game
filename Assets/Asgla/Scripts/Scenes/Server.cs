@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Asgla.Scenes {
 	public class Server : MonoBehaviour {
 
-		[SerializeField] private ServerButton serverButtonPrefab;
+		[SerializeField] private ButtonServer buttonServerPrefab;
 
 		[SerializeField] private Transform serversGroupTransform;
 
@@ -14,15 +14,15 @@ namespace Asgla.Scenes {
 		/// </summary>
 		/// <param name="info">The server info.</param>
 		private void AddServer(Data.Web.Server info) {
-			if (serverButtonPrefab == null || serversGroupTransform == null)
+			if (buttonServerPrefab == null || serversGroupTransform == null)
 				return;
 
 			// Add the character
-			GameObject serverInstantiate = Instantiate(serverButtonPrefab.gameObject, serversGroupTransform);
+			GameObject serverInstantiate = Instantiate(buttonServerPrefab.gameObject, serversGroupTransform);
 			serverInstantiate.layer = serversGroupTransform.gameObject.layer;
 
 			// Get the character component
-			ServerButton character = serverInstantiate.GetComponent<ServerButton>();
+			ButtonServer character = serverInstantiate.GetComponent<ButtonServer>();
 
 			if (character == null)
 				return;

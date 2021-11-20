@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Asgla.UI.Buttons {
-	public class ServerButton : MonoBehaviour {
+	public class ButtonServer : MonoBehaviour {
 
 		[SerializeField] private TextMeshProUGUI serverName;
 

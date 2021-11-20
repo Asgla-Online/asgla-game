@@ -509,12 +509,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   type: 0
-  all: {fileID: 0}
-  armor: {fileID: 0}
-  weapon: {fileID: 0}
-  helm: {fileID: 0}
-  row: {fileID: 0}
-  slots: []
+  tabsGroup: {fileID: 0}
+  scrollsGroup: {fileID: 0}
+  buttonTabPrefab: {fileID: 0}
+  buttonItemPrefab: {fileID: 0}
+  scrollRectPrefab: {fileID: 0}
 --- !u!222 &5444011482912077769
 CanvasRenderer:
   m_ObjectHideFlags: 0

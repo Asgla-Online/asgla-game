@@ -64,7 +64,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9843d37e02a4d54a95a9ab41e750426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serverButtonPrefab: {fileID: 1583135966102895702, guid: 252223cea95363a4ab01c355e1a73200, type: 3}
+  buttonServerPrefab: {fileID: 1583135966102895702, guid: 252223cea95363a4ab01c355e1a73200, type: 3}
   serversGroupTransform: {fileID: 5649976739529141095}
 --- !u!1 &5649976738584466952
 GameObject:

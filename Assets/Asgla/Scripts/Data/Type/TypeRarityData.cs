@@ -17,27 +17,27 @@ namespace Asgla.Data.Type {
 
 	}
 
-	public class RarityColor {
+	public static class RarityColor {
 
-		public const string Poor = "9d9d9dff";
-		public const string Common = "ffffffff";
-		public const string Uncommon = "1eff00ff";
-		public const string Rare = "0070ffff";
-		public const string Epic = "a335eeff";
-		public const string Legendary = "ff8000ff";
-		public const string Contraband = "ff3030ff";
+		private const string Poor = "9d9d9dff";
+		private const string Common = "ffffffff";
+		private const string Uncommon = "1eff00ff";
+		private const string Rare = "0070ffff";
+		private const string Epic = "a335eeff";
+		private const string Legendary = "ff8000ff";
+		private const string Contraband = "ff3030ff";
 
 		public static string GetHexColor(RarityData r) {
-			switch (r) {
-				case RarityData.Poor: return Poor;
-				case RarityData.Common: return Common;
-				case RarityData.Uncommon: return Uncommon;
-				case RarityData.Rare: return Rare;
-				case RarityData.Epic: return Epic;
-				case RarityData.Legendary: return Legendary;
-				case RarityData.Contraband: return Contraband;
-				default: return Poor;
-			}
+			return r switch {
+				RarityData.Poor => Poor,
+				RarityData.Common => Common,
+				RarityData.Uncommon => Uncommon,
+				RarityData.Rare => Rare,
+				RarityData.Epic => Epic,
+				RarityData.Legendary => Legendary,
+				RarityData.Contraband => Contraband,
+				_ => Poor
+			};
 		}
 
 		public static Color GetColor(RarityData r) {

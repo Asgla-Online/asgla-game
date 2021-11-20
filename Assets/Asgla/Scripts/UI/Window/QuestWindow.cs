@@ -3,7 +3,7 @@ using Asgla.Controller;
 using Asgla.Data.Avatar.Player;
 using Asgla.Data.Item;
 using Asgla.Data.Quest;
-using Asgla.UI.Item;
+using Asgla.UI.Buttons;
 using Asgla.UI.Quest;
 using AsglaUI.UI;
 using TMPro;
@@ -37,7 +37,7 @@ namespace Asgla.UI.Window {
 
 		[Header("Reward")] [SerializeField] private QuestObjectiveAndReward rewardSlot;
 
-		[SerializeField] private ItemRow itemRow;
+		[SerializeField] private ButtonItem buttonItem;
 		[SerializeField] private Transform rewardAmountContent;
 		[SerializeField] private Transform rewardContent;
 
@@ -147,8 +147,8 @@ namespace Asgla.UI.Window {
 		}
 
 		private void AddRewardSlot(int databaseId, ItemData item) {
-			Instantiate(itemRow.gameObject, rewardContent)
-				.GetComponent<ItemRow>()
+			Instantiate(buttonItem.gameObject, rewardContent)
+				.GetComponent<ButtonItem>()
 				.Init(databaseId, ItemListType.Quest, item);
 		}
 
