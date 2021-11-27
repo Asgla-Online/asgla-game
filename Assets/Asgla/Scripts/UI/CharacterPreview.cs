@@ -31,9 +31,12 @@ namespace Asgla.UI {
 		}*/
 
 		private void UpdateSprite() {
-			_renderTexture = new RenderTexture((int) _image.rectTransform.rect.width,
-				(int) _image.rectTransform.rect.height, 24, RenderTextureFormat.ARGB32);
-			_renderTexture.filterMode = FilterMode.Bilinear;
+			Rect rect = _image.rectTransform.rect;
+
+			_renderTexture = new RenderTexture((int) rect.width, (int) rect.height, 24, RenderTextureFormat.ARGB32) {
+				filterMode = FilterMode.Bilinear
+			};
+
 			_camera.targetTexture = _renderTexture;
 			_image.texture = _renderTexture;
 			_image.SetNativeSize();
@@ -66,7 +69,9 @@ namespace Asgla.UI {
 			return _animator;
 		}
 
-		public IEnumerator AsynchronousLoad(EquipPart equip) {
+		private IEnumerator AsynchronousLoad(EquipPart equip) {
+			Debug.LogFormat("{0} - {1}", equip.bundle, equip.asset); //------
+
 			AssetBundleManager abm = new AssetBundleManager();
 
 			abm.DisableDebugLogging();
@@ -81,7 +86,7 @@ namespace Asgla.UI {
 
 			AssetBundleAsync assetBundle = abm.GetBundleAsync(equip.bundle);
 
-			abm.RegisterDownloadProgressHandler(equip.bundle, UpdateProgress);
+			//abm.RegisterDownloadProgressHandler(equip.bundle, UpdateProgress);
 
 			yield return assetBundle;
 
@@ -102,6 +107,8 @@ namespace Asgla.UI {
 				yield break;
 			}
 
+			equip.type.Equipment = (SlotCategory) partAsset.category;
+
 			_characterView.EquipPart(equip.type.Equipment, partAsset);
 
 			/*if (partAsset.category == PartCategory.Weapon) {
@@ -121,10 +128,10 @@ namespace Asgla.UI {
 			abm.Dispose();
 		}
 
-		private void UpdateProgress(float progress) {
+		/*private void UpdateProgress(float progress) {
 			if (progress > 0)
 				return;
-		}
+		}*/
 
 	}
 }

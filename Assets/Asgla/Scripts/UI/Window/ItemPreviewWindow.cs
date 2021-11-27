@@ -14,7 +14,7 @@ namespace Asgla.UI.Window {
 
 		[SerializeField] private CharacterPreview characterPreviewPrefab;
 
-		[SerializeField] private RawImage image;
+		[SerializeField] private RawImage itemPreview;
 
 		[SerializeField] private TextMeshProUGUI itemName;
 
@@ -29,6 +29,8 @@ namespace Asgla.UI.Window {
 		public void Init(ButtonItem row) {
 			_row = row;
 
+			//Color rarityColor = RarityColor.GetColor(_row.Item().rarity);
+
 			itemName.text = _row.Item().name;
 
 			if (_row.ButtonText() == "Quest") {
@@ -41,9 +43,9 @@ namespace Asgla.UI.Window {
 			if (_characterPreview == null)
 				_characterPreview = Instantiate(characterPreviewPrefab);
 
-			image.enabled = false;
+			itemPreview.enabled = false;
 
-			_characterPreview.SetImage(image);
+			_characterPreview.SetImage(itemPreview);
 
 			_characterPreview.Equip(new EquipPart {
 				type = _row.Item().Type,

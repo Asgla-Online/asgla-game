@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Asgla.Controller;
 using Asgla.Data.Item;
@@ -92,15 +91,14 @@ namespace Asgla.UI.Window {
 			Tabs.ForEach(tab => UIController.ClearChild(tab.Content));
 		}
 
-		[Serializable]
 		protected class Tab {
+
+			public List<PartCategory> Category;
+			public Transform Content;
 
 			public string Name;
 
-			public List<PartCategory> Category;
-
 			public UITab UITab;
-			public Transform Content;
 
 		}
 

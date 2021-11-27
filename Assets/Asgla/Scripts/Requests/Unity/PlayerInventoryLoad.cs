@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Asgla.Avatar.Player;
 using Asgla.Data.Avatar.Player;
 using Asgla.Data.Item;
@@ -24,10 +25,19 @@ namespace Asgla.Requests.Unity {
 			if (player is null)
 				return;
 
+			Dictionary<string, string> bundleAsset = new Dictionary<string, string> {
+				{"items/armor/armor1", "armor/armor1/armor1.asset"},
+				{"items/armor/armor2", "armor/armor2/armor2.asset"},
+				{"items/armor/armor3", "armor/armor3/armor3.asset"},
+				{"items/weapon/one handed/rose", "weapon/one handed/rose/rose.asset"},
+				{"items/weapon/one handed/alice", "weapon/one handed/alice/alice.asset"},
+			};
+
 			//TEST
 			playerInventoryLoad.inventory = new List<PlayerInventory>();
 			for (int i = 0; i < 300; i++) {
-				bool b = Random.Range(0, 1) == 1;
+				KeyValuePair<string, string> ba = bundleAsset.ElementAt(Random.Range(0, bundleAsset.Count - 1));
+
 				playerInventoryLoad.inventory.Add(new PlayerInventory {
 					databaseId = Random.Range(1, 10000000),
 					equipped = false,
@@ -36,11 +46,12 @@ namespace Asgla.Requests.Unity {
 					item = new ItemData {
 						databaseId = Random.Range(1, 10000000),
 
-						name = Random.Range(1, 10000000).ToString(),
+						name = Random.Range(1, 10000000).ToString() + ba.Key,
 						description = Random.Range(1, 10000000).ToString(),
 
-						bundle = b ? "items/armor/armor1" : "items/weapon/one handed/rose",
-						asset = b ? "armor/armor1/armor1.asset" : "weapon/one handed/rose/rose.asset",
+
+						bundle = ba.Key,
+						asset = ba.Value,
 
 						rarity = (RarityData) Random.Range(1, 7),
 
@@ -52,7 +63,7 @@ namespace Asgla.Requests.Unity {
 
 							Icon = "axe",
 
-							Name = Random.Range(1, 9999999).ToString(),
+							Name = ba.Key + Random.Range(1, 9999999).ToString(),
 
 							//Weapon = Random.Range(1, 9999999).ToString(),
 						}

@@ -14,6 +14,9 @@ namespace Asgla.Avatar.Player {
 	public class Player : AvatarMain {
 
 		[SerializeField] private PlayerCharacter character;
+
+		[SerializeField] private PlayerData data;
+
 		private readonly List<int> _loadingEquip = new List<int>();
 
 		private CharacterViewer _characterView;
@@ -24,8 +27,6 @@ namespace Asgla.Avatar.Player {
 		private AvatarMain _target;
 
 		private HashSet<AvatarMain> _targets;
-
-		private PlayerData data;
 
 		public void Data(PlayerData playerData) {
 			data = playerData;
