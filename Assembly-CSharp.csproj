@@ -614,15 +614,15 @@
  <Reference Include="UnityEditor.CoreModule">
      <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.24f1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll</HintPath>
  </Reference>
- <Reference Include="UnityEditor.GraphViewModule">
-     <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.24f1/Editor/Data/Managed/UnityEngine/UnityEditor.GraphViewModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.PackageManagerUIModule">
-     <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.24f1/Editor/Data/Managed/UnityEngine/UnityEditor.PackageManagerUIModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.SceneTemplateModule">
-     <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.24f1/Editor/Data/Managed/UnityEngine/UnityEditor.SceneTemplateModule.dll</HintPath>
- </Reference>
+      <Reference Include="UnityEditor.GraphViewModule">
+          <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.24f1/Editor/Data/Managed/UnityEngine/UnityEditor.GraphViewModule.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEditor.PackageManagerUIModule">
+          <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.24f1/Editor/Data/Managed/UnityEngine/UnityEditor.PackageManagerUIModule.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEditor.SceneTemplateModule">
+          <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.24f1/Editor/Data/Managed/UnityEngine/UnityEditor.SceneTemplateModule.dll</HintPath>
+      </Reference>
       <Reference Include="UnityEditor.UIElementsModule">
           <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.24f1/Editor/Data/Managed/UnityEngine/UnityEditor.UIElementsModule.dll</HintPath>
       </Reference>
@@ -647,17 +647,17 @@
       <Reference Include="System.AppContext">
           <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.24f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.AppContext.dll</HintPath>
       </Reference>
- <Reference Include="System.Collections.Concurrent">
-     <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.24f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Collections.Concurrent.dll</HintPath>
- </Reference>
- <Reference Include="System.Collections">
-     <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.24f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Collections.dll</HintPath>
- </Reference>
- <Reference Include="System.Collections.NonGeneric">
-     <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.24f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Collections.NonGeneric.dll</HintPath>
- </Reference>
- <Reference Include="System.Collections.Specialized">
-     <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.24f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Collections.Specialized.dll</HintPath>
+      <Reference Include="System.Collections.Concurrent">
+          <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.24f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Collections.Concurrent.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Collections">
+          <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.24f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Collections.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Collections.NonGeneric">
+          <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.24f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Collections.NonGeneric.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Collections.Specialized">
+          <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.24f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Collections.Specialized.dll</HintPath>
  </Reference>
  <Reference Include="System.ComponentModel">
      <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.24f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.ComponentModel.dll</HintPath>
