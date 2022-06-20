@@ -1,17 +1,20 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-namespace CharacterCreator2D {
-	public class BodySliderAttribute : PropertyAttribute {
+namespace CharacterCreator2D
+{
+    public class BodySliderAttribute : PropertyAttribute
+    {
+        public float minVal;
+        public float maxVal;
+        public bool symmetrical;
 
-		public float maxVal;
-		public float minVal;
-		public bool symmetrical;
-
-		public BodySliderAttribute(float minValue, float maxValue, bool symmetrical) {
-			this.minVal = minValue;
-			this.maxVal = maxValue;
-			this.symmetrical = symmetrical;
-		}
-
-	}
+        public BodySliderAttribute(float minValue, float maxValue, bool symmetrical)
+        {
+            this.minVal = minValue;
+            this.maxVal = maxValue;
+            this.symmetrical = symmetrical;
+        }
+    }
 }

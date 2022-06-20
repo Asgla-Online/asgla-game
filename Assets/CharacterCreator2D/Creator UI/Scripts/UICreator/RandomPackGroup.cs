@@ -1,113 +1,130 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-namespace CharacterCreator2D.UI {
-	public class RandomPackGroup : MonoBehaviour {
+namespace CharacterCreator2D.UI
+{
+    public class RandomPackGroup : MonoBehaviour
+    {
+        public RandomPackToggle TToggle;
+        public Transform contentParent;
+        [ReadOnly]
+        public List<string> activePacks;
 
-		private const string _ALLPACKNAME = "All Packs";
-		public RandomPackToggle TToggle;
-		public Transform contentParent;
+        private const string _ALLPACKNAME = "All Packs";
+        private List<RandomPackToggle> _toggles;
 
-		[ReadOnly] public List<string> activePacks;
+        private bool _notallpack = false;
 
-		private bool _notallpack = false;
-		private List<RandomPackToggle> _toggles;
+        private void Start()
+        {
+            initialize();
+        }
 
-		private void Start() {
-			initialize();
-		}
+        private void initialize()
+        {
+            clearToggles();
+            activePacks = new List<string>();
+            List<string> togglenames = getToggleNames();
+            foreach (string tname in togglenames)
+                addToggle(tname);
+            UpdateToggle(_ALLPACKNAME, true);
+        }
 
-		private void initialize() {
-			clearToggles();
-			activePacks = new List<string>();
-			List<string> togglenames = getToggleNames();
-			foreach (string tname in togglenames)
-				addToggle(tname);
-			UpdateToggle(_ALLPACKNAME, true);
-		}
+        private void clearToggles()
+        {
+            if (_toggles != null && _toggles.Count > 0)
+            {
+                for (int i = _toggles.Count - 1; i >= 0; i--)
+                    Destroy(_toggles[i].gameObject);
+            }
+            _toggles = new List<RandomPackToggle>();
+        }
 
-		private void clearToggles() {
-			if (_toggles != null && _toggles.Count > 0) {
-				for (int i = _toggles.Count - 1; i >= 0; i--)
-					Destroy(_toggles[i].gameObject);
-			}
+        private void addToggle(string toggleName)
+        {
+            RandomPackToggle ttoggle = Instantiate<RandomPackToggle>(TToggle, contentParent);
+            ttoggle.Initialize(toggleName);
+            _toggles.Add(ttoggle);
+        }
 
-			_toggles = new List<RandomPackToggle>();
-		}
+        private List<string> getToggleNames()
+        {
+            List<string> val = new List<string>();
+            val.Add(_ALLPACKNAME);
+            foreach (PartPack pack in PartList.Static.partPacks)
+            {
+                foreach (Part p in pack.parts)
+                {
+                    if (!val.Contains(p.packageName))
+                        val.Add(p.packageName);
+                }
+            }
+            return val;
+        }
 
-		private void addToggle(string toggleName) {
-			RandomPackToggle ttoggle = Instantiate<RandomPackToggle>(TToggle, contentParent);
-			ttoggle.Initialize(toggleName);
-			_toggles.Add(ttoggle);
-		}
+        public void UpdateToggle(string toggleName, bool isOn)
+        {
+            if (isOn)
+                addActivePack(toggleName);
+            else
+                removeActivePack(toggleName);
+        }
 
-		private List<string> getToggleNames() {
-			List<string> val = new List<string>();
-			val.Add(_ALLPACKNAME);
-			foreach (PartPack pack in PartList.Static.partPacks) {
-				foreach (Part p in pack.parts) {
-					if (!val.Contains(p.packageName))
-						val.Add(p.packageName);
-				}
-			}
+        private void addActivePack(string packName)
+        {
+            if (packName == _ALLPACKNAME)
+            {
+                foreach (RandomPackToggle toggle in _toggles)
+                {
+                    if (toggle.packName != _ALLPACKNAME)
+                    {
+                        toggle.toggle.isOn = true;
+                        toggle.Toggle(true);
+                    }
+                }
+                return;
+            }
 
-			return val;
-		}
+            if (!activePacks.Contains(packName))
+                activePacks.Add(packName);
+            if (activePacks.Count >= _toggles.Count - 1)
+                _toggles[0].toggle.isOn = true;
+        }
 
-		public void UpdateToggle(string toggleName, bool isOn) {
-			if (isOn)
-				addActivePack(toggleName);
-			else
-				removeActivePack(toggleName);
-		}
+        private void removeActivePack(string packName)
+        {
+            if (packName == _ALLPACKNAME && !_notallpack)
+            {
+                foreach (RandomPackToggle toggle in _toggles)
+                {
+                    if (toggle.packName != _ALLPACKNAME)
+                    {
+                        toggle.toggle.isOn = false;
+                        toggle.Toggle(false);
+                    }
+                }
+                return;
+            }
 
-		private void addActivePack(string packName) {
-			if (packName == _ALLPACKNAME) {
-				foreach (RandomPackToggle toggle in _toggles) {
-					if (toggle.packName != _ALLPACKNAME) {
-						toggle.toggle.isOn = true;
-						toggle.Toggle(true);
-					}
-				}
+            if (activePacks.Contains(packName))
+                activePacks.Remove(packName);
+                
+            _notallpack = true;
+            _toggles[0].toggle.isOn = false;
+            _notallpack = false;
+        }
 
-				return;
-			}
-
-			if (!activePacks.Contains(packName))
-				activePacks.Add(packName);
-			if (activePacks.Count >= _toggles.Count - 1)
-				_toggles[0].toggle.isOn = true;
-		}
-
-		private void removeActivePack(string packName) {
-			if (packName == _ALLPACKNAME && !_notallpack) {
-				foreach (RandomPackToggle toggle in _toggles) {
-					if (toggle.packName != _ALLPACKNAME) {
-						toggle.toggle.isOn = false;
-						toggle.Toggle(false);
-					}
-				}
-
-				return;
-			}
-
-			if (activePacks.Contains(packName))
-				activePacks.Remove(packName);
-
-			_notallpack = true;
-			_toggles[0].toggle.isOn = false;
-			_notallpack = false;
-		}
-
-		public List<string> GetExcludedPacks() {
-			List<string> val = new List<string>();
-			foreach (RandomPackToggle toggle in _toggles) {
-				if (toggle.packName != _ALLPACKNAME && !activePacks.Contains(toggle.packName))
-					val.Add(toggle.packName);
-			}
-
-			return val;
-		}
-
-	}
+        public List<string> GetExcludedPacks()
+        {
+            List<string> val = new List<string>();
+            foreach (RandomPackToggle toggle in _toggles)
+            {
+                if (toggle.packName != _ALLPACKNAME && !activePacks.Contains(toggle.packName))
+                    val.Add(toggle.packName);
+            }
+            return val;
+        }
+    }
 }

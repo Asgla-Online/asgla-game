@@ -1,14 +1,17 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
-namespace CharacterCreator2D.UI {
+namespace CharacterCreator2D.UI
+{
 	public class BackgroundChanger : MonoBehaviour {
 
 		public Image backgroundUI;
 		public Sprite[] backgroundSprites;
 		public int selectedBackground = 0;
 
-		void Start() {
+		void Start () {
 			if (backgroundUI == null || backgroundSprites == null)
 				return;
 			selectedBackground = PlayerPrefs.GetInt("Simpleton/CC2D/Background", 0);
@@ -23,7 +26,6 @@ namespace CharacterCreator2D.UI {
 				selectedBackground = 0;
 			backgroundUI.sprite = backgroundSprites[selectedBackground];
 			PlayerPrefs.SetInt("Simpleton/CC2D/Background", selectedBackground);
-		}
-
+		}	
 	}
 }

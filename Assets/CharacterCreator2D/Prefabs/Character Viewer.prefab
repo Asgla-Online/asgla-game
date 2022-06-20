@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bc0929217a19e241adb6928cc4a0277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _setupData: {fileID: 11400000, guid: d0dc7523060053b4ba757c96487d533c, type: 2}
+  setupData: {fileID: 11400000, guid: d0dc7523060053b4ba757c96487d533c, type: 2}
   bodyType: 0
   slots:
     armor:
@@ -54,144 +54,108 @@ MonoBehaviour:
       color1: {r: 0.5, g: 0.5, b: 0.5, a: 1}
       color2: {r: 0.5, g: 0.5, b: 0.5, a: 1}
       color3: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-      _partName: 
-      _packageName: 
     boots:
       material: {fileID: 2100000, guid: 4f68c22abe6a5934ab5ebbc4b81e97f2, type: 2}
       assignedPart: {fileID: 0}
       color1: {r: 0.5, g: 0.5, b: 0.5, a: 1}
       color2: {r: 0.5, g: 0.5, b: 0.5, a: 1}
       color3: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-      _partName: 
-      _packageName: 
     ear:
       material: {fileID: 2100000, guid: 45915685a27ac7646bfd3aa6a7184a92, type: 2}
       assignedPart: {fileID: 11400000, guid: beb046ab79d8570488c4215c725715b9, type: 2}
       color1: {r: 0.5, g: 0.5, b: 0.5, a: 1}
       color2: {r: 0.5, g: 0.5, b: 0.5, a: 1}
       color3: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-      _partName: 
-      _packageName: 
     eyebrow:
       material: {fileID: 2100000, guid: 45915685a27ac7646bfd3aa6a7184a92, type: 2}
       assignedPart: {fileID: 11400000, guid: c3df27fcc933a2f46a09451e9b7a7a58, type: 2}
       color1: {r: 0.3019608, g: 0.19215687, b: 0.19215687, a: 1}
       color2: {r: 0.3019608, g: 0.19215687, b: 0.19215687, a: 1}
       color3: {r: 0.3019608, g: 0.19215687, b: 0.19215687, a: 1}
-      _partName: 
-      _packageName: 
     eyes:
       material: {fileID: 2100000, guid: 45915685a27ac7646bfd3aa6a7184a92, type: 2}
       assignedPart: {fileID: 11400000, guid: b37407ca3b0ede9489903cb6394c2644, type: 2}
       color1: {r: 0.5, g: 0.5, b: 0.5, a: 1}
       color2: {r: 0.5, g: 0.5, b: 0.5, a: 1}
       color3: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-      _partName: 
-      _packageName: 
     facialHair:
       material: {fileID: 2100000, guid: 45915685a27ac7646bfd3aa6a7184a92, type: 2}
       assignedPart: {fileID: 0}
       color1: {r: 0.3019608, g: 0.19215687, b: 0.19215687, a: 1}
       color2: {r: 0.3019608, g: 0.19215687, b: 0.19215687, a: 1}
       color3: {r: 0.3019608, g: 0.19215687, b: 0.19215687, a: 1}
-      _partName: 
-      _packageName: 
     gloves:
       material: {fileID: 2100000, guid: f1980c2d1dfe59e44bb0a7fc04ece561, type: 2}
       assignedPart: {fileID: 0}
       color1: {r: 0.5, g: 0.5, b: 0.5, a: 1}
       color2: {r: 0.5, g: 0.5, b: 0.5, a: 1}
       color3: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-      _partName: 
-      _packageName: 
     hair:
       material: {fileID: 2100000, guid: 45915685a27ac7646bfd3aa6a7184a92, type: 2}
       assignedPart: {fileID: 11400000, guid: a5512bb632f129f40aa482470f56f530, type: 2}
       color1: {r: 0.3019608, g: 0.19215687, b: 0.19215687, a: 1}
       color2: {r: 0.3019608, g: 0.19215687, b: 0.19215687, a: 1}
       color3: {r: 0.3019608, g: 0.19215687, b: 0.19215687, a: 1}
-      _partName: 
-      _packageName: 
     helmet:
       material: {fileID: 2100000, guid: b32cc494d41da084a91274d985bb7f47, type: 2}
       assignedPart: {fileID: 0}
       color1: {r: 0.5, g: 0.5, b: 0.5, a: 1}
       color2: {r: 0.5, g: 0.5, b: 0.5, a: 1}
       color3: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-      _partName: 
-      _packageName: 
     mouth:
       material: {fileID: 2100000, guid: 45915685a27ac7646bfd3aa6a7184a92, type: 2}
       assignedPart: {fileID: 11400000, guid: d4c1fe8b3097910438a10f28f4947860, type: 2}
       color1: {r: 1, g: 0.7647059, b: 0.6392157, a: 1}
       color2: {r: 1, g: 0.7647059, b: 0.6392157, a: 1}
       color3: {r: 1, g: 0.7647059, b: 0.6392157, a: 1}
-      _partName: 
-      _packageName: 
     nose:
       material: {fileID: 2100000, guid: 45915685a27ac7646bfd3aa6a7184a92, type: 2}
       assignedPart: {fileID: 11400000, guid: 1d814c6973ed59f41af705878fecff45, type: 2}
       color1: {r: 0.5, g: 0.5, b: 0.5, a: 1}
       color2: {r: 0.5, g: 0.5, b: 0.5, a: 1}
       color3: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-      _partName: 
-      _packageName: 
     pants:
       material: {fileID: 2100000, guid: 5ce974a0670945046b68635ecfaa9077, type: 2}
       assignedPart: {fileID: 11400000, guid: 1ba22dd62a8542047a98fba6613941f2, type: 2}
       color1: {r: 0.5, g: 0.5, b: 0.5, a: 1}
       color2: {r: 0.5, g: 0.5, b: 0.5, a: 1}
       color3: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-      _partName: 
-      _packageName: 
     skinDetails:
       material: {fileID: 2100000, guid: de9a1c89d2574674c81298168f916887, type: 2}
       assignedPart: {fileID: 0}
       color1: {r: 0.5, g: 0.5, b: 0.5, a: 1}
       color2: {r: 0.5, g: 0.5, b: 0.5, a: 1}
       color3: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-      _partName: 
-      _packageName: 
     mainHand:
       material: {fileID: 2100000, guid: 1188ebd59101c4340a32fe584b0d8a7d, type: 2}
       assignedPart: {fileID: 0}
       color1: {r: 0.5, g: 0.5, b: 0.5, a: 1}
       color2: {r: 0.5, g: 0.5, b: 0.5, a: 1}
       color3: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-      _partName: 
-      _packageName: 
     offHand:
       material: {fileID: 2100000, guid: d57d91d0ca4e157448d34e36933be149, type: 2}
       assignedPart: {fileID: 0}
       color1: {r: 0.5, g: 0.5, b: 0.5, a: 1}
       color2: {r: 0.5, g: 0.5, b: 0.5, a: 1}
       color3: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-      _partName: 
-      _packageName: 
     cape:
       material: {fileID: 2100000, guid: 365b4eeb3a0288241b81352aae0a02e2, type: 2}
       assignedPart: {fileID: 0}
       color1: {r: 0.5, g: 0.5, b: 0.5, a: 1}
       color2: {r: 0.5, g: 0.5, b: 0.5, a: 1}
       color3: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-      _partName: 
-      _packageName: 
     skirts:
       material: {fileID: 2100000, guid: a77542b643bc34943a264da3bfc1952d, type: 2}
       assignedPart: {fileID: 0}
       color1: {r: 0.5, g: 0.5, b: 0.5, a: 1}
       color2: {r: 0.5, g: 0.5, b: 0.5, a: 1}
       color3: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-      _partName: 
-      _packageName: 
     bodySkin:
       material: {fileID: 2100000, guid: de9a1c89d2574674c81298168f916887, type: 2}
       assignedPart: {fileID: 11400000, guid: 35704464de951da46af22aef0502012c, type: 2}
       color1: {r: 0.5, g: 0.5, b: 0.5, a: 1}
       color2: {r: 0.5, g: 0.5, b: 0.5, a: 1}
       color3: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-      _partName: 
-      _packageName: 
   emotes:
     blink:
       name: Blink
@@ -399,7 +363,6 @@ MonoBehaviour:
     _footScale: {x: 0.5, y: 0.5}
   _skincolor: {r: 1, g: 0.7647059, b: 0.6392157, a: 1}
   _tintcolor: {r: 1, g: 1, b: 1, a: 1}
-  _isBaked: 0
 --- !u!210 &210091510854861030
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -421,7 +384,7 @@ Animator:
   m_GameObject: {fileID: 1617648862227842}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: dc8c9ab84f6c083499a52588f653ccbc, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5d801a69fe9bb53418fe0ce526c3fb0c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

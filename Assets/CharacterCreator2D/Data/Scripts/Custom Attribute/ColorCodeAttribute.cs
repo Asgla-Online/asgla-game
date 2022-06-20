@@ -1,7 +1,11 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-namespace CharacterCreator2D {
-	public class ColorCodeAttribute : PropertyAttribute {
-
-	}
+namespace CharacterCreator2D
+{
+    public class ColorCodeAttribute : PropertyAttribute
+    {
+        
+    }
 }

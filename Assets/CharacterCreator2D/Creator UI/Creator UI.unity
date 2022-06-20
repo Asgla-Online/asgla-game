@@ -4922,6 +4922,7 @@ MonoBehaviour:
   slider: {fileID: 1413988153}
   stringFormat: 0.00
   resetButton: {fileID: 858768070}
+  allowOverlimit: 0
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -7139,6 +7140,7 @@ MonoBehaviour:
   slider: {fileID: 822878015}
   stringFormat: 0.00
   resetButton: {fileID: 369909736}
+  allowOverlimit: 0
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -7763,6 +7765,7 @@ MonoBehaviour:
   slider: {fileID: 1462003129}
   stringFormat: 0.00
   resetButton: {fileID: 1754311597}
+  allowOverlimit: 0
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -11241,6 +11244,7 @@ MonoBehaviour:
   slider: {fileID: 453527859}
   stringFormat: 0.00
   resetButton: {fileID: 825742311}
+  allowOverlimit: 0
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -13881,6 +13885,7 @@ MonoBehaviour:
   slider: {fileID: 1972270563}
   stringFormat: 0.00
   resetButton: {fileID: 485864950}
+  allowOverlimit: 0
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -15808,6 +15813,7 @@ MonoBehaviour:
   slider: {fileID: 261718790}
   stringFormat: 0.00
   resetButton: {fileID: 1960114297}
+  allowOverlimit: 0
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -23445,6 +23451,7 @@ MonoBehaviour:
   slider: {fileID: 221270558}
   stringFormat: 0.00
   resetButton: {fileID: 1655161647}
+  allowOverlimit: 0
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -40232,6 +40239,7 @@ MonoBehaviour:
   slider: {fileID: 1779247504}
   stringFormat: 0.00
   resetButton: {fileID: 827708332}
+  allowOverlimit: 1
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -51779,6 +51787,7 @@ MonoBehaviour:
   slider: {fileID: 2112911325}
   stringFormat: 0.00
   resetButton: {fileID: 715542168}
+  allowOverlimit: 0
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -56437,6 +56446,7 @@ MonoBehaviour:
   slider: {fileID: 223739764}
   stringFormat: 0.00
   resetButton: {fileID: 2061319206}
+  allowOverlimit: 1
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -61624,6 +61634,7 @@ MonoBehaviour:
   slider: {fileID: 2007436365}
   stringFormat: 0.00
   resetButton: {fileID: 1697544652}
+  allowOverlimit: 0
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -65369,6 +65380,7 @@ MonoBehaviour:
   slider: {fileID: 2039283068}
   stringFormat: 0.00
   resetButton: {fileID: 1185384029}
+  allowOverlimit: 1
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -75020,6 +75032,7 @@ MonoBehaviour:
   slider: {fileID: 1249914868}
   stringFormat: 0.00
   resetButton: {fileID: 779207793}
+  allowOverlimit: 0
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -76301,6 +76314,7 @@ MonoBehaviour:
   slider: {fileID: 430735458}
   stringFormat: 0.00
   resetButton: {fileID: 1834734239}
+  allowOverlimit: 0
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -83925,6 +83939,7 @@ MonoBehaviour:
   slider: {fileID: 1965894733}
   stringFormat: 0.00
   resetButton: {fileID: 755427158}
+  allowOverlimit: 0
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -85130,6 +85145,7 @@ MonoBehaviour:
   slider: {fileID: 310870135}
   stringFormat: 0.00
   resetButton: {fileID: 914173663}
+  allowOverlimit: 0
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -95718,6 +95734,7 @@ MonoBehaviour:
   slider: {fileID: 49006763}
   stringFormat: 0.00
   resetButton: {fileID: 806129596}
+  allowOverlimit: 0
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -100408,6 +100425,7 @@ MonoBehaviour:
   slider: {fileID: 78883621}
   stringFormat: 0.00
   resetButton: {fileID: 969785688}
+  allowOverlimit: 0
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -103196,6 +103214,7 @@ MonoBehaviour:
   slider: {fileID: 1435807832}
   stringFormat: 0.00
   resetButton: {fileID: 747344005}
+  allowOverlimit: 0
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -110175,6 +110194,7 @@ MonoBehaviour:
   slider: {fileID: 984430917}
   stringFormat: 0.00
   resetButton: {fileID: 1367775605}
+  allowOverlimit: 0
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
