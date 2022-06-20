@@ -47,7 +47,8 @@ namespace Asgla.Scenes {
 				case HTTPRequestStates.Finished:
 					Debug.Log(resp.DataAsText);
 
-					//Test
+					//TODO: Replace with json
+
 					List<Data.Web.Server> servers = new List<Data.Web.Server> {
 						new Data.Web.Server {
 							//Normal
@@ -88,9 +89,40 @@ namespace Asgla.Scenes {
 							Name = "Tatiana",
 							Uri = "ws://localhost:4431",
 							IsOnline = false
+						},
+						new Data.Web.Server {
+							//VIP
+							Count = Random.Range(100, 1000),
+							Max = 1000,
+							Name = "Tatiana 2",
+							Uri = "ws://localhost:4431",
+							IsOnline = false
+						},
+						new Data.Web.Server {
+							//VIP
+							Count = Random.Range(100, 1000),
+							Max = 1000,
+							Name = "Tatiana 3",
+							Uri = "ws://localhost:4431",
+							IsOnline = false
+						},
+						new Data.Web.Server {
+							//VIP
+							Count = Random.Range(100, 1000),
+							Max = 1000,
+							Name = "Tatiana 4",
+							Uri = "ws://localhost:4431",
+							IsOnline = false
+						},
+						new Data.Web.Server {
+							//VIP
+							Count = Random.Range(100, 1000),
+							Max = 1000,
+							Name = "Tatiana 5",
+							Uri = "ws://localhost:4431",
+							IsOnline = false
 						}
 					};
-
 					LoginWebRequest login = new LoginWebRequest {
 						Message = "test",
 						User = new User {
@@ -101,6 +133,8 @@ namespace Asgla.Scenes {
 					};
 
 					//LoginWebRequest login = JsonMapper.ToObject<LoginWebRequest>(resp.DataAsText.Trim());
+
+					//TODO: END
 
 					if (resp.IsSuccess && login != null && login.User != null && login.User.Token != null) {
 						Main.Singleton.UIManager.ModalGlobal

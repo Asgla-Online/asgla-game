@@ -116,6 +116,9 @@ TextureImporter:
   - first:
       213: 1774259115950175430
     second: Pants Back
+  - first:
+      213: 7437712810571523569
+    second: Neck
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -137,6 +140,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -145,9 +150,9 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -168,9 +173,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -240,10 +248,10 @@ TextureImporter:
       name: Head
       rect:
         serializedVersion: 2
-        x: 0
-        y: 3584
-        width: 512
-        height: 512
+        x: 88
+        y: 796
+        width: 140
+        height: 208
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -261,10 +269,10 @@ TextureImporter:
       name: Upper Arm R
       rect:
         serializedVersion: 2
-        x: 512
-        y: 3584
-        width: 512
-        height: 512
+        x: 296
+        y: 586
+        width: 106
+        height: 271
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -279,181 +287,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lower Arm R
-      rect:
-        serializedVersion: 2
-        x: 1024
-        y: 3584
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1e3150b14bd7fa5c0800000000000000
-      internalID: -4202001714812480543
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Hand R 1
-      rect:
-        serializedVersion: 2
-        x: 1536
-        y: 3584
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ef3ab1aed8a738760800000000000000
-      internalID: 7458940157792330750
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Hand R 0
-      rect:
-        serializedVersion: 2
-        x: 2048
-        y: 3584
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d75420dca846783f0800000000000000
-      internalID: -898639053329382019
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Upper Leg R
-      rect:
-        serializedVersion: 2
-        x: 2560
-        y: 3584
-        width: 512
-        height: 511
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 17c429bf342e67ee0800000000000000
-      internalID: -1263573863819490191
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Lower Leg F
-      rect:
-        serializedVersion: 2
-        x: 3072
-        y: 3584
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fdf1e5f6991b5a5b0800000000000000
-      internalID: -5357680909130784801
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Foot F
-      rect:
-        serializedVersion: 2
-        x: 3584
-        y: 3584
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 14c238b04fb1c5b70800000000000000
-      internalID: 8889010499501632577
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Lower Leg R
-      rect:
-        serializedVersion: 2
-        x: 4096
-        y: 3584
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 179ea74f9d20d5c70800000000000000
-      internalID: 8961321968670009713
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Foot R
-      rect:
-        serializedVersion: 2
-        x: 4608
-        y: 3584
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1314d6cea17fe6f50800000000000000
-      internalID: 6876705376049119537
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Upper Arm L
       rect:
         serializedVersion: 2
-        x: 0
-        y: 3072
-        width: 512
-        height: 512
+        x: 428
+        y: 584
+        width: 101
+        height: 268
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -468,13 +308,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lower Arm L
+      name: Neck
       rect:
         serializedVersion: 2
-        x: 512
-        y: 3072
-        width: 512
-        height: 512
+        x: 103
+        y: 646
+        width: 90
+        height: 122
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -482,20 +322,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b8df07aa6d6c4b6e0800000000000000
-      internalID: -1822613323893375605
+      spriteID: 1f5ec7ff460183760800000000000000
+      internalID: 7437712810571523569
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hand L 1
+      name: Upper Leg R
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 3072
-        width: 512
-        height: 512
+        x: 686
+        y: 472
+        width: 134
+        height: 318
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -503,29 +343,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6c9c0c76c6a157710800000000000000
-      internalID: 1690286288046967238
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Hand L 0
-      rect:
-        serializedVersion: 2
-        x: 1536
-        y: 3072
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 950ef988a002d2f40800000000000000
-      internalID: 5705251532562227289
+      spriteID: 17c429bf342e67ee0800000000000000
+      internalID: -1263573863819490191
       vertices: []
       indices: 
       edges: []
@@ -534,10 +353,10 @@ TextureImporter:
       name: Upper Leg L
       rect:
         serializedVersion: 2
-        x: 2048
-        y: 3072
-        width: 512
-        height: 512
+        x: 844
+        y: 466
+        width: 132
+        height: 323
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -552,223 +371,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lower Leg L
-      rect:
-        serializedVersion: 2
-        x: 2560
-        y: 3072
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a03e7c7e619839ce0800000000000000
-      internalID: -1399624327711169782
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Foot L
-      rect:
-        serializedVersion: 2
-        x: 3072
-        y: 3072
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 97c5a4a4a9d4458a0800000000000000
-      internalID: -6317339052227273607
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Boots Foot F
-      rect:
-        serializedVersion: 2
-        x: 3584
-        y: 3072
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 85b36c9aefc3ca840800000000000000
-      internalID: 5236627531192744792
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Boots Foot R
-      rect:
-        serializedVersion: 2
-        x: 4096
-        y: 3072
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c61f7d71567ea6d80800000000000000
-      internalID: -8256532545452641940
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Boots Foot L
-      rect:
-        serializedVersion: 2
-        x: 4608
-        y: 3072
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e72db548ddf28cc80800000000000000
-      internalID: -8302333284602621314
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Gloves Hand R 0
-      rect:
-        serializedVersion: 2
-        x: 2048
-        y: 2560
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b02e63c7a9f10d1e0800000000000000
-      internalID: -2175203871650553333
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Gloves Hand L 0
-      rect:
-        serializedVersion: 2
-        x: 2560
-        y: 2048
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: dac6b6fc28b8df3b0800000000000000
-      internalID: -5477068177870721875
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Gloves Hand L 1
-      rect:
-        serializedVersion: 2
-        x: 2560
-        y: 2560
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 09b0213fdedfb3a40800000000000000
-      internalID: 5349148180859718544
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Gloves Hand R 1
-      rect:
-        serializedVersion: 2
-        x: 2048
-        y: 2048
-        width: 512
-        height: 512
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cdcfb05b4bd7aabb0800000000000000
-      internalID: -4923985027491169060
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Armor Upper Arm R
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1024
-        width: 1024
-        height: 1024
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 63fcf2232023f87c0800000000000000
-      internalID: -4066976953478951114
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Body
       rect:
         serializedVersion: 2
-        x: 0
-        y: 2048
-        width: 1024
-        height: 1024
+        x: 12
+        y: 212
+        width: 264
+        height: 408
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -783,13 +392,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Boots Lower Leg L
+      name: Lower Arm R
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 2048
-        width: 1024
-        height: 1024
+        x: 304
+        y: 368
+        width: 86
+        height: 202
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -797,20 +406,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 35147fb0f266ae0d0800000000000000
-      internalID: -3392787017019997869
+      spriteID: 1e3150b14bd7fa5c0800000000000000
+      internalID: -4202001714812480543
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Armor Upper Arm L
+      name: Lower Arm L
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 1024
-        width: 1024
-        height: 1024
+        x: 434
+        y: 368
+        width: 83
+        height: 186
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -818,20 +427,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3835a3501720215f0800000000000000
-      internalID: -787564300394146941
+      spriteID: b8df07aa6d6c4b6e0800000000000000
+      internalID: -1822613323893375605
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Armor Lower Arm R
+      name: Lower Leg F
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1024
-        height: 1024
+        x: 553
+        y: 146
+        width: 104
+        height: 312
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -839,8 +448,92 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 036194fa5dbff8fe0800000000000000
-      internalID: -1184451281787742672
+      spriteID: fdf1e5f6991b5a5b0800000000000000
+      internalID: -5357680909130784801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lower Leg R
+      rect:
+        serializedVersion: 2
+        x: 696
+        y: 150
+        width: 106
+        height: 294
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 179ea74f9d20d5c70800000000000000
+      internalID: 8961321968670009713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lower Leg L
+      rect:
+        serializedVersion: 2
+        x: 844
+        y: 149
+        width: 106
+        height: 293
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a03e7c7e619839ce0800000000000000
+      internalID: -1399624327711169782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand R 0
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 212
+        width: 92
+        height: 134
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d75420dca846783f0800000000000000
+      internalID: -898639053329382019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hand L 0
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 213
+        width: 90
+        height: 119
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 950ef988a002d2f40800000000000000
+      internalID: 5705251532562227289
       vertices: []
       indices: 
       edges: []
@@ -849,10 +542,10 @@ TextureImporter:
       name: Hip
       rect:
         serializedVersion: 2
-        x: 2048
-        y: 0
-        width: 1024
-        height: 1024
+        x: 55
+        y: 28
+        width: 210
+        height: 165
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -867,13 +560,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Armor Lower Arm L
+      name: Hand R 1
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 0
-        width: 1024
-        height: 1024
+        x: 316
+        y: 22
+        width: 96
+        height: 156
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -881,20 +574,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0d7d1c130c9b27820800000000000000
-      internalID: 2914596143981778896
+      spriteID: ef3ab1aed8a738760800000000000000
+      internalID: 7458940157792330750
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pants Hip
+      name: Hand L 1
       rect:
         serializedVersion: 2
-        x: 2048
-        y: 1024
-        width: 1024
-        height: 1024
+        x: 439
+        y: 30
+        width: 86
+        height: 142
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -902,20 +595,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6890f09bd9736d3b0800000000000000
-      internalID: -5488137945350207098
+      spriteID: 6c9c0c76c6a157710800000000000000
+      internalID: 1690286288046967238
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Boots Lower Leg F
+      name: Foot F
       rect:
         serializedVersion: 2
-        x: 3072
-        y: 2048
-        width: 1024
-        height: 1024
+        x: 555
+        y: 27
+        width: 109
+        height: 85
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -923,20 +616,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b34a5694667701f30800000000000000
-      internalID: 4544263305218597947
+      spriteID: 14c238b04fb1c5b70800000000000000
+      internalID: 8889010499501632577
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pants Upper Leg L
+      name: Foot R
       rect:
         serializedVersion: 2
-        x: 5120
-        y: 3072
-        width: 1024
-        height: 1024
+        x: 681
+        y: 29
+        width: 160
+        height: 73
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -944,20 +637,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2e89b5175f95bdc20800000000000000
-      internalID: 3232276068272150754
+      spriteID: 1314d6cea17fe6f50800000000000000
+      internalID: 6876705376049119537
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Boots Lower Leg R
+      name: Foot L
       rect:
         serializedVersion: 2
-        x: 5120
-        y: 2048
-        width: 1024
-        height: 1024
+        x: 859
+        y: 26
+        width: 161
+        height: 73
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -965,71 +658,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c602d0d596d692e30800000000000000
-      internalID: 4479231603696803948
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Pants Upper Leg R
-      rect:
-        serializedVersion: 2
-        x: 4096
-        y: 2048
-        width: 1024
-        height: 1024
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f4098b77294a8a7a0800000000000000
-      internalID: -6365657124307431345
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Armor Body
-      rect:
-        serializedVersion: 2
-        x: 3072
-        y: 0
-        width: 2048
-        height: 2048
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b2f709e3f7b616bb0800000000000000
-      internalID: -4944552721621418197
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Pants Back
-      rect:
-        serializedVersion: 2
-        x: 5120
-        y: 0
-        width: 2048
-        height: 2048
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6c475b9f34f6f9810800000000000000
-      internalID: 1774259115950175430
+      spriteID: 97c5a4a4a9d4458a0800000000000000
+      internalID: -6317339052227273607
       vertices: []
       indices: 
       edges: []
@@ -1044,6 +674,27 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Upper Leg R: -1263573863819490191
+      Hand R 0: -898639053329382019
+      Lower Leg L: -1399624327711169782
+      Hip: 497696812452471379
+      Hand L 1: 1690286288046967238
+      Upper Leg L: -583960610714688044
+      Neck: 7437712810571523569
+      Head: 4134470982481670237
+      Lower Leg R: 8961321968670009713
+      Upper Arm L: 4957864613835654088
+      Foot R: 6876705376049119537
+      Hand L 0: 5705251532562227289
+      Hand R 1: 7458940157792330750
+      Lower Arm R: -4202001714812480543
+      Lower Leg F: -5357680909130784801
+      Lower Arm L: -1822613323893375605
+      Upper Arm R: 3639646627959288018
+      Foot L: -6317339052227273607
+      Body: -5673618120071735642
+      Foot F: 8889010499501632577
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

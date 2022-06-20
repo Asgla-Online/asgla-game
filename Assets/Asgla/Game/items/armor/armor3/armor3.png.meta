@@ -137,6 +137,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -146,8 +148,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 2
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -168,9 +170,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -1032,6 +1037,45 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Armor Upper Arm L: -787564300394146941
+      Boots Foot L: -8302333284602621314
+      Armor Body: -4944552721621418197
+      Hand R 0: -898639053329382019
+      Upper Leg R: -1263573863819490191
+      Pants Back: -1505955853646661480
+      Lower Leg L: -1399624327711169782
+      Hip: 497696812452471379
+      Hand L 1: 1690286288046967238
+      Armor Lower Arm L: 2914596143981778896
+      Upper Leg L: -583960610714688044
+      Boots Lower Leg R: 4479231603696803948
+      Head: 4134470982481670237
+      Lower Leg R: 8961321968670009713
+      Upper Arm L: 4957864613835654088
+      Foot R: 6876705376049119537
+      Boots Foot F: 5236627531192744792
+      Boots Foot R: -8256532545452641940
+      Armor Upper Arm R: -4066976953478951114
+      Hand R 1: 7458940157792330750
+      Hand L 0: 5705251532562227289
+      Gloves Hand R 0: -2175203871650553333
+      Gloves Hand R 1: -4923985027491169060
+      Pants Upper Leg L: 3232276068272150754
+      Lower Arm R: -4202001714812480543
+      Pants Hip: -5488137945350207098
+      Lower Leg F: -5357680909130784801
+      Boots Lower Leg L: -3392787017019997869
+      Boots Lower Leg F: 4544263305218597947
+      Gloves Hand L 0: -5477068177870721875
+      Pants Upper Leg R: -6365657124307431345
+      Armor Lower Arm R: -1184451281787742672
+      Lower Arm L: -1822613323893375605
+      Upper Arm R: 3639646627959288018
+      Foot L: -6317339052227273607
+      Gloves Hand L 1: 5349148180859718544
+      Body: -5673618120071735642
+      Foot F: 8889010499501632577
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

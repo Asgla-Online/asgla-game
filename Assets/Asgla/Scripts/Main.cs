@@ -7,12 +7,15 @@ using Asgla.Data;
 using Asgla.Data.Web;
 using Asgla.Effect;
 using Asgla.Scenes;
+using CharacterCreator2D;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Rendering;
 
 namespace Asgla {
 	public class Main : MonoBehaviour {
+
+		public BodyType _BodyType;
 
 		public bool walkable = true;
 
@@ -101,9 +104,9 @@ namespace Asgla {
 
 		#region Game Information
 
-		public const string URLBase = "https://asgla.online/";
-		public const string URLLogin = "https://asgla.online/api/game/login";
-		public const string URLBundle = "https://asgla.online/gamebundles";
+		public const string URLBase = "http://localhost/";
+		public const string URLLogin = "http://localhost/login.php";
+		public const string URLBundle = "http://localhost/gamebundles";
 
 		[SerializeField] private AudioMixerGroup audioMixer;
 

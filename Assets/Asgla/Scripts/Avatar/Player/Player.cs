@@ -233,6 +233,7 @@ namespace Asgla.Avatar.Player {
 				character.GetComponent<SortingGroup>().sortingLayerName = "Avatar";
 				character.GetComponent<SortingGroup>().sortingOrder = 1;
 				Utility().LoadFlame.SetActive(false);
+				//CharacterView().Body
 			} else {
 				character.GetComponent<SortingGroup>().sortingLayerName = "Default";
 				character.GetComponent<SortingGroup>().sortingOrder = -1;

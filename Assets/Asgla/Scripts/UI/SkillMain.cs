@@ -7,7 +7,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using Object = UnityEngine.Object;
 #if UNITY_EDITOR
-using UnityEditor.Experimental.SceneManagement;
+
 #endif
 
 namespace Asgla.Skill {
@@ -113,7 +113,7 @@ namespace Asgla.Skill {
 
 #if UNITY_EDITOR
 		private bool IsInPrefabStage() {
-			return PrefabStageUtility.GetCurrentPrefabStage() != null;
+			return UnityEditor.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage() != null;
 		}
 #endif
 

@@ -28,6 +28,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 224770951947150574}
   m_RootOrder: 0
@@ -107,6 +108,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 224770950818381757}
   - {fileID: 224770951947150563}
@@ -261,6 +263,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 224770951961282007}
   - {fileID: 224770950361111500}
@@ -391,6 +394,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8543762536232582160}
   - {fileID: 8751710772316638929}
@@ -456,6 +460,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2103142188473912034}
   m_Father: {fileID: 224770951947150563}
@@ -540,6 +545,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 224770951961282007}
   m_RootOrder: 1
@@ -676,6 +682,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 224770951961282007}
   m_RootOrder: 0
@@ -913,11 +920,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b2f2b90c94c74d409e066eb58a716c3, type: 3}
---- !u!224 &224770950361111500 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5690173444049049317, guid: 1b2f2b90c94c74d409e066eb58a716c3, type: 3}
-  m_PrefabInstance: {fileID: 5614024339545279785}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &224770950361111490 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5690173444049049323, guid: 1b2f2b90c94c74d409e066eb58a716c3, type: 3}
@@ -929,6 +931,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &224770950361111500 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5690173444049049317, guid: 1b2f2b90c94c74d409e066eb58a716c3, type: 3}
+  m_PrefabInstance: {fileID: 5614024339545279785}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6393093633529737673
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1079,11 +1086,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5014485939221297937, guid: 7109614aeae9b70468237297acd2621a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7109614aeae9b70468237297acd2621a, type: 3}
---- !u!224 &2103142188473912034 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5014485939221297963, guid: 7109614aeae9b70468237297acd2621a, type: 3}
-  m_PrefabInstance: {fileID: 6393093633529737673}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2103142188473912030 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5014485939221297943, guid: 7109614aeae9b70468237297acd2621a, type: 3}
@@ -1095,6 +1097,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &2103142188473912034 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5014485939221297963, guid: 7109614aeae9b70468237297acd2621a, type: 3}
+  m_PrefabInstance: {fileID: 6393093633529737673}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4733064900141504095 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1808175160773322646, guid: 7109614aeae9b70468237297acd2621a, type: 3}

@@ -83,6 +83,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -91,9 +93,9 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -114,9 +116,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -564,6 +569,27 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Upper Leg R: -1263573863819490191
+      Hand R 0: -898639053329382019
+      Lower Leg L: -1399624327711169782
+      Hip: 497696812452471379
+      Hand L 1: 1690286288046967238
+      Upper Leg L: -583960610714688044
+      Neck: 7437712810571523569
+      Head: 4134470982481670237
+      Lower Leg R: 8961321968670009713
+      Upper Arm L: 4957864613835654088
+      Foot R: 6876705376049119537
+      Hand L 0: 5705251532562227289
+      Hand R 1: 7458940157792330750
+      Lower Arm R: -4202001714812480543
+      Lower Leg F: -5357680909130784801
+      Lower Arm L: -1822613323893375605
+      Upper Arm R: 3639646627959288018
+      Foot L: -6317339052227273607
+      Body: -5673618120071735642
+      Foot F: 8889010499501632577
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
