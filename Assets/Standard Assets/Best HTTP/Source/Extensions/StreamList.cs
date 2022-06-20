@@ -1,125 +1,153 @@
-using System;
 using BestHTTP.PlatformSupport.Memory;
+using System;
 
-namespace BestHTTP.Extensions {
-	/// <summary>
-	/// Wrapper of multiple streams. Writes and reads are both supported. Read goes trough all the streams.
-	/// </summary>
-	public sealed class StreamList : System.IO.Stream {
+namespace BestHTTP.Extensions
+{
+    /// <summary>
+    /// Wrapper of multiple streams. Writes and reads are both supported. Read goes trough all the streams.
+    /// </summary>
+    public sealed class StreamList : System.IO.Stream
+    {
+        private System.IO.Stream[] Streams;
+        private int CurrentIdx;
 
-		private int CurrentIdx;
-		private System.IO.Stream[] Streams;
+        public StreamList(params System.IO.Stream[] streams)
+        {
+            this.Streams = streams;
+            this.CurrentIdx = 0;
+        }
 
-		public StreamList(params System.IO.Stream[] streams) {
-			this.Streams = streams;
-			this.CurrentIdx = 0;
-		}
+        public override bool CanRead
+        {
+            get
+            {
+                if (CurrentIdx >= Streams.Length)
+                    return false;
+                return Streams[CurrentIdx].CanRead;
+            }
+        }
 
-		public override bool CanRead {
-			get{
-				if (CurrentIdx >= Streams.Length)
-					return false;
-				return Streams[CurrentIdx].CanRead;
-			}
-		}
+        public override bool CanSeek { get { return false; } }
 
-		public override bool CanSeek {
-			get{ return false; }
-		}
+        public override bool CanWrite
+        {
+            get
+            {
+                if (CurrentIdx >= Streams.Length)
+                    return false;
+                return Streams[CurrentIdx].CanWrite;
+            }
+        }
 
-		public override bool CanWrite {
-			get{
-				if (CurrentIdx >= Streams.Length)
-					return false;
-				return Streams[CurrentIdx].CanWrite;
-			}
-		}
+        public override void Flush()
+        {
+            if (CurrentIdx >= Streams.Length)
+                return;
 
-		public override long Length {
-			get{
-				if (CurrentIdx >= Streams.Length)
-					return 0;
+            // We have to call the flush to all previous streams, as we may advanced the CurrentIdx
+            for (int i = 0; i <= CurrentIdx; ++i)
+                Streams[i].Flush();
+        }
 
-				long length = 0;
-				for (int i = 0; i < Streams.Length; ++i)
-					length += Streams[i].Length;
+        public override long Length
+        {
+            get
+            {
+                if (CurrentIdx >= Streams.Length)
+                    return 0;
 
-				return length;
-			}
-		}
+                long length = 0;
+                for (int i = 0; i < Streams.Length; ++i)
+                    length += Streams[i].Length;
 
-		public override long Position {
-			get{ throw new NotImplementedException("Position get"); }
-			set{ throw new NotImplementedException("Position set"); }
-		}
+                return length;
+            }
+        }
 
-		public override void Flush() {
-			if (CurrentIdx >= Streams.Length)
-				return;
+        public override int Read(byte[] buffer, int offset, int count)
+        {
+            if (CurrentIdx >= Streams.Length)
+                return -1;
 
-			// We have to call the flush to all previous streams, as we may advanced the CurrentIdx
-			for (int i = 0; i <= CurrentIdx; ++i)
-				Streams[i].Flush();
-		}
+            int readCount = Streams[CurrentIdx].Read(buffer, offset, count);
 
-		public override int Read(byte[] buffer, int offset, int count) {
-			if (CurrentIdx >= Streams.Length)
-				return -1;
+            while (readCount < count && ++CurrentIdx < Streams.Length)
+            {
+                // Dispose previous stream
+                try
+                {
+                    Streams[CurrentIdx - 1].Dispose();
+                    Streams[CurrentIdx - 1] = null;
+                }
+                catch (Exception ex)
+                {
+                    HTTPManager.Logger.Exception("StreamList", "Dispose", ex);
+                }
 
-			int readCount = Streams[CurrentIdx].Read(buffer, offset, count);
+                readCount += Streams[CurrentIdx].Read(buffer, offset + readCount, count - readCount);
+            }
 
-			while (readCount < count && ++CurrentIdx < Streams.Length) {
-				// Dispose previous stream
-				try {
-					Streams[CurrentIdx - 1].Dispose();
-					Streams[CurrentIdx - 1] = null;
-				} catch (Exception ex) {
-					HTTPManager.Logger.Exception("StreamList", "Dispose", ex);
-				}
+            return readCount;
+        }
 
-				readCount += Streams[CurrentIdx].Read(buffer, offset + readCount, count - readCount);
-			}
+        public override void Write(byte[] buffer, int offset, int count)
+        {
+            if (CurrentIdx >= Streams.Length)
+                return;
 
-			return readCount;
-		}
+            Streams[CurrentIdx].Write(buffer, offset, count);
+        }
 
-		public override void Write(byte[] buffer, int offset, int count) {
-			if (CurrentIdx >= Streams.Length)
-				return;
+        public void Write(string str)
+        {
+            byte[] bytes = str.GetASCIIBytes();
 
-			Streams[CurrentIdx].Write(buffer, offset, count);
-		}
+            this.Write(bytes, 0, bytes.Length);
+            BufferPool.Release(bytes);
+        }
 
-		public void Write(string str) {
-			byte[] bytes = str.GetASCIIBytes();
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                for (int i = 0; i < Streams.Length; ++i)
+                    if (Streams[i] != null)
+                    {
+                        try
+                        {
+                            Streams[i].Dispose();
+                        }
+                        catch (Exception ex)
+                        {
+                            HTTPManager.Logger.Exception("StreamList", "Dispose", ex);
+                        }
+                    }
+            }
+        }
 
-			this.Write(bytes, 0, bytes.Length);
-			BufferPool.Release(bytes);
-		}
+        public override long Position
+        {
+            get
+            {
+                throw new NotImplementedException("Position get");
+            }
+            set
+            {
+                throw new NotImplementedException("Position set");
+            }
+        }
 
-		protected override void Dispose(bool disposing) {
-			if (disposing) {
-				for (int i = 0; i < Streams.Length; ++i)
-					if (Streams[i] != null) {
-						try {
-							Streams[i].Dispose();
-						} catch (Exception ex) {
-							HTTPManager.Logger.Exception("StreamList", "Dispose", ex);
-						}
-					}
-			}
-		}
+        public override long Seek(long offset, System.IO.SeekOrigin origin)
+        {
+            if (CurrentIdx >= Streams.Length)
+                return 0;
 
-		public override long Seek(long offset, System.IO.SeekOrigin origin) {
-			if (CurrentIdx >= Streams.Length)
-				return 0;
+            return Streams[CurrentIdx].Seek(offset, origin);
+        }
 
-			return Streams[CurrentIdx].Seek(offset, origin);
-		}
-
-		public override void SetLength(long value) {
-			throw new NotImplementedException("SetLength");
-		}
-
-	}
+        public override void SetLength(long value)
+        {
+            throw new NotImplementedException("SetLength");
+        }
+    }
 }

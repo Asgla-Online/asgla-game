@@ -468,6 +468,8 @@ namespace BestHTTP.PlatformSupport.TcpClient.General
                     if (request != null && request.IsCancellationRequested)
                         throw new Exception("IsCancellationRequested");
 
+                    HTTPManager.Logger.Verbose("TcpClient", string.Format("Trying to connect to {0}:{1}", address.ToString(), port.ToString()), request.Context);
+
                     Connect(new IPEndPoint(address, port));
 
                     if (values != 0)
@@ -504,7 +506,7 @@ namespace BestHTTP.PlatformSupport.TcpClient.General
                     catch{ }
 #endif
 
-                    HTTPManager.Logger.Information("TcpClient", string.Format("Connected to {0}:{1}", address.ToString(), port.ToString()));
+                    HTTPManager.Logger.Information("TcpClient", string.Format("Connected to {0}:{1}", address.ToString(), port.ToString()), request.Context);
 
                     break;
                 }
