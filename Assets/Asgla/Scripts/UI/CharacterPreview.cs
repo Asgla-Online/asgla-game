@@ -72,11 +72,14 @@ namespace Asgla.UI {
 		private IEnumerator AsynchronousLoad(EquipPart equip) {
 			Debug.LogFormat("{0} - {1}", equip.bundle, equip.asset); //------
 
-			AssetBundleManager abm = new AssetBundleManager();
+			AssetBundleManager abm = new AssetBundleManager()
+				.DisableDebugLogging()
+				.SetPrioritizationStrategy(PrioritizationStrategy.PrioritizeRemote)
+				.SetBaseUri(Main.URLBundle);
 
-			abm.DisableDebugLogging();
-			abm.SetPrioritizationStrategy(PrioritizationStrategy.PrioritizeRemote);
-			abm.SetBaseUri(Main.URLBundle);
+#if UNITY_EDITOR
+			abm.UseSimulatedUri();
+#endif
 
 			AssetBundleManifestAsync manifest = abm.InitializeAsync();
 			yield return manifest;

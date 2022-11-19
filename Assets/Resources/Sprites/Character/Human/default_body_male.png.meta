@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: af0585f02d55a9f4cae1de87192043cd
+guid: cbe81e0262d041549adfa0933ab62069
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -183,7 +183,7 @@ TextureImporter:
     maxTextureSize: 8192
     resizeAlgorithm: 1
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -216,30 +216,6 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
-    maxTextureSize: 8192
-    resizeAlgorithm: 1
-    textureFormat: -1
-    textureCompression: 2
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Server
-    maxTextureSize: 8192
-    resizeAlgorithm: 1
-    textureFormat: -1
-    textureCompression: 2
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
     maxTextureSize: 8192
     resizeAlgorithm: 1
     textureFormat: -1
@@ -1064,10 +1040,10 @@ TextureImporter:
     nameFileIdTable:
       Armor Upper Arm L: -787564300394146941
       Boots Foot L: -8302333284602621314
-      Pants Back: -1505955853646661480
+      Armor Body: -4944552721621418197
       Hand R 0: -898639053329382019
       Upper Leg R: -1263573863819490191
-      Foot F: 8889010499501632577
+      Pants Back: -1505955853646661480
       Lower Leg L: -1399624327711169782
       Hip: 497696812452471379
       Hand L 1: 1690286288046967238
@@ -1099,10 +1075,10 @@ TextureImporter:
       Foot L: -6317339052227273607
       Gloves Hand L 1: 5349148180859718544
       Body: -5673618120071735642
-      Armor Body: -4944552721621418197
+      Foot F: 8889010499501632577
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
   userData: 
-  assetBundleName: items/armor/armor2
+  assetBundleName: 
   assetBundleVariant: 

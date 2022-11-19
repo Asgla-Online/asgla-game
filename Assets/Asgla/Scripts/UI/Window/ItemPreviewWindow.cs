@@ -1,6 +1,8 @@
 ﻿using Asgla.Data.Avatar.Helper;
+using Asgla.Data.Type;
 using Asgla.UI.Buttons;
 using AsglaUI.UI;
+using CharacterCreator2D;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -61,6 +63,21 @@ namespace Asgla.UI.Window {
 		}
 
 		private void Click() {
+			Debug.Log(Main.Singleton.Game.AvatarController.Player.name);
+			//TEST
+			Main.Singleton.Game.AvatarController.Player.Equip2(new EquipPart {
+				asset = _row.Item().asset,
+
+				bundle = _row.Item().bundle,
+
+				//equipment = Equipment.MainHand,
+
+				playerId = -1,
+				
+				type = _row.Item().Type,
+
+				uniqueId = 1
+			});
 			Main.Singleton.Request.Send(_row.Send(), _row.Id());
 		}
 

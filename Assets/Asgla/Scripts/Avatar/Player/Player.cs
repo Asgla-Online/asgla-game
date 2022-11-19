@@ -35,11 +35,13 @@ namespace Asgla.Avatar.Player {
 		public void UpdateData(PlayerData playerData) {
 			UpdateDataBody(playerData);
 
-			if (playerData.area != Data().area && playerData.area != null)
+			if (playerData.area != Data().area && playerData.area != null) {
 				Data().area = playerData.area;
+			}
 
-			if (playerData.level != Data().level && playerData.level > 0)
+			if (playerData.level != Data().level && playerData.level > 0) {
 				Data().level = playerData.level;
+			}
 
 			State(playerData.state);
 		}
@@ -130,10 +132,11 @@ namespace Asgla.Avatar.Player {
 		}
 
 		public void Emote(int i) {
-			if (i - 1 < 0)
+			if (i - 1 < 0) {
 				_characterView.ResetEmote();
-			else
+			} else {
 				_characterView.Emote((EmotionType) i - 1);
+			}
 		}
 
 		public void SetAimAngle(float f) {
@@ -147,8 +150,10 @@ namespace Asgla.Avatar.Player {
 
 		public void TargetReset() {
 			foreach (AvatarMain avatar in _targets) {
-				if (avatar == null)
+				if (avatar == null) {
 					_targets.Remove(avatar);
+				}
+
 				avatar.Unselect();
 			}
 
@@ -163,9 +168,10 @@ namespace Asgla.Avatar.Player {
 		public void MoveByClick(Vector2 vector) {
 			Move(vector);
 
-			if (Data().isControlling)
+			if (Data().isControlling) {
 				Main.Singleton.Request.Send("Move", vector.x.ToString().Replace(",", "."),
 					vector.y.ToString().Replace(",", "."));
+			}
 		}
 
 		public CharacterViewer CharacterView() {
@@ -187,18 +193,22 @@ namespace Asgla.Avatar.Player {
 		#region Asset Bundle
 
 		private IEnumerator AsynchronousLoad(EquipPart equip) {
-			AssetBundleManager abm = new AssetBundleManager();
+			AssetBundleManager abm = new AssetBundleManager()
+				.DisableDebugLogging()
+				.SetPrioritizationStrategy(PrioritizationStrategy.PrioritizeRemote)
+				.SetBaseUri(Main.URLBundle);
 
-			abm.DisableDebugLogging();
-			abm.SetPrioritizationStrategy(PrioritizationStrategy.PrioritizeRemote);
-			abm.SetBaseUri(Main.URLBundle);
+#if UNITY_EDITOR
+			abm.UseSimulatedUri();
+#endif
 
 			AssetBundleManifestAsync manifest = abm.InitializeAsync();
 
 			yield return manifest;
 
-			if (!manifest.Success)
+			if (!manifest.Success) {
 				yield break;
+			}
 
 			AssetBundleAsync assetBundle = abm.GetBundleAsync(equip.bundle);
 
@@ -266,8 +276,9 @@ namespace Asgla.Avatar.Player {
 			Animator().Play("Idle", 0);
 			_position = transform.position;
 
-			if (_utility is null)
+			if (_utility is null) {
 				Debug.LogError("Avatar Utility null");
+			}
 		}
 
 		private void OnDestroy() {
@@ -275,8 +286,9 @@ namespace Asgla.Avatar.Player {
 		}
 
 		private void FixedUpdate() {
-			if (_position == (Vector2) transform.position && Animator().GetBool("IsRunning"))
+			if (_position == (Vector2) transform.position && Animator().GetBool("IsRunning")) {
 				Animator().SetBool("IsRunning", false);
+			}
 
 			Body().MovePosition(Vector2.MoveTowards(transform.position, _position,
 				Time.fixedDeltaTime * (float) Area().Speed()));
@@ -297,17 +309,21 @@ namespace Asgla.Avatar.Player {
 
 		public override void Stats(AvatarStats stats) {
 			if (Data().isControlling) {
-				if (stats.HealthMax >= 0)
+				if (stats.HealthMax >= 0) {
 					Main.Singleton.Game.UnitFramePlayer.Health.SetValueMax(stats.HealthMax);
+				}
 
-				if (stats.Health >= 0)
+				if (stats.Health >= 0) {
 					Main.Singleton.Game.UnitFramePlayer.Health.SetValue(stats.Health);
+				}
 
-				if (stats.EnergyMax >= 0)
+				if (stats.EnergyMax >= 0) {
 					Main.Singleton.Game.UnitFramePlayer.Energy.SetValueMax(stats.EnergyMax);
+				}
 
-				if (stats.Energy >= 0)
+				if (stats.Energy >= 0) {
 					Main.Singleton.Game.UnitFramePlayer.Energy.SetValue(stats.Energy);
+				}
 			}
 
 			base.Stats(stats);
@@ -345,8 +361,9 @@ namespace Asgla.Avatar.Player {
 		public override void Attack(AvatarMain avatar, int damage) {
 			TargetAdd(avatar);
 
-			if (avatar is Player player)
+			if (avatar is Player player) {
 				player.TargetAdd(this);
+			}
 
 			base.Attack(avatar, damage);
 		}

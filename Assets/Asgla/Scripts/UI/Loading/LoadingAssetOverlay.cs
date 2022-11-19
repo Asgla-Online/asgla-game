@@ -37,11 +37,14 @@ namespace Asgla.UI.Loading {
 		protected override IEnumerator AsynchronousLoad() {
 			//Debug.Log("<color=orange>[LoadingAssetOverlay]</color> LoadAsset 1");
 
-			AssetBundleManager abm = new AssetBundleManager();
+			AssetBundleManager abm = new AssetBundleManager()
+				.DisableDebugLogging()
+				.SetPrioritizationStrategy(PrioritizationStrategy.PrioritizeRemote)
+				.SetBaseUri(Main.URLBundle);
 
-			abm.DisableDebugLogging();
-			abm.SetPrioritizationStrategy(PrioritizationStrategy.PrioritizeRemote);
-			abm.SetBaseUri(Main.URLBundle);
+#if UNITY_EDITOR
+			abm.UseSimulatedUri();
+#endif
 
 			AssetBundleManifestAsync manifest = abm.InitializeAsync();
 			yield return manifest;

@@ -24,89 +24,141 @@ namespace Asgla.Requests.Unity {
 			if (player is null)
 				return;
 
-			Dictionary<string, string> bundleAsset = new Dictionary<string, string> {
-				{"items/armor/archarmor", "armor/archarmor/archarmor.asset"},
-				{"items/armor/armor1", "armor/armor1/armor1.asset"},
-				{"items/armor/armor2", "armor/armor2/armor2.asset"},
-				{"items/armor/armor3", "armor/armor3/armor3.asset"},
-				{"items/weapon/one handed/archweapon", "weapon/one handed/archweapon/archweapon.asset"},
-				{"items/weapon/one handed/rose", "weapon/one handed/rose/rose.asset"},
-				{"items/weapon/one handed/alice", "weapon/one handed/alice/alice.asset"},
-			};
-
 			//TEST
 			playerInventoryLoad.inventory = new List<PlayerInventory>();
+			
+			TypeItemData armor = new() {
+				Category = PartCategory.Armor,
+				Equipment = SlotCategory.Armor,
 
-			foreach (KeyValuePair<string, string> ba in bundleAsset) {
-				playerInventoryLoad.inventory.Add(new PlayerInventory {
+				Icon = "armor",
+
+				Name = "Armor",
+			};
+			
+			TypeItemData weapon = new() {
+				Category = PartCategory.Weapon,
+				Equipment = SlotCategory.MainHand,
+
+				Icon = "sword",
+
+				Name = "Weapon",
+			};
+
+			playerInventoryLoad.inventory.Add(new PlayerInventory {
+				databaseId = Random.Range(1, 10000000),
+				equipped = false,
+				quantity = Random.Range(1, 10),
+
+				item = new ItemData {
 					databaseId = Random.Range(1, 10000000),
-					equipped = false,
-					quantity = Random.Range(1, 10),
 
-					item = new ItemData {
-						databaseId = Random.Range(1, 10000000),
-
-						name = Random.Range(1, 10000000).ToString() + ba.Key,
-						description = Random.Range(1, 10000000).ToString(),
+					name = Random.Range(1, 10000000) + "items/armor/armor1",
+					description = Random.Range(1, 10000000).ToString(),
 
 
-						bundle = ba.Key,
-						asset = ba.Value,
+					bundle = "items/armor/armor1",
+					asset = "armor/armor1/armor1.asset",
 
-						rarity = (RarityData) Random.Range(1, 7),
+					rarity = (RarityData) Random.Range(1, 7),
 
-						requiredLevel = Random.Range(1, 100),
+					requiredLevel = Random.Range(1, 100),
 
-						Type = new TypeItemData {
-							Category = (PartCategory) Random.Range(0, 17),
-							Equipment = (SlotCategory) Random.Range(0, 17),
+					Type = armor
+				}
+			});
 
-							Icon = "axe",
+			playerInventoryLoad.inventory.Add(new PlayerInventory {
+				databaseId = Random.Range(1, 10000000),
+				equipped = false,
+				quantity = Random.Range(1, 10),
 
-							Name = ba.Key + Random.Range(1, 9999999).ToString(),
-
-							//Weapon = Random.Range(1, 9999999).ToString(),
-						}
-					}
-				});
-			}
-
-			/*
-			for (int i = 0; i < 300; i++) {
-				KeyValuePair<string, string> ba = bundleAsset.ElementAt(Random.Range(0, bundleAsset.Count - 1));
-
-				playerInventoryLoad.inventory.Add(new PlayerInventory {
+				item = new ItemData {
 					databaseId = Random.Range(1, 10000000),
-					equipped = false,
-					quantity = Random.Range(1, 10),
 
-					item = new ItemData {
-						databaseId = Random.Range(1, 10000000),
-
-						name = Random.Range(1, 10000000).ToString() + ba.Key,
-						description = Random.Range(1, 10000000).ToString(),
+					name = Random.Range(1, 10000000) + "items/armor/armor2",
+					description = Random.Range(1, 10000000).ToString(),
 
 
-						bundle = ba.Key,
-						asset = ba.Value,
+					bundle = "items/armor/armor2",
+					asset = "armor/armor2/armor2.asset",
 
-						rarity = (RarityData) Random.Range(1, 7),
+					rarity = (RarityData) Random.Range(1, 7),
 
-						requiredLevel = Random.Range(1, 100),
+					requiredLevel = Random.Range(1, 100),
 
-						Type = new TypeItemData {
-							Category = (PartCategory) Random.Range(0, 17),
-							Equipment = (SlotCategory) Random.Range(0, 17),
+					Type = armor
+				}
+			});
 
-							Icon = "axe",
+			playerInventoryLoad.inventory.Add(new PlayerInventory {
+				databaseId = Random.Range(1, 10000000),
+				equipped = false,
+				quantity = Random.Range(1, 10),
 
-							Name = ba.Key + Random.Range(1, 9999999).ToString(),
+				item = new ItemData {
+					databaseId = Random.Range(1, 10000000),
 
-							//Weapon = Random.Range(1, 9999999).ToString(),
-						}
-					}
-				});
-			}*/
+					name = Random.Range(1, 10000000) + "items/armor/armor3",
+					description = Random.Range(1, 10000000).ToString(),
+
+
+					bundle = "items/armor/armor3",
+					asset = "armor/armor3/armor3.asset",
+
+					rarity = (RarityData) Random.Range(1, 7),
+
+					requiredLevel = Random.Range(1, 100),
+
+					Type = armor
+				}
+			});
+
+			playerInventoryLoad.inventory.Add(new PlayerInventory {
+				databaseId = Random.Range(1, 10000000),
+				equipped = false,
+				quantity = Random.Range(1, 10),
+
+				item = new ItemData {
+					databaseId = Random.Range(1, 10000000),
+
+					name = Random.Range(1, 10000000) + "items/armor/rose",
+					description = Random.Range(1, 10000000).ToString(),
+
+
+					bundle = "items/weapon/one handed/rose",
+					asset = "weapon/one handed/rose/rose.asset",
+
+					rarity = (RarityData) Random.Range(1, 7),
+
+					requiredLevel = Random.Range(1, 100),
+
+					Type = weapon
+				}
+			});
+
+			playerInventoryLoad.inventory.Add(new PlayerInventory {
+				databaseId = Random.Range(1, 10000000),
+				equipped = false,
+				quantity = Random.Range(1, 10),
+
+				item = new ItemData {
+					databaseId = Random.Range(1, 10000000),
+
+					name = Random.Range(1, 10000000) + "items/armor/rose",
+					description = Random.Range(1, 10000000).ToString(),
+
+
+					bundle = "items/weapon/one handed/alice",
+					asset = "weapon/one handed/alice/alice.asset",
+
+					rarity = (RarityData) Random.Range(1, 7),
+
+					requiredLevel = Random.Range(1, 100),
+
+					Type = weapon
+				}
+			});
 
 			player.Inventory(playerInventoryLoad.inventory);
 		}

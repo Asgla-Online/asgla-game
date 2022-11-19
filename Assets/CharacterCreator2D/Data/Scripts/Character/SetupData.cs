@@ -17,12 +17,105 @@ namespace CharacterCreator2D
                 SlotCategory.Armor,
                 new Dictionary<string, string>()
                 {
-                    { "Armor Body","Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Body/Armor Body" },
+                    /*{ "Armor Body","Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Body/Armor Body" },
                     { "Armor Lower Arm L","Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Pos_Upper Arm L/Bone_Upper Arm L/Pos_Lower Arm L/Bone_Lower Arm L/Lower Arm L/Armor Lower Arm L" },
                     { "Armor Lower Arm R","Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Pos_Upper Arm R/Bone_Upper Arm R/Pos_Lower Arm R/Bone_Lower Arm R/Lower Arm R/Armor Lower Arm R" },
                     { "Armor Neck","Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Pos_Neck/Bone_Neck/Neck/Armor Neck" },
                     { "Armor Upper Arm L","Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Pos_Upper Arm L/Bone_Upper Arm L/Upper Arm L/Armor Upper Arm L" },
-                    { "Armor Upper Arm R","Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Pos_Upper Arm R/Bone_Upper Arm R/Upper Arm R/Armor Upper Arm R" }
+                    { "Armor Upper Arm R","Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Pos_Upper Arm R/Bone_Upper Arm R/Upper Arm R/Armor Upper Arm R" }*/
+                    
+                    //Body - Corpo
+                    { "Hip",      "Root/Pos_Hip/Bone_Hip/Hip" },
+
+                    { "Body",           "Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Body" },
+
+                    //{ "Neck",         "Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Pos_Neck/Bone_Neck/Neck" },
+
+                    { "Head",           "Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Pos_Neck/Bone_Neck/Pos_Head/Bone_Head/Head" },
+
+                    //Upper Arm - Braço superior
+                    { "Upper Arm L",    "Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Pos_Upper Arm L/Bone_Upper Arm L/Upper Arm L" },
+                    { "Upper Arm R",    "Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Pos_Upper Arm R/Bone_Upper Arm R/Upper Arm R" },
+
+                    //Lower Arm - Braço inferior
+                    { "Lower Arm L",    "Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Pos_Upper Arm L/Bone_Upper Arm L/Pos_Lower Arm L/Bone_Lower Arm L/Lower Arm L" },
+                    { "Lower Arm R",    "Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Pos_Upper Arm R/Bone_Upper Arm R/Pos_Lower Arm R/Bone_Lower Arm R/Lower Arm R" },
+
+
+                    //Lower Leg - Perna superior
+                    { "Upper Leg L",    "Root/Pos_Hip/Bone_Hip/Pos_Upper Leg L/Bone_Upper Leg L/Upper Leg L" },
+                    { "Upper Leg R",    "Root/Pos_Hip/Bone_Hip/Pos_Upper Leg R/Bone_Upper Leg R/Upper Leg R" },
+
+                    //Lower Leg - Perna inferior
+                    { "Lower Leg L",    "Root/Pos_Hip/Bone_Hip/Pos_Upper Leg L/Bone_Upper Leg L/Pos_Lower Leg L/Bone_Lower Leg L/Lower Leg L" },
+                    { "Lower Leg R",    "Root/Pos_Hip/Bone_Hip/Pos_Upper Leg R/Bone_Upper Leg R/Pos_Lower Leg R/Bone_Lower Leg R/Lower Leg R" },
+                    
+                    //Lower Leg right front - Pé direito frente inferior
+                    { "Lower Leg F",    "Root/Pos_Hip/Bone_Hip/Pos_Upper Leg R/Bone_Upper Leg R/Pos_Lower Leg R/Bone_Lower Leg R/Lower Leg F" },
+
+
+                    //Hand close - Mão fechada
+                    { "Hand L 0",       "Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Pos_Upper Arm L/Bone_Upper Arm L/Pos_Lower Arm L/Bone_Lower Arm L/Pos_Hand L/Bone_Hand L/Hand L 0" },
+                    { "Hand R 0",       "Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Pos_Upper Arm R/Bone_Upper Arm R/Pos_Lower Arm R/Bone_Lower Arm R/Pos_Hand R/Bone_Hand R/Hand R 0" },
+
+                    //Hand open - Mão aberta
+                    { "Hand L 1",       "Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Pos_Upper Arm L/Bone_Upper Arm L/Pos_Lower Arm L/Bone_Lower Arm L/Pos_Hand L/Bone_Hand L/Hand L 1" },
+                    { "Hand R 1",       "Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Pos_Upper Arm R/Bone_Upper Arm R/Pos_Lower Arm R/Bone_Lower Arm R/Pos_Hand R/Bone_Hand R/Hand R 1" },
+
+
+                    //Foot - Pé
+                    { "Foot L",         "Root/Pos_Hip/Bone_Hip/Pos_Upper Leg L/Bone_Upper Leg L/Pos_Lower Leg L/Bone_Lower Leg L/Pos_Foot L/Bone_Foot L/Foot L" },
+                    { "Foot R",         "Root/Pos_Hip/Bone_Hip/Pos_Upper Leg R/Bone_Upper Leg R/Pos_Lower Leg R/Bone_Lower Leg R/Pos_Foot R/Bone_Foot R/Foot R" },
+
+                    //Foot right front - Pé direito frente
+                    { "Foot F",         "Root/Pos_Hip/Bone_Hip/Pos_Upper Leg R/Bone_Upper Leg R/Pos_Lower Leg R/Bone_Lower Leg R/Pos_Foot R/Bone_Foot R/Foot F" },
+
+                    /****************************/
+
+                    //Armor - Armadura
+                    { "Armor Body",        "Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Body/Armor Body" },
+                    { "Armor Lower Arm L", "Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Pos_Upper Arm L/Bone_Upper Arm L/Pos_Lower Arm L/Bone_Lower Arm L/Lower Arm L/Armor Lower Arm L" },
+                    { "Armor Lower Arm R", "Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Pos_Upper Arm R/Bone_Upper Arm R/Pos_Lower Arm R/Bone_Lower Arm R/Lower Arm R/Armor Lower Arm R" },
+                    //{ "Armor Neck",        "Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Pos_Neck/Bone_Neck/Neck/Armor Neck" },
+                    { "Armor Upper Arm L", "Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Pos_Upper Arm L/Bone_Upper Arm L/Upper Arm L/Armor Upper Arm L" },
+                    { "Armor Upper Arm R", "Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Pos_Upper Arm R/Bone_Upper Arm R/Upper Arm R/Armor Upper Arm R" },
+
+                    /****************************/
+
+                    //Gloves - Luvas
+                    { "Gloves Hand L 0",    "Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Pos_Upper Arm L/Bone_Upper Arm L/Pos_Lower Arm L/Bone_Lower Arm L/Pos_Hand L/Bone_Hand L/Hand L 0/Gloves Hand L 0" },
+                    { "Gloves Hand L 1",    "Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Pos_Upper Arm L/Bone_Upper Arm L/Pos_Lower Arm L/Bone_Lower Arm L/Pos_Hand L/Bone_Hand L/Hand L 1/Gloves Hand L 1" },
+                    { "Gloves Hand R 0",    "Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Pos_Upper Arm R/Bone_Upper Arm R/Pos_Lower Arm R/Bone_Lower Arm R/Pos_Hand R/Bone_Hand R/Hand R 0/Gloves Hand R 0" },
+                    { "Gloves Hand R 1",    "Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Pos_Upper Arm R/Bone_Upper Arm R/Pos_Lower Arm R/Bone_Lower Arm R/Pos_Hand R/Bone_Hand R/Hand R 1/Gloves Hand R 1" },
+
+                    { "Gloves Lower Arm L", "Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Pos_Upper Arm L/Bone_Upper Arm L/Pos_Lower Arm L/Bone_Lower Arm L/Lower Arm L/Gloves Lower Arm L" },
+                    { "Gloves Lower Arm R", "Root/Pos_Hip/Bone_Hip/Pos_Body/Bone_Body/Pos_Upper Arm R/Bone_Upper Arm R/Pos_Lower Arm R/Bone_Lower Arm R/Lower Arm R/Gloves Lower Arm R" },
+
+                    /****************************/
+
+                    //Boots - Botas
+                    { "Boots Foot L",      "Root/Pos_Hip/Bone_Hip/Pos_Upper Leg L/Bone_Upper Leg L/Pos_Lower Leg L/Bone_Lower Leg L/Pos_Foot L/Bone_Foot L/Foot L/Boots Foot L" },
+                    { "Boots Foot R",      "Root/Pos_Hip/Bone_Hip/Pos_Upper Leg R/Bone_Upper Leg R/Pos_Lower Leg R/Bone_Lower Leg R/Pos_Foot R/Bone_Foot R/Foot R/Boots Foot R" },
+
+                    { "Boots Foot F",      "Root/Pos_Hip/Bone_Hip/Pos_Upper Leg R/Bone_Upper Leg R/Pos_Lower Leg R/Bone_Lower Leg R/Pos_Foot R/Bone_Foot R/Foot F/Boots Foot F" },
+
+                    { "Boots Lower Leg L", "Root/Pos_Hip/Bone_Hip/Pos_Upper Leg L/Bone_Upper Leg L/Pos_Lower Leg L/Bone_Lower Leg L/Lower Leg L/Boots Lower Leg L" },
+                    { "Boots Lower Leg R", "Root/Pos_Hip/Bone_Hip/Pos_Upper Leg R/Bone_Upper Leg R/Pos_Lower Leg R/Bone_Lower Leg R/Lower Leg R/Boots Lower Leg R" },
+
+                    { "Boots Lower Leg F", "Root/Pos_Hip/Bone_Hip/Pos_Upper Leg R/Bone_Upper Leg R/Pos_Lower Leg R/Bone_Lower Leg R/Lower Leg F/Boots Lower Leg F" },
+
+                    /****************************/
+
+                    //Pants - Calças
+                    { "Pants Hip",         "Root/Pos_Hip/Bone_Hip/Hip/Pants Hip" },
+                    { "Pants Back",         "Root/Pos_Hip/Bone_Hip/Hip/Pants Back" },
+                    //{ "Pants Lower Leg L", "Root/Pos_Hip/Bone_Hip/Pos_Upper Leg L/Bone_Upper Leg L/Pos_Lower Leg L/Bone_Lower Leg L/Lower Leg L/Pants Lower Leg L" },
+                    //{ "Pants Lower Leg R", "Root/Pos_Hip/Bone_Hip/Pos_Upper Leg R/Bone_Upper Leg R/Pos_Lower Leg R/Bone_Lower Leg R/Lower Leg R/Pants Lower Leg R" },
+
+                    { "Pants Upper Leg L", "Root/Pos_Hip/Bone_Hip/Pos_Upper Leg L/Bone_Upper Leg L/Upper Leg L/Pants Upper Leg L" },
+                    { "Pants Upper Leg R", "Root/Pos_Hip/Bone_Hip/Pos_Upper Leg R/Bone_Upper Leg R/Upper Leg R/Pants Upper Leg R" },
+
+                    //{ "Pants Lower Leg F", "Root/Pos_Hip/Bone_Hip/Pos_Upper Leg R/Bone_Upper Leg R/Pos_Lower Leg R/Bone_Lower Leg R/Lower Leg F/Pants Lower Leg F" }
                 }
             },
             {

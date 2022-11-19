@@ -17,7 +17,7 @@ namespace CharacterCreator2D
         /// PartTemplate's main texture.
         /// </summary>
         [Tooltip("PartTemplate's main texture")]
-        [ReadOnly]
+        //[ReadOnly]
         public Texture2D texture;
 
         /// <summary>

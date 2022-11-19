@@ -47,11 +47,14 @@ namespace Asgla.Avatar.Monster {
 		#region Asset Bundle
 
 		public IEnumerator AsynchronousLoad() {
-			AssetBundleManager abm = new AssetBundleManager();
+			AssetBundleManager abm = new AssetBundleManager()
+				.DisableDebugLogging()
+				.SetPrioritizationStrategy(PrioritizationStrategy.PrioritizeRemote)
+				.SetBaseUri(Main.URLBundle);
 
-			abm.DisableDebugLogging();
-			abm.SetPrioritizationStrategy(PrioritizationStrategy.PrioritizeRemote);
-			abm.SetBaseUri(Main.URLBundle);
+#if UNITY_EDITOR
+			abm.UseSimulatedUri();
+#endif
 
 			AssetBundleManifestAsync manifest = abm.InitializeAsync();
 

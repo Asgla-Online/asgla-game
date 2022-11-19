@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48fdfdc22b4d4ea4bb8591a7143df3d1, type: 3}
   m_Name: armor2
   m_EditorClassIdentifier: 
+  packageName: 
   category: 0
+  supportedBody: 00000000
   texture: {fileID: 2800000, guid: af0585f02d55a9f4cae1de87192043cd, type: 3}
   colorMask: {fileID: 0}
-  supportedBody: 00000000
   sprites:
   - {fileID: -4944552721621418197, guid: af0585f02d55a9f4cae1de87192043cd, type: 3}
   - {fileID: 2914596143981778896, guid: af0585f02d55a9f4cae1de87192043cd, type: 3}

@@ -35,7 +35,7 @@ namespace Asgla {
 		private void Awake() {
 			Application.runInBackground = true;
 			Screen.sleepTimeout = SleepTimeout.NeverSleep;
-			//Application.targetFrameRate = 60;
+			Application.targetFrameRate = 60;
 
 			Debug.LogFormat("Build target {0}", Application.platform);
 

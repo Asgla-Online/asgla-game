@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Asgla.Utility {
 	/// <summary>
-	///     An add-on module for Cinemachine Virtual Camera that locks the camera's Z co-ordinate
+	///     An add-on module for Cinemachine Virtual Camera that locks the camera's Y co-ordinate
 	/// </summary>
 	public class CinemachineLockCameraY : CinemachineExtension {
 
